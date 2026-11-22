@@ -1,7 +1,7 @@
 # Verification: executable consultant workflow
 
 **Date:** 2026-11-22.  
-**Local status:** Passed; repository publication readback is the remaining delivery check.
+**Status:** Local verification and repository snapshot readback passed.
 
 ## Observed outcome
 
@@ -11,11 +11,11 @@ The actual-source tests install into temporary greenfield and brownfield project
 
 [Local receipt and source identities](local-checks.md) · [Exact test output](local-tests.txt) · [Combined review](review.md)
 
-Independent review found and closed concrete freshness, path, source-completeness and event-input defects. The local receipt describes those findings and the independent review scope. The framework itself now uses its local work ledger: actual review provenance, four supported completed tasks and one publication-dependent task remain visible in [the task record](../../specs/0002-consultant-workflow/tasks.md).
+Independent review found and closed concrete freshness, path, source-completeness and event-input defects. The local receipt describes those findings and the independent review scope. The framework itself now uses its local work ledger: actual review provenance and supported task completion remain visible in [the task record](../../specs/0002-consultant-workflow/tasks.md).
 
 ## Publication
 
-Pending the expected-head branch update and a full remote tree comparison. No publication success is inferred from preparing a manifest or creating an unreferenced Git object. This section will record the observed snapshot after readback.
+The expected-head branch update succeeded. All 98 paths, modes and blob identities matched the prepared snapshot on remote readback; main pointed to `ee1294e4a123aa929c7f7cf178e326562cad5e9d` and visibility remained private. [Publication observation](publication.md) records the exact tree and scope. A final completion-record commit preserves these source results and is independently read back during delivery.
 
 ## What these results establish
 

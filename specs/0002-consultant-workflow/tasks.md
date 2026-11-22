@@ -57,14 +57,14 @@
 
 ### T-005 — Integrate neutral source, records and verification
 
-- [ ] T-005 complete
-- Activity: needs verification
+- [x] T-005 complete
+- Activity: complete
 - Contract / design: REQ-008, REQ-009 / DES-004
 - Prerequisites: T-001, T-002, T-003, T-004
 - Scope and exclusions: Neutral current tree, linked docs, updated source records, local suite and publication verification; historic Git objects and repository identity are outside the content rename.
 - Acceptance: Current file content/paths meet naming constraints; local links and full fixture suite pass; exact checks and review limits are recorded; final remote tree is compared during delivery.
 - Verification: CHK-005
-- Evidence / review: Pending integration receipt.
+- Evidence / review: [Publication observation](../../evidence/0002-consultant-workflow/publication.md), local receipt and recorded inputs in work.json.
 - Blocker: none
 
 ## Verification matrix
@@ -75,7 +75,7 @@
 | CHK-002 | REQ-002, REQ-003, REQ-004, REQ-009 | T-002 | Run workflow fixtures and independently reproduced path, state, phase and stale-evidence regressions. | PASS; local receipt |
 | CHK-003 | REQ-005, REQ-007 | T-003 | Run installer fixtures and actual-source temporary greenfield/brownfield packaging, CLI, link and rerun checks. | PASS; local receipt |
 | CHK-004 | REQ-003, REQ-006, REQ-007 | T-004 | Run hook fixtures, malformed-event regressions and Git-root command with actual temporary work metadata; assert no writes. | PASS; local receipt |
-| CHK-005 | REQ-008, REQ-009 | T-005 | Scan current content/paths, check local links and run all local fixtures; compare the published tree during repository delivery. | Pending |
+| CHK-005 | REQ-008, REQ-009 | T-005 | Scan current content/paths, check local links and run all local fixtures; compare the published tree during repository delivery. | PASS; local and publication receipts |
 
 ## Remaining broader work
 

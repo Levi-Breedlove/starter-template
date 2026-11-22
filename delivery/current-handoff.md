@@ -1,13 +1,15 @@
 # Current handoff
 
 **Work:** 0002-consultant-workflow.  
-**Phase:** Verification; publication readback pending.  
-**Authority:** Requested repository update and offline checks; no AWS operations or paid background trial.
+**Phase:** Completed bounded implementation; final completion-record publication follows the verified source snapshot.  
+**Authority:** Requested repository update and offline verification. No AWS account/resource operation or paid background trial was performed.
 
-The consultant procedure, local work-state/evidence engine, safe application installer and bounded native hook adapter are implemented. The combined 89-test suite and local link/content checks passed. [Current tasks](../specs/0002-consultant-workflow/tasks.md) own completion: T-001 through T-004 have current evidence; T-005 awaits the actual repository publication/readback.
+The adaptive consultant procedure, local work-state/evidence engine, safe application installer and bounded native hook adapter are implemented. The combined 89-test suite passed. Current file/structure/name checks passed. The published source snapshot was read back in full with all 98 paths, modes and blob identities matching; visibility remained private. The completion-record update changes no executable code or tests.
 
-[Verification](../evidence/0002-consultant-workflow/verification.md) · [Local source identities and findings](../evidence/0002-consultant-workflow/local-checks.md)
+[Canonical current tasks](../specs/0002-consultant-workflow/tasks.md) · [Verification](../evidence/0002-consultant-workflow/verification.md) · [Publication observation](../evidence/0002-consultant-workflow/publication.md)
 
-Next: publish the prepared source snapshot with an expected-head check, compare every remote path/mode/blob identity, then record the observed result and finish the work. Framework application adoption must create/map application context and must not select this maintenance backlog.
+## Continue from here
 
-Future work should prioritize a bounded real Codex consultation trial in two disposable applications, then selected-client hook/public-toolkit checks. No model-behavior, hook trust/loading or AWS deployment result is implied by the local fixtures. Preserve existing architecture, official AWS plugin identities and actual authority in any adopting project.
+For an application, run the installer into the application's own directory, open that project in Codex and begin a natural-language consultation. Adoption creates or maps application context and excludes this framework backlog. Reuse known requirements and accepted architecture; lead with engineering recommendations and ask only consequential gaps.
+
+The next useful framework evidence is a bounded real Codex consultation trial in disposable greenfield and brownfield applications, then selected-client hook/public-toolkit checks. Actual model behavior, client trust/loading and cloud delivery remain unverified. Durable worker scheduling is future implementation, not a hidden running service. Choose a compiled backend only when packaging, concurrency or measured runtime needs justify the change.

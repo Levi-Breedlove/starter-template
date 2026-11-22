@@ -5,9 +5,9 @@
 
 | Capability | Observation | Limit |
 | --- | --- | --- |
-| Repository | Initial scaffold was published privately and all 73 initial file identities matched. | Current update readback is recorded in the new verification receipt. |
+| Repository | Initial scaffold was published privately and all 73 initial file identities matched. | Current update readback matched all 98 source snapshot identities; completion-record update is verified separately during delivery. |
 | Codex CLI | Version/help discovery returned `codex-cli 0.172.0-alpha.2`. | No paid model run or selected-user-client trial. |
-| Python tools | Local standard-library installer, workflow engine and hook handler exist with fixtures. | Final combined results are recorded in the current receipt. |
+| Python tools | Local standard-library installer, workflow engine and hook handler exist with fixtures. | 89 combined fixtures passed; source identities and scope are recorded in the current receipt. |
 | Official guidance | Current Codex event/configuration and AWS toolkit/delivery documentation inspected. | Documentation evidence is separate from actual integration. |
 | AWS Core/Data Analytics | Existing official identities are the intended integration. | No installed revision, loaded connection, account or resource state asserted. |
 | Native hooks | Concrete definitions and read-only adapter supplied; fake-event fixtures exercise behavior. | Actual client trust, loading and lifecycle delivery are unverified. |
