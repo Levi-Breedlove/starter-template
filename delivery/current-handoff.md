@@ -1,7 +1,7 @@
 # Current handoff
 
 **Work:** 0001-workflow-foundation — initial research and bootstrap.  
-**Snapshot:** Draft assembled; final validation and repository publication are being completed.  
+**Snapshot:** Initial researched scaffold published and verified; runtime implementation remains planned.  
 **Date:** 2026-11-21 (America/Los_Angeles).
 
 ## Objective and authority
@@ -10,13 +10,13 @@ Deliver the independently researched full Kiro-style workflow map and reusable C
 
 ## Current artifacts
 
-The [research synthesis](../docs/research/README.md), [architecture](../docs/workflow-architecture.md), [adapter contracts](../docs/adapter-contracts.md), guides, workflows, templates, and fictional example are assembled. Runtime adapters remain planned. The [foundation tasks](../specs/0001-workflow-foundation/tasks.md) own completion status.
+The [research synthesis](../docs/research/README.md), [architecture](../docs/workflow-architecture.md), [adapter contracts](../docs/adapter-contracts.md), guides, workflows, templates, and fictional example are delivered. Runtime adapters remain planned. The [foundation tasks](../specs/0001-workflow-foundation/tasks.md) own completion status; T-001–T-003 are complete and later work is unfinished.
 
 ## Verification and next action
 
-Finish the checker review fixes, run the offline checks and fixture tests, resolve the final cross-document review, record the actual receipt, then publish and verify remote file identities. Do not claim these results until observed.
+The offline checker passed with zero issues and all 14 fixture tests passed. Separate review confirmed the two reported checker defects were fixed. Cross-document review corrections were incorporated. All 73 files in published snapshot `0f43068d0f106e9b1c709bea1188119e16ade449` matched the local Git blob identities on `main`; private visibility was preserved. The completion-record update changes documentation only. See the [verification receipt](../evidence/0001-workflow-foundation/scaffold-verification.md).
 
-After initial delivery, the next implementation slice is T-010, deterministic work/traceability validation. Application adoption instead starts with its own brief and specification through the [greenfield](../guide/01-start-here.md) or [brownfield](../guide/05-brownfield-adoption.md) guide.
+The next framework implementation slice is T-010, deterministic work/traceability validation. Application adoption instead starts with its own brief and specification through the [greenfield](../guide/01-start-here.md) or [brownfield](../guide/05-brownfield-adoption.md) guide. Use the repository's current Git revision and worktree state when resuming; this handoff is a navigation summary, not a second backlog.
 
 ## Limits
 

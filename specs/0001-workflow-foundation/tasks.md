@@ -11,39 +11,39 @@ Activity labels describe progress. A checked box means that task's stated outcom
 
 ### T-001 — Research and map the complete Kiro workflow
 
-- [ ] T-001 complete
+- [x] T-001 complete
 
-- Activity: needs verification.
+- Activity: complete.
 - Requirements/design: REQ-001, REQ-002, REQ-017 / DES-01, DES-08.
 - Dependencies: none.
 - Scope: Official Kiro/Codex/AWS sources, accessible official video material, mechanism and surface distinctions, exact gaps and proposed improvements.
 - Acceptance: Auditable source/access ledger; documented versus observed versus proposed claims remain separate; no private-skill dependency or unviewed-video claim.
 - Verification: CHK-001; review the cited evidence and capability mapping.
-- Evidence: Research documents and final scaffold verification receipt when recorded.
+- Evidence: Research documents and the [scaffold verification receipt](../../evidence/0001-workflow-foundation/scaffold-verification.md).
 
 ### T-002 — Deliver the reusable instruction and artifact skeleton
 
-- [ ] T-002 complete
+- [x] T-002 complete
 
-- Activity: needs verification.
+- Activity: complete.
 - Requirements/design: REQ-002–REQ-005, REQ-008–REQ-011, REQ-016, REQ-018 / DES-02–DES-05.
 - Dependencies: T-001.
 - Scope: Root router, all procedure contracts, both adoption guides, original templates, project records, worked example, architecture, roadmap and handoff.
 - Acceptance: A reader can follow an end-to-end change and find every artifact; brownfield authority/layout are preserved; application/runtime status is honest; requested repository contains the delivered files.
 - Verification: CHK-002, CHK-004; cross-document review and publication readback.
-- Evidence: Final scaffold verification receipt and resulting repository commit.
+- Evidence: [Scaffold verification receipt](../../evidence/0001-workflow-foundation/scaffold-verification.md); all 73 published file identities matched the local snapshot on `main`.
 
 ### T-003 — Supply and verify the bounded offline checker
 
-- [ ] T-003 complete
+- [x] T-003 complete
 
-- Activity: needs verification.
+- Activity: complete.
 - Requirements/design: REQ-018 / DES-08.
-- Dependencies: T-002's file structure; can implement independently while documents are drafted.
+- Dependencies: DES-08's file-structure contract; implementation can run in parallel with T-002.
 - Scope: Standard-library local Markdown file-target/core-path checks and relevant fixtures.
 - Acceptance: Missing/outside-root targets and incomplete scans fail visibly; examples and placeholders are handled within documented scope; no remote calls.
 - Verification: CHK-003, CHK-004; reviewer findings reproduced and fixed, fixture suite and final scan pass.
-- Evidence: Final scaffold verification receipt.
+- Evidence: [Scaffold verification receipt](../../evidence/0001-workflow-foundation/scaffold-verification.md); 14 fixture tests passed and reviewer reproductions were closed.
 
 ## Phase 1 — Deterministic work contracts
 
@@ -227,10 +227,10 @@ Activity labels describe progress. A checked box means that task's stated outcom
 
 | Check | Tasks | Method / expected evidence | Current result |
 | --- | --- | --- | --- |
-| CHK-001 | T-001 | Source/access review; product mechanism, surface, video and proposal distinctions. | Final review pending. |
-| CHK-002 | T-002 | Cross-document review of adoption, authority, scope, template traceability, truthful capability status. | Final review pending. |
-| CHK-003 | T-003 | `python3 -m unittest discover -s tests -p 'test_*.py' -v`; meaningful checker fixtures pass. | Final run pending. |
-| CHK-004 | T-002, T-003 | `python3 scripts/check_repository.py`; final local links/core paths pass; remote file identities checked at publication. | Final run/publication pending. |
+| CHK-001 | T-001 | Source/access review; product mechanism, surface, video and proposal distinctions. | Completed with evidence levels and limits recorded. |
+| CHK-002 | T-002 | Cross-document review of adoption, authority, scope, template traceability, truthful capability status. | Completed; opt-out/applicability findings corrected. |
+| CHK-003 | T-003 | `python3 -m unittest discover -s tests -p 'test_*.py' -v`; meaningful checker fixtures pass. | PASS: 14 tests; exact code hashes recorded in the receipt. |
+| CHK-004 | T-002, T-003 | `python3 scripts/check_repository.py`; final local links/core paths pass; remote file identities checked at publication. | PASS: zero link/structure issues; 73 published file identities matched; private visibility preserved. |
 | CHK-010–012 | T-010–T-012 | Work graph/traceability, changed-input freshness, and context/authority fixtures. | Not implemented or run. |
 | CHK-020–021 | T-020–T-021 | Native event trust/coverage and worker/reviewer context evidence. | Not implemented or run. |
 | CHK-030–033 | T-030–T-033 | Crash/retry/state/limit/event fixtures and later scoped integration evidence. | Not implemented or run. |

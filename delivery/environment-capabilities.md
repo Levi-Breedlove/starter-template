@@ -5,7 +5,7 @@
 
 | Capability | Observation | Status and limitation |
 | --- | --- | --- |
-| Repository access | Requested private GitHub repository metadata/content were readable; write permission was advertised. | Publication requires actual write/readback evidence, recorded separately. |
+| Repository access | Authorized publication to `main` succeeded; all 73 snapshot file identities were read back and matched. | Actual repository evidence; private visibility preserved. See the [receipt](../evidence/0001-workflow-foundation/scaffold-verification.md). |
 | Codex CLI | Read-only version/help discovery returned `codex-cli 0.172.0-alpha.2` and advertised execution/review/resume/worktree/structured-output interfaces. | Advertised local capability; no agent run or parity trial. |
 | Python offline checks | Standard-library checker and fixture tests supplied. | Actual outcomes recorded in the scaffold verification receipt. |
 | Official documentation | Kiro, Codex, AWS sources and available demo text retrieved. | Research evidence; not runtime verification. |
