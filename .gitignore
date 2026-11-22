@@ -1,0 +1,29 @@
+# Local interpreter and editor outputs
+__pycache__/
+*.py[cod]
+.venv/
+.DS_Store
+
+# Local execution state; compact sanitized evidence belongs in evidence/
+.workflow-state/
+*.log
+tmp/
+
+# Credentials and local configuration
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+credentials.json
+
+# Common generated application/IaC outputs; review for the selected stack
+node_modules/
+dist/
+coverage/
+cdk.out/
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfplan
+
