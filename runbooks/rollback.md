@@ -31,5 +31,4 @@ Git revert and agent file checkpoints recover source/workspace state. They do no
 ## References
 
 - [CloudFormation rollback troubleshooting](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/troubleshooting.html)
-- [Kiro checkpoint tracking limits](https://kiro.dev/docs/checkpoints/)
 

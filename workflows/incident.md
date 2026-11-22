@@ -36,4 +36,4 @@ Act promptly within existing incident authority. Escalate only the decision or a
 
 ## Recovery boundary
 
-Repository checkpoints and conversation rewind do not reverse AWS effects or restore database state. See [Kiro's checkpoint limits](https://kiro.dev/docs/checkpoints/) and follow the project's actual operating procedures.
+Repository checkpoints and conversation rewind do not reverse AWS effects or restore database state. Follow the project's actual operating procedures and verify data recovery separately.

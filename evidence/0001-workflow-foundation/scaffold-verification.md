@@ -1,5 +1,7 @@
 # Scaffold verification receipt
 
+**Historical record:** These observations belong to the initial snapshot identified below. Research and capability documents were subsequently replaced by neutral workflow references. This receipt does not validate the current implementation; use the [current verification receipt](../0002-consultant-workflow/verification.md).
+
 **Work/checks:** 0001-workflow-foundation; CHK-001–CHK-004.  
 **Date:** 2026-11-21 (America/Los_Angeles).  
 **Scope:** Research/procedure consistency, offline checker behavior, repository file links and required structure.  
@@ -33,7 +35,7 @@ This was scoped cross-document and checker review, not a claim that every source
 
 ## Publication evidence
 
-Published snapshot: [`0f43068d0f106e9b1c709bea1188119e16ade449`](https://github.com/Levi-Breedlove/codex-vs-kiro/commit/0f43068d0f106e9b1c709bea1188119e16ade449). Branch: `main`. Tree: `fae3a868c22b1f28ed4c75a63d5fccf6b9dae435`.
+Published snapshot: `0f43068d0f106e9b1c709bea1188119e16ade449`. Branch: `main`. Tree: `fae3a868c22b1f28ed4c75a63d5fccf6b9dae435`.
 
 The GitHub recursive tree was retrieved without truncation. All 73 remote file paths, modes, and Git blob identities matched the prepared local manifest; there were no missing, unexpected, or mismatched files. The branch head matched the published commit, and repository visibility remained private.
 
@@ -43,5 +45,5 @@ This receipt records that observed snapshot. A documentation-only completion upd
 
 The checker is a bounded Markdown file-target parser. It does not validate all Markdown syntax, heading anchors, undefined reference labels, semantic traceability, native Codex loading, hook execution, scheduling, recovery, CI enforcement, official plugin operation, or AWS behavior. The example application and behavioral evaluation scenarios remain unimplemented/unexecuted.
 
-No full playback of the five description-only videos, head-to-head Kiro benchmark, account inspection, credential access, plugin installation, paid automation, or cloud deployment occurred for this scaffold delivery.
+No full playback of the five description-only videos, comparative workflow benchmark, account inspection, credential access, plugin installation, paid automation, or cloud deployment occurred for this scaffold delivery.
 

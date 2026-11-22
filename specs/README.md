@@ -1,8 +1,7 @@
 # Work specifications
 
-Use one stable directory per useful change: `specs/<work-id>/`. A feature normally has `requirements.md`, `design.md`, and `tasks.md`. A defect uses `bugfix.md` for current, expected, and preserved behavior, with design/tasks as warranted. Small direct changes can use proportionate records rather than a full package.
+A scoped work item has one canonical contract, design and task list, normally under `specs/<work-id>/`. A bugfix contract uses `bugfix.md`; a small direct edit can use proportionate records. The local CLI creates a consultation draft and indexes it in `work.json`; it does not invent completed requirements or create a second task checklist.
 
-The task file owns completion and its verification matrix. Evidence belongs under the matching work ID in `evidence/` or links to an existing durable CI artifact. Keep stable requirement/task/check IDs through revisions and record deferred work explicitly.
+Stable requirement, task and check IDs connect the work to verification. Evidence records actual observations and declared input identities. A review records a real decision and its scope. See [the tooling contract](../docs/reference/workflow-tooling.md) before using machine validation.
 
-The [foundation specification](0001-workflow-foundation/requirements.md) is for improving this bootstrap. Adopting applications create their own work specification and project brief. The [templates](../templates/README.md) and [worked example](../examples/booking-retries/README.md) show the shape.
-
+The [foundation](0001-workflow-foundation/requirements.md) and [consultant workflow](0002-consultant-workflow/requirements.md) are framework maintenance work. The adoption helper excludes them from application work; applications create their own brief, work and evidence. Existing trackers/layouts need an explicit authority mapping rather than a competing checklist.

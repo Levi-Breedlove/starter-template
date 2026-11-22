@@ -1,0 +1,19 @@
+{
+  "observed_at": "2026-11-22T11:01:30.391807+00:00",
+  "started_at": "2026-11-22T11:01:27.466732+00:00",
+  "python": "3.12.14",
+  "tests": 89,
+  "source_hashes": {
+    "scripts/bootstrap.py": "943c3dbc5dbfd4d8b1a6c825ef4b43a22539f1497bf86327d4d23f6fb6d60daa",
+    "scripts/check_repository.py": "3070c5f54c1b4ee9a7789f77606914cf5db81c5ecd6dc33f1e41cb00721ce139",
+    "scripts/codex_hooks.py": "0f4f6137366e02d0444da2e473ad424bcf91aa9c0049cc5eb2c9c3ba9aff5314",
+    "scripts/workflow.py": "6446b75c11c4d63b4af45dfb9de9a2ce3ac04b863244b232e953deddda0bd464",
+    "tests/test_bootstrap.py": "0af272bc4e8e9dc82b5094938d187c28cd76eda6ea959c216a2ed036146ee62c",
+    "tests/test_codex_hooks.py": "39dd26af64ae316483984960b6872fa3377d4ff635268946d5cbe220d793c279",
+    "tests/test_integration.py": "c32089a5eb41460309ae262eb873878307e7e504150e0816377433cca2958324",
+    "tests/test_repository_checks.py": "acf6669ad654fc794c1a8c1799a41b7b9e606247fa688e525d3221f6a6f10c0b",
+    "tests/test_workflow.py": "9eba162a6d7fd5407336bd053c1ac6fa7cd15109ea40c5ffd55673e0d47bb98e",
+    "workflow_engine/__init__.py": "d2fd7c6cc44a0eb7b39b1b7dc996f3943b7ad3cdd73dda42ecbb177fbc1b4bd2",
+    "workflow_engine/engine.py": "2527a061f489c5869bb361122cd482842b91fe02c4070a10af7371fab9fa9f44"
+  }
+}

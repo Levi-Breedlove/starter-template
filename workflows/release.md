@@ -40,4 +40,4 @@ Continue all authorized preparation and execution within stated limits. Pause be
 
 ## Related reference
 
-[Kiro environment configuration](https://kiro.dev/docs/web/sandbox/environment-configuration/) describes a Kiro-specific IAM-role integration. It does not establish Codex authentication, permissions, or deployment parity. AWS implementation details belong in current official guidance, not copied into this contract.
+Use the selected client's actual credential delivery and IAM controls. Public documentation does not establish that a connection is loaded or authorized. See the [AWS delivery reference](../docs/reference/aws-delivery.md).

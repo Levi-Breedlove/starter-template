@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "id": "replace-with-work-id",
+  "title": "Replace with the supplied goal",
+  "mode": "greenfield",
+  "route": "requirements-first",
+  "phase": "consultation",
+  "artifacts": {
+    "requirements": "requirements.md",
+    "design": "design.md",
+    "tasks": "tasks.md"
+  },
+  "context_files": [],
+  "facts": [],
+  "questions": [],
+  "reviews": [],
+  "evidence": []
+}

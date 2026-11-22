@@ -6,7 +6,7 @@
 
 ## Observed baseline
 
-`Levi-Breedlove/codex-vs-kiro` was an empty private repository with `main` as its declared default branch and no existing branch or file contents at initial inspection. The present scaffold was created for that repository. No existing application, infrastructure code, tests, deployment pipeline, or architecture was available there to preserve or migrate.
+The requested bootstrap repository was an empty private repository with `main` as its declared default branch and no existing branch or file contents at initial inspection. The present scaffold was created for that repository. No existing application, infrastructure code, tests, deployment pipeline, or architecture was available there to preserve or migrate.
 
 The absence of files in this repository says nothing about the owner's AWS accounts, other repositories, deployed services, resource ownership, or data. None was assessed for this task.
 

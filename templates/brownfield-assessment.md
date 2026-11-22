@@ -58,4 +58,4 @@ Use the official AWS Agent Toolkit guidance route to research the question witho
 
 This assessment supports specification and planning. It does not claim the system is production-ready or convert a reported target into an observed deployment.
 
-Official workflow basis: [Kiro Spec best practices](https://kiro.dev/docs/specs/best-practices/) describes incorporating existing designs and iterating their connected specifications. The inventory and evidence distinctions above are this repository's proposed adoption conventions.
+Use the [brownfield procedure](../workflows/brownfield.md) to reconcile this assessment with the existing project's canonical documents and delivery ownership.

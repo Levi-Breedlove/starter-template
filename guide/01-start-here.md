@@ -1,44 +1,58 @@
-# Start a project with the bootstrap
+# Start an AWS project
 
-The bootstrap has two entry paths. A greenfield project establishes its purpose and selects its architecture. A brownfield project starts with evidence about the existing system and the behavior that must survive. Both then use the same specification, implementation, verification, and release loop.
+Describe the outcome you want. Codex should inspect existing context, lead a focused consultation, recommend an approach, and develop requirements, design, and tasks. You should not need to arrive with a completed specification or choose AWS services before the engineering assessment.
 
-## 1. Choose the right use
+There are two entry paths. Greenfield work establishes a new product and architecture. Brownfield work starts from the system's evidence and preserves its accepted architecture, source layout, IaC ownership, and delivery controls. Both use the same implementation, verification, and release loop.
 
-If you are improving this bootstrap, retain its [brief](../project/brief.md) and [foundation backlog](../specs/0001-workflow-foundation/tasks.md).
+## 1. Adopt the workflow in the right project
 
-If you are starting an application, use a separate repository or working branch. Copy the reusable files identified in the [repository map](../docs/repository-map.md). A copy is a starting artifact: it does not install a plugin, enable hooks, or register commands. Keep the research as reference, and archive or omit the framework's own specification from the application's active backlog.
+When improving this bootstrap, use its existing project brief and foundation specifications. Application work belongs in the application's repository and backlog.
 
-If an application already exists, follow [brownfield adoption](05-brownfield-adoption.md) before copying files. Do not replace its root instructions or source layout.
+From the bootstrap checkout, preview the additive installation:
 
-## 2. Establish the project context
+```bash
+python3 scripts/bootstrap.py --source . --target /path/to/my-aws-project --mode greenfield
+```
 
-Ask Codex to inspect what exists and create the project brief using the [brief template](../templates/project-brief.md). Capture users, outcome, scope, constraints, existing decisions, and unresolved questions. Separate observed facts from proposals. Do not select CDK, Terraform, serverless, containers, a database, CI provider, region, or budget just because a template mentions them.
+For an existing project, choose `--mode brownfield` and follow [brownfield adoption](05-brownfield-adoption.md). Inspect the proposed changes, then apply the authorized adoption using the same command with `--apply`. The helper installs reusable guidance and tools under `.aws-workflow/`; it does not copy the bootstrap's own project brief, backlog, or implementation evidence into the application.
 
-Kiro's product, technology, and structure steering serve three distinct questions. In this scaffold, answer them through the brief, accepted design/decisions, and an actual source map. Keep `AGENTS.md` as the concise router rather than duplicating every project document in its always-loaded context. Add scoped instructions only where repeated mistakes or a concrete subsystem need justify them.
+The adoption manifest, `.aws-workflow/manifest.json`, records the project's actual context paths. It preserves an existing `project/brief.md` or `delivery/current-handoff.md`; otherwise it creates fresh context records under `.aws-workflow/`. Existing root instructions are retained with a bounded additive workflow entry. Source code, IaC, pipeline configuration, and cloud resources are not rearranged by adoption. An installation of repository files does not install AWS plugins or enable native hooks.
 
-## 3. Check the execution environment without touching AWS
+## 2. Start with an ordinary request
 
-Use the [environment capabilities template](../templates/environment-capabilities.md). Record the Codex surface/version where observable, repository access, available tools, local test commands, and plugin capability states. Check current official AWS guidance using [the AWS guide](02-aws-guidance-and-access.md). This is a capability inventory, not a request to authenticate, upgrade, install, or query an account.
+For a new application:
 
-Keep local and hosted environments separate. A local plugin, hook, credential provider, or filesystem path is not automatically available in a cloud execution environment. State the minimum next step if a required tool is unavailable.
+> I want to build [outcome] on AWS. Inspect what is here, consult with me on the material gaps, recommend an approach, and create the first implementation plan. Ask a few useful questions at a time and save our decisions. Keep this to planning and local work for now.
 
-## 4. Consult on the first useful result
+For an existing application:
 
-Use [Consult](../workflows/consult.md) to define the smallest delivery that demonstrates value. Compare only meaningful architectural alternatives, with operational and cost consequences. Record accepted decisions, and leave unresolved material choices visible.
+> Add [outcome] to this project. Read the existing requirements, code, tests, infrastructure, and pipeline first. Keep the accepted architecture. Interview me only about decisions that the repository and existing requirements do not answer, then create the appropriate work specification and continue the implementation I have authorized.
 
-Create a focused work specification, for example `specs/0100-first-capability/`. Select Requirements-First, Design-First, Quick Spec, bugfix, or a small Plan-led route according to the actual work. The [first-feature guide](03-first-feature.md) explains how to move from intent to traceable tasks.
+Codex reads the mapped brief, handoff, instructions, and actual repository before responding. Its first useful answer explains what it understands, its provisional recommendation, and the next one to three consequential questions, if any. It records answers as the discussion develops. See [the consultation guide](06-consultation-interview.md).
 
-## 5. Establish verification before implementation
+## 3. Establish context and capabilities
 
-For each critical requirement, identify what observation would demonstrate it. Select tests appropriate to the risk: examples, properties, integration, contract, infrastructure, performance, or operational checks. Mark cloud-dependent checks as not run until the target environment and authority exist. Mock results do not establish AWS IAM, networking, or managed-service behavior.
+The project brief describes users, outcome, initial scope, constraints, known decisions, assumptions, and authority. Keep product intent, selected technical design, and actual source structure distinct so an old plan is not mistaken for implemented behavior. Keep root instructions concise and link detailed records.
 
-The specification can be ready while deployment is still outside scope. Continue authorized local implementation and review. Prepare the exact release candidate before seeking a consequential deployment decision where one is still needed.
+Record available tools and verification environments using the [environment capabilities template](../templates/environment-capabilities.md). Use [AWS guidance and access](02-aws-guidance-and-access.md) for official AWS Core/Data Analytics consultation. Capability inspection and public research do not require account access. Preserve the user's existing skill preferences and plugin installations.
 
-## Ready to start
+Local and hosted Codex environments may expose different tools. Record what is actually available, installed, loaded, and tested. Explain the smallest missing setup step if a necessary capability is unavailable.
 
-A project is ready for its first implementation when its outcome and scope are clear, consequential constraints are established, the selected design supports them, the next task is unblocked, and the required verification is feasible or its remaining limitation is explicit. Do not demand approval of each file if the user already authorized the work.
+## 4. Create a focused work item
 
-Suggested first prompt:
+Codex chooses Requirements-First, Design-First, Quick Spec, Bugfix, or Plan-led according to the work and explains the choice. The local workflow CLI provides a durable skeleton and structural state checks; Codex conducts the interview, writes the substantive specification, and performs the reviews.
 
-> Initialize this copied bootstrap for my project: [objective]. Inspect the repository, create the project brief, identify material unknowns, and choose the appropriate specification route. Keep the current stack where one exists. Prepare a reviewable first scope and continue any implementation I have already authorized. Record the continuation point in delivery/current-handoff.md.
+From an adopted application root, an initial work item can be created with:
 
+```bash
+python3 .aws-workflow/scripts/workflow.py --root . new 0100-first-capability --title "First capability" --mode greenfield --route requirements-first --idea "Describe the intended outcome" --activate
+python3 .aws-workflow/scripts/workflow.py --root . context
+```
+
+Inside the bootstrap itself, the equivalent tool path is `scripts/workflow.py`. Do not create a second work item when the current handoff already identifies the work to resume. The [first-feature guide](03-first-feature.md) explains the planning routes and reviews.
+
+## 5. Begin implementation when ready
+
+A first task is ready when its required behavior is clear, the design and dependencies support it, the relevant reviews have occurred, and implementation is within existing authority. Define the evidence needed before coding. Keep AWS-dependent checks pending until the authorized environment is available; an emulator cannot establish live service behavior.
+
+Continue already authorized work without asking permission for each file. If the request is planning only, finish with a reviewable scope, design, task graph, and exact continuation point. Later use [maintenance and release](04-maintain-and-release.md) for the actual pipeline and deployment boundary.

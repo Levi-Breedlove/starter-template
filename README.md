@@ -1,70 +1,77 @@
-# Codex AWS Workflow Bootstrap
+# Codex AWS Consulting and Delivery Bootstrap
 
-A reusable repository foundation for **Kiro-style engineering with Codex and the official Agent Toolkit for AWS**, for greenfield and brownfield projects.
+Turn a rough idea or an existing AWS project into an interviewed brief, testable requirements, an explained design, ordered implementation tasks, and evidence of the result. Codex leads the consultation; local code keeps the work records consistent between sessions.
 
-This repository maps the complete development loop: understand the project, select the right specification route, challenge requirements, design, plan dependencies, implement, verify, review, reconcile changes, release, and operate. Its design comes from current official Kiro, Codex, and AWS documentation and accessible official demonstration material, reviewed on **2026-11-21 (America/Los_Angeles)**. It does not depend on the owner's personal skills or a particular application's architecture.
+The default experience is conversational:
 
-## Start here
+> Act as my AWS consultant. Read the project context first, help me refine the idea, and ask the next few questions that materially affect the requirements. Recommend the technical choices and explain their tradeoffs. Save our decisions, then guide me through requirements, design, tasks, implementation, and verification.
 
-| Your situation | Start with | Result |
+You do not need to arrive with an architecture or learn a command vocabulary. Codex should infer what it can from the requirements, research current AWS guidance, and ask about the business decisions it cannot safely infer. Existing answers and accepted architecture remain part of the project record.
+
+## Start a project
+
+Keep this bootstrap checkout separate from your application. Python 3.10 or newer is required; the tools use only the standard library. From this checkout, preview an installation into an empty project directory:
+
+```bash
+python3 scripts/bootstrap.py --source . --target /path/to/my-app --mode greenfield
+```
+
+Review the proposed files, then repeat with `--apply`. For an existing application use `--mode brownfield`. The installer adds a reusable `.aws-workflow/` layer and a bounded block in `AGENTS.md`; it preserves existing application files, instructions, active work, IaC, and delivery ownership. It does not copy this framework's backlog into the application. See [bootstrap behavior](docs/reference/bootstrap.md) for collision checks and reruns.
+
+Open the application root in Codex and use the prompt above, followed by your idea. For example:
+
+> I want an appointment service for three clinics. Patients book online and receive reminders. Please lead the consultation from here.
+
+For an existing system:
+
+> Assess this repository before proposing changes. Preserve our accepted architecture and deployment ownership. We need to prevent duplicate bookings. Establish the current behavior, ask about unresolved business rules, and plan the smallest supported change.
+
+## What happens next
+
+| Stage | Codex's responsibility | Durable result |
 | --- | --- | --- |
-| You want to understand the research | [Research findings](docs/research/README.md) | Evidence, demonstration coverage, gaps, and design implications. |
-| You are starting a new AWS project | [Start here](guide/01-start-here.md) | Project context and a first scoped specification. |
-| You have an existing codebase or AWS estate | [Brownfield adoption](guide/05-brownfield-adoption.md) | A baseline, preservation requirements, and a small adoption change. |
-| You want Codex to perform a feature or fix | [Workflow procedures](workflows/README.md) | A repeatable process with concrete artifacts and verification. |
-| You want the complete repository design | [Architecture](docs/workflow-architecture.md) and [repository map](docs/repository-map.md) | Behavior, responsibilities, lifecycle, and file locations. |
-| You want to implement deeper automation | [Implementation roadmap](docs/implementation-plan.md) | Ordered work backed by the [canonical backlog](specs/0001-workflow-foundation/tasks.md). |
+| Discover | Inspect the brief, existing decisions, repository and handoff; distinguish observed facts from assumptions. | Existing context reused; adoption findings for brownfield work. |
+| Interview | Ask up to three consequential questions per turn, recommend defaults, explain why answers matter, and save answers as the work develops. | Brief, unresolved questions, decision provenance. |
+| Specify | Turn outcomes into observable behavior, edge cases, constraints, and acceptance criteria. | Requirements or bugfix contract. |
+| Design | Derive AWS choices, research material guidance, compare relevant alternatives, and cover costs, security, operations and recovery. | Design and significant decision records. |
+| Plan | Connect every task to requirements, prerequisites, and a verification check. | One canonical task list and check matrix. |
+| Deliver | Implement eligible tasks, run meaningful checks, reconcile changes, review the actual candidate, and prepare any authorized release. | Source, tests, review and scoped evidence. |
+| Continue | Reload the active work and its evidence; expose stale or missing records before making claims. | Current handoff and next eligible work. |
 
-## What is usable now
+Requirements-first and design-first routes review the two documents in their chosen order before task generation. A quick route produces the three connected artifacts together after necessary clarification. Bugfix work separates faulty, expected, and preserved behavior. Small understood edits stay proportionate. [Workflow contract](docs/reference/workflow-contract.md) · [Interview guide](guide/06-consultation-interview.md) · [Roleplays](examples/consultation/README.md)
 
-- A root [AGENTS.md](AGENTS.md) that routes Codex through the project context and relevant procedure.
-- Procedures for consultation, brownfield intake, features, bugfixes, reconciliation, review, release, and incidents.
-- Original templates for requirements, design, tasks, decisions, reviews, release evidence, continuation, environment capabilities, and adoption.
-- AWS guidance, cost, security, infrastructure, deployment, rollback, and teardown contracts that preserve the project's actual tool choices.
-- A worked [booking retry example](examples/booking-retries/README.md), explicitly fictional and unimplemented.
-- An offline link and structure checker with fixture tests:
+## What is executable
 
-~~~sh
+| Component | Implemented responsibility |
+| --- | --- |
+| `scripts/bootstrap.py` | Preview and safely apply the reusable layer to greenfield or brownfield repositories. |
+| `scripts/workflow.py` and `workflow_engine/` | Create work, reload context, report status, validate dependencies and traceability, record revision-bound reviews and evidence, and check phase advancement. |
+| `scripts/codex_hooks.py` | Read-only lifecycle context and completion reminders using documented Codex hook events. |
+| `scripts/check_repository.py` | Check this bootstrap's required files and explicit local Markdown destinations. |
+
+In an adopted project, Codex invokes the CLI at `.aws-workflow/scripts/workflow.py` with the application as `--root`. You can inspect the same record directly:
+
+```bash
+python3 .aws-workflow/scripts/workflow.py --root . context
+python3 .aws-workflow/scripts/workflow.py --root . status
+python3 .aws-workflow/scripts/workflow.py --root . validate
+```
+
+The active work is selected in `.codex/workflow.json`; Markdown remains the human-readable contract and completion authority. Machine metadata references those documents instead of storing a second task checklist. See the [CLI reference](docs/reference/workflow-tooling.md).
+
+The template includes native hook definitions for its own checkout. The installer leaves an adopter's client configuration untouched. Hooks require support and review/trust on the selected client; [native integration instructions](docs/reference/native-hooks.md) explain the optional setup. Fixture tests establish adapter behavior, not that another user's client has loaded or trusted it.
+
+## AWS integration
+
+Reuse the existing official AWS Core and AWS Data Analytics plugins. Discover relevant official guidance on demand where available and allowed. Public consultation does not require account access. Actual account assessment or deployment follows the project's authorized targets, actions, cost limits, and existing delivery controls. No plugin, account access, infrastructure, or background service is installed by this template. [AWS guide](guide/02-aws-guidance-and-access.md) · [Delivery reference](docs/reference/aws-delivery.md)
+
+## Working on the bootstrap
+
+```bash
+python3 -m unittest discover -s tests -p 'test_*.py' -v
 python3 scripts/check_repository.py
-python3 -m unittest discover -s tests -p 'test_*.py'
-~~~
+```
 
-The checker validates repository links and structure. It does not prove application correctness, native Codex configuration, or AWS readiness.
+The current implementation is specified in [consultant workflow work](specs/0002-consultant-workflow/requirements.md); its [tasks](specs/0002-consultant-workflow/tasks.md) and [verification receipt](evidence/0002-consultant-workflow/verification.md) state the tested scope. The [original foundation](specs/0001-workflow-foundation/tasks.md) retains historical delivery and broader, unfinished automation work.
 
-## What still needs implementation
-
-The [native adapter design](docs/adapter-contracts.md) covers scoped context loading, trusted Codex hooks, specialized agents, deterministic task/evidence checks, and a durable orchestration adapter. These are planned capabilities. This bootstrap does not contain an active hook configuration, scheduled agents, a deployment pipeline, or a Kiro-compatible workflow engine.
-
-Codex already supplies useful native building blocks, including repository instructions, tools, reviews, subagents, and current local lifecycle hooks. Kiro's saved workflow recipes and task events are not a portable Codex configuration format. The [capability comparison](docs/reference/kiro-capabilities.md) and [runtime research](docs/research/runtime-parity.md) identify what can be mapped and what must be built and tested.
-
-## Use with Codex
-
-Open the repository in your supported Codex environment and give it a concrete outcome. For example:
-
-> Read AGENTS.md. We are adopting this bootstrap for a greenfield AWS project. Follow guide/01-start-here.md, establish the project brief from my objective, and prepare the first specification. Use current official AWS guidance. Keep unresolved architecture decisions visible. My objective is: …
-
-For an existing application:
-
-> Read this repository's existing instructions first. Follow the bootstrap's brownfield procedure. Inspect the code and delivery configuration, map the current architecture and behavior, and propose the smallest adoption change. Preserve existing instructions, IaC ownership, tests, and pipeline. Account inspection is outside this repository-only intake.
-
-These are ordinary prompts, not registered slash commands. Once scope and implementation are authorized, the procedures continue without repeated permission questions. Cloud operations use the project's actual authorization and environment limits.
-
-## Two distinct uses of this repository
-
-The files under `specs/0001-workflow-foundation/` plan improvements to this bootstrap itself. When using the bootstrap for an application, create a new application brief and work specification; do not treat the framework's backlog as your application's work. The adoption guides explain what to copy, adapt, and retain as reference.
-
-For greenfield, the project chooses its stack, IaC, pipeline, environments, and operational targets. For brownfield, the existing system is the starting point. No framework, AWS service, repository reorganization, or infrastructure import is imposed by this scaffold.
-
-## What “better” means here
-
-It is a testable goal, not an achieved benchmark: fewer lost decisions, complete critical-requirement traceability, stale-evidence detection, safe resumption, accurate capability reporting, and preserved brownfield behavior. The [evaluation plan](evaluations/README.md) defines scenarios and measurements. No head-to-head runtime result or performance advantage over Kiro is claimed.
-
-## Research and operating references
-
-- [Research synthesis and videos](docs/research/README.md)
-- [Official source ledger](docs/reference/sources.md)
-- [First feature](guide/03-first-feature.md)
-- [AWS guidance and access](guide/02-aws-guidance-and-access.md)
-- [Maintenance and release](guide/04-maintain-and-release.md)
-- [Current handoff](delivery/current-handoff.md)
-
+The model still conducts the interview, reasons about architecture, writes code and judges semantic quality. Deterministic tools catch record inconsistencies and stale claims; they cannot prove that a requirement is wise, that an observation is truthful, or that a workload works in AWS. Durable autonomous scheduling and real client/cloud trials remain separate work. [Architecture](docs/workflow-architecture.md) · [Repository map](docs/repository-map.md) · [Next implementation work](docs/implementation-plan.md)

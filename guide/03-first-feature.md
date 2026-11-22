@@ -1,40 +1,61 @@
 # Deliver the first feature
 
-Use the [feature procedure](../workflows/feature.md) as the operating contract. This guide explains how its artifacts fit together.
+The [feature procedure](../workflows/feature.md) is the operating contract. Codex owns the investigation and engineering recommendations; the user resolves product or authority decisions that cannot be established from existing evidence.
 
-## Select the route
+## Choose a route and preserve context
 
-| Starting point | Route | First artifact |
+| Starting point | Route | Review sequence |
 | --- | --- | --- |
-| User outcome is clear; implementation needs design | Requirements-First | Observable requirements and acceptance criteria. |
-| Existing architecture or a technical change constrains the solution | Design-First | The proposed design within established constraints, followed by checked requirements. |
-| A bounded feature is understood after a few material questions | Quick Spec | Requirements, design, and tasks drafted together. |
-| A defect has current, expected, and preserved behavior | Bugfix | Reproduction and behavior-preservation analysis. |
-| A small change needs limited exploration | Plan-led or direct work | A proportionate plan and verification record. |
+| New user behavior drives the solution | Requirements-First | Requirements, design, then task plan. |
+| Established architecture or a supplied design constrains the change | Design-First | Design, derived requirements checked against the goal, then task plan. |
+| Bounded scope is understood after initial clarification | Quick Spec | Draft all three documents, then review the combined scope. |
+| Existing behavior is defective | Bugfix | Defect/expected/preserved contract, fix design, then task plan. |
+| A bounded change needs exploration before a decision | Plan-led | Concise plan with outcomes, affected surface, checks, and remaining decisions. |
 
-These routes are grounded in [Kiro's documented specification variants](../docs/reference/kiro-capabilities.md). They are instructions for Codex, not activation of Kiro UI controls or hidden Codex modes.
+The selected route is recorded with the work. It does not automatically change the Codex application's mode. The CLI's `plan` route ends with a planning result, `planned`; link subsequent implementation work when it needs tracked execution stages. Respect any actual read-only mode and persist at an authorized write handoff.
 
-## Build the specification
+Read the mapped project brief, existing answers, relevant code, and handoff before opening a new item. A work directory under `specs/` contains substantive Markdown plus `work.json` indexing context, questions, artifact identities, review decisions, and evidence. Dependencies and task completion remain authoritative in `tasks.md`.
 
-Create a stable work directory under `specs/`. Start from the [requirements](../templates/requirements.md), [design](../templates/design.md), and [tasks](../templates/tasks.md) templates, or the [bugfix template](../templates/bugfix.md). Correct copied relative links for their destination.
+## Build the specification through consultation
 
-Requirements describe externally observable behavior, including relevant failure and concurrency conditions. Review ambiguity, contradictory limits, unstated preconditions, and dependencies before investing in implementation. EARS-style wording can make conditions precise; the wording alone does not guarantee a complete requirement.
+Use the [consultation interview](06-consultation-interview.md). Ask one to three material questions per round, save answers, and refine drafts as you go. Do not ask which service or database to use when requirements and research support an engineering recommendation. Label reversible planning assumptions and expose decisions with real business consequences.
 
-The design explains components, contracts, data, failure handling, operational constraints, and verification. Link decisions instead of maintaining duplicate architectural explanations. For a brownfield change, state which interfaces, data, resource ownership, and established behavior remain protected.
+Start from the [requirements](../templates/requirements.md), [design](../templates/design.md), and [tasks](../templates/tasks.md) templates, or the [bugfix template](../templates/bugfix.md). Correct relative links when copying. The CLI creates an initial skeleton; it does not supply missing product policy or prove that a design is sound.
 
-Tasks form a dependency graph. Each task identifies the requirement it serves, the files or interfaces it owns, its prerequisite work, and the evidence needed for completion. Keep optional or deferred scope explicit. A failed required check cannot be relabeled optional to finish the task.
+Requirements identify the actor, condition, observable outcome, relevant limit, failure behavior, and preserved contracts. Analyze the whole set for contradictions, undefined terms, incompatible limits, unstated prerequisites, and concurrent or partial-failure cases. Resolve technical findings from evidence; ask the user only about the remaining material decisions.
 
-## Execute and review
+Design explains components, contracts, data, errors, security boundaries, operating consequences, cost assumptions, and verification. Link established decisions and research material AWS claims through [official guidance](02-aws-guidance-and-access.md). For brownfield work, specify the smallest changed surface and preserve existing architecture and ownership.
 
-Read the relevant specification before each task. Implement small, reviewable outcomes. Parallelize independent investigations or isolated file scopes when it provides value; integrate results before testing the combined candidate. Shared context and shared filesystem access do not by themselves establish independent review.
+## Perform and record actual phase reviews
 
-Record actual checks in the task verification matrix and [evidence area](../evidence/README.md). A result identifies the candidate, relevant configuration, environment, method, and observation. If implementation changes a requirement or invalidates a design assumption, run [Reconcile](../workflows/reconcile.md) and update affected tasks and evidence.
+Follow the route's review sequence. A review inspects the current artifact and records findings, outcome, reviewer, and the decision or delegation supporting continuation. Standard routes retain their phase reviews; Quick Spec uses one combined review after upfront clarification and drafting all three artifacts.
 
-Use [Review](../workflows/review.md) on the concrete candidate. Give reviewers the acceptance contract and change, not an instruction to endorse the author's conclusion. Resolve substantive findings and rerun affected checks. Final validation returns to the original accepted outcome and preservation requirements; it does not merely confirm that the task list is checked.
+Present the material scope and tradeoffs in plain language. When an actual decision is needed, ask about that concrete result. When existing authorization delegates the choice, perform the review and continue under that authority. Do not turn every phase into a new permission request. Do not translate silence, generated text, or author self-review into user acceptance or an independent review.
 
-## Finish at the right boundary
+The local `review` command records an actual decision and binds it to the current artifacts. Its `accepted` outcome may record a user decision or a review under real delegated authority; it does not authenticate either. Write the review notes first, then record their source with the CLI. A substantive change can make the recorded snapshot stale and require reconciliation. Task-plan snapshots exclude routine completion, activity, and evidence updates so recording progress does not itself invalidate the plan.
 
-When implementation is complete, report the achieved behavior and evidence. If deployment is outside scope, finish with a deployable candidate and an honest limitation. If deployment is authorized, continue through [maintenance and release](04-maintain-and-release.md), the release contract, and the project's real pipeline.
+## Generate an implementable task graph
 
-The [booking retries example](../examples/booking-retries/README.md) demonstrates traceability and preservation without claiming to be a running application.
+Every task needs a bounded outcome, explicit requirement/design links, prerequisites, scope, acceptance, checks, and evidence obligations. Preserve the template's task heading, checkbox, and labeled fields. List each ID explicitly rather than using "all" or a range. Check that prerequisites exist, no dependency cycle exists, and every required requirement is covered.
 
+Optional techniques and optional product scope are distinct from required outcomes. Property-based testing may be useful for an invariant, but example, integration, contract, or operational checks may be more appropriate. A required behavior still needs evidence whichever technique is chosen.
+
+Run read-only local checks from the adopted project root:
+
+```bash
+python3 .aws-workflow/scripts/workflow.py --root . context
+python3 .aws-workflow/scripts/workflow.py --root . status
+python3 .aws-workflow/scripts/workflow.py --root . validate
+```
+
+These inspect the recorded workflow, task graph, coverage, and phase evidence. They do not independently establish requirement quality, real approval, test success, or AWS behavior. The separate repository checker validates local Markdown links and required structure only. See [tool usage](../scripts/README.md) for exact supported commands.
+
+## Implement, review, and finish at the correct boundary
+
+Read the relevant contract before each task. Work in small changes and parallelize only separable scopes with a clear integration owner. Record actual results against the candidate revision, configuration, and environment. A local patch needs a patch identity in addition to its base commit. Shared files and shared conversation history do not make a review independent.
+
+Use [Reconcile](../workflows/reconcile.md) when answers, design, implementation, or environment assumptions materially change. Reopen invalidated completion and refresh affected reviews and evidence. Preserve useful completed work whose acceptance is still valid.
+
+Use [Review](../workflows/review.md) on the integrated candidate and resolve blocking findings. Finish with achieved behavior and its evidence, plus explicit pending obligations. If deployment is authorized, continue through [maintenance and release](04-maintain-and-release.md). A reviewed specification, completed implementation, release-ready artifact, successful deployment, and verified user outcome are separate states.
+
+See [consultation examples](../examples/consultation/README.md) for the discussion that creates a spec, and [booking retries](../examples/booking-retries/README.md) for acceptance traceability.

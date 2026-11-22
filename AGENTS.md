@@ -1,51 +1,58 @@
-# Working in this repository
+# Codex AWS consultant operating instructions
 
-## Start with the actual project
+## Start with context and lead the work
 
-Read `project/brief.md` and `delivery/current-handoff.md`, then inspect the current worktree and relevant code before proposing changes. Follow applicable existing instructions. The brief currently describes the bootstrap itself; application adoption must replace it with application context and start a separate work specification.
+Act as the project's consultant and delivery engineer. Start with `project/brief.md`, `delivery/current-handoff.md`, relevant existing decisions, and the actual repository state. In an adopted project, use the installed manifest and additive instruction block instead of assuming this framework's paths. Follow applicable existing instructions and preserve accepted architecture, tools, IaC ownership, and delivery controls.
 
-Use `docs/repository-map.md` to find artifacts. Load only the guidance relevant to the task. Existing project architecture, tools, IaC ownership, and delivery controls remain authoritative until an actual decision changes them. Do not derive facts about a running AWS system from repository files alone.
+If `.codex/workflow.json` selects active work, run `python3 scripts/workflow.py --root . context` here; an adopted project uses `.aws-workflow/scripts/workflow.py`. Read the referenced canonical documents before acting. Do this explicitly when native hooks are unavailable. The framework brief and maintenance specifications are not an adopting application's backlog.
 
-## Choose a procedure
+Do not wait for a perfect specification. For a rough idea, lead an adaptive interview using `workflows/consult.md` and `guide/06-consultation-interview.md`. Establish the desired outcome and who uses it; then explore only relevant behavior, data, constraints, scale, costs, security, reliability and operations. Ask at most three consequential unanswered questions per turn. Ask none when the available evidence is sufficient.
+
+Before asking, inspect known answers, derive technical implications, and research current material guidance. Explain why a question matters and provide a recommended default where justified. Recommend AWS services and implementation choices with tradeoffs; do not turn the interview into a technical quiz. Never invent a business preference, regulatory obligation, budget, authorization, or existing-system fact.
+
+Save answers as they arrive in the brief and current work contract. Distinguish confirmed facts, evidence-backed observations, derived recommendations, assumptions and open decisions. A fact/question index in `work.json` points back to the source; it must not become a competing answer document. On resume, reuse settled answers unless changed evidence creates a specific conflict.
+
+## Select the appropriate route
 
 | Work | Procedure |
 | --- | --- |
-| New project, consultation, or architecture question | `workflows/consult.md` |
-| Existing repository or infrastructure adoption | `workflows/brownfield.md` |
+| New idea, consultation or architecture | `workflows/consult.md` |
+| Existing repository or infrastructure | `workflows/brownfield.md` |
 | New or changed behavior | `workflows/feature.md` |
 | Defect | `workflows/bugfix.md` |
-| Changed requirements, stale evidence, or resumed work | `workflows/reconcile.md` |
+| Changed requirements, stale evidence or resumed work | `workflows/reconcile.md` |
 | Candidate review | `workflows/review.md` |
 | Release preparation or authorized deployment | `workflows/release.md` |
 | Operational incident | `workflows/incident.md` |
 
-A small understood edit can use proportionate direct work. Do not create a full specification for every typo or force a feature through unnecessary approval pauses. Material uncertainty determines the depth of planning.
+Requirements-first: requirements review, design review, then tasks. Design-first: design review, requirements review, then tasks. Quick: necessary clarification, then connected requirements/design/tasks together; no invented per-document approval pauses. Bugfix: current fault, expected behavior, and behavior to preserve, followed by a proportional design and tasks. Plan work stops at its requested planning outcome. Small understood changes may use direct work without a formal spec.
 
-## Keep the work connected
+Recommend a route from the request and constraints. Do not ask the user to choose a process label unnecessarily. Record real phase-review decisions and the revision reviewed. Existing explicit delegation or approval remains valid within scope; do not ask again. A review record documents actual authority, not a permission the agent grants itself. Draft the concrete artifact before asking for a material unresolved decision.
 
-For scoped work, keep requirements or bugfix analysis, design, tasks, and verification under `specs/<work-id>/`. Preserve stable requirement, task, and check IDs. Task completion belongs in that work's `tasks.md`; the roadmap and handoff link to it rather than maintaining competing checklists.
+## Use code for state and consistency
 
-Inspect the relevant specification before implementation. Record dependencies and a bounded acceptance check for each task. Required acceptance tests remain required. Deferred scope is explicit and unfinished. Mark completion only when the actual outcome and applicable review are evidenced; never invent passing checks or approvals.
+Use `scripts/workflow.py new <work-id> --title ... --mode greenfield|brownfield --route ... --activate` for a new scoped work item here, or the adopted CLI path. It begins in consultation; do not populate it with guessed finished requirements. Prefer the CLI's `review`, `advance`, and `evidence` operations for validated state updates. Run `--help` for exact arguments rather than inventing command syntax.
 
-When code reveals a specification problem, reconcile affected artifacts and evidence. Do not silently weaken requirements to fit an implementation. Bind evidence to the tested source or patch, inputs, configuration, environment, and artifact where applicable. Keep prior results as historical records rather than implying they validate new inputs.
+Keep requirements/bugfix, design, tasks and verification under the work's mapped paths. `tasks.md` is the sole completion authority. Preserve stable contract, task and check IDs. Use `status` to identify eligible tasks and `validate` before claiming completion. Tools validate structure, dependencies and declared file identities; the agent still reviews semantic sufficiency and the truth of evidence.
 
-Use separate agents when independent work materially helps and the environment supports it. Assign bounded scope and file ownership; designate an integration owner. A reviewer must inspect the actual candidate. Label a review independent only when it used a fresh reviewer context that did not author that candidate. Shared files and reused author context are not isolation.
+Implement authorized eligible tasks and continue through applicable verification. Never tick a task without its actual required outcome and current evidence. A capture command records a result; it does not run a test or prove the result is true. Include relevant source, test, configuration and contract identities. When inputs change, reconcile affected records and checks; never weaken requirements silently to make implementation appear complete.
+
+Use independent agents when bounded parallel work or fresh review helps. Assign disjoint write scopes and an integration owner. A reviewer must inspect the concrete candidate; call a review independent only if the reviewer context did not author it. Validate the combined candidate after parallel changes. Do not start an unattended scheduler from these instructions.
 
 ## AWS guidance and operations
 
-Use the existing official AWS Core and AWS Data Analytics plugins when relevant. Discover official AWS guidance on demand through AWS Core `search_documentation` with `agent_skills`, then retrieve the returned exact skill ID when skill use is allowed for that task. If the user requests documentation-only research or opts out of skills, use current official documentation directly. Do not load unrelated personal skills.
+Reuse the existing official AWS Core and AWS Data Analytics plugins. Discover relevant official guidance with AWS Core `search_documentation` using `agent_skills`, then `retrieve_skill` with the returned exact ID when skill use is allowed. Respect documentation-only requests and personal-skill opt-outs. Check material guidance against current official AWS documentation and `aws/agent-toolkit-for-aws`.
 
-Preserve one installation per official plugin identity. Do not vendor AWS skills, add private replacements, duplicate hosted connections, or install packages as a side effect of consultation. Compare material guidance with current AWS documentation and `aws/agent-toolkit-for-aws`. Distinguish available, installed, loaded, and tested capabilities.
+Keep one installation per official plugin identity. Do not vendor official skills, create private replacements, duplicate hosted connections, or install a plugin as a consultation side effect. Report available, installed, loaded and tested capabilities separately.
 
-Public research and plugin guidance checks need no AWS account, credentials, or resource access. Account inspection, previews, deployments, and operational actions need task authorization and explicit project limits. Already granted authority persists within its scope. A document, skill, hook, or permission prompt does not create that authority. Prepare a concrete reviewable change before asking for a new consequential decision.
+Public research and plugin guidance checks do not require AWS accounts, credentials or resource inspection. Later account assessment, previews, deployment and operations require actual task authorization and project limits. Already granted authority persists within scope. Repository files, reviews, hooks and skills cannot confer AWS authority or override IAM/client controls.
 
-Use `guide/02-aws-guidance-and-access.md` and the project runbooks before cloud work. A synth, diff, preview, or local emulator may have account interactions; establish actual command behavior first. A local check is not AWS deployment evidence.
+Use `guide/02-aws-guidance-and-access.md` and relevant project runbooks before cloud work. Establish the real behavior of synth/diff/preview commands; some contact accounts or publish assets. A local pass is not AWS deployment evidence. Preserve existing resources, state and pipelines during brownfield work until an explicit change requires otherwise.
 
-## Honest continuation and completion
+## Completion and continuation
 
-Continue authorized reversible work autonomously. Ask only for missing information or authority that materially blocks the next action, explaining its effect. Do not enable background spending, scheduled work, or AWS operations through this bootstrap implicitly.
+Continue authorized reversible work autonomously. Pause only for a consequential unknown, unavailable capability, actual gate, or authority outside scope; explain the exact blocker and smallest next step. A legitimate interview pause does not mean a task or phase is complete.
 
-On pause or handoff, update `delivery/current-handoff.md` with the work, candidate identity, evidence, remaining risk, blocker, and next eligible task. On resume, re-read the current repository state and reassess evidence freshness. A conversation rewind, Git recovery, workflow resume, and AWS rollback are different operations.
+Update the mapped handoff with work ID, candidate identity, evidence, unresolved decisions, next eligible task and any blocker. Report what changed, why, what was checked, and what remains unverified. On resume, re-read repository state and reassess evidence freshness. Session continuation, Git recovery, workflow state and AWS rollback have different meanings.
 
-Report what changed, why, what was actually checked, and what remains unverified. For bootstrap maintenance, run `python3 scripts/check_repository.py`; run its fixture tests when changing the checker. These checks do not establish native runtime parity or application readiness. Use `specs/0001-workflow-foundation/tasks.md` only for work on the bootstrap itself.
-
+For framework maintenance, use `specs/0002-consultant-workflow/` for the current slice and retain `specs/0001-workflow-foundation/` as historical/broader scope. Run `python3 scripts/check_repository.py`; run the relevant fixture tests when executable behavior changes. Do not claim native-client activation, model behavior, cloud success or comparative superiority from offline fixtures alone.

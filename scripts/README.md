@@ -1,16 +1,21 @@
-# Offline repository checks
+# Local tools
 
-Run the delivered standard-library checker from any working directory:
+Python 3.10 or newer; standard library only. Run the bootstrap's tests from its root. Tools do not install packages, call a model, connect to AWS or launch deployment commands.
 
-~~~sh
-python3 /path/to/codex-vs-kiro/scripts/check_repository.py
-~~~
+| Entry point | Purpose | Reference |
+| --- | --- | --- |
+| `bootstrap.py` | Preview/apply a reusable layer to a separate application | [Adoption](../docs/reference/bootstrap.md) |
+| `workflow.py` | Work initialization, context, status, validation, reviews, transitions and evidence | [CLI](../docs/reference/workflow-tooling.md) |
+| `codex_hooks.py` | Read-only JSON lifecycle adapter | [Native hooks](../docs/reference/native-hooks.md) |
+| `check_repository.py` | Bootstrap core paths and explicit Markdown file destinations | Scope below |
 
-From the repository root, use `python3 scripts/check_repository.py`. It checks the required bootstrap paths and explicit local Markdown file-link destinations. It rejects missing or escaping targets and reports scan/read errors. It makes no remote calls.
+## Repository checker scope
 
-It is a bounded parser, not a complete Markdown engine. It does not establish heading-anchor validity, semantic correctness, undefined reference-label coverage, runtime parity, or AWS readiness. Code examples, external URLs, and template placeholder destinations are outside file-target validation. See the module header for precise limitations.
+```bash
+python3 scripts/check_repository.py
+python3 -m unittest discover -s tests -p 'test_*.py' -v
+```
 
-Use `--root` for a deliberately selected fixture or compatible scaffold. An adopted brownfield layout may need an intentional update to the required-file set; it should not be reorganized merely to satisfy a default checker.
+The checker resolves its source root by default; `--root` selects another tree. It checks required bootstrap paths and explicit local Markdown links, including reference definitions. It skips remote URLs and recognizable template placeholders. It reports missing/escaping targets and incomplete scans rather than passing a partial inspection.
 
-Future tools for work-ID/dependency/traceability/evidence validation are described in [adapter contracts](../docs/adapter-contracts.md). They are not provided by the current checker. No hook or CI invokes this script automatically.
-
+It is not a complete Markdown parser: heading anchors, undefined reference labels, HTML links and document semantics are outside scope. Workflow consistency belongs to the dedicated engine. The bootstrap required-path list is for this source repository; it is not an application adoption requirement.

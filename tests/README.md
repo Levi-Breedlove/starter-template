@@ -1,14 +1,14 @@
 # Verification scope
 
-The delivered tests exercise the offline repository checker with temporary fixtures. Run:
+Run from the bootstrap source root:
 
-~~~sh
+```sh
 python3 -m unittest discover -s tests -p 'test_*.py' -v
-~~~
+python3 scripts/check_repository.py
+```
 
-The fixtures address actual failure modes: missing links, escaping targets, symlinks, Markdown examples, incomplete scans, and CLI behavior. They use Python's standard library and make no network or AWS calls.
+The standard-library fixtures exercise repository links, workflow state/phase/dependency/evidence rules, additive application installation and read-only native event responses. They use temporary projects and simulated decision/check receipts. They do not invoke a model, inspect an AWS account or deploy a workload.
 
-Passing these tests establishes the checker behavior covered by those cases. It does not verify the workflow runner, native Codex hooks, the fictional example application, or a deployment. Future behavioral acceptance belongs in the [evaluation catalog](../evaluations/README.md) and the [foundation backlog](../specs/0001-workflow-foundation/tasks.md).
+Independent review reproductions become targeted regression cases. The final combined run and source identities belong in the [current verification receipt](../evidence/0002-consultant-workflow/verification.md). A fixture's fake pass proves that the validator handles the record as specified; it does not establish the example business outcome.
 
-An adopting application keeps its actual test framework and existing tests. Add characterization, regression, contract, integration, performance, or operational checks according to the accepted requirements and remaining risk.
-
+Actual model consultation, native host activation and cloud delivery follow the separate [evaluation protocol](../evaluations/README.md). Adopting applications retain their existing tests and add checks appropriate to their own accepted requirements.

@@ -1,44 +1,32 @@
-# Project brief: Codex AWS Workflow Bootstrap
+# Project brief: Codex AWS Consulting and Delivery Bootstrap
 
-**Current use:** Bootstrap maintenance and research.  
+**Current use:** Framework maintenance.  
 **Owner:** Repository owner.  
-**Entry mode:** New workflow repository supporting greenfield and brownfield adopters.  
-**Scope basis:** The owner's request for an independently researched, complete Kiro-style Codex workflow skeleton in `codex-vs-kiro`, using the official AWS Agent Toolkit.
+**Scope basis:** The user's request for a complete, independent AWS consulting/specification/delivery template, with adaptive interviewing, greenfield and brownfield support, official AWS tooling, executable workflow support and neutral repository content.
 
-## Purpose
+## Desired outcome
 
-Make Codex a repeatable AWS engineering collaborator that can consult, specify, implement, verify, review, deploy within actual authorization, and continue work without losing project decisions. Learn from documented Kiro behavior and accessible official videos. Improve the design through measurable evidence and recovery behavior rather than claiming an untested product advantage.
+A developer can give Codex a rough idea or existing project. Codex leads the consultation, reuses known answers, recommends technical choices from requirements, creates a coherent design and task plan, implements authorized work and reports meaningful verification. Saved context should support continuation without repeated discovery.
 
-## Current delivery
+## Confirmed constraints
 
-The present deliverable is a researched repository skeleton, immediately usable agent instructions/procedures, original templates, a worked example, an offline repository checker, and a concrete implementation plan. It is not a deployed AWS application or a completed orchestration engine.
+| Topic | Established decision |
+| --- | --- |
+| Agent | Codex; guided consultation is the default. |
+| Questions | Ask only consequential gaps, at most three per turn; save answers as work develops. |
+| AWS | Existing official AWS Core and AWS Data Analytics identities; no duplicate/private replacement installation. |
+| Research | Current official sources; independent of personal skills. |
+| Adoption | Greenfield and brownfield; preserve existing architecture, tools, files and delivery authority. |
+| Implementation | Deterministic state/checks in local code; model judgment in concise instructions and reusable procedures. |
+| Content | Standalone neutral workflow; no third-party workflow product names or domains. |
+| Authority | Repository work and offline verification authorized; no AWS account/resource access or paid unattended service authorized. |
 
-The work deliberately avoids dependence on the owner's custom skills. Public documentation is the research basis. Future application work can use official AWS Core and AWS Data Analytics capabilities according to task preferences and actual availability.
+## Current work and remaining choices
 
-## Constraints and established choices
+The [consultant workflow specification](../specs/0002-consultant-workflow/requirements.md) owns the current implementation slice. Python is the local tool implementation, not a choice of application runtime. No application stack, region, IaC framework, pipeline, budget or deployment target is selected by this bootstrap.
 
-| Topic | Established position | Remaining project choice |
-| --- | --- | --- |
-| Workflow host | Codex; preserve useful Kiro engineering behavior. | Exact adopter surface/version and deeper runtime integration. |
-| AWS expertise | Official Agent Toolkit for AWS; preserve official plugin identities. | Surface-specific availability and public capability verification. |
-| Adoption | Greenfield and brownfield both first-class. | Each application's actual architecture and path mapping. |
-| Authority | Existing user/task authorization persists; repository files do not grant AWS authority. | Named accounts/environments/actions for later cloud work. |
-| Artifacts | One canonical task record per work item; references connect design and evidence. | Map to an existing project's authority where needed. |
-| Application stack | None selected by this framework. | Language, frameworks, IaC, services, pipeline, regions, targets. |
-| Automation | Explicitly planned adapters, with actual checks before enablement. | Implementation interface, versions, budgets, and operating model. |
+Real-client behavior, actual hook loading, public toolkit availability on an adopter's surface, and cloud deployment need their own observed trials. No comparative model/product benchmark has been run. Future controller language and execution interface should follow a measured need.
 
-## Non-goals for this delivery
+## Continuation
 
-Copying Kiro's user interface, implementing ACP, installing plugins, loading personal skills, creating a paid background service, accessing AWS accounts, provisioning resources, or claiming a measured advantage over Kiro. Those are not prerequisites for a useful planning bootstrap.
-
-## Success criteria
-
-Readers can understand the real Kiro workflow and its surface limits, locate the equivalent Codex procedure, start either adoption path, and identify every remaining implementation gap. Templates connect behavior to tasks and evidence. The roadmap is implementable without inventing product APIs. Static repository checks and their tests pass, and the files are present in the requested repository.
-
-## Authorities
-
-- Framework requirements, design, and task completion: [foundation specification](../specs/0001-workflow-foundation/requirements.md), [design](../specs/0001-workflow-foundation/design.md), and [tasks](../specs/0001-workflow-foundation/tasks.md).
-- Consequential framework choices: [decision records](../docs/decisions/0001-repository-authority.md).
-- Current continuation: [handoff](../delivery/current-handoff.md).
-- Application adoption: replace this brief with actual application context using the [template](../templates/project-brief.md). Do not execute the framework backlog as application work.
-
+[Current handoff](../delivery/current-handoff.md) · [Current tasks](../specs/0002-consultant-workflow/tasks.md) · [Historical foundation](../specs/0001-workflow-foundation/tasks.md)

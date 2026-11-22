@@ -3,20 +3,20 @@
 **Work:** 0001-workflow-foundation.  
 **Contract:** [Requirements](requirements.md).  
 **Design:** [Design](design.md).  
-**Authority:** This is the sole framework implementation checklist. The roadmap, research acceptance catalogs, and handoff reference it.
+**Authority:** This file owns the original foundation scope and broader automation backlog. The [consultant workflow slice](../0002-consultant-workflow/tasks.md) owns the later executable implementation. These are distinct work scopes, not competing checklists.
 
 Activity labels describe progress. A checked box means that task's stated outcome is evidenced; it does not imply that all requirements in the larger framework are implemented. The present authorization covers research, the bootstrap, offline checks, and repository delivery. Later runtime trials, paid/background activity, and AWS operations use their actual task authorization and limits.
 
 ## Phase 0 — Research and usable skeleton
 
-### T-001 — Research and map the complete Kiro workflow
+### T-001 — Research and map the specification and delivery lifecycle
 
 - [x] T-001 complete
 
 - Activity: complete.
 - Requirements/design: REQ-001, REQ-002, REQ-017 / DES-01, DES-08.
 - Dependencies: none.
-- Scope: Official Kiro/Codex/AWS sources, accessible official video material, mechanism and surface distinctions, exact gaps and proposed improvements.
+- Scope: Primary workflow and official Codex/AWS sources, accessible official video material, mechanism and surface distinctions, exact gaps and proposed improvements.
 - Acceptance: Auditable source/access ledger; documented versus observed versus proposed claims remain separate; no private-skill dependency or unviewed-video claim.
 - Verification: CHK-001; review the cited evidence and capability mapping.
 - Evidence: Research documents and the [scaffold verification receipt](../../evidence/0001-workflow-foundation/scaffold-verification.md).
@@ -51,37 +51,37 @@ Activity labels describe progress. A checked box means that task's stated outcom
 
 - [ ] T-010 complete
 
-- Activity: ready after Phase 0.
+- Activity: partial implementation in the later consultant workflow slice; broader acceptance remains open.
 - Requirements/design: REQ-005, REQ-006 / DES-03, DES-04.
 - Dependencies: T-001–T-003.
 - Scope: Versioned parser/representation for stable requirement/task/check IDs, required/deferred state, dependencies, and evidence references.
 - Acceptance: Detect missing/duplicate IDs, dangling dependencies, cycles, unverified required outcomes, and conflicting authority. Do not demand a new layout from brownfield projects.
 - Verification: CHK-010; positive/negative temporary fixtures with deliberately broken contracts.
-- Evidence: Not implemented or run.
+- Evidence: A bounded schema/graph/coverage implementation and fixtures are delivered by 0002. Arbitrary existing-tracker authority mapping and the full broader acceptance are not established. See [current tasks](../0002-consultant-workflow/tasks.md).
 
 ### T-011 — Bind evidence and invalidate affected outcomes
 
 - [ ] T-011 complete
 
-- Activity: blocked by T-010.
+- Activity: partial implementation in the later consultant workflow slice; broader acceptance remains open.
 - Requirements/design: REQ-006, REQ-009, REQ-011 / DES-04.
 - Dependencies: T-010.
 - Scope: Source/patch, spec, fixture, configuration, artifact, environment, and procedure identities; impact and freshness rules.
 - Acceptance: Changing each relevant input invalidates affected claims and descendants; unaffected evidence retains scope; old observations are preserved.
 - Verification: CHK-011; mutation fixtures, incomplete metadata, stale artifact and same-source/different-config cases.
-- Evidence: Not implemented or run.
+- Evidence: 0002 binds declared local inputs, receipts and relevant contract/task/check content. Full runtime/environment identity, automatic impact discovery and external-state invalidation remain beyond this slice. See [current tasks](../0002-consultant-workflow/tasks.md).
 
 ### T-012 — Implement bounded context selection and authority mapping
 
 - [ ] T-012 complete
 
-- Activity: blocked by T-010.
+- Activity: partial implementation in the later consultant workflow slice; broader acceptance remains open.
 - Requirements/design: REQ-003, REQ-004, REQ-016 / DES-02, DES-06.
 - Dependencies: T-010.
 - Scope: Context manifests, relevant instruction/reference selection, existing authority/path maps, current handoff recovery.
 - Acceptance: Load relevant accepted constraints, identify conflicts and unknown facts, preserve adopted authority, and avoid loading unrelated personal skills or the entire research corpus.
 - Verification: CHK-012; greenfield and conflicting brownfield fixtures with changed/dirty files.
-- Evidence: Not implemented or run.
+- Evidence: 0002 selects mapped project context, sourced facts, answers and active work. Conflicting authority interpretation still requires the agent; no general semantic context resolver is claimed. See [current tasks](../0002-consultant-workflow/tasks.md).
 
 ## Phase 2 — Native integration
 
@@ -89,13 +89,13 @@ Activity labels describe progress. A checked box means that task's stated outcom
 
 - [ ] T-020 complete
 
-- Activity: blocked by Phase 1 and a selected client.
+- Activity: partial implementation in the later consultant workflow slice; broader acceptance remains open.
 - Requirements/design: REQ-002, REQ-012, REQ-014 / DES-06.
 - Dependencies: T-010–T-012.
 - Scope: One supported hook configuration source, deterministic handlers, event parsing, trust and capability reporting.
 - Acceptance: Only supported/trusted events run; duplicate/recursive events and timeouts are bounded; no implicit AWS or paid background operation.
 - Verification: CHK-020; fake-event tests followed by an authorized bounded native-client trial.
-- Evidence: No active hook configuration or native trial.
+- Evidence: 0002 supplies concrete supported-event definitions and a fixture-tested read-only handler. Actual client trust/loading/lifecycle trial remains unverified. See [current tasks](../0002-consultant-workflow/tasks.md).
 
 ### T-021 — Verify worker and reviewer isolation
 
@@ -231,13 +231,13 @@ Activity labels describe progress. A checked box means that task's stated outcom
 | CHK-002 | T-002 | Cross-document review of adoption, authority, scope, template traceability, truthful capability status. | Completed; opt-out/applicability findings corrected. |
 | CHK-003 | T-003 | `python3 -m unittest discover -s tests -p 'test_*.py' -v`; meaningful checker fixtures pass. | PASS: 14 tests; exact code hashes recorded in the receipt. |
 | CHK-004 | T-002, T-003 | `python3 scripts/check_repository.py`; final local links/core paths pass; remote file identities checked at publication. | PASS: zero link/structure issues; 73 published file identities matched; private visibility preserved. |
-| CHK-010–012 | T-010–T-012 | Work graph/traceability, changed-input freshness, and context/authority fixtures. | Not implemented or run. |
-| CHK-020–021 | T-020–T-021 | Native event trust/coverage and worker/reviewer context evidence. | Not implemented or run. |
+| CHK-010–012 | T-010–T-012 | Work graph/traceability, changed-input freshness, and context/authority fixtures. | Local subset implemented and fixture-tested in 0002; broader scope remains open. |
+| CHK-020–021 | T-020–T-021 | Native event trust/coverage and worker/reviewer context evidence. | Local adapter fixtures in 0002; actual selected-client and worker-isolation trial remains open. |
 | CHK-030–033 | T-030–T-033 | Crash/retry/state/limit/event fixtures and later scoped integration evidence. | Not implemented or run. |
 | CHK-040–043 | T-040–T-043 | Real adoption/public-toolkit/project-cloud trials with exact scope. | Not run. |
 | CHK-050 | T-050 | Matched comparison under the evaluation protocol. | Not run. |
 
 ## Deferred optional extensions
 
-Repository skill packaging, Kiro recipe interchange, a native spec dashboard, multi-repository portfolio coordination, and scheduled/unattended service operation remain deferred. They are not prerequisites for the usable conversational workflow and are not counted as completed work.
+Repository skill packaging, external recipe interchange, a native spec dashboard, multi-repository portfolio coordination, and scheduled/unattended service operation remain deferred. They are not prerequisites for the usable conversational workflow and are not counted as completed work.
 

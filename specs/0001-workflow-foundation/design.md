@@ -1,5 +1,7 @@
 # Design: Codex AWS workflow foundation
 
+**Historical foundation scope:** The initial scaffold and broader program are described here. Current executable behavior is specified in [0002](../0002-consultant-workflow/requirements.md); use its tasks and receipt for current claims.
+
 **Work ID:** 0001-workflow-foundation.  
 **Contract:** [Requirements](requirements.md).  
 **State:** Document/procedure implementation with planned runtime adapters.
@@ -23,7 +25,7 @@ The complete behavioral architecture is in [workflow architecture](../../docs/wo
 
 Use Markdown for human-reviewable authority and ordinary Codex repository instructions. Provide focused procedure contracts and original templates. Keep product-specific facts in cited research and reference documents. Provide one standard-library checker for local file links and core scaffold paths with fixture tests; do not call that semantic verification.
 
-No runtime dependency, deployment configuration, or actual skill package is needed for this initial delivery. The `.codex/` and `.agents/skills/` README files describe extension boundaries. No Kiro recipe schema is represented as native Codex configuration.
+No runtime dependency, deployment configuration, or actual skill package is needed for this initial delivery. The `.codex/` and `.agents/skills/` README files describe extension boundaries. No external recipe schema is represented as native Codex configuration.
 
 ## Later implementation sequence
 
@@ -44,9 +46,9 @@ These are design obligations to test. The initial scaffold does not enforce all 
 
 The conversational path is easy to adopt but relies on agent adherence and review. Native hooks improve repetition but differ by surface and require trust/coverage tests. A durable controller can improve recovery while adding state-management and maintenance work. Copying every document into every prompt can dilute context; use the router and relevant references.
 
-Brownfield adoption risks competing authority and stale baselines. Map existing sources and record known gaps before adding files. AWS preview/import/testing tools have service-specific limits, so a generic “validated” field is inadequate. See [AWS research](../../docs/research/aws-integration.md).
+Brownfield adoption risks competing authority and stale baselines. Map existing sources and record known gaps before adding files. AWS preview/import/testing tools have service-specific limits, so a generic “validated” field is inadequate. See [AWS delivery guidance](../../docs/reference/aws-delivery.md).
 
 ## Validation
 
-Use the [task verification matrix](tasks.md) for actual status and evidence. The [runtime parity cases](../../docs/research/runtime-parity.md) and [evaluation catalog](../../evaluations/README.md) define future behavioral proof, including failure and interruption cases. Publication verification compares the repository's returned file identities with the final local manifest.
+Use the [task verification matrix](tasks.md) for actual status and evidence. The [workflow contract](../../docs/reference/workflow-contract.md) and [evaluation catalog](../../evaluations/README.md) define future behavioral proof, including failure and interruption cases. Publication verification compares the repository's returned file identities with the final local manifest.
 

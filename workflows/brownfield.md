@@ -2,39 +2,36 @@
 
 ## Trigger
 
-Use this procedure before adopting the scaffold in an existing application, infrastructure repository, or service. The first result is an evidence-based adoption plan, not an automatic repository restructure or infrastructure migration.
+Use this procedure when adopting the workflow in an existing application, infrastructure repository, or service. Establish an evidence-based baseline and a bounded first change. Preserve the existing source layout, accepted architecture, IaC ownership, and delivery process.
 
 ## Inputs
 
-- The existing repository and the user's requested outcome.
-- Existing project instructions, requirements, architecture decisions, delivery configuration, runbooks, and task sources.
-- Available source revisions, test results, release records, and other supplied evidence.
-- Known behavior/data compatibility constraints and the scope of authorized inspection.
+- The repository and requested outcome, with any supplied architecture or operational evidence.
+- Existing instructions, requirements, decisions, task authority, pipeline configuration, and runbooks.
+- Available revisions, test/release results, and current handoff.
+- Authorized inspection/change scope and known compatibility or data obligations.
 
 ## Stages
 
-1. **Inventory without disturbing work.** Inspect the current branch/revision, uncommitted changes, instructions, layout, applications, tests, infrastructure definitions, CI/CD, and operating documentation. Record inaccessible areas. Do not overwrite project instructions or move files to match this skeleton.
-2. **Separate current state from intent.** Identify what code and evidence demonstrate, what documents claim, what architecture is accepted, and what the user wants changed. Code can reveal existing behavior; it does not prove that every behavior is intended or correct.
-3. **Establish preservation obligations.** Record public interfaces, compatibility, important user behavior, data ownership and retention, migration constraints, identity/network boundaries, and operating requirements. Link source evidence. Use the Bugfix preservation model when diagnosing a defect.
-4. **Identify infrastructure ownership.** Inspect the declared IaC tools, stacks/modules, state/backend references, pipeline responsibilities, environments, and ownership boundaries. Separate repository evidence from claims about live resources. Do not query accounts, import resources, bootstrap environments, move state, or change ownership during public/repository intake.
-5. **Assess the verification baseline.** Inventory existing test and deployment evidence with its revision and environment. Run permitted local checks only when needed to resolve a concrete uncertainty. Document gaps, including cases where local behavior does not establish AWS behavior.
-6. **Map incremental adoption.** In `project/adoption-report.md`, identify which existing artifacts remain authoritative, which scaffold conventions can be linked or adapted, and which changes need a decision. Choose a contained first work item. Avoid duplicate task authorities, blanket refactors, and copying all historical documentation into agent context.
-7. **Select the next route.** Use Design-First when established architecture constrains the change, Requirements-First when new behavior drives it, Quick Spec for familiar bounded work, Plan-led work for a small exploration, or [Bugfix](bugfix.md) for a defect. Feed the accepted baseline into [Consult](consult.md) or the selected implementation contract.
+1. **Inventory without disturbing work.** Inspect the branch/revision, uncommitted changes, instructions, layout, applications, dependencies, tests, IaC, CI/CD, and operating documents. Record inaccessible areas. Preserve contributors' work; do not overwrite instructions or move files to match this skeleton.
+2. **Separate evidence from intent.** Distinguish observed implementation, declared architecture, accepted decisions, the requested change, and unknown live state. Existing behavior is not automatically correct. Source code does not prove which version is deployed; an IaC declaration does not establish live ownership.
+3. **Derive preservation obligations.** Inspect public contracts, consumers, data ownership/lifecycle, migration boundaries, authorization/networking expectations, and operations. Recommend the smallest change that satisfies the request. Research technical questions from official AWS guidance where needed, using the [public consultation boundary](../guide/02-aws-guidance-and-access.md).
+4. **Interview only the remaining gaps.** Lead with the established facts and proposed approach. Ask one to three questions when conflicting intent, undocumented product policy, ownership, or material risk remains. Explain the consequence and suggest a resolution where supported. Do not ask which language, IaC tool, or pipeline to use when the repository already answers. Save each consequential answer and its evidence in the brief or work contract; link it from the adoption report.
+5. **Identify infrastructure ownership and limits.** Inspect declared stacks/modules, state/backend references, pipeline responsibilities, environments, and ownership boundaries. Record what requires later authorized verification. Do not import resources, bootstrap an environment, move state, change ownership, or query an account during public/repository intake.
+6. **Establish the verification baseline.** Inspect existing results and their revision/environment. Run permitted local checks when they resolve an actual uncertainty. Record pre-existing failures and characterization needs. Avoid treating mocks or repository declarations as proof of AWS behavior.
+7. **Map and review incremental adoption.** In the project's adoption report, name the existing authoritative artifacts, useful workflow additions, unresolved decisions, and the first bounded work item. Review the proposed overlay against existing instructions and pipeline expectations. Record the actual outcome and authorization; routine documentation changes may already be covered. Avoid duplicate task authorities, blanket refactors, and copying all history into agent context.
+8. **Select the next route.** Use Design-First for a change constrained by established design; Requirements-First for new behavior; Quick Spec for understood bounded scope; Plan-led for a small investigation; or [Bugfix](bugfix.md) for a defect. Carry the evidence and answers into [Consult](consult.md) or the chosen work procedure rather than restarting discovery.
 
 ## Outputs
 
-- `project/adoption-report.md` with baseline revision, evidence inventory, preservation obligations, infrastructure ownership, uncertainty, adoption decisions, and the first proposed work item.
-- An updated brief and links to existing canonical artifacts.
-- A current handoff identifying the next action and any material unanswered question.
+- An adoption report with baseline identity, evidence, preservation obligations, ownership, uncertainty, adoption decisions, and the first work item.
+- A project brief linking existing canonical artifacts and saved answers.
+- A current handoff identifying the next action and any consequential question.
 
 ## Completion evidence
 
-The report distinguishes observed implementation, accepted intent, proposed changes, and unknown live state. Existing task and document authority is explicit. Preservation and migration concerns are recorded. The first work item is bounded and its verification path is clear. No account access or repository reorganization is implied by completion of the report.
+The report distinguishes observation, intent, recommendation, and unknown live state. Document/task authority is explicit. The first change has a bounded scope and verification path. Existing architecture, interfaces, data, state ownership, and delivery controls are preserved or have a separately recorded change decision.
 
 ## Continue, pause, and resume
 
-Continue repository inspection and authorized documentation work. Pause only when a necessary next action requires account access, spending, a consequential ownership/migration decision, or unavailable evidence. Explain the exact gap and smallest next action. On resume, compare the current revision with the saved baseline and use [Reconcile](reconcile.md) if other work has changed it.
-
-## References
-
-Kiro's [Design-First workflow](https://kiro.dev/docs/specs/feature-specs/tech-design-first/), [spec import and synchronization guidance](https://kiro.dev/docs/specs/best-practices/), and [Bugfix Specs](https://kiro.dev/docs/specs/bugfix-specs/) support adoption into an existing system. The baseline and ownership report is this repository's explicit AWS adoption procedure; it is not an automatic Kiro migration feature.
+Continue repository inspection, public research, and authorized documentation work. Pause dependent work only for inaccessible evidence, a consequential unresolved decision, account access, or spending outside existing authority. Explain the exact gap. On resume, compare the current revision with the saved baseline and use [Reconcile](reconcile.md) for material differences; reuse valid answers.

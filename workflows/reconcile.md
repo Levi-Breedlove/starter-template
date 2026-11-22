@@ -2,37 +2,34 @@
 
 ## Trigger
 
-Use this procedure after changed requirements or design, work completed in another session, review findings, an implementation discovery, or a mismatch between task status and evidence. Also use it when resuming work after the repository or target environment has changed.
+Use this procedure when a consultation answer, requirement, design, implementation, review finding, environment assumption, or evidence record changes. Use it on resume when another session may have changed the baseline. Synchronization is an explicit inspection and update, not an assumption that documents agree because they exist.
 
 ## Inputs
 
-- The current brief, decisions, specification, task record, code revision, and handoff.
-- The change that prompted reconciliation and the last verified baseline.
-- Relevant acceptance evidence, review records, and external CI/deployment links.
+- The current brief, saved answers, decisions, specification, tasks, code, and handoff.
+- The triggering change and last reviewed or verified baseline.
+- Relevant phase reviews, checks, and external CI/deployment evidence.
 
 ## Stages
 
-1. **Establish the current baseline.** Inspect the actual branch/revision and uncommitted work. Determine which records are authoritative and which are historical. Preserve other contributors' changes.
-2. **Identify the mismatch.** Classify it as changed intent, changed design, missing implementation, previously completed work, stale task status, or stale/insufficient evidence. Do not assume that code automatically defines the intended requirement.
-3. **Resolve the direction.** For Requirements-First, update accepted requirements, then design, then tasks. For Design-First, revise the accepted design, validate derived requirements, then tasks. If the change is still proposed, retain that status and seek only the material decision needed.
-4. **Assess impact.** Trace affected requirements through components, tasks, tests, cost/security records, runbooks, and releases. Mark affected evidence stale. Preserve old results as history; retain unaffected evidence only with a reason it remains applicable.
-5. **Repair the task record.** Reuse valid completed work. Add or revise only affected tasks and dependencies. A detected implementation can satisfy a task's coding step while its acceptance checks remain outstanding. Reopen completion claims that no longer hold.
-6. **Reverify and hand off.** Run the necessary available checks for the new candidate, update evidence links, and request [Review](review.md) where the changed scope warrants it. Save one current continuation point.
+1. **Establish the current baseline.** Inspect actual revisions and uncommitted work, identify current authority, and preserve other contributors' changes. Read the latest answers and authorization before asking anything again.
+2. **Classify the mismatch.** Distinguish changed product intent, changed design, implementation discovery, already completed work, stale task status, and insufficient or stale evidence. Code alone does not define intended behavior; a previous answer may have been superseded.
+3. **Resolve the direction.** For Requirements-First, revise requirements, then design, then tasks. For Design-First, revise design, check derived requirements against user needs, then tasks. For Quick Spec, assess the connected set together. For Bugfix, preserve the defect/expected/preserved distinction. Keep a proposed decision proposed until actual authority resolves it.
+4. **Interview only material conflicts.** Derive or research technical resolutions first. Present the conflicting evidence, a recommended resolution, and one to three consequential questions if a product or authority decision remains. Record the new answer and which previous decision it supersedes; do not erase the history or restart an intake checklist.
+5. **Assess impact on reviews and evidence.** Trace the changed contract through design, tasks, checks, costs, security, operations, and releases. Identify the affected phase reviews and results that no longer support the candidate. Preserve old records as history. Retain unaffected evidence only with a reason it remains applicable.
+6. **Repair the task graph and revisit affected reviews.** Reuse valid implementation, update dependencies and checks, and reopen invalid completion claims. Already present code may satisfy a coding step while verification remains outstanding. Review the changed requirements/design or combined Quick Spec at the appropriate boundary. Record who reviewed what and the actual outcome; do not translate prior approval into approval of an unreviewed material change.
+7. **Reverify and hand off.** Run available checks needed for the new candidate and use [Review](review.md) where the changed scope warrants it. Record remaining obligations and one current continuation point. Continue within surviving authorization; request a new decision only for a changed boundary or an actual unresolved control.
 
 ## Outputs
 
-- An explained specification/design/task diff and any required decision record.
-- A record of which claims remain valid, became stale, or were reverified.
-- Updated task dependencies and `delivery/current-handoff.md`.
+- An explained diff of the affected answers, requirements, design, tasks, and decisions.
+- A record of phase reviews and evidence that remain applicable, became stale, or were refreshed.
+- Corrected dependencies, honest task completion, and the current handoff.
 
 ## Completion evidence
 
-The authoritative artifacts agree on current intent and implementation status. Each required claim is supported by applicable evidence or is visibly pending. No previously completed task is silently dropped, and no unverified code is treated as a verified result.
+The authoritative artifacts agree on current intent and work status. Every current completion claim is supported by applicable evidence. Required unverified outcomes are visibly pending. No valid work is discarded merely to restart the process, and no superseded acceptance is presented as current.
 
 ## Continue, pause, and resume
 
-Reconcile routine changes without restarting the entire project plan. Pause only where conflicting authoritative decisions require a choice or a required check needs unavailable access. On resume, use the saved baseline and impact assessment, confirm what changed since, then continue the next affected task.
-
-## Reference
-
-[Kiro spec best practices](https://kiro.dev/docs/specs/best-practices/) describes Sync Files and the different update order for Requirements-First and Design-First. This repository implements the practice through explicit review and edits; it does not provide a native Sync Files command.
+Reconcile routine changes without restarting the project plan. Pause dependent work only for conflicting decisions requiring a choice or unavailable required evidence/access. Resume from the saved baseline and impact assessment, inspect subsequent changes, and continue the next unblocked task.

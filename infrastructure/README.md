@@ -10,7 +10,7 @@ For greenfield work, make the decisions below before generating infrastructure. 
 
 Distinguish repository intent, recorded deployment evidence, and live state. Drift remains **unknown** until an authorized assessment establishes it. Do not recreate or import existing resources, migrate state/backends, rename resource identities, or take over stack ownership unless explicitly included in the approved migration scope. Prepare migration effects and recovery evidence before the applicable decision; existing authorization continues within its scope.
 
-Report the coverage of any live drift check: unsupported resources and properties remain outside its conclusion. CloudFormation import does not itself verify that live properties match the template. See [the AWS integration research](../docs/research/aws-integration.md) for source-backed adoption and verification boundaries.
+Report the coverage of any live drift check: unsupported resources and properties remain outside its conclusion. CloudFormation import does not itself verify that live properties match the template. See [the AWS delivery reference](../docs/reference/aws-delivery.md) for source-backed adoption and verification boundaries.
 
 ## Decisions required before implementation
 

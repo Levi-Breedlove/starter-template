@@ -1,65 +1,30 @@
-# Repository map and artifact lifecycle
+# Repository map
 
-This table describes delivered locations and their responsibilities. It is the layout reference, not an independent status tracker. Follow the [canonical foundation tasks](../specs/0001-workflow-foundation/tasks.md) for automation implementation status.
+This repository is the reusable bootstrap's source. Application adoption installs selected reusable files under `.aws-workflow/` and supplies a manifest mapping to actual project records. It does not copy the bootstrap's own active work.
 
-## Reusable operating layer
-
-| Path | Purpose | Adoption treatment |
+| Source path | Responsibility | Adoption |
 | --- | --- | --- |
-| `AGENTS.md` | Concise Codex context and procedure router. | Adapt to the project; merge with existing instructions. |
-| `guide/` | Start, AWS access, first feature, maintenance, brownfield guides. | Keep relevant guides or link to a maintained bootstrap copy. |
-| `workflows/` | Eight explicit procedure contracts. | Reuse and map to the project's actual paths. |
-| `templates/` | Original document templates. | Instantiate selectively; correct copied links. |
-| `project/brief.md` | Current project's goal, constraints, choices, authority. | Replace framework context with application facts. |
-| `project/adoption-report.md` | Existing-system baseline and uncertainties. | Required for meaningful brownfield adoption; greenfield may record not applicable. |
-| `specs/<work-id>/` | Requirements or bugfix analysis, design, tasks and verification matrix. | Create a focused folder per useful change. |
-| `docs/decisions/` | Consequential architecture/workflow decisions. | Preserve existing decision records and numbering. |
-| `evidence/<work-id>/` | Sanitized check observations and CI links. | Identify candidate and environment; never store secrets/raw account dumps. |
-| `delivery/current-handoff.md` | Current continuation summary. | Update as work pauses or changes ownership. |
-| `delivery/releases/<release-id>.md` | Concrete release and operational result. | Instantiate only for actual release work. |
-| `costs/` | Cost assumptions, estimates, ongoing/retained costs. | Fill from the chosen design and current pricing evidence. |
-| `security/` | Security constraints and evidence responsibilities. | Link to the established project controls. |
-| `runbooks/` | Deploy, rollback, incident, teardown contracts. | Turn into executable project-specific procedures before use. |
-| `infrastructure/` | Guidance for IaC ownership and project choice. | Keep an existing infrastructure layout; no stack is supplied. |
+| `AGENTS.md` | Consultant entry, route selection, authority and tool use | Installer appends a smaller mapped instruction block to existing instructions. |
+| `workflows/` | Consultation, features, bugfixes, adoption, reconciliation, review, release and incidents | Reusable guidance. |
+| `guide/` | Start, AWS boundaries, first feature, release, adoption and interview examples | Reusable guidance. |
+| `templates/` | Original planning, review, release and handoff formats; machine work template | Instantiate only relevant records. |
+| `workflow_engine/` | Versioned work parsing, context, phase gates and evidence validation | Installed Python package. |
+| `scripts/workflow.py` | CLI entry point | Installed under the reusable layer. |
+| `scripts/bootstrap.py` | Safe source-to-application installation | Run from the bootstrap source. |
+| `scripts/codex_hooks.py` | Read-only lifecycle handler | Code supplied; activation remains optional. |
+| `.codex/hooks.json` | Native definitions for this source checkout | Not copied or trusted by installation. |
+| `.codex/workflow.json` | Active work selection | Never copied; created explicitly for application work. |
+| `project/` and `delivery/` | This bootstrap's context and handoff | Excluded; map existing app records or create fresh records. |
+| `specs/0001-workflow-foundation/` | Historical delivery and broader automation backlog | Excluded from application active work. |
+| `specs/0002-consultant-workflow/` | Current executable consultant workflow slice | Excluded from application active work. |
+| `docs/reference/` | Actual contracts, AWS boundaries and official sources | Selected reusable references. |
+| `docs/workflow-architecture.md` | Code/model/delivery responsibilities | Design reference. |
+| `docs/adapter-contracts.md` | Further execution integration boundaries | Future design reference. |
+| `docs/implementation-plan.md` | Framework evolution priorities | Framework maintenance only. |
+| `examples/` | Fictional consultation and traceability demonstrations | Examples, never application evidence. |
+| `runbooks/`, `costs/`, `security/`, `infrastructure/` | Delivery responsibilities and templates | Preserve the application's existing controls. |
+| `tests/` and `scripts/check_repository.py` | Offline implementation fixtures and bootstrap file-link checks | Source maintenance; not adopter application tests. |
+| `evidence/` | Historical and current framework observations | Excluded from app evidence. |
+| `evaluations/` | Future model-behavior evaluation protocol | Evaluation reference. |
 
-## Reference and maintenance layer
-
-| Path | Purpose | Adoption treatment |
-| --- | --- | --- |
-| `docs/research/` | Documentation and demonstration synthesis, exact evidence access levels. | Optional reference; do not load it all into every agent turn. |
-| `docs/reference/` | Kiro capability map and official source ledger. | Consult when behavior or compatibility matters. |
-| `docs/workflow-architecture.md` | Complete proposed behavioral design. | Reference for extending the bootstrap. |
-| `docs/adapter-contracts.md` | Native integration, events, persistence, recovery contracts. | Planned implementation specification. |
-| `docs/implementation-plan.md` | Phased roadmap. | Framework maintenance reference. |
-| `specs/0001-workflow-foundation/` | Framework's requirements/design/canonical backlog. | Archive or omit from active application work. |
-| `examples/booking-retries/` | Fictional traceability example. | Learning material; no application or test result. |
-| `evaluations/` | Proposed parity/improvement measurements. | Framework evaluation reference; scenarios are unexecuted. |
-| `scripts/check_repository.py` | Offline Markdown file-link and core-structure checker. | Adjust required path set if deliberately adopting another layout. |
-| `tests/test_repository_checks.py` | Fixture tests of the checker. | Keep when maintaining the checker. |
-| `.github/pull_request_template.md` | Prompts for problem, behavior, evidence, and limitations. | Merge with existing PR template. |
-| `.codex/README.md` | Native adapter/configuration plan. | No active configuration is installed by this file. |
-| `.agents/skills/README.md` | Optional future packaging boundary. | No skill is loaded or installed from this README. |
-| `src/README.md` | Workload code placement guidance. | Application source belongs in its chosen layout. |
-
-There is no active CI workflow, credential file, IaC deployment, model-runner daemon, or scheduled job in this skeleton. Empty future directories are described here rather than populated with misleading executables.
-
-## Planned implementation locations
-
-| Future location | Responsibility | Trigger for adding it |
-| --- | --- | --- |
-| `scripts/validate_work.py` | Deterministic task IDs, dependencies, traceability, evidence checks. | Implement and test the corresponding foundation task. |
-| `.codex/hooks.json` or one supported inline configuration | Reviewed lifecycle hooks. | Client compatibility and hook behavior verified. |
-| Supported Codex custom-agent configuration | Bounded investigator, designer, implementer, reviewer roles. | Actual schema and isolation tested. |
-| `workflow_engine/` | Optional scheduler, worker adapter, run/evidence/event storage. | Durable orchestration selected and implemented. |
-| `schemas/` | Versioned machine contracts for controller data. | Actual parser/storage implementation exists. |
-| `.workflow-state/` | Ignored transient run state and event cursors. | Runtime installed and deliberately invoked. |
-| Existing CI/event configuration | Required project checks and optional feedback wakeups. | Project's actual pipeline selected and authorized. |
-
-Do not create duplicate authoritative `.kiro/specs/` files just to resemble Kiro. If interoperability is later required, define an import/export adapter with conflict detection and one declared source of truth.
-
-## How artifacts change
-
-Intent enters the brief and a work contract. Design references that contract. Tasks reference the requirements and design. Evidence references the candidate and check. Review examines the same candidate. A release references the verified artifact/configuration. The handoff points to the next eligible work.
-
-On change, identify the affected edges and reopen only the outcomes no longer established. Version control preserves history; the current documents describe the current state. Detailed records should reference, not copy, shared architectural facts.
-
+For each application work item, canonical requirements or bugfix, design and tasks live in the declared work paths. Evidence points to actual observations and input identities. A handoff references that state instead of maintaining a second checklist. See [workflow tooling](reference/workflow-tooling.md) and [adoption mappings](reference/bootstrap.md) for exact resolution behavior.

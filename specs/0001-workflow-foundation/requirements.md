@@ -1,5 +1,7 @@
 # Requirements: Codex AWS workflow foundation
 
+**Historical foundation scope:** The initial scaffold and broader program are described here. Current executable behavior is specified in [0002](../0002-consultant-workflow/requirements.md); use its tasks and receipt for current claims.
+
 **Work ID:** 0001-workflow-foundation.  
 **Route:** Requirements-First with public product research.  
 **Scope:** Requested research and bootstrap now; explicitly planned native/runtime improvements later.  
@@ -7,13 +9,13 @@
 
 ## User outcome
 
-An AWS developer can give Codex a project or change, have it follow the useful Kiro development lifecycle, preserve context and accepted decisions, and obtain a result supported by meaningful verification. The same foundation works for new projects and existing systems without imposing an application architecture.
+An AWS developer can give Codex a project or change, have it follow a guided specification and delivery lifecycle, preserve context and accepted decisions, and obtain a result supported by meaningful verification. The same foundation works for new projects and existing systems without imposing an application architecture.
 
 ## Requirements and acceptance
 
 | ID | Requirement | Acceptance condition |
 | --- | --- | --- |
-| REQ-001 | Ground the design in current official Kiro, Codex, and AWS sources and official demonstration material. | Source ledger and research identify URLs, dates where available, inspected evidence levels, surface differences, and unresolved facts. No unviewed footage is claimed as watched. |
+| REQ-001 | Ground the design in current official Codex and AWS sources and primary workflow demonstration material. | Source ledger and research identify URLs, dates where available, inspected evidence levels, surface differences, and unresolved facts. No unviewed footage is claimed as watched. |
 | REQ-002 | Distinguish instructions, supported native primitives, proposed adapters, and verified results. | Every capability status is accurate; Markdown recipes/config plans cannot be reported as active automation. |
 | REQ-003 | Establish project context before proposing implementation. | Greenfield intake identifies outcome/constraints; brownfield intake cites existing code/decisions and records unknown live state. |
 | REQ-004 | Support Requirements-First, Design-First, Quick Spec, bugfix, and proportionate small work. | The route can be selected from actual uncertainty/constraints without unnecessary repeated phase approvals. |
@@ -44,5 +46,5 @@ The initial scaffold can satisfy the document/procedure portions and its actual 
 
 ## References
 
-[Research](../../docs/research/README.md), [architecture](../../docs/workflow-architecture.md), [design](design.md), and [tasks](tasks.md).
+[Current sources](../../docs/reference/sources.md), [architecture](../../docs/workflow-architecture.md), [design](design.md), and [tasks](tasks.md).
 
