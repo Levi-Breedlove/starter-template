@@ -57,8 +57,8 @@
 
 ### T-005 — Integrate neutral source, records and verification
 
-- [ ] T-005 complete
-- Activity: in progress
+- [x] T-005 complete
+- Activity: complete
 - Contract / design: REQ-008, REQ-009 / DES-004
 - Prerequisites: T-001, T-002, T-003, T-004
 - Scope and exclusions: Neutral current tree, linked docs, updated source records, local suite and publication verification; historic Git objects and repository identity are outside the content rename.
