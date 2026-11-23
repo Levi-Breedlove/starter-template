@@ -1,12 +1,15 @@
 # Start an AWS project
 
+For the shortest complete installation-to-first-task path, begin with the
+[quickstart](00-quickstart.md). This guide explains the decisions behind that path.
+
 Describe the outcome you want. Codex should inspect existing context, lead a focused consultation, recommend an approach, and develop requirements, design, and tasks. You should not need to arrive with a completed specification or choose AWS services before the engineering assessment.
 
 There are two entry paths. Greenfield work establishes a new product and architecture. Brownfield work starts from the system's evidence and preserves its accepted architecture, source layout, IaC ownership, and delivery controls. Both use the same implementation, verification, and release loop.
 
 ## 1. Adopt the workflow in the right project
 
-When improving this bootstrap, use its existing project brief and foundation specifications. Application work belongs in the application's repository and backlog.
+When improving this bootstrap, use its existing project brief, active work and current handoff. Application work belongs in the application's repository and backlog.
 
 From the bootstrap checkout, preview the additive installation:
 
@@ -16,7 +19,7 @@ python3 scripts/bootstrap.py --source . --target /path/to/my-aws-project --mode 
 
 For an existing project, choose `--mode brownfield` and follow [brownfield adoption](05-brownfield-adoption.md). Inspect the proposed changes, then apply the authorized adoption using the same command with `--apply`. The helper installs reusable guidance and tools under `.aws-workflow/`; it does not copy the bootstrap's own project brief, backlog, or implementation evidence into the application.
 
-The adoption manifest, `.aws-workflow/manifest.json`, records the project's actual context paths. It preserves an existing `project/brief.md` or `delivery/current-handoff.md`; otherwise it creates fresh context records under `.aws-workflow/`. Existing root instructions are retained with a bounded additive workflow entry. Source code, IaC, pipeline configuration, and cloud resources are not rearranged by adoption. An installation of repository files does not install AWS plugins or enable native hooks.
+The adoption manifest, `.aws-workflow/manifest.json`, records the project's actual context paths. It preserves an existing `project/brief.md` or `delivery/current-handoff.md`; otherwise it creates fresh context records under `.aws-workflow/`. Existing root instructions are retained with a bounded additive workflow entry. A managed `.gitignore` block excludes local execution state. Source code, IaC, pipeline configuration, and cloud resources are not rearranged by adoption. An installation of repository files does not install AWS plugins or enable native hooks.
 
 ## 2. Start with an ordinary request
 
@@ -37,6 +40,11 @@ The project brief describes users, outcome, initial scope, constraints, known de
 Record available tools and verification environments using the [environment capabilities template](../templates/environment-capabilities.md). Use [AWS guidance and access](02-aws-guidance-and-access.md) for official AWS Core/Data Analytics consultation. Capability inspection and public research do not require account access. Preserve the user's existing skill preferences and plugin installations.
 
 Local and hosted Codex environments may expose different tools. Record what is actually available, installed, loaded, and tested. Explain the smallest missing setup step if a necessary capability is unavailable.
+
+Run `python3 .aws-workflow/scripts/workflow.py --root . doctor` for read-only local
+setup findings. It works before active work exists. Optional executable presence
+is separate from login, native execution, hook trust/loading and AWS tool behavior;
+the command performs no subprocess or credential probe.
 
 ## 4. Create a focused work item
 

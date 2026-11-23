@@ -12,6 +12,23 @@ The handler reads the active pointer and workflow records. It does not run tests
 
 ## Enable on a selected client
 
+First prepare a read-only proposal from the application root:
+
+```sh
+python3 .aws-workflow/scripts/workflow.py --root . hooks --json
+```
+
+In the source checkout, use `scripts/workflow.py` instead. The command chooses the
+correct handler path, returns a `configuration` object and reports the existing
+project configuration as absent, equivalent, merge-required or invalid. It does
+not write files or register hooks. Review the returned configuration object;
+the surrounding diagnostic report is not itself a hook configuration file.
+
+An equivalent existing project definition should be reused. For a different
+definition, merge only the intended events without removing existing hooks.
+The preview cannot discover every global/plugin configuration source; inspect
+the selected client's supported hook view to prevent duplicate registration.
+
 For a Git checkout of this bootstrap, `.codex/hooks.json` resolves the handler from the Git root so nested working directories work. Review the actual script and hook definitions using the client's supported `/hooks` flow. Codex requires trust in the exact definition; changed definitions can need review again. Do not bypass trust or duplicate the same hooks in another configuration source.
 
 The adoption helper deliberately does not modify `.codex` or client trust. In an adopted Git repository, merge the three definitions into the project's chosen hook configuration source only after reviewing existing hooks. Change each handler command to:
@@ -29,5 +46,9 @@ The refresh has no persistent cache and does not skip validation. Its fingerprin
 The event contract is exercised by `tests/test_codex_hooks.py`: valid JSON, no-active-work behavior, saved answers, bounded context, wrong-workspace rejection, invalid input and nonrecursive completion reminders. Full integration tests additionally exercise actual workflow records in a temporary repository.
 
 A real selected-client trial should show the configured source, trusted definition, received context and expected warning behavior. It has not been substituted by these fixture results. Record the actual client/version and observations in the environment-capability record.
+
+The local `doctor` command reports file and executable presence separately from
+this trial. It does not read authentication configuration, run a model, change
+trust, or treat a present hook script as a loaded integration.
 
 Without native hooks, the workflow remains usable: `AGENTS.md` directs Codex to run `workflow.py context --compact` at entry/resume and `workflow.py validate` before completion claims. Hooks are convenience and feedback, not an authorization or security boundary.

@@ -48,6 +48,9 @@ class BootstrapTests(unittest.TestCase):
             "workflow_engine/__init__.py": '"""Fixture package; not a runtime integration test."""\n',
             "workflow_engine/engine.py": "# Required fixture implementation module\n",
             "workflow_engine/context.py": "# Required fixture context projection module\n",
+            "workflow_engine/specifications.py": "# Required fixture specification operations module\n",
+            "workflow_engine/runner.py": "# Required fixture execution module\n",
+            "workflow_engine/doctor.py": "# Required fixture local setup module\n",
             "workflow_engine/cli.py": "VALUE = 1\n",
             "scripts/workflow.py": "# Fixture wrapper\n",
             "scripts/codex_hooks.py": "# Optional read-only adapter\n",
@@ -64,6 +67,9 @@ class BootstrapTests(unittest.TestCase):
             ".git/HEAD": "template revision\n",
         }.items():
             write(self.source, relative, content)
+        for relative in bootstrap.REQUIRED:
+            if not (self.source / relative).exists():
+                write(self.source, relative, "# Required guidance fixture\n")
 
     def plan(self, mode="greenfield", **kwargs):
         return bootstrap.build_plan(self.source, self.target, mode, **kwargs)
@@ -83,6 +89,7 @@ class BootstrapTests(unittest.TestCase):
         self.assertTrue((self.target / ".aws-workflow/workflow_engine/cli.py").is_file())
         self.assertFalse((self.target / "specs").exists())
         self.assertFalse((self.target / ".codex").exists())
+        self.assertIn("/.workflow-state/", (self.target / ".gitignore").read_text())
         contents = "\n".join(path.read_text() for path in self.target.rglob("*") if path.is_file())
         self.assertNotIn("DO NOT COPY", contents)
         manifest = json.loads((self.target / bootstrap.MANIFEST).read_text())
@@ -166,7 +173,7 @@ class BootstrapTests(unittest.TestCase):
         self.assertEqual(snapshot(self.target), before)
 
     def test_missing_required_runtime_module_blocks_before_writes(self):
-        for name in ("engine.py", "context.py"):
+        for name in ("engine.py", "context.py", "specifications.py", "runner.py", "doctor.py"):
             with self.subTest(module=name):
                 path = self.source / "workflow_engine" / name
                 original = path.read_bytes()
@@ -175,6 +182,52 @@ class BootstrapTests(unittest.TestCase):
                     self.plan()
                 self.assertFalse(self.target.exists())
                 path.write_bytes(original)
+
+    def test_missing_required_consultation_guidance_blocks_before_writes(self):
+        (self.source / "workflows/feature.md").unlink()
+        before = snapshot(self.target)
+        with self.assertRaisesRegex(bootstrap.BootstrapError, "workflows/feature.md"):
+            self.plan()
+        self.assertEqual(snapshot(self.target), before)
+
+    def test_runtime_ignore_appends_preserving_bytes_and_project_edits(self):
+        original = b"# Existing project ignores\r\nnode_modules/\r\n.env"
+        self.target.mkdir()
+        (self.target / ".gitignore").write_bytes(original)
+        self.install("brownfield")
+        actual = (self.target / ".gitignore").read_bytes()
+        self.assertTrue(actual.startswith(original))
+        self.assertEqual(actual.count(bootstrap.IGNORE_BEGIN.encode()), 1)
+        with (self.target / ".gitignore").open("ab") as stream:
+            stream.write(b"\n# User addition\nartifacts/\n")
+        before = snapshot(self.target)
+        self.assertEqual(self.plan("brownfield").writes, [])
+        self.assertEqual(snapshot(self.target), before)
+
+    def test_modified_runtime_ignore_requires_merge_without_writes(self):
+        self.install()
+        path = self.target / ".gitignore"
+        path.write_text(path.read_text().replace("/.workflow-state/", "!/runtime/"))
+        before = snapshot(self.target)
+        with self.assertRaisesRegex(bootstrap.BootstrapError, "runtime ignore block changed"):
+            self.plan()
+        self.assertEqual(snapshot(self.target), before)
+
+    def test_unowned_runtime_ignore_markers_block_adoption(self):
+        write(self.target, ".gitignore", bootstrap.IGNORE_BLOCK + "\n")
+        before = snapshot(self.target)
+        with self.assertRaisesRegex(bootstrap.BootstrapError, "ignore markers are ambiguous"):
+            self.plan("brownfield")
+        self.assertEqual(snapshot(self.target), before)
+
+    def test_runtime_ignore_concurrent_edit_is_preserved(self):
+        write(self.target, ".gitignore", ".env\n")
+        plan = self.plan("brownfield")
+        write(self.target, ".gitignore", ".env\n# Concurrent change\n")
+        before = snapshot(self.target)
+        with self.assertRaisesRegex(bootstrap.BootstrapError, "changed since preview"):
+            bootstrap.apply_plan(plan)
+        self.assertEqual(snapshot(self.target), before)
 
     def test_source_inventory_error_cannot_silently_omit_guidance(self):
         actual_walk = bootstrap.os.walk
@@ -264,6 +317,7 @@ class BootstrapTests(unittest.TestCase):
 
     def test_write_failure_rolls_back_additions_and_restores_instructions(self):
         write(self.target, "AGENTS.md", "Exact original content\n")
+        write(self.target, ".gitignore", ".env\n# Existing ignore bytes\n")
         write(self.target, "src/main.py", "Preserved dirty code\n")
         before = snapshot(self.target)
         plan = self.plan("brownfield")

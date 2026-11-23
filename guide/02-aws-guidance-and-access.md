@@ -21,6 +21,14 @@ Documentation search and skill discovery can work without AWS credentials. A ski
 
 ## Verify the execution surface
 
+The local `workflow.py doctor` inspection helps establish package and project
+setup. It intentionally leaves AWS plugin availability/loading/testing unresolved:
+it does not invoke a plugin manager, inspect credentials or issue an AWS request.
+Perform the public capability check below in the actual Codex surface that will
+provide guidance. A native batch runner's configured model process and tool access
+also need their own observed environment record; a source file or executable name
+does not establish that configuration.
+
 Record these separately in the project’s setup evidence under `evidence/<work-id>/`:
 
 | State | Evidence |

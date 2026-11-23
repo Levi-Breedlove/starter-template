@@ -84,6 +84,16 @@ def next_action(report: dict) -> dict:
     sequence = ROUTES.get(route, [])
     following = sequence[sequence.index(phase) + 1] if phase in sequence and sequence.index(phase) + 1 < len(sequence) else None
     if phase in ARTIFACTS:
+        policy = report.get("specification_policy", {})
+        specification = report.get("specification", {})
+        operations = specification.get("operations", {}) if isinstance(specification, dict) else {}
+        if isinstance(policy, dict) and phase in ("requirements", "tasks"):
+            analysis = operations.get("analyze", {})
+            properties = operations.get("properties", {})
+            if policy.get("analysis") == "required" and analysis.get("status") != "current":
+                return {"kind": "analyze-requirements", "operation": "analyze", "reason": "Draft the current contract, prepare its analysis request, perform the actual semantic review and record the sourced response before acceptance."}
+            if phase == "tasks" and policy.get("properties") == "required" and (properties.get("status") != "current" or properties.get("task_mapping") != "complete"):
+                return {"kind": "derive-properties", "operation": "properties", "reason": "Derive observable correctness properties from the current contract and design, then map them to the actual task/check plan before acceptance."}
         reviews = report.get("reviews", {})
         review = reviews.get(phase, {}) if isinstance(reviews, dict) else {}
         if isinstance(review, dict) and review.get("status") == "accepted":

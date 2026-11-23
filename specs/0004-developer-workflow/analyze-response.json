@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "operation": "analyze",
+  "request_id": "22c1117ecb81781f05954dc7719ae8ee06c0dbbe4f306ccad8a43dcbd99d2685",
+  "input_hashes": {
+    "specs/0004-developer-workflow/requirements.md": "3f52d327900f7cb25103bcb91b64e9b19263889206712a1a1d46c5c9cd3be98f"
+  },
+  "context_fingerprint": "5b96723d359743f64d6d4b0187f62b1f2317fff186fb0089f87ff169aa7bf65e",
+  "reviewer": "Root integrating agent; actual author technical review",
+  "review_ref": "evidence/0004-developer-workflow/specification-review.md",
+  "observed_at": "2026-11-23T08:16:48.635697+00:00",
+  "summary": "Current author review of the connected developer workflow contract; local implementation and native-client acceptance remain distinct.",
+  "findings": [
+    {
+      "id": "ANA-001",
+      "requirement_ids": [
+        "REQ-010"
+      ],
+      "severity": "warning",
+      "category": "constraint",
+      "statement": "Native-client equivalence remains unobserved until the separately approved real-client pilot; fake-author fixtures cannot close T-008.",
+      "state": "open",
+      "resolution": "",
+      "source": "evidence/0004-developer-workflow/specification-review.md"
+    },
+    {
+      "id": "ANA-002",
+      "requirement_ids": [
+        "REQ-008"
+      ],
+      "severity": "info",
+      "category": "constraint",
+      "statement": "Application-specific AWS targets, budgets, business policy and delivery authority come from the adopting project consultation; this bootstrap supplies none of those facts.",
+      "state": "open",
+      "resolution": "",
+      "source": "evidence/0004-developer-workflow/specification-review.md"
+    }
+  ]
+}

@@ -28,11 +28,13 @@ Keep feature-specific answers here and link project-wide decisions from the brie
 
 | ID | Condition and required outcome | Acceptance criterion | Required or deferred |
 | --- | --- | --- | --- |
-| REQ-001 | When <condition>, the system must <observable outcome>. | <checkable result, relevant units, and limits> | Required |
-| REQ-002 | When <failure or concurrent condition>, the system must <defined behavior>. | <observable failure, retry, or concurrency result> | Required |
-| REQ-003 | For <unaffected use>, the system must continue to <existing behavior>. | <preservation check> | Required |
+| REQ-001 | WHEN <trigger>, THE <named system> SHALL <observable outcome>. | <checkable result, relevant units, and limits> | Required |
+| REQ-002 | IF <unwanted condition>, THEN THE <named system> SHALL <defined response>. | <observable failure, retry, or concurrency result> | Required |
+| REQ-003 | WHILE <preserved operating state>, THE <named system> SHALL CONTINUE TO <existing behavior>. | <preservation check> | Required |
 
 Include authorization, validation, concurrency, retries, timeouts, and partial failures where they affect this feature. Replace vague claims such as "fast" with a sourced or decided measure, or mark the threshold unresolved. Do not invent retention periods, availability promises, or spending limits to complete the table.
+
+Use the EARS pattern that fits the behavior: ubiquitous (`THE ... SHALL ...`), event (`WHEN`), state (`WHILE`), unwanted condition (`IF ..., THEN`), optional capability (`WHERE`), or an ordered combination. Optional capability describes behavior when a feature exists; it does not make a required acceptance check optional. The [specification operations reference](../docs/reference/specification-operations.md) gives all six original examples and the supported authoring subset. Existing projects can explicitly retain their established format; do not rewrite their contracts just to match a template.
 
 ## Requirements analysis
 
@@ -44,6 +46,8 @@ Analysis performed: <not yet / reviewer and actual scope>.
 
 Review interactions across the set, including conflicting constraints and prerequisites. Resolve supported engineering issues directly. Bring unresolved product policy back as a focused question with a suggested resolution. Do not write "no issues" unless analysis occurred. A material blocker prevents dependent implementation from being ready.
 
+For structured new work, run `scripts/workflow.py analyze <work-id>`. Read the returned sources, perform the semantic review, save actual review notes and a response matching `response_schema`, then record it with `analyze <work-id> --record <project-relative-response.json>`. The request's syntax diagnostics do not perform semantic analysis. Save the response before changing reviewed inputs; a stale response is rejected. Keep actual decision sources separate from the generated response and operation history.
+
 ## Requirements review
 
 - Artifact identity: <reviewed revision or content digest; not reviewed initially>.
@@ -53,6 +57,8 @@ Review interactions across the set, including conflicting constraints and prereq
 - Next transition authority: <existing authorization and limits, or specific decision needed>.
 
 This record describes an actual review. Do not infer user acceptance from silence or document generation. For Quick Spec, link the combined review recorded with the task plan instead of claiming a separate requirements approval. Prior delegated authority can cover continuation; identify it honestly.
+
+In the standard route, present the concrete scope and acceptance behavior for the user's confirmation before design, unless actual prior authority delegates that decision. A recorded analysis is evidence for review; it does not itself approve the requirements. Quick work can generate the connected artifacts and perform the combined technical review without an intermediate user approval pause.
 
 ## Change and verification links
 

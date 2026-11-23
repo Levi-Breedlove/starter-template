@@ -10,6 +10,14 @@ Use this procedure when a consultation answer, requirement, design, implementati
 - The triggering change and last reviewed or verified baseline.
 - Relevant phase reviews, checks, and external CI/deployment evidence.
 
+## Executable preview and application
+
+Run `scripts/workflow.py sync <work-id>` for an impact preview based on declared review/evidence identities, recorded analysis/property inputs, task dependencies and any explicitly supplied `--changed <path>` values. The result identifies affected artifacts, reviews, checks and tasks; it includes regeneration instructions and an exact preview fingerprint. Inspect the actual changed sources before deciding what the prose should become.
+
+Use `sync <work-id> --apply --expected-fingerprint <value> --reason <actual-reason>` only after that inspection. Repeating `--changed` on application must match the preview. The tool checks freshness again, reopens invalid completion, rewinds the appropriate route boundary and retains history. It does not regenerate prose, weaken scope, discard implementation, approve a decision or claim a check passed. A stale preview fails without applying it.
+
+An updated decision index may require renewed analysis before a contract change is justified. In that case, review is reopened while still-valid completed work remains preserved. If the resulting requirements/design actually change, preview again to identify the downstream verification impact. Reconcile on a stable working tree; there is no cross-process metadata merge or promise of recovery from power loss. See [the operation contract](../docs/reference/specification-operations.md).
+
 ## Stages
 
 1. **Establish the current baseline.** Inspect actual revisions and uncommitted work, identify current authority, and preserve other contributors' changes. Read the latest answers and authorization before asking anything again.

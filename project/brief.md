@@ -24,10 +24,10 @@ A developer can give Codex a rough idea or existing project. Codex leads the con
 
 ## Current work and remaining choices
 
-The [focused context specification](../specs/0003-efficient-context/requirements.md) owns the current improvement. The [consultant workflow specification](../specs/0002-consultant-workflow/requirements.md) retains the underlying implementation contract. Python is the local tool implementation, not a choice of application runtime. No application stack, region, IaC framework, pipeline, budget or deployment target is selected by this bootstrap.
+The [developer workflow execution plan](../specs/0004-developer-workflow/exec-plan.md) owns the current delivery. The [focused context](../specs/0003-efficient-context/requirements.md) and [consultant workflow](../specs/0002-consultant-workflow/requirements.md) retain the underlying contracts. Python is the local tool implementation, not an application runtime selection. No application stack, region, IaC framework, pipeline, budget or deployment target is selected by this bootstrap.
 
-Real-client behavior, actual hook loading, public toolkit availability on an adopter's surface, and cloud deployment need their own observed trials. No comparative model/product benchmark has been run. Future controller language and execution interface should follow a measured need.
+The requested setup/specification/reconciliation/controller source is implemented. Real-client behavior, actual hook loading, public toolkit availability on an adopter's surface, and cloud deployment need distinct observed trials. The user's standing manual approval applies before additional credit-consuming native model execution. No comparative model/product benchmark has been run. The local standard-library implementation remains the selected runtime.
 
 ## Continuation
 
-[Current handoff](../delivery/current-handoff.md) · [Current tasks](../specs/0003-efficient-context/tasks.md) · [Historical foundation](../specs/0001-workflow-foundation/tasks.md)
+[Current handoff](../delivery/current-handoff.md) · [Current tasks](../specs/0004-developer-workflow/tasks.md) · [Historical foundation](../specs/0001-workflow-foundation/tasks.md)

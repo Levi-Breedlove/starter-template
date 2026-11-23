@@ -16,7 +16,15 @@ Keep this bootstrap checkout separate from your application. Python 3.10 or newe
 python3 scripts/bootstrap.py --source . --target /path/to/my-app --mode greenfield
 ```
 
-Review the proposed files, then repeat with `--apply`. For an existing application use `--mode brownfield`. The installer adds a reusable `.aws-workflow/` layer and a bounded block in `AGENTS.md`; it preserves existing application files, instructions, active work, IaC, and delivery ownership. It does not copy this framework's backlog into the application. See [bootstrap behavior](docs/reference/bootstrap.md) for collision checks and reruns.
+Review the proposed files, then repeat with `--apply`. For an existing application use `--mode brownfield`. The installer adds a reusable `.aws-workflow/` layer, a bounded block in `AGENTS.md`, and a managed ignore rule for local execution state. It preserves existing application files, instructions, active work, IaC, and delivery ownership. It does not copy this framework's backlog into the application. See the [complete quickstart](guide/00-quickstart.md) and [adoption contract](docs/reference/bootstrap.md).
+
+Before an application work item exists, check the installed layer from that application's root:
+
+```sh
+python3 .aws-workflow/scripts/workflow.py --root . doctor
+```
+
+No active work is expected immediately after adoption. This read-only check identifies package and mapping problems without calling a model or accessing AWS. Codex can then begin the consultation in your existing session.
 
 Open the application root in Codex and use the prompt above, followed by your idea. For example:
 
@@ -32,11 +40,11 @@ For an existing system:
 | --- | --- | --- |
 | Discover | Inspect the brief, existing decisions, repository and handoff; distinguish observed facts from assumptions. | Existing context reused; adoption findings for brownfield work. |
 | Interview | Ask up to three consequential questions per turn, recommend defaults, explain why answers matter, and save answers as the work develops. | Brief, unresolved questions, decision provenance. |
-| Specify | Turn outcomes into observable behavior, edge cases, constraints, and acceptance criteria. | Requirements or bugfix contract. |
-| Design | Derive AWS choices, research material guidance, compare relevant alternatives, and cover costs, security, operations and recovery. | Design and significant decision records. |
+| Specify | Turn outcomes into observable behavior using structured requirements; analyze ambiguity, conflicts and missing cases. | Requirements or bugfix contract plus sourced analysis. |
+| Design | Derive AWS choices, research material guidance, compare relevant alternatives, and cover costs, security, operations and recovery. | Design, correctness properties and significant decisions. |
 | Plan | Connect every task to requirements, prerequisites, and a verification check. | One canonical task list and check matrix. |
-| Deliver | Implement eligible tasks, run meaningful checks, reconcile changes, review the actual candidate, and prepare any authorized release. | Source, tests, review and scoped evidence. |
-| Continue | Reload the active work and its evidence; expose stale or missing records before making claims. | Current handoff and next eligible work. |
+| Deliver | Implement eligible tasks in the current session or an explicitly selected bounded run; verify the integrated candidate. | Source, tests, review and scoped evidence. |
+| Continue | Reload saved answers and evidence; preview and reconcile changed inputs before relying on old conclusions. | Current handoff and next eligible work. |
 
 Requirements-first and design-first routes review the two documents in their chosen order before task generation. A quick route produces the three connected artifacts together after necessary clarification. Bugfix work separates faulty, expected, and preserved behavior. Small understood edits stay proportionate. [Workflow contract](docs/reference/workflow-contract.md) · [Interview guide](guide/06-consultation-interview.md) · [Roleplays](examples/consultation/README.md)
 
@@ -45,7 +53,11 @@ Requirements-first and design-first routes review the two documents in their cho
 | Component | Implemented responsibility |
 | --- | --- |
 | `scripts/bootstrap.py` | Preview and safely apply the reusable layer to greenfield or brownfield repositories. |
-| `scripts/workflow.py` and `workflow_engine/` | Create work, reload context, report status, validate dependencies and traceability, record revision-bound reviews and evidence, and check phase advancement. |
+| Workflow CLI and engine | Create work, load context, check dependencies/traceability, record revision-bound reviews/evidence, and enforce applicable phase conditions. |
+| `doctor` and `hooks` | Inspect setup before active work and preview the correct optional hook configuration. |
+| `analyze` and `properties` | Prepare exact agent review requests; validate and retain actual sourced analysis/property responses. |
+| `sync` | Preview changed-input impact; deliberately reopen affected work using the current preview fingerprint. |
+| `run-plan`, `run`, and run management | Plan dependency waves, explicitly execute bounded tasks in Git worktrees, verify the combined candidate, and apply it against the expected original state. |
 | `scripts/codex_hooks.py` | Read-only lifecycle context and completion reminders using documented Codex hook events. |
 | `scripts/check_repository.py` | Check this bootstrap's required files and explicit local Markdown destinations. |
 
@@ -57,7 +69,11 @@ python3 .aws-workflow/scripts/workflow.py --root . status
 python3 .aws-workflow/scripts/workflow.py --root . validate
 ```
 
-The active work is selected in `.codex/workflow.json`; Markdown remains the human-readable contract and completion authority. Machine metadata references those documents instead of storing a second task checklist. See the [CLI reference](docs/reference/workflow-tooling.md).
+The active work is selected in `.codex/workflow.json`; Markdown remains the human-readable contract and completion authority. Machine metadata references those documents instead of storing a second task checklist. New CLI work requires structured requirements, current analysis before contract acceptance, and mapped correctness properties before task-plan acceptance. Existing work is not silently migrated. See the [CLI reference](docs/reference/workflow-tooling.md) and [specification operations](docs/reference/specification-operations.md).
+
+Analysis prepares a precise request; the reviewing agent supplies the semantic judgment and records its response. It does not produce a fictional analysis pass. Properties name observable behavior and the checks that will verify it; their existence does not claim those tests ran.
+
+For optional native execution, Codex first derives `execution.json` from the accepted task plan. `run-plan` and `run` without `--execute` are previews. Explicit execution needs a clean committed Git project, a supported configured Codex CLI and actual authority for the model invocation. It uses separate candidate/worker worktrees, bounds attempts and time, runs declared checks, and preserves the original application until explicit application. Native process control currently targets Linux, macOS or WSL. [Execution contract](docs/reference/task-execution.md)
 
 The compact view prioritizes current blockers and the next useful task, with source references and disclosed omissions. Startup context is capped at 6000 characters; prompt refresh at 1200. Full reports remain available. Efficiency is evaluated only after required quality, preservation and authority conditions pass; context size is measured separately from token cost and model performance. [Efficient operation](docs/reference/efficient-operation.md)
 
@@ -74,6 +90,6 @@ python3 -m unittest discover -s tests -p 'test_*.py' -v
 python3 scripts/check_repository.py
 ```
 
-The current improvement is specified in [focused context work](specs/0003-efficient-context/requirements.md); its [tasks](specs/0003-efficient-context/tasks.md) and [verification receipt](evidence/0003-efficient-context/verification.md) state the tested scope. The [consultant workflow baseline](specs/0002-consultant-workflow/requirements.md) retains the underlying delivery contract. The [original foundation](specs/0001-workflow-foundation/tasks.md) retains historical delivery and broader, unfinished automation work.
+The current delivery follows the [developer workflow execution plan](specs/0004-developer-workflow/exec-plan.md). Its [canonical tasks](specs/0004-developer-workflow/tasks.md) and [verification receipt](evidence/0004-developer-workflow/verification.md) identify completed implementation and any remaining behavioral trial. The [focused context](specs/0003-efficient-context/requirements.md) and [consultant workflow](specs/0002-consultant-workflow/requirements.md) retain the underlying contracts. The [original foundation](specs/0001-workflow-foundation/tasks.md) retains historical delivery and broader automation work.
 
-The model still conducts the interview, reasons about architecture, writes code and judges semantic quality. Deterministic tools catch record inconsistencies and stale claims; they cannot prove that a requirement is wise, that an observation is truthful, or that a workload works in AWS. Durable autonomous scheduling and real client/cloud trials remain separate work. [Architecture](docs/workflow-architecture.md) · [Repository map](docs/repository-map.md) · [Next implementation work](docs/implementation-plan.md)
+The model conducts the interview, reasons about architecture, writes code and judges semantic quality. The code detects inconsistent records, stale conclusions and invalid execution outcomes. Offline tests use real temporary projects/processes with simulated model responses. Actual native-client behavior, hook activation and AWS delivery require separately observed trials; this source does not claim exact product equivalence or superior model performance. [Architecture](docs/workflow-architecture.md) · [Repository map](docs/repository-map.md) · [Remaining evidence](docs/implementation-plan.md)

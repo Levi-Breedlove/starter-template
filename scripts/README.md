@@ -1,11 +1,11 @@
 # Local tools
 
-Python 3.10 or newer; standard library only. Run the bootstrap's tests from its root. Tools do not install packages, call a model, connect to AWS or launch deployment commands.
+Python 3.10 or newer; standard library only. Run the bootstrap's tests from its root. Setup, context, analysis requests and execution previews do not call a model or access AWS. Explicit `workflow.py run --execute` invokes the configured native model backend and trusted verification commands; `run-apply` integrates a verified candidate. These are deliberate effects with their own project authority. No tool installs packages or enables a background service.
 
 | Entry point | Purpose | Reference |
 | --- | --- | --- |
 | `bootstrap.py` | Preview/apply a reusable layer to a separate application | [Adoption](../docs/reference/bootstrap.md) |
-| `workflow.py` | Work initialization, context, status, validation, reviews, transitions and evidence | [CLI](../docs/reference/workflow-tooling.md) |
+| `workflow.py` | Setup, specifications, state/evidence, reconciliation and explicit bounded execution | [CLI](../docs/reference/workflow-tooling.md) |
 | `codex_hooks.py` | Read-only JSON lifecycle adapter | [Native hooks](../docs/reference/native-hooks.md) |
 | `check_repository.py` | Bootstrap core paths and explicit Markdown file destinations | Scope below |
 

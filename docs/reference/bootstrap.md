@@ -6,6 +6,11 @@ previews every planned change by default; `--apply` writes the reviewed plan.
 The helper runs offline and never executes the copied runtime, installs packages,
 configures plugins, enables hooks, changes trust, or accesses AWS.
 
+For the complete first-use sequence, see [quickstart](../../guide/00-quickstart.md).
+After adoption, `python3 .aws-workflow/scripts/workflow.py --root . doctor` checks
+local setup before any active work is selected. It inspects required runtime, consultation guidance and
+context files without running programs, probing credentials or accessing accounts.
+
 ## Greenfield: start a new application
 
 Run these commands from the original template repository. Choose an absolute
@@ -79,11 +84,12 @@ adoption decision before introducing structured work there.
 | --- | --- |
 | `.aws-workflow/workflows/`, `templates/`, `guide/` | Reusable consultation, specification, review, and delivery guidance. |
 | `.aws-workflow/docs/`, `runbooks/`, `costs/`, `security/`, `infrastructure/` | Selected reusable reference material and example records; no assumed application architecture. |
-| `.aws-workflow/scripts/workflow.py`, `workflow_engine/` | Local workflow state, validation, and context tooling. |
+| `.aws-workflow/scripts/workflow.py`, `workflow_engine/` | Local workflow state, validation, context, specification operations, setup inspection and opt-in execution tooling. |
 | `.aws-workflow/scripts/codex_hooks.py`, when supplied by the source | Optional adapter code only; no hook registration or configuration. |
 | `.aws-workflow/manifest.json` | Installation identity, source digest, file hashes, mapped context paths, and declared existing authorities. |
 | Mapped project brief, handoff, adoption report, and capability record | Editable application records; existing files are preserved, missing defaults are created inside the namespace. |
 | A bounded block appended to root `AGENTS.md` | Routes Codex to actual project context and reusable procedures while preserving all previous instruction bytes. |
+| A bounded block appended to root `.gitignore` | Excludes `/.workflow-state/`, where optional execution candidates and local run state belong. Existing ignore bytes are retained. |
 
 The helper excludes the source template's own project context, active
 specifications, foundation backlog, evidence receipts, research tree, `.git`,
@@ -96,8 +102,11 @@ the preview and manifest; they do not become broken links to phantom active work
 The source copy map is deliberately bounded. It selects Markdown/JSON under the
 declared guidance trees, Python under `workflow_engine/`, and named scripts and
 reference files. It does not recursively copy the repository.
-Missing required runtime modules or an unreadable selected source tree block the
+Missing required runtime modules or consultation guidance, or an unreadable selected source tree, block the
 plan before writes; the helper does not install a silently incomplete package.
+The required package includes the context, specification, runner and doctor
+modules even when an adopter uses only conversational execution. Their presence
+does not start a worker or authorize spending.
 
 ## Manifest and path resolution
 
@@ -121,6 +130,10 @@ Re-running the same command against the same source and installation is a no-op.
 Changes to application records and unrelated root instructions are preserved.
 The original mode and path choices remain in force; omitted `--brief`,
 `--handoff`, and `--authority` arguments reuse the existing manifest's mapping.
+Unrelated additions to `AGENTS.md` and `.gitignore` remain editable. Changing or
+removing either managed block requires a reviewed merge. The runtime ignore block
+is recorded separately in the manifest; effective Git ignoring is still checked
+by the native runner because later negation rules can change the result.
 
 A different source digest, changed managed file, missing installed file, changed
 managed instruction block, or conflicting namespace blocks before any write.

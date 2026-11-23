@@ -1,8 +1,8 @@
-# Offline workflow tooling
+# Workflow tooling
 
-The Codex AWS workflow keeps its behavioral contract, design, and task plan in Markdown. A small standard-library Python tool checks their structure, prepares consultation context, records supplied review and result provenance, and detects stale claims. It does not run a model, command, test, deployment, AWS operation, or background worker.
+The Codex AWS workflow keeps its behavioral contract, design, and task plan in Markdown. Standard-library Python checks structure, prepares consultation context, records supplied review and result provenance, detects stale claims, and coordinates explicitly selected task execution. Inspection and specification preparation are read-only; only explicit mutation/execution commands perform their documented effects. The optional native runner is a foreground operation, with its own scope and authority.
 
-Codex supplies the judgment: reading the existing project, researching technical questions, interviewing adaptively, explaining recommendations, and writing useful specifications. The tool supplies consistent state inspection. A structurally valid plan can still be a poor plan; the tool cannot evaluate business meaning or authenticate a human decision.
+Codex supplies the judgment: reading the existing project, researching technical questions, interviewing adaptively, explaining recommendations, and writing useful specifications. The tool supplies consistent inspection and bounded execution mechanics. A structurally valid plan can still be a poor plan; the tool cannot evaluate business meaning or authenticate a human decision.
 
 ## Start with the idea you have
 
@@ -26,6 +26,10 @@ python3 .aws-workflow/scripts/workflow.py --root . context
 
 `new` creates `specs/0100-record-service/work.json` and a draft `requirements.md`; the bugfix route creates `bugfix.md` instead. It starts at `consultation`. It does not invent requirements, an interview questionnaire, a design, tasks, reviews, or verification results. Supplying `--idea` records exactly that supplied goal with its initialization source. Codex should read already supplied requirements and known context before deciding that any question is necessary.
 
+The CLI defaults to `--spec-format ears`: explicit EARS behavioral statements and `specification_policy` requiring current analysis before contract acceptance and current fully mapped correctness properties before task acceptance. Use `analyze` and `properties` to prepare exact review requests; Codex performs the review and records the actual response with `--record`. The [specification operations reference](specification-operations.md) defines patterns, response schemas, history and traceability. `--spec-format existing` deliberately preserves an established contract's prior gates. Existing records and callers of the Python `new_work` API are not silently migrated.
+
+Before selecting any work, `doctor` checks setup and mapped records. `hooks` previews the appropriate optional native configuration without writing it or granting trust. See the [quickstart](../../guide/00-quickstart.md).
+
 When `.aws-workflow/manifest.json` identifies a valid schema-1 adoption, `new` carries its actual mapped brief, handoff, adoption report, and environment-capability paths into `context_files`, along with the manifest itself. Those mappings must name existing regular files under the project root and satisfy the same path restrictions. Without an adoption manifest, it includes whichever of the four conventional root context files already exist. It does not copy template-maintainer facts into application work or interpret context files as new authority.
 
 `--activate` explicitly writes `.codex/workflow.json` with `schema_version: 1` and `active_work: "specs/0100-record-service"`. Omitting it leaves the active selection unchanged. `new` refuses an existing work directory. The selected root always defaults to the current working directory, including when the script is packaged elsewhere. No project-global configuration is required before creating a work item.
@@ -44,15 +48,30 @@ All commands accept `--root PATH` **before** the subcommand. A work ID after an 
 
 | Command | Purpose | Writes |
 | --- | --- | --- |
-| `new ID --title TEXT` | Start a consultation draft; `--mode`, `--route`, `--idea`, and `--activate` refine it. | New work directory; active pointer only with `--activate`. |
+| `doctor` | Inspect local setup, mappings and optional capabilities, before or after work selection. | None; no programs, models, credentials or services called. |
+| `hooks` | Preview hook configuration and report equivalence/merge needs. | None; no trust change. |
+| `new ID --title TEXT` | Start a consultation draft; `--mode`, `--route`, `--idea`, `--spec-format`, and `--activate` refine it. | New work directory; active pointer only with `--activate`. |
 | `context [ID]` | Show known facts, sourced answers, up to three suggested unresolved questions, canonical paths, and consultant instructions. | None. |
 | `status [ID]` | Derive checkbox state, dependency readiness, current review/evidence state, and issues. | None. |
 | `validate [ID]` | Inspect the same structure and claims; exit 1 on validation errors. | None. |
 | `review [ID] ...` | Record an actual supplied review outcome and the current artifact identity. | Append review record to `work.json`. |
 | `advance [ID] --to PHASE` | Move to the next phase if the boundary being left is satisfied. | Update the phase in `work.json`. |
 | `evidence [ID] ...` | Record provenance for an already executed check and hash its declared inputs. | Append evidence record to `work.json`. |
+| `analyze [ID]` | Prepare requirements review request and syntax findings. | None; does not call a model. |
+| `properties [ID]` | Prepare observable property/verification planning request. | None; does not generate or run tests. |
+| `analyze [ID] --record RESPONSE` or `properties [ID] --record RESPONSE` | Validate an actual response against its reviewed inputs and retain provenance. | Append operation history under the work directory. |
+| `sync [ID] [--changed PATH]` | Preview changed-input impact and review/completion consequences. | None. |
+| `sync [ID] --apply --expected-fingerprint HASH --reason TEXT` | Apply the current inspected reconciliation; repeat any preview `--changed` arguments. | Necessary completion/phase updates and reconciliation history; prior observations retained. |
+| `execution-template [ID]` | Return a draft policy containing actual task/check IDs. | None; authority, commands and scopes must be derived. |
+| `run-plan [ID] [--task TASK]` or `run [ID] [--task TASK]` | Preview prerequisites, scope and dependency waves. | None; no model call. |
+| `run [ID] --execute [--task TASK]` | Execute the explicitly authorized bounded candidate. | Ignored run state, Git worktrees, candidate source/evidence/commits; invokes a model and trusted checks. |
+| `run-status RUN_ID` | Inspect persisted result and whether an interrupted operation is unknown. | None. |
+| `run-apply RUN_ID` | Integrate the ready candidate against an unchanged original. | Fast-forward original and persist the observed application outcome. |
+| `run-abandon RUN_ID --reason TEXT` | Record an inspected failed/interrupted run's disposition. | Persist disposition; retain worktrees/evidence. |
 
 An inspectable draft returns exit 0 for `context` and `status`, even if its report includes issues. `validate` returns exit 0 without errors and exit 1 with errors. Unsafe paths, missing selections, unreadable metadata, and rejected mutations return exit 2. Ordinary unfinished consultation does not require an error or a repeated user approval.
+
+`doctor` returns 1 for required setup problems. Native `run --execute` returns 1 unless its candidate is ready; `run-apply` returns 1 unless the observed application is exact and clean. A post-merge hook's preserved changes are reported as `applied-needs-review`, not success. An exception can leave recorded application intent with an unknown outcome; inspect state before retrying. New setup/specification/execution operations always emit JSON. Preview output may contain blockers while the inspection itself returns 0. The full [execution contract](task-execution.md) defines configuration, clean-Git requirements, POSIX process control, isolation, limits and recovery.
 
 JSON replacement is atomic. A newly prepared work directory is staged before being installed. The tool rejects a known invalid active-pointer destination before creating the work directory. The optional active-pointer write is a separate atomic write, so an unexpected activation failure can leave a valid work directory without selecting it. The command reports that partial success explicitly; inspect the created work using its ID and repair the active pointer instead of recreating the directory. There is no concurrent-writer merge protocol. Finish or coordinate one metadata edit before another.
 
@@ -83,7 +102,7 @@ python3 scripts/workflow.py review 0100-record-service \
 python3 scripts/workflow.py advance 0100-record-service --to design
 ```
 
-The example reference must identify your actual decision; the tool does not create that decision note or verify who authored it. Use `--authority delegated` and the actual reviewer/reference when prior user authorization delegates the decision. `changes-requested` records a review that did not accept the artifact. It cannot satisfy the next boundary. A later review supersedes the earlier outcome for readiness, while the earlier record remains history.
+The example reference must identify your actual decision; the tool does not create that decision note or verify who authored it. New structured work also needs its actual current analysis before the illustrated acceptance. Use `--authority delegated` and the actual reviewer/reference when prior user authorization delegates the decision. `changes-requested` records a review that did not accept the artifact, including when unresolved semantic findings block acceptance. It cannot satisfy the next boundary. A later review supersedes the earlier outcome for readiness, while the earlier record remains history.
 
 The tool does not approve architecture or choose AWS targets. Execution authority and account limits remain explicit project decisions. A task that is eligible according to its local dependencies may still require an independently authorized deployment or account action.
 
@@ -209,6 +228,8 @@ report = inspect_work(Path.cwd(), "0100-record-service")
 ```
 
 The report includes `schema_version`, `id`, `title`, `mode`, `route`, `phase`, project-relative `artifacts`, `context_files`, `known_facts`, `answered_questions`, `open_questions`, up to three `next_questions`, `deferred_questions`, `reviews`, derived `tasks`, `checks`, current `evidence`, `dependency_ready_tasks`, `eligible_tasks`, `issues`, and `consultant_instructions`. Each issue has `severity`, `code`, `message`, and optionally `path`.
+
+Work using specification format, policy or operation histories also includes `spec_format`, `specification_policy` and `specification`. The latter reports each operation as missing/current/stale/invalid, property mapping and blocking findings. Legacy reports without those features retain the previous key set. Compact context selects analysis or property mapping when required at the current boundary; errors and consequential unresolved questions keep priority.
 
 `dependency_ready_tasks` reflects unfinished tasks whose local prerequisites are validly complete. `eligible_tasks` additionally requires an implementation/verification phase without structural errors or a current phase-blocking question. Neither array grants account or deployment authority. Review statuses are `missing`, `accepted`, `changes-requested`, or `stale`. Each task's `checked` value comes only from Markdown; `completion_valid` reports whether the recorded checks/dependencies support that checkbox.
 

@@ -6,6 +6,8 @@ Act as the project's consultant and delivery engineer. Start with `project/brief
 
 If `.codex/workflow.json` selects active work, run `python3 scripts/workflow.py --root . context --compact` here; an adopted project uses `.aws-workflow/scripts/workflow.py`. Read the referenced canonical documents before acting. Do this explicitly when native hooks are unavailable. The framework brief and maintenance specifications are not an adopting application's backlog.
 
+At first use, `doctor` checks the package and mapped records before work exists. A missing active item is expected; begin consultation. `hooks` previews optional native configuration without installing it or changing trust. Use `guide/00-quickstart.md` for the first-project sequence.
+
 Do not wait for a perfect specification. For a rough idea, lead an adaptive interview using `workflows/consult.md` and `guide/06-consultation-interview.md`. Establish the desired outcome and who uses it; then explore only relevant behavior, data, constraints, scale, costs, security, reliability and operations. Ask at most three consequential unanswered questions per turn. Ask none when the available evidence is sufficient.
 
 Before asking, inspect known answers, derive technical implications, and research current material guidance. Explain why a question matters and provide a recommended default where justified. Recommend AWS services and implementation choices with tradeoffs; do not turn the interview into a technical quiz. Never invent a business preference, regulatory obligation, budget, authorization, or existing-system fact.
@@ -33,9 +35,15 @@ Recommend a route from the request and constraints. Do not ask the user to choos
 
 Use `scripts/workflow.py new <work-id> --title ... --mode greenfield|brownfield --route ... --activate` for a new scoped work item here, or the adopted CLI path. It begins in consultation; do not populate it with guessed finished requirements. Prefer the CLI's `review`, `advance`, and `evidence` operations for validated state updates. Run `--help` for exact arguments rather than inventing command syntax.
 
+New CLI work uses EARS requirements and current analysis/properties gates. After drafting the contract, run `analyze`, perform the actual semantic review, save its structured response with sources and record it using `--record`. Derive observable properties from requirements/design through `properties`; map them to the actual task/check plan before accepting tasks. These operations do not call a model or fabricate findings. Preserve established contracts with the explicitly selected `--spec-format existing` option when adopting that workflow; do not use it to evade an accepted requirement.
+
 Keep requirements/bugfix, design, tasks and verification under the work's mapped paths. `tasks.md` is the sole completion authority. Preserve stable contract, task and check IDs. Use `status` to identify eligible tasks and `validate` before claiming completion. Tools validate structure, dependencies and declared file identities; the agent still reviews semantic sufficiency and the truth of evidence.
 
 Implement authorized eligible tasks and continue through applicable verification. Never tick a task without its actual required outcome and current evidence. A capture command records a result; it does not run a test or prove the result is true. Include relevant source, test, configuration and contract identities. When inputs change, reconcile affected records and checks; never weaken requirements silently to make implementation appear complete.
+
+Use `sync` to preview affected reviews, checks and completion. Inspect the semantic impact, then apply the exact current fingerprint with a meaningful reason; regenerate and reverify the affected work. Historical evidence remains historical.
+
+Ordinary delivery can stay in this Codex session. For an explicitly authorized native batch, derive `execution.json` from the accepted tasks, then use `run-plan` or `run` for a preview. Only `run --execute` invokes native model workers and configured checks. Review scopes, commands, time/task bounds and actual spending authority first. Inspect the separate candidate and `run-status` before `run-apply`. Unknown/interrupted outcomes require inspection; never replay them automatically. Follow `docs/reference/task-execution.md`.
 
 Use independent agents when bounded parallel work or fresh review helps. Assign disjoint write scopes and an integration owner. A reviewer must inspect the concrete candidate; call a review independent only if the reviewer context did not author it. Validate the combined candidate after parallel changes. Do not start an unattended scheduler from these instructions.
 

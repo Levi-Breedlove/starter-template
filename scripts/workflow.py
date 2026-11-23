@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Command-line interface for the offline Codex AWS workflow ledger."""
+"""Specification workflow, local inspection, and explicit bounded execution."""
 
 from __future__ import annotations
 
@@ -27,6 +27,8 @@ def parser():
     new.add_argument("--route", choices=ROUTES, default="requirements-first")
     new.add_argument("--idea", default="")
     new.add_argument("--activate", action="store_true", help="Explicitly select this work in .codex/workflow.json.")
+    new.add_argument("--spec-format", choices=("ears", "existing"), default="ears",
+                     help="New work uses structured requirements and recorded analysis; existing preserves a separately selected legacy contract.")
     for name in ("context", "status", "validate", "review", "advance", "evidence"):
         command = commands.add_parser(name)
         command.add_argument("work_id", nargs="?", help="Work ID; omitted selects .codex/workflow.json active_work.")
@@ -50,8 +52,73 @@ def parser():
             command.add_argument("--observed-at", required=True)
             command.add_argument("--input", dest="inputs", action="append", required=True)
         command.add_argument("--json", action="store_true", help="Emit the stable inspection object.")
+    for name in ("doctor", "hooks"):
+        command = commands.add_parser(name, help="Read-only setup inspection." if name == "doctor" else "Preview native hook configuration without changing trust or files.")
+        command.add_argument("--json", action="store_true")
+    for name in ("analyze", "properties"):
+        command = commands.add_parser(name, help="Prepare a source-bound agent review, or record its actual structured response.")
+        command.add_argument("work_id", nargs="?")
+        command.add_argument("--record", metavar="RESPONSE", help="Validate and record an actual response JSON file relative to the project root.")
+        command.add_argument("--json", action="store_true")
+    sync = commands.add_parser("sync", help="Preview changed specification impact; apply only the reviewed fingerprint.")
+    sync.add_argument("work_id", nargs="?")
+    sync.add_argument("--changed", action="append", default=[], help="Changed project-relative input; repeat as needed.")
+    sync.add_argument("--apply", action="store_true")
+    sync.add_argument("--expected-fingerprint")
+    sync.add_argument("--reason")
+    sync.add_argument("--json", action="store_true")
+    for name in ("execution-template", "run-plan", "run"):
+        command = commands.add_parser(name, help="Prepare execution settings or preview/run a bounded isolated candidate.")
+        command.add_argument("work_id", nargs="?")
+        if name != "execution-template":
+            command.add_argument("--task", help="Select one task; omitted selects the configured remaining task plan.")
+        if name == "run":
+            command.add_argument("--execute", action="store_true", help="Explicitly invoke Codex and the configured verification commands; may consume credits.")
+            command.add_argument("--run-id", help="Optional unique run identifier; existing attempts are never silently replayed.")
+        command.add_argument("--json", action="store_true")
+    for name in ("run-status", "run-apply", "run-abandon"):
+        command = commands.add_parser(name, help="Inspect, explicitly apply, or abandon an isolated run.")
+        command.add_argument("run_id")
+        if name == "run-abandon":
+            command.add_argument("--reason", required=True)
+        command.add_argument("--json", action="store_true")
     new.add_argument("--json", action="store_true")
     return result
+
+
+def operation(args):
+    """Dispatch explicit operations without loading a model backend for inspection."""
+    if args.command in ("doctor", "hooks"):
+        from workflow_engine.doctor import hook_preview, inspect_environment
+        return (inspect_environment if args.command == "doctor" else hook_preview)(args.root)
+    if args.command in ("analyze", "properties"):
+        from workflow_engine.specifications import analyze_requirements, derive_properties, record_specification_result
+        if args.record:
+            return record_specification_result(args.root, args.work_id, args.command, args.record)
+        return (analyze_requirements if args.command == "analyze" else derive_properties)(args.root, args.work_id)
+    if args.command == "sync":
+        from workflow_engine.specifications import apply_reconciliation, plan_reconciliation
+        if args.apply:
+            if not args.expected_fingerprint or not args.reason:
+                raise WorkflowError("Applying reconciliation requires the preview's --expected-fingerprint and an actual --reason.")
+            return apply_reconciliation(args.root, args.work_id, args.expected_fingerprint, args.reason, changed_paths=args.changed)
+        if args.expected_fingerprint or args.reason:
+            raise WorkflowError("--expected-fingerprint and --reason apply only with --apply; preview first.")
+        return plan_reconciliation(args.root, args.work_id, changed_paths=args.changed)
+    from workflow_engine.runner import abandon_run, apply_run, execute_run, execution_template, inspect_run, plan_run
+    if args.command == "execution-template":
+        return execution_template(args.root, args.work_id)
+    if args.command == "run-plan":
+        return plan_run(args.root, args.work_id, task_id=args.task)
+    if args.command == "run":
+        return execute_run(args.root, args.work_id, task_id=args.task, execute=args.execute, run_id=args.run_id)
+    if args.command == "run-status":
+        return inspect_run(args.root, args.run_id)
+    if args.command == "run-apply":
+        return apply_run(args.root, args.run_id)
+    if args.command == "run-abandon":
+        return abandon_run(args.root, args.run_id, args.reason)
+    raise WorkflowError("Unknown operation.")
 
 
 def render(report, context=False):
@@ -82,8 +149,19 @@ def render(report, context=False):
 def main(argv=None):
     args = parser().parse_args(argv)
     try:
+        if args.command in {"doctor", "hooks", "analyze", "properties", "sync", "execution-template", "run-plan", "run", "run-status", "run-apply", "run-abandon"}:
+            outcome = operation(args)
+            print(json.dumps(outcome, indent=2, ensure_ascii=False))
+            if args.command == "doctor":
+                return int(not outcome.get("session_ready", False))
+            if args.command == "run" and args.execute:
+                return int(outcome.get("status") != "ready")
+            if args.command == "run-apply":
+                return int(outcome.get("status") != "applied")
+            return 0
         if args.command == "new":
-            report = new_work(args.root, args.work_id, args.title, args.mode, args.route, args.idea, args.activate)
+            options = {"spec_format": "ears", "specification_policy": {"analysis": "required", "properties": "required"}} if args.spec_format == "ears" else {}
+            report = new_work(args.root, args.work_id, args.title, args.mode, args.route, args.idea, args.activate, **options)
         elif args.command == "review":
             report = record_review(args.root, args.work_id, args.artifact, args.outcome, args.decision_ref, args.reviewer, args.authority)
         elif args.command == "advance":

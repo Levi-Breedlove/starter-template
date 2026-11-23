@@ -20,6 +20,8 @@ Use this procedure when a defect's cause, impact, or regression risk warrants ex
 5. **Generate tasks and implement.** Create bounded tasks with dependencies and reproduction, correction, and regression checks. Check coverage before implementation. Use property-based tests where they strengthen relevant claims; the technique is optional, required behavior is not. Continue authorized local work after the actual reviews without per-file permission requests.
 6. **Review the candidate and reconcile.** Run [Review](review.md), resolve blocking findings, and rerun affected checks. If new evidence changes the expected behavior or fix approach, use [Reconcile](reconcile.md) and revisit only affected reviews. Update operating guidance when needed. Use [Release](release.md) for an authorized deployment.
 
+The [specification operations](../docs/reference/specification-operations.md) support this sequence directly. `analyze` prepares a source-bound review of the defect, correction and preservation contract; Codex supplies and records actual findings. `properties` asks Codex to derive reproduction, correction and preservation checks from the contract/design and validates the returned task/check mapping. It supports a generated-input strategy when useful, while preserving other appropriate test techniques. Neither operation runs a test or turns an unconfirmed cause into a fact.
+
 ## Outputs
 
 - `bugfix.md`, `design.md`, and `tasks.md` with diagnostic answers, actual review records, and preservation checks.

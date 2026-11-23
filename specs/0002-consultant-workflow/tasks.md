@@ -16,7 +16,7 @@
 - Scope and exclusions: Entry instructions, procedures, templates and two fictional consultation examples; no claim of a real model trial.
 - Acceptance: Known answers are reused; unresolved product decisions are separated from engineering recommendations; review order and continuation authority are explicit.
 - Verification: CHK-001
-- Evidence / review: [Local checks](../../evidence/0002-consultant-workflow/local-checks.md) and recorded check inputs in work.json.
+- Evidence / review: [Current observed result](../../evidence/0004-developer-workflow/local-checks.md).
 - Blocker: none
 
 ### T-002 — Implement work state, context and evidence validation
@@ -28,7 +28,7 @@
 - Scope and exclusions: Local Python engine/CLI, schema and fixtures; no worker execution or semantic-proof claim.
 - Acceptance: Routes, traceability, stale evidence, false completion, unsafe paths and malformed state are handled under the documented contract.
 - Verification: CHK-002
-- Evidence / review: [Local checks](../../evidence/0002-consultant-workflow/local-checks.md) and recorded check inputs in work.json.
+- Evidence / review: [Current observed result](../../evidence/0004-developer-workflow/local-checks.md).
 - Blocker: none
 
 ### T-003 — Package safe application adoption
@@ -40,7 +40,7 @@
 - Scope and exclusions: Additive installer, manifest, source copy map and fixtures; no native config or plugin installation.
 - Acceptance: Existing data/instructions/configuration remain intact; fresh app context excludes the framework backlog; complete packaged tooling runs in a temporary app; repeat application makes no changes.
 - Verification: CHK-003
-- Evidence / review: [Local checks](../../evidence/0002-consultant-workflow/local-checks.md) and recorded check inputs in work.json.
+- Evidence / review: [Current observed result](../../evidence/0004-developer-workflow/local-checks.md).
 - Blocker: none
 
 ### T-004 — Supply bounded read-only native hook feedback
@@ -52,13 +52,13 @@
 - Scope and exclusions: Event handler, concrete definitions, optional setup and fake-event tests; no claim of native client loading or trust.
 - Acceptance: Context includes saved answers and real next questions; invalid input stays visible; Stop never forces continuation; actual packaged context is read without writes.
 - Verification: CHK-004
-- Evidence / review: [Local checks](../../evidence/0002-consultant-workflow/local-checks.md) and recorded check inputs in work.json.
+- Evidence / review: [Current observed result](../../evidence/0004-developer-workflow/local-checks.md).
 - Blocker: none
 
 ### T-005 — Integrate neutral source, records and verification
 
-- [x] T-005 complete
-- Activity: complete
+- [ ] T-005 complete
+- Activity: needs verification
 - Contract / design: REQ-008, REQ-009 / DES-004
 - Prerequisites: T-001, T-002, T-003, T-004
 - Scope and exclusions: Neutral current tree, linked docs, updated source records, local suite and publication verification; historic Git objects and repository identity are outside the content rename.

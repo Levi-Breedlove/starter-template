@@ -10,6 +10,8 @@ Compare efficiency only among runs meeting those gates. Lower time, usage or doc
 
 ## Use two frozen pilots
 
+The [native pilot plan](native-pilot-plan.md) supplies concrete disposable inputs, prompts, invocation limits, checkpoints and acceptance rubrics. It is a prepared proposal, not an observation. Its current execution status is recorded in the developer-workflow task ledger; only actual approved results can close that boundary.
+
 | Pilot | Fixed inputs and useful variants | What to assess |
 | --- | --- | --- |
 | Greenfield booking workflow | Freeze the user goal, business rules, tool access, limits and acceptance rubric. Test both a rough idea and a brief containing the same established answers. | Consequential questions, supported recommendations, saved decisions, connected requirements/design/tasks and meaningful verification. Compare route-appropriate review without invented permission pauses. |
@@ -38,3 +40,5 @@ The compact-context implementation provides `context --compact`, a startup packe
 Run `python3 evaluations/context_payloads.py` for the frozen renderer fixtures. To compare a prior revision, supply `--baseline-dir` with inspected, trusted prior `codex_hooks.py` and `workflow.py` scripts; the utility imports their definitions and records their hashes. It performs no fetching or model invocation. Use the same fixture hashes when comparing results, and report startup increases as well as refresh reductions.
 
 Actual hook trust/loading, public official-toolkit availability and authorized cloud delivery retain separate checks. An AWS trial must observe the chosen candidate, target, service behavior and applicable recovery within its actual scope. This protocol does not authorize paid/model runs, native-client activation, account access, deployment or background evaluation; those actions use their own explicit task authority and limits.
+
+The foreground task controller already has real local Git/process fixture coverage with fake authors, including preservation and uncertain outcomes. A real selected-client run must separately show that the native backend can deliver and apply a valid candidate under the fixed limits. A successful native pilot still does not establish loaded hooks, working AWS accounts or universal comparative superiority.

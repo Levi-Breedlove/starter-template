@@ -1,0 +1,190 @@
+{
+  "schema_version": 1,
+  "operation": "properties",
+  "request_id": "d604bce056760b3bd41b046b49618be657929469898ad0d4d9db5294bbd497eb",
+  "input_hashes": {
+    "specs/0004-developer-workflow/design.md": "06eeb1e04cb612b6392bb8489ed6a6c0633d08d4dd6c1a13569cc8351598fa82",
+    "specs/0004-developer-workflow/requirements.md": "3f52d327900f7cb25103bcb91b64e9b19263889206712a1a1d46c5c9cd3be98f"
+  },
+  "context_fingerprint": "5b96723d359743f64d6d4b0187f62b1f2317fff186fb0089f87ff169aa7bf65e",
+  "reviewer": "Root integrating agent; actual author technical review",
+  "review_ref": "evidence/0004-developer-workflow/specification-review.md",
+  "observed_at": "2026-11-23T08:16:48.688318+00:00",
+  "summary": "Current author review of the connected developer workflow contract; local implementation and native-client acceptance remain distinct.",
+  "properties": [
+    {
+      "id": "PROP-001",
+      "requirement_ids": [
+        "REQ-001"
+      ],
+      "statement": "A fresh adopted project with its required runtime, guidance and mapped records reports session readiness without an active work item or any subprocess/account call.",
+      "preconditions": "Fresh source and adopted fixture projects.",
+      "strategy": "integration",
+      "task_ids": [
+        "T-004"
+      ],
+      "check_ids": [
+        "CHK-004"
+      ],
+      "verification": "Run doctor before selection, mutate a required package input and require a precise failing readiness result without writes.",
+      "source": "evidence/0004-developer-workflow/specification-review.md"
+    },
+    {
+      "id": "PROP-002",
+      "requirement_ids": [
+        "REQ-002"
+      ],
+      "statement": "Required behavioral statements recognize each supported EARS form while malformed statements prevent structured acceptance.",
+      "preconditions": "Ubiquitous, event, state, unwanted, optional and combined statement fixtures.",
+      "strategy": "example",
+      "task_ids": [
+        "T-002"
+      ],
+      "check_ids": [
+        "CHK-002"
+      ],
+      "verification": "Run explicit valid and malformed requirement fixtures; verify syntax is never labeled semantic proof.",
+      "source": "evidence/0004-developer-workflow/specification-review.md"
+    },
+    {
+      "id": "PROP-003",
+      "requirement_ids": [
+        "REQ-003"
+      ],
+      "statement": "Only current structurally valid sourced analysis is recorded, and an unresolved blocker continues to prevent acceptance after its original snapshot becomes stale.",
+      "preconditions": "Actual response identity and recorded review source; stale/malformed/blocking variants.",
+      "strategy": "integration",
+      "task_ids": [
+        "T-002"
+      ],
+      "check_ids": [
+        "CHK-002"
+      ],
+      "verification": "Mutate contract, context, response and source notes; reject stale import and retain blocker until a current resolution is recorded.",
+      "source": "evidence/0004-developer-workflow/specification-review.md"
+    },
+    {
+      "id": "PROP-004",
+      "requirement_ids": [
+        "REQ-004"
+      ],
+      "statement": "Every required behavioral ID has an observable property with a suitable strategy and resolvable task/check coverage before task-plan acceptance.",
+      "preconditions": "Current requirements and design with a completed task graph.",
+      "strategy": "integration",
+      "task_ids": [
+        "T-002"
+      ],
+      "check_ids": [
+        "CHK-002"
+      ],
+      "verification": "Exercise partial/proposed mappings during design and require complete actual mapping at task acceptance.",
+      "source": "evidence/0004-developer-workflow/specification-review.md"
+    },
+    {
+      "id": "PROP-005",
+      "requirement_ids": [
+        "REQ-005"
+      ],
+      "statement": "Configured eligible tasks execute by dependency wave with bounded attempts/time and verified integrated results; failures never become ready.",
+      "preconditions": "Clean committed temporary Git fixture, trusted checks and explicit fake author.",
+      "strategy": "integration",
+      "task_ids": [
+        "T-003"
+      ],
+      "check_ids": [
+        "CHK-003"
+      ],
+      "verification": "Exercise independent/overlapping tasks, failing checks, surviving children, slow Git hooks and interrupted outcomes.",
+      "source": "evidence/0004-developer-workflow/specification-review.md"
+    },
+    {
+      "id": "PROP-006",
+      "requirement_ids": [
+        "REQ-006"
+      ],
+      "statement": "The original application remains unchanged until an exact verified candidate is explicitly applied; collisions or changed state cannot silently overwrite user work.",
+      "preconditions": "Candidate and original identities plus ignored-file and Git-hook variants.",
+      "strategy": "integration",
+      "task_ids": [
+        "T-003"
+      ],
+      "check_ids": [
+        "CHK-003"
+      ],
+      "verification": "Compare original bytes/head before apply; reject ignored rename destinations and changed original; preserve and report post-merge divergence.",
+      "source": "evidence/0004-developer-workflow/specification-review.md"
+    },
+    {
+      "id": "PROP-007",
+      "requirement_ids": [
+        "REQ-007"
+      ],
+      "statement": "A current reconciliation preview reopens affected conclusions and completion while preserving history and still-valid unrelated outcomes.",
+      "preconditions": "Changed contract/source/context and an exact preview fingerprint.",
+      "strategy": "integration",
+      "task_ids": [
+        "T-002"
+      ],
+      "check_ids": [
+        "CHK-002"
+      ],
+      "verification": "Exercise stale preview refusal, source/decision-only rewind, sibling preservation and ordinary write-failure rollback.",
+      "source": "evidence/0004-developer-workflow/specification-review.md"
+    },
+    {
+      "id": "PROP-008",
+      "requirement_ids": [
+        "REQ-008"
+      ],
+      "statement": "A complete installed package preserves application authority and provides working public entry commands; missing required source or package files remain visible.",
+      "preconditions": "New and existing temporary applications, mappings and uncommitted user files.",
+      "strategy": "integration",
+      "task_ids": [
+        "T-004",
+        "T-005"
+      ],
+      "check_ids": [
+        "CHK-004",
+        "CHK-005"
+      ],
+      "verification": "Run bootstrap and actual installed CLI flows, preservation/rerun and missing-runtime/guidance cases.",
+      "source": "evidence/0004-developer-workflow/specification-review.md"
+    },
+    {
+      "id": "PROP-009",
+      "requirement_ids": [
+        "REQ-009"
+      ],
+      "statement": "A delivered source claim identifies current tested/reviewed input identities and every published file matches the expected remote tree.",
+      "preconditions": "Frozen combined candidate and actual publication readback.",
+      "strategy": "operational",
+      "task_ids": [
+        "T-006",
+        "T-007"
+      ],
+      "check_ids": [
+        "CHK-006",
+        "CHK-007"
+      ],
+      "verification": "Record the real aggregate run and fresh review, reconcile changed historical claims, compare remote paths/modes/blob hashes and expected head.",
+      "source": "evidence/0004-developer-workflow/specification-review.md"
+    },
+    {
+      "id": "PROP-010",
+      "requirement_ids": [
+        "REQ-010"
+      ],
+      "statement": "Any native workflow equivalence claim is backed by actual selected-client consultation, task execution, changed-contract and resume observations under approved limits.",
+      "preconditions": "Separate approved frozen pilot with real configured client; no AWS account access.",
+      "strategy": "operational",
+      "task_ids": [
+        "T-008"
+      ],
+      "check_ids": [
+        "CHK-008"
+      ],
+      "verification": "Execute the prepared native pilot after manual approval, record every invocation/outcome and review its frozen rubric; retain NOT RUN until observed.",
+      "source": "evidence/0004-developer-workflow/specification-review.md"
+    }
+  ]
+}

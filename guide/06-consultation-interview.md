@@ -64,6 +64,8 @@ Save useful drafts while decisions remain open. A handoff records the work ID, c
 
 Requirements need observable conditions and outcomes, relevant limits, failure behavior, and preservation obligations. Read them together for contradictory constraints, undefined terms, unstated preconditions, and missing boundary or concurrent cases. Resolve technical findings from evidence. A product conflict becomes a focused follow-up question with the affected requirements and a proposed resolution.
 
+For new structured work, draft explicit EARS statements and use `analyze` to prepare a source-bound review request. Supply the actual findings and decision sources, then record the response. Derive observable correctness properties from requirements/design with `properties`, choosing verification strategies that fit each claim. Map properties to real task/check IDs before accepting tasks. Those operations preserve the reasoning outcome; they do not replace the conversation or grant acceptance. [Specification operations](../docs/reference/specification-operations.md)
+
 | Route | What is actually reviewed |
 | --- | --- |
 | Requirements-First | Review the analyzed requirements; then the design against them; then task coverage and dependencies. |
@@ -87,6 +89,8 @@ python3 .aws-workflow/scripts/workflow.py --root . validate
 ```
 
 Codex conducts the consultation and edits the substantive artifacts. The CLI makes recorded state and structural problems visible; it does not conduct an interview, authenticate a reviewer, or establish that requirements are good.
+
+At a fresh application start, `doctor` works without active work. During drafting, compact context identifies required analysis/property work before the applicable acceptance boundary. After a consequential change, use the `sync` preview to assess affected reviews and completion, then deliberately apply its exact current fingerprint. Reuse still-current answers and outcomes.
 
 After an actual review, `review` records an artifact, `accepted` or `changes-requested`, a real `--decision-ref`, the actual `--reviewer`, and `--authority user` or `--authority delegated`. Write the review evidence before recording it so the snapshot identifies the reviewed content. `advance --to <next-phase>` checks the stage being left; it does not create acceptance. See [tool usage](../scripts/README.md) for the supported syntax and fields.
 

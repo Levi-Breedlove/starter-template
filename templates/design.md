@@ -43,6 +43,8 @@ Use a compact diagram when interactions need one. Link shared architecture inste
 
 Use properties where they clarify the contract. Property-based tests are one verification technique, not a substitute for the accepted behavior. Choose example, contract, integration, or operational checks when they better establish a claim. Keep required acceptance checks required.
 
+Run `scripts/workflow.py properties <work-id>` after requirements and design exist. Codex derives properties and preconditions from the actual sources, records a suitable test strategy and observable verification plan, and supplies a response matching the returned schema. Record that actual response with `properties <work-id> --record <project-relative-response.json>`. During design, task/check references may be proposed or empty; complete and validate their mapping when tasks are generated. New structured work requires a current, fully mapped property record before accepting the task plan. This planning record does not claim generated tests were implemented or executed.
+
 - Local verification: <checks, fixtures, and limitations>.
 - Cloud proof obligations: <claims requiring an authorized AWS environment>.
 - Observability: <signals, useful diagnostics, and sensitive-data exclusions>.

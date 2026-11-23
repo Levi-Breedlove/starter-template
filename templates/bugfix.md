@@ -13,7 +13,7 @@
 
 ## FIX-001 — Expected correction
 
-When <condition>, the system must <observable correct result>.
+WHEN <condition>, THE <named system> SHALL <observable correct result>.
 
 Acceptance: <specific result demonstrating the correction>.
 
@@ -21,8 +21,8 @@ Acceptance: <specific result demonstrating the correction>.
 
 | ID | Behavior that must continue | Relevant evidence or acceptance |
 | --- | --- | --- |
-| KEEP-001 | Under <unaffected condition>, the system continues to <behavior>. | <checkable result> |
-| KEEP-002 | <accepted interface, security control, data behavior, or architecture constraint> | <checkable result> |
+| KEEP-001 | WHILE <unaffected state>, THE <named system> SHALL CONTINUE TO <behavior>. | <checkable result> |
+| KEEP-002 | WHEN <preserved interaction>, THE <named system> SHALL <accepted interface, security, data, or architecture behavior>. | <checkable result> |
 
 ## Investigation
 
@@ -37,3 +37,5 @@ Root cause: <unconfirmed / evidence-backed explanation>.
 Record the selected correction in [design.md](design.md) and its tasks and verification in [tasks.md](tasks.md). Include proof that the defect exists where practical, that the correction works, and that required preserved behavior remains valid.
 
 If reproduction is unavailable, name the exact missing input or access and specify the best available check without claiming reproduction. Continue independent authorized investigation. An unrelated refactor or changed contract is a separate scope decision.
+
+Use `analyze` to inspect the defect/correction/preservation set and record real findings, then `properties` to derive the reproduction, correction and preservation checks. A `DEF` entry records an observation and is not forced into a normative EARS sentence. Required `FIX` and `KEEP` behavior uses a supported EARS pattern for newly structured work. Choose generated-input tests where they add evidence; example, contract, integration or operational checks may fit other claims. See [specification operations](../docs/reference/specification-operations.md).

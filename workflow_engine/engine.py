@@ -561,17 +561,42 @@ def _inspect(root: Path, work: Path, work_id: str, data: dict) -> dict:
     next_questions = [question for question in questions if question.get("status") == "open"]
     next_questions.sort(key=lambda question: (phase not in question.get("blocks", []) if isinstance(question.get("blocks"), list) else True, str(question.get("id", ""))))
     dependency_ready = [task_id for task_id, task in tasks.items() if not task["checked"] and not task["blocked_reason"] and all(other in tasks and tasks[other]["completion_valid"] for other in task["dependencies"])]
-    no_errors = not any(item["severity"] == "error" for item in issues)
-    current_blocked = any(phase in question.get("blocks", []) for question in next_questions if isinstance(question.get("blocks"), list))
-    eligible = dependency_ready if phase in ("implementation", "verification") and no_errors and not current_blocked else []
-    return {"schema_version": SCHEMA_VERSION, "id": work_id, "title": data.get("title"), "mode": mode, "route": route, "phase": phase,
+    report = {"schema_version": SCHEMA_VERSION, "id": work_id, "title": data.get("title"), "mode": mode, "route": route, "phase": phase,
             "artifacts": artifacts, "context_files": context_files, "known_facts": facts,
             "answered_questions": [question for question in questions if question.get("status") == "answered"],
             "open_questions": next_questions, "next_questions": next_questions[:3],
             "deferred_questions": [question for question in questions if question.get("status") == "deferred"],
             "reviews": reviews, "tasks": list(tasks.values()), "checks": list(checks.values()), "evidence": evidence,
-            "dependency_ready_tasks": dependency_ready, "eligible_tasks": eligible, "issues": issues,
+            "dependency_ready_tasks": dependency_ready, "eligible_tasks": [], "issues": issues,
             "consultant_instructions": CONSULTANT_INSTRUCTIONS}
+    policy = data.get("specification_policy", {})
+    if not isinstance(policy, dict) or set(policy) - {"analysis", "properties"} or any(value not in ("required", "optional") for value in policy.values()):
+        issue("error", "schema", "Specification policy supports analysis/properties with required or optional values.")
+        policy = {}
+    if data.get("spec_format") not in (None, "ears"):
+        issue("error", "schema", "Unknown specification format.")
+    if data.get("spec_format") or policy or any(safe_path(work, name).exists() for name in ("analysis.json", "properties.json")):
+        from .specifications import specification_status
+        report["specification_policy"] = dict(policy)
+        report["spec_format"] = data.get("spec_format")
+        specification = specification_status(root, report)
+        report["specification"] = specification
+        for finding in specification["issues"]:
+            issue(finding["severity"], finding["code"], finding["message"], finding.get("path"))
+        accepted_contract = reviews["requirements"]["status"] == "accepted" or route == "quick" and reviews["tasks"]["status"] == "accepted"
+        contract_required = "requirements" in needed_artifacts or accepted_contract
+        tasks_required = "tasks" in needed_artifacts or reviews["tasks"]["status"] == "accepted"
+        for key, operation, required_now in (("analysis", "analyze", contract_required), ("properties", "properties", tasks_required)):
+            state = specification["operations"][operation]
+            if policy.get(key) == "required" and required_now:
+                if state["status"] != "current":
+                    issue("error", "missing-specification-review", f"The completed boundary needs a current {operation} result; prepare and record the actual review.", state["path"])
+                elif operation == "properties" and state.get("task_mapping") != "complete":
+                    issue("error", "incomplete-property-mapping", "Map each required property to the current task/check plan before relying on its acceptance.", state["path"])
+    no_errors = not any(item["severity"] == "error" for item in issues)
+    current_blocked = any(phase in question.get("blocks", []) for question in next_questions if isinstance(question.get("blocks"), list))
+    report["eligible_tasks"] = dependency_ready if phase in ("implementation", "verification") and no_errors and not current_blocked else []
+    return report
 
 
 def inspect_work(root: str | Path, work_id: str | None = None) -> dict:
@@ -644,12 +669,43 @@ def _assert_artifact_ready(root, report, artifact):
         raise WorkflowError("Resolve the actual blocking questions first: " + ", ".join(blocked))
     if any(fact.get("kind") == "conflicting" for fact in report["known_facts"]):
         raise WorkflowError("Resolve recorded conflicting facts before accepting an artifact boundary.")
+    data = _select(root, report["id"])[2]
+    policy = data.get("specification_policy", {})
+    if data.get("spec_format") == "ears" and artifact in ("requirements", "tasks"):
+        from .specifications import lint_ears
+        content = safe_path(root, report["artifacts"]["requirements"]).read_text(encoding="utf-8")
+        errors = [finding for finding in lint_ears(content)["findings"] if finding["severity"] == "error"]
+        if errors:
+            raise WorkflowError("Resolve structured requirement syntax before acceptance: " + "; ".join(finding["message"] for finding in errors))
+    if policy:
+        from .specifications import specification_status
+        status = specification_status(root, report)
+        if status["blocking_findings"]:
+            raise WorkflowError("Resolve recorded blocking specification findings before accepting a dependent boundary.")
+        required_operations = []
+        if artifact in ("requirements", "tasks") and policy.get("analysis") == "required":
+            required_operations.append("analyze")
+        if artifact == "tasks" and policy.get("properties") == "required":
+            required_operations.append("properties")
+        for operation in required_operations:
+            state = status["operations"][operation]
+            if state["status"] != "current":
+                raise WorkflowError(f"Prepare and record an actual current {operation} result before accepting {artifact}.")
+            if operation == "properties" and state.get("task_mapping") != "complete":
+                raise WorkflowError("Map properties to the current task/check plan before accepting tasks.")
 
 
-def new_work(root, work_id, title, mode="greenfield", route="requirements-first", idea="", activate=False):
+def new_work(root, work_id, title, mode="greenfield", route="requirements-first", idea="", activate=False,
+             *, spec_format=None, specification_policy=None):
     root = Path(root).resolve()
     if not root.is_dir() or not WORK_ID.fullmatch(work_id) or not title.strip() or mode not in ("greenfield", "brownfield") or route not in ROUTES:
         raise WorkflowError("Provide an existing project root, valid ID, title, mode, and route.")
+    if spec_format not in (None, "ears"):
+        raise WorkflowError("The supported explicit specification format is ears; omit it to preserve an existing contract.")
+    if specification_policy is not None and (not isinstance(specification_policy, dict)
+            or set(specification_policy) - {"analysis", "properties"}
+            or any(value not in ("required", "optional") for value in specification_policy.values())):
+        raise WorkflowError("Specification policy supports analysis/properties with required or optional values.")
     work = safe_path(root, f"specs/{work_id}")
     pointer = safe_path(root, ".codex/workflow.json") if activate else None
     if pointer is not None:
@@ -668,6 +724,10 @@ def new_work(root, work_id, title, mode="greenfield", route="requirements-first"
             "context_files": _initial_context(root),
             "facts": [{"id": "F-001", "kind": "supplied", "statement": idea, "source": "User-provided initialization (--idea)."}] if idea else [],
             "questions": [], "reviews": [], "evidence": []}
+    if spec_format is not None:
+        data["spec_format"] = spec_format
+    if specification_policy is not None:
+        data["specification_policy"] = specification_policy
     heading = "Bugfix analysis" if route == "bugfix" else "Requirements"
     draft = f"# {heading}: {work_id} — {title}\n\n**State:** Consultation; no review recorded.\n\n## Supplied goal\n\n{idea or 'No goal captured yet. Read the user request and existing project context.'}\n\n## Consultation notes\n\nCapture supplied facts, preserved constraints, and consequential unknowns before drafting the behavioral contract. Do not treat this scaffold as approved requirements.\n"
     work.parent.mkdir(parents=True, exist_ok=True)
@@ -690,9 +750,14 @@ def new_work(root, work_id, title, mode="greenfield", route="requirements-first"
 def record_review(root, work_id, artifact, outcome, decision_ref, reviewer, authority):
     root, work, selected_id, data = _load_mutable(root, work_id)
     report = _inspect(root, work, selected_id, data)
-    _assert_clean(report, ("missing-review", "stale-review"))
     if artifact not in ARTIFACTS or outcome not in ("accepted", "changes-requested") or authority not in ("user", "delegated") or not reviewer.strip() or not decision_ref.strip() or PLACEHOLDER.search(decision_ref):
         raise WorkflowError("A review needs an artifact, outcome, actual reviewer, authority, and real decision reference.")
+    ignored = ("missing-review", "stale-review")
+    if outcome == "changes-requested":
+        # A real rejection must remain recordable while semantic work is pending.
+        # Invalid metadata, unsafe paths and malformed provenance still fail.
+        ignored += ("specification-blocker", "missing-specification-review", "incomplete-property-mapping")
+    _assert_clean(report, ignored)
     if outcome == "accepted":
         _assert_artifact_ready(root, report, artifact)
     snapshots = {}

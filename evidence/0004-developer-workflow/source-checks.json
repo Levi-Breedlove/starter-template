@@ -1,0 +1,12 @@
+{
+  "observed_at": "2026-11-23T08:24:09.920703+00:00",
+  "check_method": "Actual repository checker plus case-insensitive current relative-path/text naming scan and exact tested-source SHA-256 comparison",
+  "markdown_files": 105,
+  "local_links": 395,
+  "required_core_files": 31,
+  "issues": [],
+  "scanned_files": 146,
+  "naming_findings": [],
+  "changed_tested_sources": [],
+  "limits": "Current source structure/naming/identity only; no native model, semantic application, remote publication or AWS proof."
+}

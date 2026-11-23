@@ -170,7 +170,7 @@ class RepositoryChecksTest(unittest.TestCase):
 
     def test_default_root_comes_from_script_location_not_working_directory(self):
         copied = self.root / "scripts" / "check_repository.py"
-        copied.parent.mkdir()
+        copied.parent.mkdir(exist_ok=True)
         shutil.copyfile(SCRIPT, copied)
         completed = subprocess.run([sys.executable, str(copied)], cwd=self.base, capture_output=True, text=True, check=False)
         self.assertEqual(completed.returncode, 0, completed.stdout + completed.stderr)

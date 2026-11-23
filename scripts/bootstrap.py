@@ -22,12 +22,22 @@ NAMESPACE = ".aws-workflow"
 MANIFEST = f"{NAMESPACE}/manifest.json"
 BEGIN = "<!-- codex-aws-workflow:start -->"
 END = "<!-- codex-aws-workflow:end -->"
+IGNORE_BEGIN = "# codex-aws-workflow:runtime-start"
+IGNORE_END = "# codex-aws-workflow:runtime-end"
+IGNORE_BLOCK = f"{IGNORE_BEGIN}\n/.workflow-state/\n{IGNORE_END}"
 MAX_FILE_BYTES = 1_048_576
 MAX_FILES = 350
 DOC_TREES = ("workflows", "templates", "guide", "runbooks", "costs", "security", "infrastructure", "docs/reference", "examples/consultation", "examples/booking-retries")
 DOC_FILES = ("docs/workflow-architecture.md", "docs/adapter-contracts.md", "docs/repository-map.md", "specs/README.md", "evidence/README.md", "delivery/README.md", "scripts/README.md", "evaluations/README.md")
 SCRIPT_FILES = ("scripts/workflow.py", "scripts/bootstrap.py", "scripts/codex_hooks.py")
-REQUIRED = ("workflows/consult.md", "workflows/brownfield.md", "templates/project-brief.md", "scripts/workflow.py", "workflow_engine/__init__.py", "workflow_engine/engine.py", "workflow_engine/context.py")
+REQUIRED = (
+    "workflows/consult.md", "workflows/brownfield.md", "workflows/feature.md",
+    "workflows/bugfix.md", "workflows/reconcile.md", "templates/project-brief.md",
+    "templates/requirements.md", "templates/bugfix.md", "templates/design.md", "templates/tasks.md",
+    "guide/00-quickstart.md", "docs/reference/specification-operations.md", "docs/reference/task-execution.md",
+    "scripts/workflow.py", "workflow_engine/__init__.py", "workflow_engine/engine.py",
+    "workflow_engine/context.py", "workflow_engine/specifications.py", "workflow_engine/runner.py", "workflow_engine/doctor.py",
+)
 LOGICAL = {
     "brief": "project/brief.md",
     "handoff": "delivery/current-handoff.md",
@@ -191,12 +201,21 @@ map any existing authority during intake before adopting its metadata. It never
 imports an existing backlog or marks tasks complete automatically.
 
 Before selecting active work, consult the mapped brief/handoff and lead the
-conversation. Use the packaged tooling reference when a concrete work item is
+conversation. Run `python3 {NAMESPACE}/scripts/workflow.py --root . doctor` for
+read-only local setup findings; missing active work is normal before consultation.
+Use the packaged tooling reference when a concrete work item is
 ready for `new --activate`. After that selection, run
 `python3 {NAMESPACE}/scripts/workflow.py --root . context --compact` from this application
 root to resume structured work. No active work was created by adoption. Keep one
 canonical task completion record, preserve accepted decisions, and record current
 evidence and the next action at the mapped handoff path.
+
+Use the packaged specification operations to analyze requirements, derive
+correctness properties, and reconcile changed work. Distinguish deterministic
+diagnostics from the semantic review you actually perform. For task execution,
+the current session can implement eligible tasks directly. The separate native
+runner previews work by default and requires explicit execution authority,
+reviewed commands and limits before any additional model process is started.
 
 Use the smallest workflow depth that establishes the required outcome. Reuse
 loaded facts and sources while their content and scope remain current; load only
@@ -328,7 +347,7 @@ class Plan:
         return {
             "status": "applied" if applied and self.writes else "unchanged" if not self.writes else "preview",
             "target": str(self.target), "mode": self.mode,
-            "changes": [{"path": write.relative, "action": "append managed instructions" if write.before is not None else "create"} for write in self.writes],
+            "changes": [{"path": write.relative, "action": ("append managed runtime ignore" if write.relative == ".gitignore" else "append managed instructions") if write.before is not None else "create"} for write in self.writes],
             "preserved": sorted(self.preserved), "paths": self.paths,
             "omitted_template_references": self.omitted_references,
         }
@@ -426,7 +445,13 @@ before adopting structured specification metadata. The manifest maps logical
 context paths in reusable prose to the application's actual files.
 
 Before selecting work, read the mapped brief/handoff and start the consultation
-naturally. After consultation chooses a bounded work item and route, create it
+naturally. Read-only local setup inspection works before any selection:
+
+```sh
+python3 .aws-workflow/scripts/workflow.py --root . doctor
+```
+
+After consultation chooses a bounded work item and route, create it
 from the application root, then load its context. For example:
 
 ```sh
@@ -438,7 +463,9 @@ Select the route and title for the actual agreed scope; the command above is an
 example, not an automatically selected backlog. For an already selected work item,
 run only `context`. It requires a selected work record; adoption itself selects
 none. Inspect `--help` for supported options. Adoption does not enable hooks, install
-plugins, start models, authenticate, access AWS, or authorize deployment.
+plugins, start models, authenticate, access AWS, or authorize deployment. Native
+execution state is excluded from Git through the additive managed `.gitignore`
+block. The runner verifies the effective ignore rule before native execution.
 
 Packaged reference material may describe maintenance of the source template.
 Those sections do not create application obligations. Excluded source-template
@@ -470,6 +497,29 @@ an explicitly reviewed merge. This helper intentionally has no force/overwrite m
         else:
             separator = "" if agent_text.endswith("\n\n") else "\n" if agent_text.endswith("\n") else "\n\n"
             agent_content = existing_agent + (separator + block + "\n").encode()
+    ignore_path = contained(target, ".gitignore")
+    existing_ignore = read_file(ignore_path) if ignore_path.exists() else None
+    if existing_ignore is None:
+        if old:
+            raise BootstrapError("Installed .gitignore is missing; review restoration before continuing")
+        ignore_content = (IGNORE_BLOCK + "\n").encode()
+    else:
+        try:
+            ignore_text = existing_ignore.decode("utf-8")
+        except UnicodeDecodeError as exc:
+            raise BootstrapError("Existing .gitignore must be UTF-8; manual ignore merge required") from exc
+        if IGNORE_BEGIN in ignore_text or IGNORE_END in ignore_text:
+            if not old or ignore_text.count(IGNORE_BEGIN) != 1 or ignore_text.count(IGNORE_END) != 1:
+                raise BootstrapError("Existing runtime ignore markers are ambiguous; manual merge required")
+            actual = ignore_text[ignore_text.index(IGNORE_BEGIN):ignore_text.index(IGNORE_END) + len(IGNORE_END)]
+            if actual != IGNORE_BLOCK:
+                raise BootstrapError("Managed runtime ignore block changed; review an explicit merge")
+            ignore_content = existing_ignore
+        elif old:
+            raise BootstrapError("Installed runtime ignore block is missing; review an explicit update/merge")
+        else:
+            separator = "" if ignore_text.endswith("\n\n") else "\n" if ignore_text.endswith("\n") else "\n\n"
+            ignore_content = existing_ignore + (separator + IGNORE_BLOCK + "\n").encode()
     managed = {path: digest(content) for path, content in sorted(outputs.items())}
     if old and old.get("managed_files") != managed:
         raise BootstrapError("Installed file inventory differs; an explicit update/merge is required")
@@ -487,7 +537,7 @@ an explicitly reviewed merge. This helper intentionally has no force/overwrite m
             plan.writes.append(Write(relative, content))
     editable = initial_records(project_name, mode, paths, established)
     for relative, content in editable.items():
-        if relative in outputs or relative in (MANIFEST, "AGENTS.md"):
+        if relative in outputs or relative in (MANIFEST, "AGENTS.md", ".gitignore"):
             raise BootstrapError(f"Project context collides with workflow package: {relative}")
         path = contained(target, relative)
         if path.exists():
@@ -505,11 +555,15 @@ an explicitly reviewed merge. This helper intentionally has no force/overwrite m
         plan.writes.append(Write("AGENTS.md", agent_content, existing_agent))
     else:
         plan.preserved.append("AGENTS.md")
+    if ignore_content != existing_ignore:
+        plan.writes.append(Write(".gitignore", ignore_content, existing_ignore))
+    else:
+        plan.preserved.append(".gitignore")
     manifest = {
         "schema_version": 1, "identity": IDENTITY, "mode": mode, "project_name": project_name,
         "source_digest": fingerprint, "paths": paths, "existing_authorities": established,
         "managed_files": managed, "editable_project_records": sorted(editable),
-        "agent_block_sha256": digest(block.encode()), "omitted_template_references": sorted(omitted),
+        "agent_block_sha256": digest(block.encode()), "runtime_ignore_block_sha256": digest(IGNORE_BLOCK.encode()), "omitted_template_references": sorted(omitted),
     }
     manifest_bytes = (json.dumps(manifest, indent=2, sort_keys=True) + "\n").encode()
     if old:

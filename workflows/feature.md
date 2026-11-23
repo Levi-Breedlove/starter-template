@@ -28,9 +28,11 @@ Choose the route; do not ask the user to interpret process labels unless they ha
 
 Use [Consult](consult.md) throughout planning, not only at project initialization. Read existing answers before asking one to three material questions at a time. Derive engineering implications, research technical uncertainty, and recommend defaults with rationale. Save answers and useful drafts after every round.
 
-Give requirements stable IDs. Describe actors, triggering conditions, required results, measurable limits, failure cases, and preserved behavior. Conditional wording such as "When a valid request is retried, the system must return the original result without creating another reservation" makes a claim checkable. Do not invent business thresholds to fill a template.
+Give requirements stable IDs. Describe actors, triggering conditions, required results, measurable limits, failure cases, and preserved behavior. Newly structured work uses EARS, for example: "WHEN a valid request is retried, THE booking service SHALL return the original result without creating another reservation." Select ubiquitous, event, state, unwanted, optional or combined patterns according to the behavior. Do not invent business thresholds to fill a template. Preserve an explicitly adopted existing contract format.
 
 Analyze the requirement set for contradictory limits, ambiguous terms, unstated preconditions, dependencies, and concurrency or partial-failure gaps. Record material findings and their resolution. Resolve supported engineering questions directly; return genuine product decisions to the user with a recommendation. A known blocker prevents dependent work from being ready.
+
+Use `scripts/workflow.py analyze <work-id>` to obtain the current source-bound review request and syntax findings. Codex reads those sources, performs the semantic analysis, saves review notes and a schema-matching response, then imports it with `analyze --record`. The tool rejects stale inputs and unresolved blocker findings remain visible. The command prepares and records the review; it does not pretend a local syntax check performed the reasoning. See [specification operations](../docs/reference/specification-operations.md).
 
 ### 3. Design the implementation and its evidence
 
@@ -40,11 +42,15 @@ For brownfield work, identify the smallest changed surface, compatibility obliga
 
 Express useful correctness properties as observable invariants with preconditions. Select examples, property-based tests, contracts, integrations, infrastructure checks, or operational observations according to the claim. Property-based testing is optional as a technique; **required acceptance outcomes still need appropriate checks**. A mock or emulator does not establish AWS IAM, networking, service behavior, or deployment success.
 
+Use `scripts/workflow.py properties <work-id>` to derive and record those properties against current requirements/design. Codex owns the derivation, generated-input strategy where appropriate, and later executable tests. Cover all required behavior and connect the properties to real task/check IDs before accepting the task plan. Properties can be prepared after both artifacts exist in either route; design-first work is not forced to approve requirements before its initial design.
+
 ### 4. Perform the route's reviews
 
 For each review boundary in the route table, inspect the actual artifact and the requirements it must satisfy. Record the artifact revision or content identity, reviewer, findings, outcome, and authority supporting the next transition. Summarize material scope, assumptions, and unresolved decisions for the user.
 
 An explicit user decision can establish product acceptance. An authorized technical review can establish technical readiness. Prior authorization may delegate routine design choices and implementation; continue within it without requesting approval for each file. Do not record a generated document, silence, or author self-check as user acceptance or independent review. If the user reserved a decision or a consequential product gap remains, present the concrete alternatives and pause only dependent work.
+
+For a standard requirements-first feature, present the completed requirement scope for the user's confirmation before design unless actual prior authority delegates that decision. Present the concrete design at its review boundary on the same basis. Analysis/property results inform those decisions; neither is a substitute for the actual review. This preserves a guided review experience without repeatedly requesting already granted authority.
 
 For Quick Spec, one combined review covers the three drafted artifacts; do not insert requirements and design approval stops. For a standard route, do not skip its reviews just because task drafting is convenient. Reviews may be performed within existing authority, but they must actually occur and identify who performed them.
 

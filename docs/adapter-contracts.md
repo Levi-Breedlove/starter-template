@@ -1,6 +1,6 @@
 # Integration contracts
 
-The current executable surface is the bootstrap installer, local workflow CLI and read-only native hook adapter. Exact implemented schemas are in [workflow tooling](reference/workflow-tooling.md), [bootstrap](reference/bootstrap.md) and [native hooks](reference/native-hooks.md). This document specifies the boundary for further automation; it does not declare a scheduler implemented.
+The executable surface includes adoption, setup, specification operations, workflow state, read-only hooks and a bounded foreground task controller. Exact schemas are in [workflow tooling](reference/workflow-tooling.md), [bootstrap](reference/bootstrap.md), [specification operations](reference/specification-operations.md), [task execution](reference/task-execution.md) and [native hooks](reference/native-hooks.md). This document separates implemented interfaces from further automation.
 
 ## Existing adapters
 
@@ -9,27 +9,30 @@ The current executable surface is the bootstrap installer, local workflow CLI an
 | Adoption | Source, target, mode, optional existing authority paths | Preview or additive package plus manifest | Local fixtures establish file preservation and collisions. |
 | Context | Project root and work ID or active pointer | Known answers, questions, reviews, tasks and issues | References and structural consistency; not truth of business facts. |
 | Workflow | Canonical artifacts and indexed metadata | Validated phase change, review or evidence record | Declared hashes and traceability; not execution of a test. |
+| Specification analysis | Reviewed inputs, actual sourced response and policy | Retained findings/properties and current/stale/mapping state | Syntax/schema/freshness checks; semantic quality remains the reviewer responsibility. |
+| Reconciliation | Current changes and expected preview fingerprint | Necessary completion/phase changes and preserved history | Declared file/context impact; external state requires inspection. |
+| Native task run | Explicit execution policy, current accepted work and clean Git original | Isolated candidate, real check receipts and retained outcomes | Offline process/Git fixtures; actual model behavior needs a real-client trial. |
 | Native events | Documented event JSON | Bounded context or warning | Offline event behavior; actual client trust/loading recorded separately. |
 | AWS guidance | Relevant public question and existing official plugin | Source-backed recommendation | Public documentation; no implicit account observation. |
 
-## Future worker controller
+## Implemented foreground controller
 
-Use a supported Codex exec/SDK boundary for a bounded worker if actual demand justifies it. Select App Server only when persistent interactive control is needed. Verify the selected client's current schema; do not infer it from a repository directory name. [Official interfaces](reference/sources.md)
+The controller uses `codex exec` with structured final output and a workspace-write sandbox, preserving native permissions/configuration. No daemon, App Server, queue or unattended service is enabled. The selected client must actually support the documented invocation; local help and a fake executable do not prove model success. [Official interfaces](reference/sources.md)
 
-A future **run** needs a version, work ID, candidate identity, selected recipe, context, actual authority reference, limits and consumed counters. A **step request** needs a task and attempt ID, prerequisite outcomes, input identities, allowed write scope, expected checks and stop conditions. A **result** needs actual artifact identities, observations, findings, unresolved questions and externally observed receipts where applicable. Missing usage remains unknown, not zero.
+Each **run** persists its work/base identity, policy identity, authority reference, limits, attempts, candidate and observations. A **step request** names a task, allowed write scope, contract/check references and remaining time. The backend returns a strict task result; the controller validates the actual Git patch and runs the configured task/integration checks. Missing model usage remains unknown, not zero. Limits bound tasks, concurrency, attempts and elapsed time; they are not a hard monetary cap.
 
-The controller must validate returned records against actual artifacts. A model-declared success is a claim. Task status remains in the canonical work contract; run history records attempts rather than becoming a second completion tracker.
+Task completion is recorded only in the verified candidate's canonical ledger. Worker acceptance is labeled author acceptance; it is not an independent review. `run-apply` uses the expected original head and checks ignored-file collisions, candidate freshness and observed application effects. A changed original requires deliberate integration; a post-merge hook's edits are preserved as a review-needed outcome.
 
 ## Scheduling and review
 
-Dispatch only eligible tasks. Use separate worktrees or disjoint shared write scopes, with one integration owner. Bound workers, attempts, repeated failures, elapsed time and usage where observable; persist consumed limits across restarts. Review the actual combined candidate in a fresh context before claiming independent review. An incomplete reviewer or timeout cannot pass.
+Only eligible tasks dispatch. Separate worker worktrees run one dependency wave at a time; overlapping scopes serialize. Each task gets one attempt per run, with no automatic retries. The original application is preserved until explicit apply. Review the actual combined candidate in a fresh context before claiming independent review. An incomplete reviewer or timeout cannot pass.
 
 ## Durable recovery and events
 
-Persist intent before dispatch and validated outcome after completion. If a process stops between a side effect and its receipt, mark the outcome unknown and reconcile before retrying. A local log cannot promise exactly-once external effects. Use service-supported idempotency where applicable.
+The controller persists intent before dispatch/application and the observed outcome afterward. Interrupted runs remain inspectable with their worktrees and counters. Reusing a run ID cannot reset attempts; inspected abandonment retains history. A new invocation requires a deliberate decision after reconciliation. There is no automatic resume/replay or exactly-once guarantee for external effects.
 
 Future PR/CI integration needs repository/head identity, stable event IDs, processed dispositions and terminal stop conditions. Old-head checks cannot validate a new candidate; duplicate feedback cannot repeat effects. Idle waits must not run model turns. No scheduled job, feedback bot, public message, merge or cloud action is enabled by this design.
 
 ## Enablement evidence
 
-Start with fake workers and temporary repositories: crash windows, stale inputs, duplicate events, failed reviews, shared-file conflicts and cap exhaustion. Then conduct a bounded real-client trial under actual task scope. Cloud trials require a concrete project, authorized targets and cleanup/recovery ownership. The [implementation plan](implementation-plan.md) and [evaluation catalog](../evaluations/README.md) define the remaining work.
+Temporary-repository fixtures exercise real Git/process behavior with fake workers: stale inputs, failed checks, conflicting scopes, interrupted outcomes, process bounds and application preservation. The remaining native trial must observe actual consultation/model/client behavior under a fixed scope. Cloud trials need a concrete project, authorized targets and cleanup/recovery ownership. The [execution plan](../specs/0004-developer-workflow/exec-plan.md) and [evaluation catalog](../evaluations/README.md) distinguish implementation evidence from those observations.

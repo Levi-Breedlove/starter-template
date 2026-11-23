@@ -19,6 +19,8 @@ Allowed activity labels are `ready`, `in progress`, `blocked`, `needs verificati
 
 For Quick Spec, this is the combined review after upfront clarification and drafting all three artifacts. Standard routes link their earlier phase reviews and check the task graph here. Preserve existing implementation authority rather than requesting permission for each task. Use `work.json`, where present, as an index to actual source and review evidence, not a second task tracker.
 
+For newly structured work, ensure the recorded `analyze` response is current and all blocking findings are resolved. Map the current `properties` response to actual task and check IDs; every required behavior needs a verification strategy. If the task graph changes, repair its property mappings before acceptance. The task review records the real decision; importing analysis or properties does not grant approval.
+
 ## Implementation tasks
 
 ### T-001 — <independently reviewable outcome>
@@ -62,5 +64,7 @@ For local uncommitted work, record the base revision and patch identity rather t
 ## Reconciliation and deferred work
 
 When answers, requirements, design, code, inputs, or environment assumptions change, assess affected reviews, checks, and evidence. Preserve applicable results; reopen invalidated completion. Keep old results as history with their original scope and add new evidence separately.
+
+Use `scripts/workflow.py sync <work-id>` to preview declared-input impact and regeneration instructions. After inspecting the preview, apply its exact fingerprint with `sync --apply --expected-fingerprint ... --reason ...`. This reopens affected completion and rewinds the appropriate phase; Codex still performs the actual semantic update, review and checks. See [specification operations](../docs/reference/specification-operations.md).
 
 Deferred: <item, reason, impact, and actual decision reference>. Next eligible work follows dependencies and this task list. Keep one current handoff pointing here; do not create a second independently maintained status register.

@@ -24,7 +24,11 @@ Start from the [requirements](../templates/requirements.md), [design](../templat
 
 Requirements identify the actor, condition, observable outcome, relevant limit, failure behavior, and preserved contracts. Analyze the whole set for contradictions, undefined terms, incompatible limits, unstated prerequisites, and concurrent or partial-failure cases. Resolve technical findings from evidence; ask the user only about the remaining material decisions.
 
+New CLI work uses explicit EARS statements. Run `analyze` to obtain the current source-bound review request, perform the semantic review, and save its response and supporting notes. Record that actual response with `analyze --record <project-relative-response.json>`. This record is required before contract acceptance; it does not itself approve the contract. Syntax checking alone cannot establish correctness.
+
 Design explains components, contracts, data, errors, security boundaries, operating consequences, cost assumptions, and verification. Link established decisions and research material AWS claims through [official guidance](02-aws-guidance-and-access.md). For brownfield work, specify the smallest changed surface and preserve existing architecture and ownership.
+
+Use `properties` to prepare the correctness-property request after requirements and design exist. Derive observable statements, preconditions and suitable verification strategies, then record the actual response. During design, task/check IDs can be proposed; before task acceptance they must resolve to the real task graph. These commands prepare and validate review records; Codex writes the actual test implementation in the selected tasks. [Operation reference](../docs/reference/specification-operations.md)
 
 ## Perform and record actual phase reviews
 
@@ -54,7 +58,9 @@ These inspect the recorded workflow, task graph, coverage, and phase evidence. T
 
 Read the relevant contract before each task. Work in small changes and parallelize only separable scopes with a clear integration owner. Record actual results against the candidate revision, configuration, and environment. A local patch needs a patch identity in addition to its base commit. Shared files and shared conversation history do not make a review independent.
 
-Use [Reconcile](../workflows/reconcile.md) when answers, design, implementation, or environment assumptions materially change. Reopen invalidated completion and refresh affected reviews and evidence. Preserve useful completed work whose acceptance is still valid.
+Continue directly in the current session, or prepare the explicit execution policy and inspect `run-plan`. An authorized `run --execute` uses isolated worker/candidate worktrees and actual declared checks. Inspect `run-status` and the candidate before `run-apply`; uncertain outcomes need inspection rather than replay. The [execution reference](../docs/reference/task-execution.md) covers setup, bounds, trusted commands and application.
+
+Use [Reconcile](../workflows/reconcile.md) when answers, design, implementation, or environment assumptions materially change. `sync` previews affected conclusions and completion; apply its current fingerprint after inspecting the change. Refresh actual semantic reviews and verification while preserving useful work whose acceptance remains valid.
 
 Use [Review](../workflows/review.md) on the integrated candidate and resolve blocking findings. Finish with achieved behavior and its evidence, plus explicit pending obligations. If deployment is authorized, continue through [maintenance and release](04-maintain-and-release.md). A reviewed specification, completed implementation, release-ready artifact, successful deployment, and verified user outcome are separate states.
 

@@ -13,7 +13,7 @@
 - Scope and exclusions: Shared projection, CLI option, native adapter integration and meaningful regressions; no worker execution or client trust change.
 - Acceptance: Strict limits retain current problems and actionable references while preserving full audit output and read-only behavior.
 - Verification: CHK-001
-- Evidence / review: [Local checks](../../evidence/0003-efficient-context/local-checks.md) and [combined review](../../evidence/0003-efficient-context/review.md).
+- Evidence / review: [Current observed result](../../evidence/0004-developer-workflow/local-checks.md).
 - Blocker: none
 
 ### T-002 — Integrate efficient operating policy and safe packaging
@@ -25,13 +25,13 @@
 - Scope and exclusions: Root/adopted instructions, required package module, entry docs and one evaluation protocol.
 - Acceptance: Actual adoption includes the working compact CLI; incomplete packages fail before writes; policy preserves meaningful questions, checks and real authority.
 - Verification: CHK-002
-- Evidence / review: [Actual package and policy verification](../../evidence/0003-efficient-context/local-checks.md).
+- Evidence / review: [Current observed result](../../evidence/0004-developer-workflow/local-checks.md).
 - Blocker: none
 
 ### T-003 — Verify measured improvement and reconcile evidence
 
-- [x] T-003 complete
-- Activity: complete
+- [ ] T-003 complete
+- Activity: needs verification
 - Contract / design: REQ-001, REQ-002, REQ-003, REQ-004, REQ-006, REQ-007 / DES-004
 - Prerequisites: T-001, T-002
 - Scope and exclusions: Frozen old/new renderer measurements, aggregate regression suite, source identities and current evidence reconciliation; no native model or cloud trial.
