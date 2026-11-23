@@ -1,10 +1,10 @@
 # Implementation priorities
 
-The current slice moves deterministic workflow responsibilities into code. Its canonical checklist is [0002 consultant workflow](../specs/0002-consultant-workflow/tasks.md); the [original foundation backlog](../specs/0001-workflow-foundation/tasks.md) records broader ambitions and historical work. This roadmap does not maintain a duplicate checklist.
+The current slice improves focused context and makes efficiency measurable. Its canonical checklist is [0003 focused context](../specs/0003-efficient-context/tasks.md); [0002 consultant workflow](../specs/0002-consultant-workflow/tasks.md) retains the underlying implementation scope; the [original foundation backlog](../specs/0001-workflow-foundation/tasks.md) records broader ambitions and historical work. This roadmap does not maintain a duplicate checklist.
 
 ## Current slice
 
-Adaptive interview procedures; saved fact and question provenance; route-specific review and phase validation; dependency and traceability checks; declared-input evidence freshness; safe greenfield/brownfield installation; and read-only native hook adapters. The current [verification receipt](../evidence/0002-consultant-workflow/verification.md) reports exactly what ran.
+The existing consultation, state/evidence tooling and safe adoption remain. The current slice adds one bounded action-oriented context projection, a smaller fingerprint refresh for each prompt, and a quality-first operating/evaluation policy. The current [verification receipt](../evidence/0003-efficient-context/verification.md) reports actual payload measurements and regression results separately from future model trials.
 
 ## Next useful work
 

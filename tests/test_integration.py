@@ -69,6 +69,9 @@ class PackageIntegrationTests(unittest.TestCase):
                     self.assertIn(manifest["paths"]["brief"], report["context_files"])
                     self.assertIn(manifest["paths"]["handoff"], report["context_files"])
                     self.assertEqual(report["phase"], "consultation")
+                compact = self.run_tool(cli, ["--root", str(target), "context", "--compact", "--json"], target)
+                self.assertEqual(compact["work"]["id"], "0100-example")
+                self.assertIn({"kind": "context", "path": manifest["paths"]["brief"]}, compact["sources"])
                 self.assertEqual(snapshot(target), after_create)
                 rerun = self.run_tool(ROOT / "scripts/bootstrap.py", arguments + ["--apply"], ROOT)
                 self.assertEqual(rerun["changes"], [])
@@ -88,6 +91,7 @@ class PackageIntegrationTests(unittest.TestCase):
         nested.mkdir(parents=True)
         config = json.loads((ROOT / ".codex/hooks.json").read_text())
         before = snapshot(target)
+        startup_fingerprint = None
         for event in ("SessionStart", "UserPromptSubmit", "Stop"):
             command = config["hooks"][event][0]["hooks"][0]["command"].replace("/scripts/codex_hooks.py", "/.aws-workflow/scripts/codex_hooks.py")
             result = subprocess.run(command, shell=True, cwd=nested, input=json.dumps({"hook_event_name": event, "cwd": str(nested)}),
@@ -97,8 +101,16 @@ class PackageIntegrationTests(unittest.TestCase):
             if event != "Stop":
                 context = output["hookSpecificOutput"]["additionalContext"]
                 self.assertIn("0100-example", context)
-                self.assertIn(".aws-workflow/project/brief.md", context)
-                self.assertIn(".aws-workflow/delivery/current-handoff.md", context)
+                packet = json.loads(context)
+                if event == "SessionStart":
+                    startup_fingerprint = packet["fingerprint"]
+                    self.assertIn(".aws-workflow/project/brief.md", context)
+                    self.assertIn(".aws-workflow/delivery/current-handoff.md", context)
+                    self.assertLessEqual(len(context), 6000)
+                else:
+                    self.assertEqual(packet["fingerprint"], startup_fingerprint)
+                    self.assertIn("context --compact", packet["refresh"])
+                    self.assertLessEqual(len(context), 1200)
             self.assertNotIn("decision", output)
             self.assertNotIn("continue", output)
         self.assertEqual(snapshot(target), before)

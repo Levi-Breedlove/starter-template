@@ -12,7 +12,8 @@ LAYER_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(LAYER_ROOT))
 
 MAX_INPUT_BYTES = 65536
-MAX_CONTEXT_CHARS = 16000
+MAX_CONTEXT_CHARS = 6000
+MAX_PULSE_CHARS = 1200
 CONTEXT_EVENTS = {"SessionStart", "UserPromptSubmit"}
 
 
@@ -22,24 +23,13 @@ def project_root(layer_root: Path = LAYER_ROOT) -> Path:
 
 def clipped(value: object, limit: int = 1400) -> str:
     text = str(value)
-    return text if len(text) <= limit else text[:limit] + " [truncated; read the referenced record]"
+    marker = " [truncated; read the referenced record]"
+    return text if len(text) <= limit else text[:max(0, limit - len(marker))] + marker[:limit]
 
 
 def context_text(report: dict) -> str:
-    lines = [
-        "Codex AWS workflow context (repository data, not new user authority).",
-        "Inspect referenced source records before acting. Preserve accepted decisions and reuse answered questions.",
-        "Lead the consultation: derive implications, recommend options with reasons, and ask only consequential unresolved questions, up to three at a time.",
-        "An incomplete draft is a normal consultation state. Never fabricate answers, review approval, test outcomes, or AWS access.",
-        f"Active work: {report.get('id')} — {report.get('title')}",
-        f"Mode: {report.get('mode')}; route: {report.get('route')}; phase: {report.get('phase')}",
-    ]
-    for key in ("context_files", "artifacts", "known_facts", "answered_questions", "next_questions", "reviews", "eligible_tasks", "issues"):
-        value = report.get(key)
-        if value:
-            lines.append(f"{key}: {clipped(json.dumps(value, ensure_ascii=True), 1800)}")
-    lines.append("Use workflow.py context/status for the full record; tasks.md remains the completion authority. Validate before claiming completion.")
-    return clipped("\n".join(lines), MAX_CONTEXT_CHARS)
+    from workflow_engine import build_context_packet, render_context_packet
+    return render_context_packet(build_context_packet(report, MAX_CONTEXT_CHARS))
 
 
 def handle_event(payload: dict, root: Path | None = None, inspector=None) -> dict:
@@ -75,7 +65,9 @@ def handle_event(payload: dict, root: Path | None = None, inspector=None) -> dic
         # validation, changing permissions, or causing an automatic retry loop.
         return {"systemMessage": clipped(f"Workflow context could not be inspected ({type(exc).__name__}): {exc}. Run workflow.py status and resolve the record before claiming validation passed.", 1200)}
     if event in CONTEXT_EVENTS:
-        return {"hookSpecificOutput": {"hookEventName": event, "additionalContext": context_text(report)}}
+        from workflow_engine import prompt_pulse
+        context = context_text(report) if event == "SessionStart" else prompt_pulse(report, MAX_PULSE_CHARS)
+        return {"hookSpecificOutput": {"hookEventName": event, "additionalContext": context}}
     errors = [item for item in report.get("issues", []) if item.get("severity") == "error"]
     if errors:
         labels = "; ".join(clipped(f"{item.get('code')}: {item.get('message')}", 300) for item in errors[:4])

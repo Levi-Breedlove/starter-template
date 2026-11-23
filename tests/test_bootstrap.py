@@ -47,6 +47,7 @@ class BootstrapTests(unittest.TestCase):
             "templates/work.json": '{"schema_version": 1}\n',
             "workflow_engine/__init__.py": '"""Fixture package; not a runtime integration test."""\n',
             "workflow_engine/engine.py": "# Required fixture implementation module\n",
+            "workflow_engine/context.py": "# Required fixture context projection module\n",
             "workflow_engine/cli.py": "VALUE = 1\n",
             "scripts/workflow.py": "# Fixture wrapper\n",
             "scripts/codex_hooks.py": "# Optional read-only adapter\n",
@@ -165,10 +166,15 @@ class BootstrapTests(unittest.TestCase):
         self.assertEqual(snapshot(self.target), before)
 
     def test_missing_required_runtime_module_blocks_before_writes(self):
-        (self.source / "workflow_engine/engine.py").unlink()
-        with self.assertRaisesRegex(bootstrap.BootstrapError, "workflow_engine/engine.py"):
-            self.plan()
-        self.assertFalse(self.target.exists())
+        for name in ("engine.py", "context.py"):
+            with self.subTest(module=name):
+                path = self.source / "workflow_engine" / name
+                original = path.read_bytes()
+                path.unlink()
+                with self.assertRaisesRegex(bootstrap.BootstrapError, "workflow_engine/" + name):
+                    self.plan()
+                self.assertFalse(self.target.exists())
+                path.write_bytes(original)
 
     def test_source_inventory_error_cannot_silently_omit_guidance(self):
         actual_walk = bootstrap.os.walk

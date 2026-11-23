@@ -19,14 +19,15 @@ A developer can give Codex a rough idea or existing project. Codex leads the con
 | Adoption | Greenfield and brownfield; preserve existing architecture, tools, files and delivery authority. |
 | Implementation | Deterministic state/checks in local code; model judgment in concise instructions and reusable procedures. |
 | Content | Standalone neutral workflow; no third-party workflow product names or domains. |
+| Efficiency | Reduce repeated context and unnecessary work while preserving required quality, authority and evidence; measure improvements before ranking approaches. |
 | Authority | Repository work and offline verification authorized; no AWS account/resource access or paid unattended service authorized. |
 
 ## Current work and remaining choices
 
-The [consultant workflow specification](../specs/0002-consultant-workflow/requirements.md) owns the current implementation slice. Python is the local tool implementation, not a choice of application runtime. No application stack, region, IaC framework, pipeline, budget or deployment target is selected by this bootstrap.
+The [focused context specification](../specs/0003-efficient-context/requirements.md) owns the current improvement. The [consultant workflow specification](../specs/0002-consultant-workflow/requirements.md) retains the underlying implementation contract. Python is the local tool implementation, not a choice of application runtime. No application stack, region, IaC framework, pipeline, budget or deployment target is selected by this bootstrap.
 
 Real-client behavior, actual hook loading, public toolkit availability on an adopter's surface, and cloud deployment need their own observed trials. No comparative model/product benchmark has been run. Future controller language and execution interface should follow a measured need.
 
 ## Continuation
 
-[Current handoff](../delivery/current-handoff.md) · [Current tasks](../specs/0002-consultant-workflow/tasks.md) · [Historical foundation](../specs/0001-workflow-foundation/tasks.md)
+[Current handoff](../delivery/current-handoff.md) · [Current tasks](../specs/0003-efficient-context/tasks.md) · [Historical foundation](../specs/0001-workflow-foundation/tasks.md)

@@ -1,0 +1,119 @@
+{
+  "schema_version": 1,
+  "id": "0003-efficient-context",
+  "title": "Focused context and measured efficiency",
+  "mode": "brownfield",
+  "route": "quick",
+  "phase": "verification",
+  "artifacts": {
+    "requirements": "requirements.md",
+    "design": "design.md",
+    "tasks": "tasks.md"
+  },
+  "context_files": [
+    "project/brief.md",
+    "delivery/current-handoff.md",
+    "docs/reference/efficient-operation.md"
+  ],
+  "facts": [
+    {
+      "id": "F-001",
+      "kind": "supplied",
+      "statement": "The user requested a more effective and efficient reusable Codex AWS workflow.",
+      "source": "specs/0003-efficient-context/requirements.md"
+    },
+    {
+      "id": "F-002",
+      "kind": "observed",
+      "statement": "Audit found repeated startup context on prompts and important errors displaced by a long title.",
+      "source": "evidence/0003-efficient-context/review.md"
+    }
+  ],
+  "questions": [],
+  "reviews": [
+    {
+      "id": "REV-001",
+      "artifact": "tasks",
+      "outcome": "accepted",
+      "decision_ref": "evidence/0003-efficient-context/review.md",
+      "reviewer": "Root integrating agent (author; technical review within the delegated repository task)",
+      "authority": "delegated",
+      "recorded_at": "2026-11-23T05:28:41.389775+00:00",
+      "snapshot_policy": "canonical-plan-v1",
+      "hashes": {
+        "specs/0003-efficient-context/requirements.md": "b42f2158052ed1596bec4a7a7698438f1b3a0d96fc442af3f531a57b8fe6cb12",
+        "specs/0003-efficient-context/design.md": "ba7f2c94b787bd2e1a827dac05c631870bdce54a0f19d4139d1270bf6237d693",
+        "specs/0003-efficient-context/tasks.md": "02a3151377ceaee92d98eb0a07aaa7f832d583e6adf0e01c598e31ed2bf615bb"
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "id": "EV-001",
+      "check": "CHK-001",
+      "result": "pass",
+      "record": "evidence/0003-efficient-context/local-checks.md",
+      "method": "Actual combined offline suite and scoped integration review, detailed in the immutable local receipt",
+      "environment": "Local Linux; Python 3.12.14; temporary projects; no model or AWS calls",
+      "candidate": "Base 851505af9f54916da60fd8d4922eaddddedf38e5 plus recorded tested-source SHA-256 identities",
+      "observed_at": "2026-11-23T05:26:52.721622+00:00",
+      "recorded_at": "2026-11-23T05:28:41.403595+00:00",
+      "inputs": {
+        "evidence/0003-efficient-context/local-checks.md": "c3637e94eb5dcc482060a8c8190af4ab2f2404754a5ae11a0e581383cbe524dc",
+        "evidence/0003-efficient-context/run-observation.json": "8dca225d08a43ace2ee5d6b23ed3d883f263a62f86b71273fdefcdbccd128c21",
+        "evidence/0003-efficient-context/local-tests.txt": "e06c33694e83f1e46dcfbb8853e3e7215a638203409acb004e1b6a749858d97a",
+        "evidence/0003-efficient-context/review.md": "d2e0f25ab58674079ce17518805caecd1596aabb656c0171b8a799ce6323bd45",
+        "workflow_engine/__init__.py": "2e6f3b75287f9cb75e04027e83fe9d7cb32dcca7cf809f8abd4dbe2c98aa5692",
+        "workflow_engine/engine.py": "2527a061f489c5869bb361122cd482842b91fe02c4070a10af7371fab9fa9f44",
+        "workflow_engine/context.py": "9b707e46de8a373a54a41261b3a4992a83d068e72d0e09a973c14d77fb241900",
+        "scripts/workflow.py": "e11d2a1dbaaa373ea4ae006166b219d6829938a3f51090132d9612fcc3059883",
+        "scripts/codex_hooks.py": "c74601c3d24f838adc8883caf8a3d475eab3b1284e8ec6e812bc75801cbb46ba",
+        ".codex/hooks.json": "e82dad3c820a9cd50bd8d7283ddaf1ce44a8aab4060a92fe641418cb688d2cd4",
+        "tests/test_context.py": "b3f9b201aa85b0ad8f018ea7713abafa582b7021067ac4036c17d753e0399835",
+        "tests/test_codex_hooks.py": "2b4516877e3e311b252af8a97f1056f4cdc293be6128721876e997c2e967211f",
+        "tests/test_workflow.py": "9eba162a6d7fd5407336bd053c1ac6fa7cd15109ea40c5ffd55673e0d47bb98e",
+        "tests/test_integration.py": "8f881b4b2933997f7ba94d2511b59bcc5201d1c761c74b9dbb035ceb22518cb3"
+      },
+      "artifacts": {
+        "specs/0003-efficient-context/requirements.md": "b42f2158052ed1596bec4a7a7698438f1b3a0d96fc442af3f531a57b8fe6cb12",
+        "specs/0003-efficient-context/design.md": "ba7f2c94b787bd2e1a827dac05c631870bdce54a0f19d4139d1270bf6237d693"
+      },
+      "check_signature": "064a8cf130271f4d27bc5e9bc49c502f5bde0a49f37605f3c2c4b405ce96f4d2"
+    },
+    {
+      "id": "EV-002",
+      "check": "CHK-002",
+      "result": "pass",
+      "record": "evidence/0003-efficient-context/local-checks.md",
+      "method": "Actual combined offline suite and scoped integration review, detailed in the immutable local receipt",
+      "environment": "Local Linux; Python 3.12.14; temporary projects; no model or AWS calls",
+      "candidate": "Base 851505af9f54916da60fd8d4922eaddddedf38e5 plus recorded tested-source SHA-256 identities",
+      "observed_at": "2026-11-23T05:26:52.721622+00:00",
+      "recorded_at": "2026-11-23T05:28:41.414496+00:00",
+      "inputs": {
+        "evidence/0003-efficient-context/local-checks.md": "c3637e94eb5dcc482060a8c8190af4ab2f2404754a5ae11a0e581383cbe524dc",
+        "evidence/0003-efficient-context/run-observation.json": "8dca225d08a43ace2ee5d6b23ed3d883f263a62f86b71273fdefcdbccd128c21",
+        "evidence/0003-efficient-context/local-tests.txt": "e06c33694e83f1e46dcfbb8853e3e7215a638203409acb004e1b6a749858d97a",
+        "evidence/0003-efficient-context/review.md": "d2e0f25ab58674079ce17518805caecd1596aabb656c0171b8a799ce6323bd45",
+        "workflow_engine/__init__.py": "2e6f3b75287f9cb75e04027e83fe9d7cb32dcca7cf809f8abd4dbe2c98aa5692",
+        "workflow_engine/engine.py": "2527a061f489c5869bb361122cd482842b91fe02c4070a10af7371fab9fa9f44",
+        "workflow_engine/context.py": "9b707e46de8a373a54a41261b3a4992a83d068e72d0e09a973c14d77fb241900",
+        "scripts/workflow.py": "e11d2a1dbaaa373ea4ae006166b219d6829938a3f51090132d9612fcc3059883",
+        "scripts/bootstrap.py": "351f667626c0f487c41b7885c9af4b7a3b25fbb514ce6139290c7fd8acc1c352",
+        "scripts/codex_hooks.py": "c74601c3d24f838adc8883caf8a3d475eab3b1284e8ec6e812bc75801cbb46ba",
+        "tests/test_bootstrap.py": "41731e5e75afffdec19a1e1374e7196d9cf34a6cffae7e38871b062327bafbf6",
+        "tests/test_integration.py": "8f881b4b2933997f7ba94d2511b59bcc5201d1c761c74b9dbb035ceb22518cb3",
+        "AGENTS.md": "a84137960059bef3f2d7705284279bf0582b154c54f6ce1a3cae6ae62fa77535",
+        "docs/reference/efficient-operation.md": "18298ddc4263bcb812acb983ff8d3fa26cc88e2f825957557c8817c9294242ee",
+        "docs/reference/bootstrap.md": "25356bedf5fe598d327d4f3f6cd65a1d1ec4f3d982d24ff211069a4235c8a3f2",
+        "docs/reference/workflow-tooling.md": "6ac533f81e4b4be0b819426fe2f2856d0fc1d6399f7528958ebe2bbc9bdf7e18",
+        "evaluations/README.md": "97895288800bfdc06b6d17fb890bfff6868e4e3d9ab648688344132cc5564554"
+      },
+      "artifacts": {
+        "specs/0003-efficient-context/requirements.md": "b42f2158052ed1596bec4a7a7698438f1b3a0d96fc442af3f531a57b8fe6cb12",
+        "specs/0003-efficient-context/design.md": "ba7f2c94b787bd2e1a827dac05c631870bdce54a0f19d4139d1270bf6237d693"
+      },
+      "check_signature": "572295c73570fa08dfdf98e3d003f723e09f57207d89323bbad6630a96184600"
+    }
+  ]
+}

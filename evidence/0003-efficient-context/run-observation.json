@@ -1,0 +1,52 @@
+{
+  "base_commit": "851505af9f54916da60fd8d4922eaddddedf38e5",
+  "observed_start_utc": "2026-11-23T05:26:49.597354+00:00",
+  "observed_end_utc": "2026-11-23T05:26:52.721622+00:00",
+  "python": "3.12.14",
+  "environment": "Local Linux; standard library; temporary fixture projects",
+  "test_command": [
+    "python3",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "tests",
+    "-p",
+    "test_*.py",
+    "-v"
+  ],
+  "test_exit_code": 0,
+  "measurement_command": [
+    "python3",
+    "evaluations/context_payloads.py",
+    "--baseline-dir",
+    "TRUSTED_PRIOR_RENDERERS"
+  ],
+  "measurement_exit_code": 0,
+  "reviewed_executable_sha256": {
+    "workflow_engine/context.py": "9b707e46de8a373a54a41261b3a4992a83d068e72d0e09a973c14d77fb241900",
+    "workflow_engine/__init__.py": "2e6f3b75287f9cb75e04027e83fe9d7cb32dcca7cf809f8abd4dbe2c98aa5692",
+    "scripts/workflow.py": "e11d2a1dbaaa373ea4ae006166b219d6829938a3f51090132d9612fcc3059883",
+    "scripts/codex_hooks.py": "c74601c3d24f838adc8883caf8a3d475eab3b1284e8ec6e812bc75801cbb46ba"
+  },
+  "tested_source_sha256": {
+    ".codex/hooks.json": "e82dad3c820a9cd50bd8d7283ddaf1ce44a8aab4060a92fe641418cb688d2cd4",
+    "evaluations/context_payloads.py": "0a032d75ed587a054b7e6ec25de277caea378724a45c210c0e57abece0878c5c",
+    "scripts/bootstrap.py": "351f667626c0f487c41b7885c9af4b7a3b25fbb514ce6139290c7fd8acc1c352",
+    "scripts/check_repository.py": "3070c5f54c1b4ee9a7789f77606914cf5db81c5ecd6dc33f1e41cb00721ce139",
+    "scripts/codex_hooks.py": "c74601c3d24f838adc8883caf8a3d475eab3b1284e8ec6e812bc75801cbb46ba",
+    "scripts/workflow.py": "e11d2a1dbaaa373ea4ae006166b219d6829938a3f51090132d9612fcc3059883",
+    "tests/test_bootstrap.py": "41731e5e75afffdec19a1e1374e7196d9cf34a6cffae7e38871b062327bafbf6",
+    "tests/test_codex_hooks.py": "2b4516877e3e311b252af8a97f1056f4cdc293be6128721876e997c2e967211f",
+    "tests/test_context.py": "b3f9b201aa85b0ad8f018ea7713abafa582b7021067ac4036c17d753e0399835",
+    "tests/test_integration.py": "8f881b4b2933997f7ba94d2511b59bcc5201d1c761c74b9dbb035ceb22518cb3",
+    "tests/test_repository_checks.py": "acf6669ad654fc794c1a8c1799a41b7b9e606247fa688e525d3221f6a6f10c0b",
+    "tests/test_workflow.py": "9eba162a6d7fd5407336bd053c1ac6fa7cd15109ea40c5ffd55673e0d47bb98e",
+    "workflow_engine/__init__.py": "2e6f3b75287f9cb75e04027e83fe9d7cb32dcca7cf809f8abd4dbe2c98aa5692",
+    "workflow_engine/context.py": "9b707e46de8a373a54a41261b3a4992a83d068e72d0e09a973c14d77fb241900",
+    "workflow_engine/engine.py": "2527a061f489c5869bb361122cd482842b91fe02c4070a10af7371fab9fa9f44"
+  },
+  "test_log_sha256": "e06c33694e83f1e46dcfbb8853e3e7215a638203409acb004e1b6a749858d97a",
+  "measurements_sha256": "b6478a95fcc590d991682491ec712404a8633a5f55428badb2a361e1a42dba54",
+  "limits": "Offline code/fixture results only; no tokenizer, model quality/cost trial, native client activation or AWS observation"
+}

@@ -81,7 +81,7 @@ For a reserved decision, present the concrete result and ask for the missing dec
 From an adopted application root, `context`, `status`, and `validate` are read-only:
 
 ```bash
-python3 .aws-workflow/scripts/workflow.py --root . context
+python3 .aws-workflow/scripts/workflow.py --root . context --compact
 python3 .aws-workflow/scripts/workflow.py --root . status
 python3 .aws-workflow/scripts/workflow.py --root . validate
 ```

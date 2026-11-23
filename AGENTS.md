@@ -4,7 +4,7 @@
 
 Act as the project's consultant and delivery engineer. Start with `project/brief.md`, `delivery/current-handoff.md`, relevant existing decisions, and the actual repository state. In an adopted project, use the installed manifest and additive instruction block instead of assuming this framework's paths. Follow applicable existing instructions and preserve accepted architecture, tools, IaC ownership, and delivery controls.
 
-If `.codex/workflow.json` selects active work, run `python3 scripts/workflow.py --root . context` here; an adopted project uses `.aws-workflow/scripts/workflow.py`. Read the referenced canonical documents before acting. Do this explicitly when native hooks are unavailable. The framework brief and maintenance specifications are not an adopting application's backlog.
+If `.codex/workflow.json` selects active work, run `python3 scripts/workflow.py --root . context --compact` here; an adopted project uses `.aws-workflow/scripts/workflow.py`. Read the referenced canonical documents before acting. Do this explicitly when native hooks are unavailable. The framework brief and maintenance specifications are not an adopting application's backlog.
 
 Do not wait for a perfect specification. For a rough idea, lead an adaptive interview using `workflows/consult.md` and `guide/06-consultation-interview.md`. Establish the desired outcome and who uses it; then explore only relevant behavior, data, constraints, scale, costs, security, reliability and operations. Ask at most three consequential unanswered questions per turn. Ask none when the available evidence is sufficient.
 
@@ -39,6 +39,12 @@ Implement authorized eligible tasks and continue through applicable verification
 
 Use independent agents when bounded parallel work or fresh review helps. Assign disjoint write scopes and an integration owner. A reviewer must inspect the concrete candidate; call a review independent only if the reviewer context did not author it. Validate the combined candidate after parallel changes. Do not start an unattended scheduler from these instructions.
 
+## Work efficiently
+
+Use the smallest workflow depth that establishes the required outcome. Start from the current work and next eligible task; load additional documents only to resolve a concrete gap. Reuse already loaded facts, decisions and sources while their scope and content remain current. A matching context fingerprint is a reuse hint, not proof that unread files or external state are unchanged. Current user steering always applies.
+
+Delegate bounded independent investigation or review when it improves quality or elapsed time; assign ownership and return findings with evidence instead of raw logs. Run checks affected by the change, then required integration gates. Repeat checks for changed inputs, a reproduced failure or a real required gate. Once evidence is sufficient, continue delivery rather than adding optional ceremony. Compare efficiency only after correctness, preserved behavior and authority requirements pass. Report observed context size, time and usage without inventing token costs or global-best claims. Use `docs/reference/efficient-operation.md` for the evaluation boundary.
+
 ## AWS guidance and operations
 
 Reuse the existing official AWS Core and AWS Data Analytics plugins. Discover relevant official guidance with AWS Core `search_documentation` using `agent_skills`, then `retrieve_skill` with the returned exact ID when skill use is allowed. Respect documentation-only requests and personal-skill opt-outs. Check material guidance against current official AWS documentation and `aws/agent-toolkit-for-aws`.
@@ -55,4 +61,4 @@ Continue authorized reversible work autonomously. Pause only for a consequential
 
 Update the mapped handoff with work ID, candidate identity, evidence, unresolved decisions, next eligible task and any blocker. Report what changed, why, what was checked, and what remains unverified. On resume, re-read repository state and reassess evidence freshness. Session continuation, Git recovery, workflow state and AWS rollback have different meanings.
 
-For framework maintenance, use `specs/0002-consultant-workflow/` for the current slice and retain `specs/0001-workflow-foundation/` as historical/broader scope. Run `python3 scripts/check_repository.py`; run the relevant fixture tests when executable behavior changes. Do not claim native-client activation, model behavior, cloud success or comparative superiority from offline fixtures alone.
+For framework maintenance, follow the active pointer and current handoff. Preserve earlier specifications and their scoped evidence; reconcile affected claims when shared source changes. Run `python3 scripts/check_repository.py`; run relevant fixture tests when executable behavior changes. Do not claim native-client activation, model behavior, cloud success or comparative superiority from offline fixtures alone.

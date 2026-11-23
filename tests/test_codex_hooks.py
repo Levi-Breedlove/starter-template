@@ -35,14 +35,20 @@ class HookTests(unittest.TestCase):
 
     def test_context_carries_existing_answers_and_bounded_questions(self):
         self.activate()
-        report = {"id": "work", "title": "Feature", "phase": "consultation", "known_facts": [{"id": "F-1", "source": "brief.md"}], "answered_questions": [{"id": "Q-1", "answer_source": "brief.md"}], "next_questions": [{"id": "Q-2"}], "issues": []}
+        report = {"id": "work", "title": "Feature", "phase": "consultation", "known_facts": [{"id": "F-001", "source": "brief.md"}], "answered_questions": [{"id": "Q-001", "answer": "Use the established rule", "source": "brief.md"}], "next_questions": [{"id": "Q-002"}], "issues": []}
+        outputs = {}
         for event in ("SessionStart", "UserPromptSubmit"):
             out = HOOKS.handle_event(self.event(event), self.root, lambda root: report)
             self.assertEqual(out["hookSpecificOutput"]["hookEventName"], event)
             context = out["hookSpecificOutput"]["additionalContext"]
-            self.assertIn("answered_questions", context)
-            self.assertIn("Q-2", context)
+            outputs[event] = json.loads(context)
+            self.assertLessEqual(len(context), HOOKS.MAX_CONTEXT_CHARS if event == "SessionStart" else HOOKS.MAX_PULSE_CHARS)
             self.assertNotIn("decision", out)
+        self.assertEqual(outputs["SessionStart"]["answers"][0]["id"], "Q-001")
+        self.assertEqual(outputs["SessionStart"]["questions"][0]["id"], "Q-002")
+        self.assertEqual(outputs["SessionStart"]["fingerprint"], outputs["UserPromptSubmit"]["fingerprint"])
+        self.assertNotIn("answers", outputs["UserPromptSubmit"])
+        self.assertIn("Otherwise reuse", outputs["UserPromptSubmit"]["refresh"])
 
     def test_stop_warns_but_never_restarts_an_interview(self):
         self.activate()
@@ -72,8 +78,23 @@ class HookTests(unittest.TestCase):
         self.assertNotIn("hookSpecificOutput", out)
 
     def test_context_output_is_bounded(self):
-        out = HOOKS.context_text({"known_facts": ["x" * 100000], "answered_questions": ["y" * 100000]})
-        self.assertLessEqual(len(out), HOOKS.MAX_CONTEXT_CHARS + 50)
+        out = HOOKS.context_text({"title": "x" * 100000, "known_facts": [{"statement": "x" * 100000}], "answered_questions": [{"answer": "y" * 100000}], "issues": [{"severity": "error", "code": "false-completion", "message": "Evidence is stale"}]})
+        self.assertLessEqual(len(out), HOOKS.MAX_CONTEXT_CHARS)
+        self.assertEqual(json.loads(out)["attention"][0]["code"], "false-completion")
+
+    def test_prompt_refresh_changes_identity_without_creating_cache(self):
+        self.activate()
+        before = {p.relative_to(self.root).as_posix(): p.read_bytes() for p in self.root.rglob("*") if p.is_file()}
+        report = {"id": "work", "title": "Feature", "phase": "consultation", "issues": []}
+        first = HOOKS.handle_event(self.event("UserPromptSubmit"), self.root, lambda root: report)
+        report["issues"] = [{"severity": "error", "code": "stale-review", "message": "Review no longer matches"}]
+        second = HOOKS.handle_event(self.event("UserPromptSubmit"), self.root, lambda root: report)
+        a = json.loads(first["hookSpecificOutput"]["additionalContext"])
+        b = json.loads(second["hookSpecificOutput"]["additionalContext"])
+        self.assertNotEqual(a["fingerprint"], b["fingerprint"])
+        self.assertEqual(b["attention"][0]["code"], "stale-review")
+        after = {p.relative_to(self.root).as_posix(): p.read_bytes() for p in self.root.rglob("*") if p.is_file()}
+        self.assertEqual(after, before)
 
     def test_bad_and_large_inputs_return_valid_json(self):
         for payload in ("not json", "[]", "x" * (HOOKS.MAX_INPUT_BYTES + 1), "[" * 2000 + "]" * 2000):

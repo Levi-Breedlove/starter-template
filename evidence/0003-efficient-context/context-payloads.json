@@ -1,0 +1,78 @@
+{
+  "scope": "Frozen renderer fixtures; characters and bytes only; no tokenizer, model, cost or client activation benchmark",
+  "baseline_sha256": {
+    "codex_hooks.py": "0f4f6137366e02d0444da2e473ad424bcf91aa9c0049cc5eb2c9c3ba9aff5314",
+    "workflow.py": "6446b75c11c4d63b4af45dfb9de9a2ce3ac04b863244b232e953deddda0bd464"
+  },
+  "observations": {
+    "bounded_work": {
+      "fixture_sha256": "4458afab1eaefce47a80328bb709d66c9a763434332b4172a2ffd241dc61673e",
+      "current_startup": {
+        "characters": 1721,
+        "utf8_bytes": 1721,
+        "retains_stale_error": false
+      },
+      "current_refresh": {
+        "characters": 503,
+        "utf8_bytes": 503,
+        "retains_stale_error": false
+      },
+      "prior_startup_and_refresh": {
+        "characters": 1364,
+        "utf8_bytes": 1366,
+        "retains_stale_error": false
+      },
+      "prior_full_cli_context": {
+        "characters": 996,
+        "utf8_bytes": 996,
+        "retains_stale_error": false
+      }
+    },
+    "large_history": {
+      "fixture_sha256": "5f3ace418150704f0f12879d96325911699541c3c6959c2157253f629b79d12e",
+      "current_startup": {
+        "characters": 5533,
+        "utf8_bytes": 5533,
+        "retains_stale_error": false
+      },
+      "current_refresh": {
+        "characters": 491,
+        "utf8_bytes": 491,
+        "retains_stale_error": false
+      },
+      "prior_startup_and_refresh": {
+        "characters": 4771,
+        "utf8_bytes": 4773,
+        "retains_stale_error": false
+      },
+      "prior_full_cli_context": {
+        "characters": 63982,
+        "utf8_bytes": 63982,
+        "retains_stale_error": false
+      }
+    },
+    "long_title_with_error": {
+      "fixture_sha256": "4953b098d22a837b5d77c81eb1dff3ab84978d3463b91dc104b6147548cd5b12",
+      "current_startup": {
+        "characters": 1859,
+        "utf8_bytes": 1859,
+        "retains_stale_error": true
+      },
+      "current_refresh": {
+        "characters": 636,
+        "utf8_bytes": 636,
+        "retains_stale_error": true
+      },
+      "prior_startup_and_refresh": {
+        "characters": 16040,
+        "utf8_bytes": 16042,
+        "retains_stale_error": false
+      },
+      "prior_full_cli_context": {
+        "characters": 21074,
+        "utf8_bytes": 21074,
+        "retains_stale_error": true
+      }
+    }
+  }
+}

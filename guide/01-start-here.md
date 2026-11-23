@@ -46,7 +46,7 @@ From an adopted application root, an initial work item can be created with:
 
 ```bash
 python3 .aws-workflow/scripts/workflow.py --root . new 0100-first-capability --title "First capability" --mode greenfield --route requirements-first --idea "Describe the intended outcome" --activate
-python3 .aws-workflow/scripts/workflow.py --root . context
+python3 .aws-workflow/scripts/workflow.py --root . context --compact
 ```
 
 Inside the bootstrap itself, the equivalent tool path is `scripts/workflow.py`. Do not create a second work item when the current handoff already identifies the work to resume. The [first-feature guide](03-first-feature.md) explains the planning routes and reviews.

@@ -27,7 +27,7 @@ MAX_FILES = 350
 DOC_TREES = ("workflows", "templates", "guide", "runbooks", "costs", "security", "infrastructure", "docs/reference", "examples/consultation", "examples/booking-retries")
 DOC_FILES = ("docs/workflow-architecture.md", "docs/adapter-contracts.md", "docs/repository-map.md", "specs/README.md", "evidence/README.md", "delivery/README.md", "scripts/README.md", "evaluations/README.md")
 SCRIPT_FILES = ("scripts/workflow.py", "scripts/bootstrap.py", "scripts/codex_hooks.py")
-REQUIRED = ("workflows/consult.md", "workflows/brownfield.md", "templates/project-brief.md", "scripts/workflow.py", "workflow_engine/__init__.py", "workflow_engine/engine.py")
+REQUIRED = ("workflows/consult.md", "workflows/brownfield.md", "templates/project-brief.md", "scripts/workflow.py", "workflow_engine/__init__.py", "workflow_engine/engine.py", "workflow_engine/context.py")
 LOGICAL = {
     "brief": "project/brief.md",
     "handoff": "delivery/current-handoff.md",
@@ -193,10 +193,21 @@ imports an existing backlog or marks tasks complete automatically.
 Before selecting active work, consult the mapped brief/handoff and lead the
 conversation. Use the packaged tooling reference when a concrete work item is
 ready for `new --activate`. After that selection, run
-`python3 {NAMESPACE}/scripts/workflow.py --root . context` from this application
+`python3 {NAMESPACE}/scripts/workflow.py --root . context --compact` from this application
 root to resume structured work. No active work was created by adoption. Keep one
 canonical task completion record, preserve accepted decisions, and record current
 evidence and the next action at the mapped handoff path.
+
+Use the smallest workflow depth that establishes the required outcome. Reuse
+loaded facts and sources while their content and scope remain current; load only
+additional references needed for the next task. A matching context fingerprint
+does not establish that unread files or external state are unchanged. Current
+user steering takes precedence. Delegate bounded independent work only when it
+improves quality or elapsed time, with clear ownership and concise findings.
+Run affected checks and required integration gates; repeat for changed inputs,
+reproduced failures or a required gate. Stop optional work once sufficient
+evidence exists. Compare efficiency only after correctness, preservation and
+authority requirements pass; report actual measurements and unknown usage.
 
 For AWS, use the existing official hosted AWS Core / AWS Data Analytics plugins
 when relevant and available, and current official public documentation. Honor
@@ -420,7 +431,7 @@ from the application root, then load its context. For example:
 
 ```sh
 python3 .aws-workflow/scripts/workflow.py --root . new 0100-first-capability --title "First useful capability" --mode {mode} --route requirements-first --activate
-python3 .aws-workflow/scripts/workflow.py --root . context
+python3 .aws-workflow/scripts/workflow.py --root . context --compact
 ```
 
 Select the route and title for the actual agreed scope; the command above is an

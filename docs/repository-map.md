@@ -8,7 +8,7 @@ This repository is the reusable bootstrap's source. Application adoption install
 | `workflows/` | Consultation, features, bugfixes, adoption, reconciliation, review, release and incidents | Reusable guidance. |
 | `guide/` | Start, AWS boundaries, first feature, release, adoption and interview examples | Reusable guidance. |
 | `templates/` | Original planning, review, release and handoff formats; machine work template | Instantiate only relevant records. |
-| `workflow_engine/` | Versioned work parsing, context, phase gates and evidence validation | Installed Python package. |
+| `workflow_engine/` | Versioned work parsing, bounded context projection, phase gates and evidence validation | Installed Python package. |
 | `scripts/workflow.py` | CLI entry point | Installed under the reusable layer. |
 | `scripts/bootstrap.py` | Safe source-to-application installation | Run from the bootstrap source. |
 | `scripts/codex_hooks.py` | Read-only lifecycle handler | Code supplied; activation remains optional. |
@@ -16,7 +16,8 @@ This repository is the reusable bootstrap's source. Application adoption install
 | `.codex/workflow.json` | Active work selection | Never copied; created explicitly for application work. |
 | `project/` and `delivery/` | This bootstrap's context and handoff | Excluded; map existing app records or create fresh records. |
 | `specs/0001-workflow-foundation/` | Historical delivery and broader automation backlog | Excluded from application active work. |
-| `specs/0002-consultant-workflow/` | Current executable consultant workflow slice | Excluded from application active work. |
+| `specs/0002-consultant-workflow/` | Underlying executable consultant workflow contract | Excluded from application active work. |
+| `specs/0003-efficient-context/` | Focused context and measurable efficiency slice | Excluded from application active work. |
 | `docs/reference/` | Actual contracts, AWS boundaries and official sources | Selected reusable references. |
 | `docs/workflow-architecture.md` | Code/model/delivery responsibilities | Design reference. |
 | `docs/adapter-contracts.md` | Further execution integration boundaries | Future design reference. |

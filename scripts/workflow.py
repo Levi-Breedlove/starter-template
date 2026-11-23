@@ -12,7 +12,7 @@ from pathlib import Path
 sys.dont_write_bytecode = True
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
-from workflow_engine import WorkflowError, inspect_work
+from workflow_engine import WorkflowError, build_context_packet, inspect_work, render_context_packet
 from workflow_engine.engine import ARTIFACTS, ROUTES, advance, new_work, record_evidence, record_review
 
 
@@ -30,6 +30,8 @@ def parser():
     for name in ("context", "status", "validate", "review", "advance", "evidence"):
         command = commands.add_parser(name)
         command.add_argument("work_id", nargs="?", help="Work ID; omitted selects .codex/workflow.json active_work.")
+        if name == "context":
+            command.add_argument("--compact", action="store_true", help="Emit bounded actionable context; full inspection remains available without this flag.")
         if name == "review":
             command.add_argument("--artifact", choices=ARTIFACTS, required=True)
             command.add_argument("--outcome", choices=("accepted", "changes-requested"), required=True)
@@ -90,7 +92,12 @@ def main(argv=None):
             report = record_evidence(args.root, args.work_id, args.check, args.receipt, args.result, args.method, args.environment, args.candidate, args.observed_at, args.inputs)
         else:
             report = inspect_work(args.root, args.work_id)
-        print(json.dumps(report, indent=2, ensure_ascii=False) if args.json else render(report, args.command == "context"))
+        if args.command == "context" and args.compact:
+            # Both forms use the same strict-budget JSON packet. --json remains
+            # accepted for callers that explicitly request machine output.
+            print(render_context_packet(build_context_packet(report)))
+        else:
+            print(json.dumps(report, indent=2, ensure_ascii=False) if args.json else render(report, args.command == "context"))
         return int(args.command == "validate" and any(item["severity"] == "error" for item in report["issues"]))
     except (WorkflowError, OSError) as exc:
         print(f"Workflow error: {exc}", file=sys.stderr)

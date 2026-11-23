@@ -32,7 +32,7 @@ inside `.aws-workflow/`:
 
 ```sh
 python3 .aws-workflow/scripts/workflow.py --root . new 0100-first-capability --title "First useful capability" --mode greenfield --route requirements-first --idea "The user outcome agreed during consultation" --activate
-python3 .aws-workflow/scripts/workflow.py --root . context
+python3 .aws-workflow/scripts/workflow.py --root . context --compact
 ```
 
 Run these examples after that scope is established; they are not an automatic part

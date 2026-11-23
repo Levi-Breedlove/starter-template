@@ -52,12 +52,14 @@ Requirements-first and design-first routes review the two documents in their cho
 In an adopted project, Codex invokes the CLI at `.aws-workflow/scripts/workflow.py` with the application as `--root`. You can inspect the same record directly:
 
 ```bash
-python3 .aws-workflow/scripts/workflow.py --root . context
+python3 .aws-workflow/scripts/workflow.py --root . context --compact
 python3 .aws-workflow/scripts/workflow.py --root . status
 python3 .aws-workflow/scripts/workflow.py --root . validate
 ```
 
 The active work is selected in `.codex/workflow.json`; Markdown remains the human-readable contract and completion authority. Machine metadata references those documents instead of storing a second task checklist. See the [CLI reference](docs/reference/workflow-tooling.md).
+
+The compact view prioritizes current blockers and the next useful task, with source references and disclosed omissions. Startup context is capped at 6000 characters; prompt refresh at 1200. Full reports remain available. Efficiency is evaluated only after required quality, preservation and authority conditions pass; context size is measured separately from token cost and model performance. [Efficient operation](docs/reference/efficient-operation.md)
 
 The template includes native hook definitions for its own checkout. The installer leaves an adopter's client configuration untouched. Hooks require support and review/trust on the selected client; [native integration instructions](docs/reference/native-hooks.md) explain the optional setup. Fixture tests establish adapter behavior, not that another user's client has loaded or trusted it.
 
@@ -72,6 +74,6 @@ python3 -m unittest discover -s tests -p 'test_*.py' -v
 python3 scripts/check_repository.py
 ```
 
-The current implementation is specified in [consultant workflow work](specs/0002-consultant-workflow/requirements.md); its [tasks](specs/0002-consultant-workflow/tasks.md) and [verification receipt](evidence/0002-consultant-workflow/verification.md) state the tested scope. The [original foundation](specs/0001-workflow-foundation/tasks.md) retains historical delivery and broader, unfinished automation work.
+The current improvement is specified in [focused context work](specs/0003-efficient-context/requirements.md); its [tasks](specs/0003-efficient-context/tasks.md) and [verification receipt](evidence/0003-efficient-context/verification.md) state the tested scope. The [consultant workflow baseline](specs/0002-consultant-workflow/requirements.md) retains the underlying delivery contract. The [original foundation](specs/0001-workflow-foundation/tasks.md) retains historical delivery and broader, unfinished automation work.
 
 The model still conducts the interview, reasons about architecture, writes code and judges semantic quality. Deterministic tools catch record inconsistencies and stale claims; they cannot prove that a requirement is wise, that an observation is truthful, or that a workload works in AWS. Durable autonomous scheduling and real client/cloud trials remain separate work. [Architecture](docs/workflow-architecture.md) · [Repository map](docs/repository-map.md) · [Next implementation work](docs/implementation-plan.md)

@@ -8,7 +8,7 @@
         "command": "python3 \"$(git rev-parse --show-toplevel)/scripts/codex_hooks.py\"",
         "timeout": 5,
         "statusMessage": "Loading project consultation context",
-        "additionalContextLimit": 5000
+        "additionalContextLimit": 2500
       }]
     }],
     "UserPromptSubmit": [{
@@ -17,7 +17,7 @@
         "command": "python3 \"$(git rev-parse --show-toplevel)/scripts/codex_hooks.py\"",
         "timeout": 5,
         "statusMessage": "Refreshing project consultation context",
-        "additionalContextLimit": 5000
+        "additionalContextLimit": 1000
       }]
     }],
     "Stop": [{

@@ -4,11 +4,11 @@ The bootstrap supplies [a hook definition](../../.codex/hooks.json) and [a read-
 
 | Event | Handler behavior |
 | --- | --- |
-| `SessionStart` | Inject a bounded summary of active work, known answers, next questions, review state and issues. Includes resume/compaction sources. |
-| `UserPromptSubmit` | Refresh the same context before the next user request. The handler never changes the prompt. |
+| `SessionStart` | Inject a compact summary capped at 6000 characters: current problems first, next action, relevant tasks, sourced answers and references. Includes resume/compaction sources. |
+| `UserPromptSubmit` | Send a refresh capped at 1200 characters with the report fingerprint, current problems and next action. Reload compact context if no packet is loaded or the fingerprint changes. |
 | `Stop` | Show a warning for structural validation errors. Never force another model turn or block a legitimate interview pause. |
 
-The handler reads the active pointer and workflow records. It does not run tests, shell commands, model calls, AWS calls, migrations, installs, or task mutations. No active pointer means no arbitrary work selection. Errors remain visible; they are not converted to passing validation. Input/output sizes and execution time are bounded.
+The handler reads the active pointer and workflow records. It does not run tests, shell commands, model calls, AWS calls, migrations, installs, or task mutations. No active pointer means no arbitrary work selection. Errors remain visible; they are not converted to passing validation. Input/output sizes and execution time are bounded. Packet limits count serialized JSON characters, including escaping; the CLI's terminal newline is separate.
 
 ## Enable on a selected client
 
@@ -20,7 +20,9 @@ The adoption helper deliberately does not modify `.codex` or client trust. In an
 "python3 \"$(git rev-parse --show-toplevel)/.aws-workflow/scripts/codex_hooks.py\""
 ```
 
-Keep the `timeout` at 5 seconds and the context limit at 5000. For a non-Git directory, use a reviewed absolute script path. The supplied command targets a POSIX shell with `python3`; Windows or hosted clients need a verified equivalent and supported hook surface. Do not claim activation from the presence of a configuration file.
+Keep the `timeout` at 5 seconds. The supplied definitions use `additionalContextLimit` 2500 for startup and 1000 for prompt refresh; these are host token thresholds, separate from the handler's character caps. For a non-Git directory, use a reviewed absolute script path. The supplied command targets a POSIX shell with `python3`; Windows or hosted clients need a verified equivalent and supported hook surface. Do not claim activation from the presence of a configuration file.
+
+The refresh has no persistent cache and does not skip validation. Its fingerprint identifies the inspection report, not all repository files or external state. Read required sources before using them, inspect changed inputs, and apply the current user request even when the fingerprint matches. Full `context`, `status` and JSON reports remain available for deliberate inspection. See [efficient operation](efficient-operation.md).
 
 ## Verify without using a model
 
@@ -28,4 +30,4 @@ The event contract is exercised by `tests/test_codex_hooks.py`: valid JSON, no-a
 
 A real selected-client trial should show the configured source, trusted definition, received context and expected warning behavior. It has not been substituted by these fixture results. Record the actual client/version and observations in the environment-capability record.
 
-Without native hooks, the workflow remains usable: `AGENTS.md` directs Codex to run `workflow.py context` at entry/resume and `workflow.py validate` before completion claims. Hooks are convenience and feedback, not an authorization or security boundary.
+Without native hooks, the workflow remains usable: `AGENTS.md` directs Codex to run `workflow.py context --compact` at entry/resume and `workflow.py validate` before completion claims. Hooks are convenience and feedback, not an authorization or security boundary.

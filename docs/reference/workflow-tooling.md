@@ -30,6 +30,14 @@ When `.aws-workflow/manifest.json` identifies a valid schema-1 adoption, `new` c
 
 `--activate` explicitly writes `.codex/workflow.json` with `schema_version: 1` and `active_work: "specs/0100-record-service"`. Omitting it leaves the active selection unchanged. `new` refuses an existing work directory. The selected root always defaults to the current working directory, including when the script is packaged elsewhere. No project-global configuration is required before creating a work item.
 
+## Focused context for normal work
+
+Use `context --compact` for entry and resume. It projects the full inspection report into a bounded action summary: errors and current blockers first, the next useful action, up to three eligible tasks with their references, applicable review state, selected sourced context, and omission counts. Completed history becomes counts. `context --compact --json` exposes the compact object. The original full `context`, `status`, and `--json` outputs remain available for audits and diagnostics.
+
+The compact text and native startup view are capped at 6000 characters. Native prompt refresh is capped at 1200 characters and carries a stable report fingerprint. Reuse a loaded packet when that report is unchanged; reload when it changes or no packet is loaded. A fingerprint cannot prove unchanged unread source files or external state. Current user steering, actual source inspection and required validation still apply. No context cache is written, and no new phase or authorization is created by the suggestion.
+
+Omissions are explicit: a compact view is an index into canonical records, not permission to ignore a required source. Errors cannot be displaced by a long title or old completed task history. These character ceilings are not tokenizer measurements or a model-quality benchmark. See [efficient operation](efficient-operation.md).
+
 ## Commands and write boundaries
 
 All commands accept `--root PATH` **before** the subcommand. A work ID after an existing-work command is optional; without one, the active pointer selects the work item. All commands accept `--json` after the subcommand.

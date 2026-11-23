@@ -1,15 +1,12 @@
 # Current handoff
 
-**Work:** 0002-consultant-workflow.  
-**Phase:** Completed bounded implementation; final completion-record publication follows the verified source snapshot.  
-**Authority:** Requested repository update and offline verification. No AWS account/resource operation or paid background trial was performed.
+**Work:** 0003-efficient-context.  
+**Verified local result:** Shared compact context and operating policy; 105 combined tests passed.  
+**Current phase/completion authority:** Run the workflow CLI status for the active work; [tasks](../specs/0003-efficient-context/tasks.md) are canonical.  
+**Authority:** Requested repository improvement; no account operation, paid model trial or native trust change.
 
-The adaptive consultant procedure, local work-state/evidence engine, safe application installer and bounded native hook adapter are implemented. The combined 89-test suite passed. Current file/structure/name checks passed. The published source snapshot was read back in full with all 98 paths, modes and blob identities matching; visibility remained private. The completion-record update changes no executable code or tests.
+Startup context prioritizes blockers, next action and relevant source/task references within 6,000 serialized characters. Prompt refresh is capped at 1,200 and uses the complete inspection-report fingerprint as a reuse hint. Full audit views remain available. Source and adopted instructions preserve quality before comparing efficiency, selective loading, useful delegation and required verification.
 
-[Canonical current tasks](../specs/0002-consultant-workflow/tasks.md) · [Verification](../evidence/0002-consultant-workflow/verification.md) · [Publication observation](../evidence/0002-consultant-workflow/publication.md)
+[Verification](../evidence/0003-efficient-context/verification.md) records the actual 105-test run, independent review, source identities and frozen old/new measurements. [Publication](../evidence/0003-efficient-context/publication.md) records remote source readback separately. Earlier consultant receipts remain historical; its affected current evidence is reconciled against this new observation instead of relabeling old tests.
 
-## Continue from here
-
-For an application, run the installer into the application's own directory, open that project in Codex and begin a natural-language consultation. Adoption creates or maps application context and excludes this framework backlog. Reuse known requirements and accepted architecture; lead with engineering recommendations and ask only consequential gaps.
-
-The next useful framework evidence is a bounded real Codex consultation trial in disposable greenfield and brownfield applications, then selected-client hook/public-toolkit checks. Actual model behavior, client trust/loading and cloud delivery remain unverified. Durable worker scheduling is future implementation, not a hidden running service. Choose a compiled backend only when packaging, concurrency or measured runtime needs justify the change.
+The next meaningful evaluation is a fixed greenfield consultation and a fixed brownfield correction using the [existing protocol](../evaluations/README.md). Establish the chosen client/model, allowed tools and measurable success first. Actual model behavior, native hook trust/loading, hosted plugin revision and AWS operations remain separate observations. Do not start a paid trial, change client trust or inspect accounts from this handoff alone.
