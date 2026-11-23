@@ -3,6 +3,9 @@
 **Local result:** Implemented and verified; 183 combined tests passed in
 29.821 seconds, with tested source identities unchanged during execution.
 **Independent review:** Seven material findings are closed in the reviewed source.
+**Source delivery:** The published 147-file source snapshot matched every remote
+path, mode and blob identity; the repository remained private. See the separate
+[publication observation](publication.md) for exact revision and scope.
 **Native-client result:** Not run; required acceptance remains open.
 
 The delivered implementation supplies setup before active work, complete additive

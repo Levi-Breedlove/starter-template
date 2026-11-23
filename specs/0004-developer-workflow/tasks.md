@@ -79,14 +79,14 @@
 
 ### T-007 — Publish the candidate and reconcile current evidence
 
-- [ ] T-007 complete
-- Activity: ready
+- [x] T-007 complete
+- Activity: complete
 - Contract / design: REQ-009 / DES-006
 - Prerequisites: T-006
 - Scope and exclusions: The named outcome within repository authority; no AWS account operations.
 - Acceptance: Source/evidence remain current and every remote file identity matches the delivered candidate using expected-head publication.
 - Verification: CHK-007
-- Evidence / review: Not yet recorded.
+- Evidence / review: [Actual current source readback](../../evidence/0004-developer-workflow/publication.md).
 - Blocker: none
 
 ### T-008 — Observe the bounded native-client workflow trials
@@ -98,7 +98,7 @@
 - Scope and exclusions: The named outcome within repository authority; no AWS account operations.
 - Acceptance: Approved selected-client greenfield/brownfield, changed-requirement and resume trials have actual observations and reviewed results.
 - Verification: CHK-008
-- Evidence / review: Not yet recorded.
+- Evidence / review: [Prepared native pilot, NOT RUN](../../evaluations/native-pilot-plan.md).
 - Blocker: Manual approval of concrete credit-consuming native trial, per the user standing instruction.
 
 ## Verification matrix
@@ -111,5 +111,5 @@
 | CHK-004 | REQ-001, REQ-008 | T-004 | Run setup/bootstrap preservation, collision, mapping, hook-preview and missing-module tests. | [Observed result](../../evidence/0004-developer-workflow/local-checks.md) |
 | CHK-005 | REQ-002, REQ-003, REQ-004, REQ-005, REQ-007, REQ-008 | T-005 | Exercise documented CLI operations on an adopted package and legacy/new phase gates. | [Observed result](../../evidence/0004-developer-workflow/local-checks.md) |
 | CHK-006 | REQ-001, REQ-002, REQ-003, REQ-004, REQ-005, REQ-006, REQ-007, REQ-008, REQ-009 | T-006 | Run combined suite, independent concrete review, source identities, naming and local-link scans. | [Observed result](../../evidence/0004-developer-workflow/local-checks.md) |
-| CHK-007 | REQ-009 | T-007 | Reconcile changed claims and verify complete remote paths, modes and blob identities. | Not run |
-| CHK-008 | REQ-010 | T-008 | Run the separately approved native-client trial plan and review actual behavior against fixed rubrics. | Not run |
+| CHK-007 | REQ-009 | T-007 | Reconcile changed claims and verify complete remote paths, modes and blob identities. | [Actual source readback](../../evidence/0004-developer-workflow/publication.md) |
+| CHK-008 | REQ-010 | T-008 | Run the separately approved native-client trial plan and review actual behavior against fixed rubrics. | NOT RUN; [approval-dependent proposal](../../evaluations/native-pilot-plan.md) |
