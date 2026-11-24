@@ -91,15 +91,15 @@
 
 ### T-008 — Observe the bounded native-client workflow trials
 
-- [ ] T-008 complete
-- Activity: blocked
+- [x] T-008 complete
+- Activity: complete
 - Contract / design: REQ-010 / DES-006
 - Prerequisites: T-006
 - Scope and exclusions: The named outcome within repository authority; no AWS account operations.
 - Acceptance: Approved selected-client greenfield/brownfield, changed-requirement and resume trials have actual observations and reviewed results.
 - Verification: CHK-008
-- Evidence / review: [Reviewed native stages and outstanding G4 closeout](../../evidence/0004-developer-workflow/native-pilot-results.md).
-- Blocker: Replacement G4 timed out at 900 seconds after verifying its changed booking implementation. Its mapped handoff still points to G2 and its required final response is empty. A further native observation needs separate authorization.
+- Evidence / review: [Accepted frozen native observations](../../evidence/0004-developer-workflow/native-pilot-closeout.md).
+- Blocker: none
 
 ## Verification matrix
 
@@ -112,4 +112,4 @@
 | CHK-005 | REQ-002, REQ-003, REQ-004, REQ-005, REQ-007, REQ-008 | T-005 | Exercise documented CLI operations on an adopted package and legacy/new phase gates. | [Observed readiness result](../../evidence/0004-developer-workflow/codespaces-stabilization.md) |
 | CHK-006 | REQ-001, REQ-002, REQ-003, REQ-004, REQ-005, REQ-006, REQ-007, REQ-008, REQ-009 | T-006 | Run combined suite, independent concrete review, source identities, naming and local-link scans. | [Observed readiness result](../../evidence/0004-developer-workflow/codespaces-stabilization.md) |
 | CHK-007 | REQ-009 | T-007 | Reconcile changed claims and verify complete remote paths, modes and blob identities. | [Observed readiness result](../../evidence/0004-developer-workflow/codespaces-stabilization.md) |
-| CHK-008 | REQ-010 | T-008 | Run the separately approved native-client trial plan and review actual behavior against fixed rubrics. | [G4 closeout failed](../../evidence/0004-developer-workflow/native-pilot-results.md) |
+| CHK-008 | REQ-010 | T-008 | Run the separately approved native-client trial plan and review actual behavior against fixed rubrics. | [Reviewed final observation](../../evidence/0004-developer-workflow/native-pilot-closeout.md) |
