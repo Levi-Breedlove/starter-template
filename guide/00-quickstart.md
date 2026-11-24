@@ -59,7 +59,21 @@ For GitHub Codespaces, use the [Codespaces readiness guide](07-codespaces.md). T
 
 ## 3. Give Codex the outcome
 
-For a new project, you can simply say **Start my AWS project.** Codex should offer a brief welcome as your AWS consultant and lead with known context or ask for the desired outcome. If saved consultation or work already exists, it should resume instead of restarting. No model call is started automatically by installation or setup.
+For a new project, you can simply type **`start`** (or say “Start my AWS project”). Codex should offer a brief welcome as your AWS consultant and lead with known context or ask for the desired outcome. If saved consultation or work already exists, it should resume instead of restarting. No model call is started automatically by installation or setup.
+
+Use these optional conversational shortcuts directly in Codex:
+
+| Shortcut | Expected action |
+| --- | --- |
+| `start` | Run local setup inspection, read the mapped context, and begin a warm first consultation or continue the saved work. Infer greenfield or brownfield from adoption and evidence; ask only material unresolved questions. |
+| `resume` | Inspect the handoff, current work and changed inputs; reconcile as needed and continue the next eligible authorized action. If no work exists, continue the saved consultation or begin it. |
+| `status` | Read-only summary of the actual project state, phase, task/evidence progress, blockers and next action. Do not change files or start implementation. |
+| `feature` | Inspect existing context, establish the desired new behavior, and choose the appropriate specification route. Preserve existing work and accepted architecture. |
+| `bugfix` | Establish observed faulty behavior, expected behavior and what must remain unchanged; use the bugfix procedure and its verification obligations. |
+| `review` | Inspect the actual selected specification or implementation candidate against its requirements, risks and evidence; report findings without manufacturing acceptance. |
+| `release` | Prepare the release and verification/recovery plan under existing controls. Deployment or other external operations require actual scoped authority; the word alone grants none. |
+
+These are not terminal commands. No shortcut grants additional authority or starts an extra model invocation. Existing work and instructions remain authoritative.
 
 For a more specific start:
 

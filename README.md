@@ -28,7 +28,7 @@ No active work is expected immediately after adoption. This read-only check iden
 
 For Codespaces, use the ordinary VS Code integrated terminal to check the selected native client's state before a native run. See [Codespaces readiness](guide/07-codespaces.md); native execution is optional for conversational delivery.
 
-Open the application root in Codex and say **Start my AWS project.** Codex should greet you, inspect context, and guide the next useful question or action. You can also use the prompt above, followed by your idea. For example:
+Open the application root in Codex and type **`start`** (or “Start my AWS project”). Codex should inspect readiness and context, welcome you on the first consultation, or resume saved work. The [conversation shortcuts](guide/00-quickstart.md#3-give-codex-the-outcome) also include `resume`, `status`, `feature`, `bugfix`, `review`, and `release`. These are natural-language requests, not shell commands or extra execution authority. You can also use the prompt above, followed by your idea. For example:
 
 > I want an appointment service for three clinics. Patients book online and receive reminders. Please lead the consultation from here.
 

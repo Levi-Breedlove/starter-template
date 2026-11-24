@@ -79,6 +79,17 @@ class BootstrapTests(unittest.TestCase):
         bootstrap.apply_plan(plan)
         return plan
 
+    def assert_conversation_shortcuts(self):
+        instructions = (self.target / "AGENTS.md").read_text(encoding="utf-8")
+        for word in ("start", "resume", "status", "feature", "bugfix", "review", "release"):
+            self.assertEqual(instructions.count(f"| `{word}` |"), 1)
+        self.assertIn("case-insensitive", instructions)
+        self.assertIn("not shell commands", instructions)
+        self.assertIn("Read-only summary", instructions)
+        self.assertIn("the word alone grants none", instructions)
+        self.assertIn("do not silently switch or abandon active work", instructions)
+        self.assertIn("A shortcut does not grant additional authority", instructions)
+
     def test_greenfield_preview_has_no_effect_and_apply_starts_fresh(self):
         before_source = snapshot(self.source)
         plan = self.plan()
@@ -92,6 +103,7 @@ class BootstrapTests(unittest.TestCase):
         self.assertTrue((self.target / ".aws-workflow/workflow_engine/native_preflight.py").is_file())
         self.assertIn("On the first user-initiated application consultation, greet warmly", (self.target / "AGENTS.md").read_text())
         self.assertIn("resume it rather than restarting the welcome", (self.target / "AGENTS.md").read_text())
+        self.assert_conversation_shortcuts()
         self.assertIn("/.workflow-state/", (self.target / ".gitignore").read_text())
         contents = "\n".join(path.read_text() for path in self.target.rglob("*") if path.is_file())
         self.assertNotIn("DO NOT COPY", contents)
@@ -124,6 +136,7 @@ class BootstrapTests(unittest.TestCase):
         for path, content in saved.items():
             actual = (self.target / path).read_bytes()
             self.assertTrue(actual.startswith(content) if path == "AGENTS.md" else actual == content, path)
+        self.assert_conversation_shortcuts()
         self.assertEqual(plan.paths["brief"], "project/brief.md")
         self.assertFalse((self.target / ".aws-workflow/project/brief.md").exists())
         linked = (self.target / ".aws-workflow/workflows/consult.md").read_text()

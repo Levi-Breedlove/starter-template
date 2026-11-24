@@ -202,6 +202,22 @@ imports an existing backlog or marks tasks complete automatically.
 
 On the first user-initiated application consultation, greet warmly and briefly as the AWS consultant. If the user has supplied a goal, summarize it and the known constraints; otherwise ask what outcome they want and who will use it. Recommend the next direction using the available evidence. Do not repeat settled questions, invent facts, or require a ceremonial interview. Save the actual discussion in the mapped brief and handoff. When consultation or selected work already exists, resume it rather than restarting the welcome. No unsolicited message, background task, extra native invocation, or deployment is authorized by onboarding.
 
+### Natural-language entry shortcuts
+
+Treat the following standalone user messages (case-insensitive), or their clear natural-language equivalents, as conversational requests, not shell commands or mandatory syntax. A supplied goal or scope takes precedence. Use the current session and the mapped workflow paths; do not silently switch or abandon active work.
+
+| Shortcut | Expected action |
+| --- | --- |
+| `start` | Run local setup inspection, read the mapped context, and begin a warm first consultation or continue the saved work. Infer greenfield or brownfield from adoption and evidence; ask only material unresolved questions. |
+| `resume` | Inspect the handoff, current work and changed inputs; reconcile as needed and continue the next eligible authorized action. If no work exists, continue the saved consultation or begin it. |
+| `status` | Read-only summary of the actual project state, phase, task/evidence progress, blockers and next action. Do not change files or start implementation. |
+| `feature` | Inspect existing context, establish the desired new behavior, and choose the appropriate specification route. Preserve existing work and accepted architecture. |
+| `bugfix` | Establish observed faulty behavior, expected behavior and what must remain unchanged; use the bugfix procedure and its verification obligations. |
+| `review` | Inspect the actual selected specification or implementation candidate against its requirements, risks and evidence; report findings without manufacturing acceptance. |
+| `release` | Prepare the release and verification/recovery plan under existing controls. Deployment or other external operations require actual scoped authority; the word alone grants none. |
+
+A shortcut does not grant additional authority, accept a future artifact, launch a separate native model, or authorize account access or deployment. Retain the existing rules for local work, evidence and review. When the developer is in the bootstrap source rather than an adopted application, `start` helps them adopt into a separate application first if their intent is a new application; otherwise respect the current framework-maintenance handoff. Do not treat template-maintenance records as application context.
+
 Before selecting active work, consult the mapped brief/handoff and lead the
 conversation. Run `python3 {NAMESPACE}/scripts/workflow.py --root . doctor` for
 read-only local setup findings; missing active work is normal before consultation.
@@ -447,7 +463,7 @@ before adopting structured specification metadata. The manifest maps logical
 context paths in reusable prose to the application's actual files.
 
 Before selecting work, read the mapped brief/handoff and start the consultation
-naturally. Open the application in Codex and say **Start my AWS project.**
+naturally. Open the application in Codex and type **`start`**.
 Describe the outcome if you already know it; resume saved work instead of starting
 another interview. Read-only local setup inspection works before any selection:
 

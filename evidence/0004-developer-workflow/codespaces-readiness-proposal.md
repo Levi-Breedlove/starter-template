@@ -30,3 +30,15 @@ startup, native model behavior, or AWS execution was tested in this change
 session. Reconcile the affected review and evidence records against the actual
 integrated candidate after running the full suite, before merging. Do not
 mark T-008 complete until the approved native trial is actually observed.
+
+## Conversational entry shortcuts follow-up
+
+The user requested seven optional natural-language entry shortcuts. The root
+and generated adoption instructions now define the same behavior for `start`,
+`resume`, `status`, `feature`, `bugfix`, `review`, and `release`; the quickstart
+and Codespaces guide explain the entry experience. No new CLI subcommands,
+permissions, native invocations or AWS operations are introduced. Regression
+assertions cover the generated instruction contract in both adoption modes.
+The follow-up requires the full integrated regression suite and evidence
+reconciliation before merging. Actual client responses remain unobserved;
+this follow-up does not close T-008.

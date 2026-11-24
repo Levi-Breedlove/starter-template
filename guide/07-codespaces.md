@@ -65,8 +65,8 @@ stage ledger, modify the frozen prompts, or add automatic retries.
 ## Start the natural consultation
 
 Once the application is adopted, use the application-root doctor command in
-the [quickstart](00-quickstart.md). Open the application root in Codex and say
-**Start my AWS project.** The first user-initiated response should briefly
+the [quickstart](00-quickstart.md). Open the application root in Codex and type
+**`start`** (or say “Start my AWS project”). The first user-initiated response should briefly
 welcome the developer, reflect known intent and guide the next one to three
 material questions. For example:
 
