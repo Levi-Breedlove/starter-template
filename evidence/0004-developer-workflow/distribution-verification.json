@@ -1,0 +1,193 @@
+{
+  "maintenance": {
+    "repository": "Levi-Breedlove/starter-template",
+    "branch": "codespaces-readiness",
+    "pull_request": 1,
+    "verified_head": "98a4de0b0158130573e2ff5281321bb4a57a7bc6",
+    "tree": "6d79b64257d1a5e287a222283a3255bdbeac61a6",
+    "entries": 171,
+    "every_path_mode_type_object_matched": true
+  },
+  "application_commit": "895a9b9efae5c5a4a10ee533ec84dbc1ac95d4a1",
+  "application_tree": "7d6583a62dd152d6a849d14b54b5d4240c593c4c",
+  "independently_rebuilt_tree": "7d6583a62dd152d6a849d14b54b5d4240c593c4c",
+  "tracked_paths": 102,
+  "manifest_sha256": "5594cc154885346f36235bf0fe120bea719fd6bb29268b48d4c92c1d7c8c6b24",
+  "package_managed_files": 76,
+  "mapped_records": {
+    "adoption_report": "project/adoption-report.md",
+    "architecture": "project/architecture.md",
+    "brief": "project/brief.md",
+    "decisions": "docs/decisions",
+    "environment_capabilities": "delivery/environment-capabilities.md",
+    "evidence": "evidence",
+    "handoff": "delivery/current-handoff.md",
+    "requirements": "project/requirements.md",
+    "specifications": "specs",
+    "structure": "project/structure.md",
+    "tech": "project/tech.md"
+  },
+  "repository_checker": "PASS: 78 Markdown files; 247 local links; 12 required core files; 0 issues.",
+  "source_checker": "PASS: 118 Markdown files; 454 local links; 32 required core files; 0 issues.",
+  "suite": {
+    "tests": 207,
+    "result": "pass",
+    "elapsed_seconds": 52.755,
+    "transcript_sha256": "30b96b093c84d8ef74d152209e65749151491c8a9271d8a9b090a4a21414684b"
+  },
+  "application_doctor": {
+    "schema_version": 1,
+    "layout": "adopted",
+    "status": "ready",
+    "session_ready": true,
+    "active_work": null,
+    "checks": [
+      {
+        "id": "python",
+        "status": "ready",
+        "required": true,
+        "detail": "Running Python 3.14.2; Python 3.10 or newer is required."
+      },
+      {
+        "id": "package",
+        "status": "ready",
+        "required": true,
+        "detail": "Required runtime and consultation guidance are present and match their recorded installation hashes."
+      },
+      {
+        "id": "instructions",
+        "status": "ready",
+        "required": true,
+        "detail": "Root project instructions are present; actual client loading has not been observed."
+      },
+      {
+        "id": "project-context",
+        "status": "ready",
+        "required": true,
+        "detail": "Mapped project records are present.",
+        "paths": {
+          "brief": "project/brief.md",
+          "handoff": "delivery/current-handoff.md",
+          "adoption_report": "project/adoption-report.md",
+          "environment_capabilities": "delivery/environment-capabilities.md",
+          "requirements": "project/requirements.md",
+          "tech": "project/tech.md",
+          "structure": "project/structure.md",
+          "architecture": "project/architecture.md"
+        }
+      },
+      {
+        "id": "active-work",
+        "status": "not-selected",
+        "required": false,
+        "detail": "No work is selected. This is expected immediately after adoption.",
+        "next_action": "Read the mapped context and begin consultation; create and activate a work item after its scope is understood."
+      },
+      {
+        "id": "git-executable",
+        "status": "available",
+        "required": false,
+        "detail": "git is present on PATH; it was not executed."
+      },
+      {
+        "id": "codex-executable",
+        "status": "available",
+        "required": false,
+        "detail": "codex is present on PATH; it was not executed."
+      },
+      {
+        "id": "git-project",
+        "status": "present",
+        "required": false,
+        "detail": "Git metadata entry is present; HEAD, worktree cleanliness and effective ignore rules remain untested."
+      },
+      {
+        "id": "runtime-ignore",
+        "status": "present",
+        "required": false,
+        "detail": "Runtime ignore rule is present; later negation or Git configuration can change its effective behavior, which the runner checks."
+      },
+      {
+        "id": "native-hooks",
+        "status": "not-tested",
+        "required": false,
+        "detail": "Handler is present. Selected-client support, configuration, trust and event delivery have not been tested."
+      },
+      {
+        "id": "aws-plugins",
+        "status": "not-tested",
+        "required": false,
+        "detail": "Official plugin availability, installation, loading and public-call behavior were not inspected. No account or credential operation was performed."
+      }
+    ],
+    "next_action": "Read the mapped brief/handoff and describe the project goal to begin consultation.",
+    "limits": "File inspection and executable presence only; no subprocess, login/auth probe, model call, native trust change, plugin installation or AWS access."
+  },
+  "native_preflight": {
+    "schema_version": 1,
+    "status": "no-known-blocker",
+    "blockers": [],
+    "codespaces_environment": true,
+    "executables": {
+      "codex": true,
+      "git": true,
+      "python3": true,
+      "tar": true,
+      "mktemp": true,
+      "timeout": true
+    },
+    "state_locations": {
+      "CODEX_HOME": {
+        "source": "default",
+        "status": "appears-writable"
+      },
+      "CODEX_SQLITE_HOME": {
+        "source": "CODEX_HOME",
+        "status": "appears-writable"
+      }
+    },
+    "native_startup_verified": false,
+    "next_action": "Confirm the actual configured state locations, client version, exec options and existing permissions in the ordinary authorized terminal before any separately authorized native invocation.",
+    "limits": "Metadata/access checks only in this process; no writes, config/auth reads, subprocesses, model calls or AWS access. Configured sqlite_home/log_dir and managed policy can override observed locations. Apparent writability is not a successful client startup or proof of spending authority."
+  },
+  "route_probes": {
+    "requirements-first": {
+      "phase": "consultation",
+      "contract": "specs/0010-requirements-first/requirements.md",
+      "fresh_context_work": "0010-requirements-first",
+      "candidate": "895a9b9efae5c5a4a10ee533ec84dbc1ac95d4a1"
+    },
+    "design-first": {
+      "phase": "consultation",
+      "contract": "specs/0011-design-first/requirements.md",
+      "fresh_context_work": "0011-design-first",
+      "candidate": "895a9b9efae5c5a4a10ee533ec84dbc1ac95d4a1"
+    },
+    "quick": {
+      "phase": "consultation",
+      "contract": "specs/0012-quick/requirements.md",
+      "fresh_context_work": "0012-quick",
+      "candidate": "895a9b9efae5c5a4a10ee533ec84dbc1ac95d4a1"
+    },
+    "bugfix": {
+      "phase": "consultation",
+      "contract": "specs/0013-bugfix/bugfix.md",
+      "fresh_context_work": "0013-bugfix",
+      "candidate": "895a9b9efae5c5a4a10ee533ec84dbc1ac95d4a1"
+    },
+    "plan": {
+      "phase": "consultation",
+      "contract": "specs/0014-plan/requirements.md",
+      "fresh_context_work": "0014-plan",
+      "candidate": "895a9b9efae5c5a4a10ee533ec84dbc1ac95d4a1"
+    }
+  },
+  "adoption_verification": {
+    "direct_fixture": "test_distribution.DistributionTest.test_direct_template_and_brownfield_adoption",
+    "greenfield": "Fresh Git-tracked copy, five visible foundations, no active work, sole empty specs and evidence placeholders, seven matching shortcut definitions, installed no-op, first spec and resumed work in a new process.",
+    "brownfield": "Existing product code, mapped technology, CRLF instructions, IaC and CI, staged index, canonical backlog and dirty user note preserved. Second apply returned unchanged.",
+    "legacy_upgrade": "Historical schema-1 install upgraded from 9b2c1ef; preserved edited hidden brief and original instruction prefix, adopted existing technology record and reran with no writes."
+  },
+  "frozen_pilot_scope": "Actual 12 launches on frozen framework, accepted separately.",
+  "release_tag": null
+}
