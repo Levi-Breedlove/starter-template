@@ -1,0 +1,560 @@
+{
+  "schema_version": 1,
+  "report_scope": "Frozen native pilot only",
+  "source_revision": "64875eeeb24e615a2fa92d5b9c02503fab7a01be",
+  "initial_startup_source_revision": "404480b72b9ae0c3ade0a3a307fcbc4468dcdf3b",
+  "client": "codex-cli 0.172.0",
+  "effective_model": "Unconfirmed by recorded turn events",
+  "greenfield_G2": "1aae1c8b32129d25f02607ef389be3dd1602e211",
+  "greenfield_G3": "dc9d26da24ef6e447505b74e43775995e80c5595",
+  "brownfield_base": "96861280f673c04b6f11e028f0039a2b40a237ae",
+  "through_B4_archive_sha256": "629f4ff868fd3df78f63fe47f6f6283923b24e8be8db34b4e462582c4b629a4d",
+  "stages": [
+    {
+      "stage": "G1",
+      "allocation": "original",
+      "result": "blocked",
+      "intent_utc": "2026-11-24T04:00:48Z",
+      "stop_utc": "2026-11-24T04:00:48Z",
+      "native_or_controller_exit": 1,
+      "elapsed_seconds": 0.0,
+      "events_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "event_types": {},
+      "completed_items": {},
+      "non_json_log_lines": 0,
+      "client_reported_usage": null,
+      "observed": "Client startup failed on read-only state before a model turn.",
+      "operator_review_sha256": null
+    },
+    {
+      "stage": "G1",
+      "allocation": "replacement-1",
+      "result": "pass",
+      "intent_utc": "2026-11-24T05:13:30Z",
+      "stop_utc": "2026-11-24T05:18:07Z",
+      "native_or_controller_exit": 0,
+      "elapsed_seconds": 277.0,
+      "events_sha256": "36ea3802771b77086288434281887542de9b970202ac0306ca1d6a5b34a7059d",
+      "event_types": {
+        "thread.started": 1,
+        "turn.started": 1,
+        "item.completed": 26,
+        "item.started": 23,
+        "turn.completed": 1
+      },
+      "completed_items": {
+        "agent_message": 3,
+        "command_execution": 22,
+        "file_change": 1
+      },
+      "non_json_log_lines": 0,
+      "client_reported_usage": {
+        "input_tokens": 403334,
+        "cached_input_tokens": 338304,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 12607,
+        "reasoning_output_tokens": 7203
+      },
+      "observed": "Three material questions. Only the consultation records changed. No accepted reviews or implementation.",
+      "operator_review_sha256": "a03b99d4d4951c0447a34c72afe5aff3104e0ee005fc9fedb4108d6d07c1552e"
+    },
+    {
+      "stage": "G2",
+      "allocation": "original",
+      "result": "pass",
+      "intent_utc": "2026-11-24T05:22:46Z",
+      "stop_utc": "2026-11-24T05:35:49Z",
+      "native_or_controller_exit": 0,
+      "elapsed_seconds": 783.0,
+      "events_sha256": "d46f0240e553ba20da2e8066b1b67275a3a6bac20b24696755ebadbcc7756fd4",
+      "event_types": {
+        "thread.started": 1,
+        "turn.started": 1,
+        "item.completed": 62,
+        "item.started": 56,
+        "turn.completed": 1
+      },
+      "completed_items": {
+        "agent_message": 6,
+        "command_execution": 43,
+        "file_change": 13
+      },
+      "non_json_log_lines": 0,
+      "client_reported_usage": {
+        "input_tokens": 3981149,
+        "cached_input_tokens": 3845632,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 34888,
+        "reasoning_output_tokens": 13357
+      },
+      "observed": "Fixed answers used once. Thirteen properties mapped, three delegated phase reviews, and two tasks. Only T-001 passed its four capacity tests.",
+      "operator_review_sha256": "5b7bdaeb6fdd14d4a172c5c1510d2e6a9fd2e6036a64abdc0dac8d739c01588b"
+    },
+    {
+      "stage": "G3",
+      "allocation": "original",
+      "result": "blocked",
+      "intent_utc": "2026-11-24T05:41:47.209932+00:00",
+      "stop_utc": null,
+      "native_or_controller_exit": null,
+      "elapsed_seconds": null,
+      "events_sha256": "709feef6d88fed442bfab3e35feda458305f5519cb33c0cb4512c79a7aa0c70c",
+      "event_types": {
+        "thread.started": 1,
+        "turn.started": 1,
+        "item.completed": 22,
+        "item.started": 19,
+        "turn.completed": 1
+      },
+      "completed_items": {
+        "agent_message": 3,
+        "command_execution": 18,
+        "file_change": 1
+      },
+      "non_json_log_lines": 0,
+      "client_reported_usage": {
+        "input_tokens": 311729,
+        "cached_input_tokens": 260480,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 9333,
+        "reasoning_output_tokens": 5607
+      },
+      "observed": "Controller was interrupted after dispatch. The worker later finished its author checks. No controller-verified candidate or application. No wrapper exit receipt.",
+      "operator_review_sha256": "f2213227fb959d558dc5c150cf2bb1222fde7aab3ae5557ab2f47cc7d88224bd",
+      "controller_interrupted_utc": "2026-11-24T05:42:10.700806+00:00"
+    },
+    {
+      "stage": "B1",
+      "allocation": "original",
+      "result": "pass",
+      "intent_utc": "2026-11-24T05:51:55Z",
+      "stop_utc": "2026-11-24T05:55:03Z",
+      "native_or_controller_exit": 0,
+      "elapsed_seconds": 188.0,
+      "events_sha256": "f1f0af22f2e281867d773349bb25423c8c079eff89600f0b59b1f05cb9dbd152",
+      "event_types": {
+        "thread.started": 1,
+        "turn.started": 1,
+        "item.completed": 21,
+        "item.started": 18,
+        "turn.completed": 1
+      },
+      "completed_items": {
+        "agent_message": 3,
+        "command_execution": 17,
+        "file_change": 1
+      },
+      "non_json_log_lines": 0,
+      "client_reported_usage": {
+        "input_tokens": 336742,
+        "cached_input_tokens": 275712,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 8679,
+        "reasoning_output_tokens": 4527
+      },
+      "observed": "Two material questions. Existing shipping code, project authority and dirty user note survived.",
+      "operator_review_sha256": "5dbd1f9d7048cc1b12e5a282ee51846ea35c9d07ee62dfa2353ebcfab19989f2"
+    },
+    {
+      "stage": "B2",
+      "allocation": "original",
+      "result": "pass",
+      "intent_utc": "2026-11-24T05:56:36Z",
+      "stop_utc": "2026-11-24T06:08:05Z",
+      "native_or_controller_exit": 0,
+      "elapsed_seconds": 689.0,
+      "events_sha256": "ef36ac0e6d180b3de3caa6fa512749ad4542d0479149bc9d9928df751b8121c1",
+      "event_types": {
+        "thread.started": 1,
+        "turn.started": 1,
+        "item.completed": 69,
+        "item.started": 63,
+        "turn.completed": 1
+      },
+      "completed_items": {
+        "agent_message": 6,
+        "command_execution": 51,
+        "file_change": 12
+      },
+      "non_json_log_lines": 0,
+      "client_reported_usage": {
+        "input_tokens": 3356755,
+        "cached_input_tokens": 3238656,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 30502,
+        "reasoning_output_tokens": 12159
+      },
+      "observed": "Fixed answers sourced. Eight properties, three delegated reviews, and a real baseline. T-002 remained unfinished.",
+      "operator_review_sha256": "ff4a33f5237c578571dfe4066269495e06e3224a56d36ea0f3a5ac1835fe235a"
+    },
+    {
+      "stage": "B3",
+      "allocation": "original",
+      "result": "pass",
+      "intent_utc": "2026-11-24T06:11:00Z",
+      "stop_utc": "2026-11-24T06:17:18Z",
+      "native_or_controller_exit": 0,
+      "elapsed_seconds": 378.0,
+      "events_sha256": "e2f158f5b289984cb0e2575f95956409b4bd6b33c18dd8eb360e7d843ec6e189",
+      "event_types": {
+        "thread.started": 1,
+        "turn.started": 1,
+        "item.completed": 42,
+        "item.started": 37,
+        "turn.completed": 1
+      },
+      "completed_items": {
+        "agent_message": 5,
+        "command_execution": 30,
+        "file_change": 7
+      },
+      "non_json_log_lines": 0,
+      "client_reported_usage": {
+        "input_tokens": 1362399,
+        "cached_input_tokens": 1281920,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 16817,
+        "reasoning_output_tokens": 7015
+      },
+      "observed": "Fresh session reproduced the observed 499/749-cent defect at 5000 cents, then verified 0/250. Nine tests passed and existing dirty bytes were preserved.",
+      "operator_review_sha256": "b22f43e4011b64dd4c1dbda193d2032e1e3b783da3ae31211342e55fc11cc7ef"
+    },
+    {
+      "stage": "B4",
+      "allocation": "original",
+      "result": "pass",
+      "intent_utc": "2026-11-24T06:18:43Z",
+      "stop_utc": "2026-11-24T06:31:59Z",
+      "native_or_controller_exit": 0,
+      "elapsed_seconds": 796.0,
+      "events_sha256": "4bf627d4fe8dd52da1725ea4de6be9b0f24937b46a32d1b211f20f24fa56817d",
+      "event_types": {
+        "thread.started": 1,
+        "turn.started": 1,
+        "item.completed": 58,
+        "item.started": 51,
+        "turn.completed": 1
+      },
+      "completed_items": {
+        "agent_message": 7,
+        "command_execution": 42,
+        "file_change": 9
+      },
+      "non_json_log_lines": 0,
+      "client_reported_usage": {
+        "input_tokens": 3494218,
+        "cached_input_tokens": 3363584,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 35867,
+        "reasoning_output_tokens": 11334
+      },
+      "observed": "Changed the cutoff to 7500 cents. Both tasks reopened under a fingerprint-bound sync. Eight boundary cases, nine test methods, 74 managed files and 16 prior artifacts verified.",
+      "operator_review_sha256": "eecb4c23e27447dfbb252884efcf38a024ce945746b41d2bd3fb6fa3418dff51"
+    },
+    {
+      "stage": "G3",
+      "allocation": "replacement-1",
+      "result": "pass",
+      "intent_utc": "2026-11-24T22:03:56Z",
+      "stop_utc": "2026-11-24T22:07:24Z",
+      "native_or_controller_exit": 0,
+      "elapsed_seconds": 208.0,
+      "events_sha256": "905b36af0e61ade1f2a3163f424da9040f609d4533e945530aaa01bc8fc959a7",
+      "event_types": {
+        "thread.started": 1,
+        "turn.started": 1,
+        "item.completed": 16,
+        "item.started": 13,
+        "turn.completed": 1
+      },
+      "completed_items": {
+        "agent_message": 3,
+        "command_execution": 11,
+        "file_change": 2
+      },
+      "non_json_log_lines": 0,
+      "client_reported_usage": {
+        "input_tokens": 356983,
+        "cached_input_tokens": 302208,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 9048,
+        "reasoning_output_tokens": 4892
+      },
+      "observed": "One T-002 worker produced a verified isolated candidate. Original stayed clean before deliberate fast-forward. Controller rechecked 4 capacity tests, 11 booking tests and 15 integrated tests. Operator checked frozen examples.",
+      "operator_review_sha256": "97ad0c16422f5795d0a51f27c1403bba6e66d12656026e7b38093f420a22b55f"
+    },
+    {
+      "stage": "G4",
+      "allocation": "original",
+      "result": "blocked",
+      "intent_utc": "2026-11-24T22:08:25Z",
+      "stop_utc": "2026-11-24T22:08:25Z",
+      "native_or_controller_exit": 1,
+      "elapsed_seconds": 0.0,
+      "events_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "event_types": {},
+      "completed_items": {},
+      "non_json_log_lines": 0,
+      "client_reported_usage": null,
+      "observed": "The operator provided a directory symlink for the last-message file. Client startup exited 1 with ENOTDIR before its first event. Original reservation retained.",
+      "operator_review_sha256": "564db6728bd76da99759f3291fe82fceffc2edabf173d155a11607f504d46955"
+    },
+    {
+      "stage": "G4",
+      "allocation": "replacement-1",
+      "result": "fail",
+      "intent_utc": "2026-11-24T22:10:02Z",
+      "stop_utc": "2026-11-24T22:25:02Z",
+      "native_or_controller_exit": 124,
+      "elapsed_seconds": 900.0,
+      "events_sha256": "b780fe459a79dc1b90f02c83a3dea754408d35edcc46b67ed6a7caac8f579c66",
+      "event_types": {
+        "thread.started": 1,
+        "turn.started": 1,
+        "item.completed": 79,
+        "item.started": 74
+      },
+      "completed_items": {
+        "agent_message": 5,
+        "command_execution": 57,
+        "file_change": 17
+      },
+      "non_json_log_lines": 0,
+      "client_reported_usage": null,
+      "observed": "The changed alias contract and local validation passed. All 16 integrated tests and the operator replay passed, and both tasks have current evidence. The 900-second timeout terminated the CLI with exit 124 before it updated the mapped handoff or returned the required final response. There was no turn.completed event.",
+      "operator_review_sha256": "aca269011e7fd405711ca63de1ef6836a2ca4d983e2877833c0d42b2e4e7297f"
+    }
+  ],
+  "budget": {
+    "original_slots_used": 8,
+    "separately_authorized_replacements": [
+      "G1",
+      "G3",
+      "G4"
+    ],
+    "launches": 11,
+    "automatic_retries": 0,
+    "per_invocation_limit_seconds": 900,
+    "price_or_credit_cost": "unknown"
+  },
+  "greenfield_final_operator_review": {
+    "stage": "G4",
+    "attempt": "replacement-1",
+    "frozen_source": "64875eeeb24e615a2fa92d5b9c02503fab7a01be",
+    "fixture_head": "dc9d26da24ef6e447505b74e43775995e80c5595",
+    "exit_code": 124,
+    "client_status": null,
+    "client_blockers": null,
+    "started": "2026-11-24T22:10:02Z",
+    "stopped": "2026-11-24T22:25:02Z",
+    "elapsed_seconds": 900.0,
+    "checks": {
+      "native_exit_zero": false,
+      "one_completed_turn": false,
+      "implemented": false,
+      "unchanged_applied_head": true,
+      "scoped_implementation": true,
+      "no_package_change": true,
+      "original_receipts_retained": true,
+      "old_ledger_receipts_retained": true,
+      "old_delegated_reviews_retained": true,
+      "decision_and_answers_match": true,
+      "capacity_unchanged": true,
+      "preview_bound_reopening": true,
+      "validator_pass": true,
+      "two_valid_completions": true,
+      "two_current_checks": true,
+      "operator_probe_pass": true,
+      "operator_suite_pass": true
+    },
+    "phase": "complete",
+    "events": {
+      "thread.started": 1,
+      "turn.started": 1,
+      "item.completed": 79,
+      "item.started": 74
+    },
+    "usage": null,
+    "reconciliations": [
+      {
+        "fingerprint": "6d964d98619087ca3c20f6f08b9cdc0ad31a253a2b509559377b4ce608f2f1bc",
+        "reopened_tasks": [],
+        "matching_saved_preview": true
+      },
+      {
+        "fingerprint": "f5297814de5335beae24eb1ea2b2428859aa5cd6b9f1d082deb096fbbbe49f56",
+        "reopened_tasks": [
+          "T-001",
+          "T-002"
+        ],
+        "matching_saved_preview": true
+      }
+    ],
+    "tracked_diff_sha256": "5aac29a2f46e614455282b0b1225d738284985ffa99d566aff4c0ae7d588b5a7",
+    "application_file_sha256": {
+      "src/booking.py": "f7a62b4bff3c068944fe3f8ee4b7f23c4af10380b77ac67c93579f560da9500c",
+      "tests/test_booking.py": "9219dfb11b67a8564104f04a15bde916de8b97364544803d90f934df4686ebb5"
+    },
+    "historical_files": 9,
+    "planned_managed_files": 74,
+    "current_check_receipts": {
+      "CHK-001": {
+        "id": "EV-004",
+        "result": "pass",
+        "current": true,
+        "record": "evidence/0100-booking/g4/chk-001.json"
+      },
+      "CHK-002": {
+        "id": "EV-005",
+        "result": "pass",
+        "current": true,
+        "record": "evidence/0100-booking/g4/chk-002.json"
+      }
+    },
+    "suite_tail": [
+      "----------------------------------------------------------------------",
+      "Ran 16 tests in 0.033s",
+      "",
+      "OK"
+    ],
+    "observed_at": "2026-11-24T22:25:21.696875+00:00",
+    "actual_artifacts_sha256": "889474dba30ad3c5bc57eb450426fa62b4f4a49c2c178b008115476ab0a4b0d1",
+    "operator_result": "fail",
+    "mapped_handoff_updated": false,
+    "assessment": "The changed alias contract and local validation passed. All 16 integrated tests and the operator replay passed, and both tasks have current evidence. The 900-second timeout terminated the CLI with exit 124 before it updated the mapped handoff or returned the required final response. There was no turn.completed event.",
+    "operator_handoff_check": {
+      "mapped_path": ".aws-workflow/delivery/current-handoff.md",
+      "byte_identical_to_G3": true,
+      "sha256": "eaef9cca8ff3f542142ac508fb7ddd7f7fbac6fee0eaf083df0a442c49af18ac"
+    },
+    "behavioral_reproduction": {
+      "G3_baseline_new_rule_test_exit": 1,
+      "G4_changed_booking_tests": 12,
+      "G4_full_suite_tests": 16
+    },
+    "other_observations": [
+      "The client recovered from two initial nonzero local lookups within the same invocation, including compact context without an explicit work ID."
+    ]
+  },
+  "reported_utc": "2026-11-24T22:26:11.990874+00:00",
+  "acceptance": "fail",
+  "frozen_rubric": [
+    [
+      "Consultation",
+      "pass",
+      "G1 saved three material questions and B1 saved two. Opening edits were confined to consultation and project records."
+    ],
+    [
+      "Saved context",
+      "pass",
+      "G2 and B2 linked the supplied answers. A fresh B3 session resumed the same unfinished task without another interview. The separate G4 final handoff requirement failed."
+    ],
+    [
+      "Specification",
+      "pass",
+      "Both fixtures have source-bound semantic analysis, delegated sequential phase reviews, stable IDs and a two-task dependency graph."
+    ],
+    [
+      "Traceability",
+      "pass",
+      "Thirteen greenfield and eight brownfield properties map to real tasks and checks. G4 refreshed analysis and all thirteen property mappings."
+    ],
+    [
+      "Implementation",
+      "pass",
+      "The operator verified booking, capacity, replay, alias, conflict and copy-isolation boundaries. Brownfield fee and error boundaries passed. Both changed contracts have two valid local task completions."
+    ],
+    [
+      "Reconciliation",
+      "pass",
+      "Saved previews match the applied fingerprints in both projects. Shared contract changes reopened both tasks. Historical receipts and unaffected source bytes were preserved."
+    ],
+    [
+      "Brownfield preservation",
+      "pass",
+      "B1 through B4 preserved the original dirty-note diff, original instructions, original test files and later regression coverage, accepted interface and infrastructure ownership. B4 matched 74 managed files."
+    ],
+    [
+      "Fresh-session continuation",
+      "pass",
+      "B2 stopped with T-002 open. B3 used a different client thread, reproduced the recorded shipping defect and completed that task using saved context."
+    ],
+    [
+      "Native controller",
+      "pass",
+      "Replacement G3 dispatched one isolated T-002 worker. Check receipts match candidate inputs and outputs, including T-001 revalidation. The original fast-forwarded to the verified candidate only after operator review."
+    ],
+    [
+      "Honest boundaries",
+      "pass",
+      "The pilot used disposable projects and the fixed checks. All original reservations and authorized replacements are retained. Records show local actions, zero automatic retries and no AWS account or deployment operations. The incomplete G4 closeout is visible."
+    ]
+  ],
+  "stage_closeout": {
+    "status": "fail",
+    "required": "G4 saves an accurate current handoff and returns its structured stage result within the authorized limit.",
+    "observed": "Exit 124; final message empty; no turn.completed event; mapped handoff byte-identical to the earlier G2 handoff.",
+    "checks_still_open": [
+      "T-008",
+      "CHK-008"
+    ]
+  },
+  "greenfield_controller_review": {
+    "base_commit": "1aae1c8b32129d25f02607ef389be3dd1602e211",
+    "candidate_commit": "dc9d26da24ef6e447505b74e43775995e80c5595",
+    "worker_attempts": 1,
+    "controller_checks": {
+      "CHK-001": 4,
+      "CHK-002": 11,
+      "integration": 15
+    },
+    "elapsed_seconds_at_ready": 207.244,
+    "archive_sha256": "b7bdf94ea1d05166436401006fb6f33c1279f83ba4381ff67b89772859c8ba42",
+    "raw_receipts_sha256": {
+      "G3-controller/run.json": "68ad3b5562b9776af6ce2e2187b60b323688337944bb318ffdf0fdba74b01602",
+      "G3-controller/checks/wave-1-integration-0.log": "3f45aabdbfde3adb656e778e76682b1df807a235156fe35401a55ad20f671b5e",
+      "G3-controller/checks/wave-1-T-002-CHK-002.log": "4c3b3b2f85f7f81206f2731efca1a5c61f58b2f6c54d820b4003b988757b84ec",
+      "G3-controller/checks/wave-1-T-001-CHK-001.log": "b447673467de6e875ff3540180d0afdf3c3c9ba37ffbad827b4cb2a075505ede",
+      "G3-controller/attempts/T-002/model-events.log": "905b36af0e61ade1f2a3163f424da9040f609d4533e945530aaa01bc8fc959a7",
+      "G3-controller/attempts/T-002/result.json": "20af7bdffa6dcc4f42b7d9d3c1b8d93d0eccd3ab71c4bf9dcdbdcb51299b1262",
+      "G3-controller/attempts/T-002/result-schema.json": "d6de981b40f82bf30774264953636357c4ee26a31b103d977cca43b23f8366d6",
+      "results/G3-replacement-1.exit.txt": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+      "results/G3-replacement-1.preflight.json": "7a9548643b648516c330078cc52e3f249d27e1499bb94c2a55b6851a2dc6fe3f",
+      "results/G3-replacement-1.operator-probes.json": "db6c0a81978bafcf76814f8eed15c3fbe79e4f77ef1cdd3061791735734932f2",
+      "results/G3-replacement-1.operator-preapply.json": "b4e2def1cbec8e8b8e9fd802f51d3cfff0920fd702676ba505ca66cd96dd7f13",
+      "results/G3-replacement-1.stopped.txt": "d5b46f76c5eec1cac056d6b1eadf31559fabd60ebe721a6d53914c41b7f819b5",
+      "results/G3-replacement-1.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "results/G3-replacement-1.candidate.diff": "9911fffe2bef98c24879db92063ff01b35bdae05f88809d059b408020f325b6a",
+      "results/G3-replacement-1.status.json": "c0dd58cf7ea7fe2401390ec6a9710ed58f4c79e0f406e65b61e2e62f5c9c71b3",
+      "results/G3-replacement-1.application.json": "d8721b4a7f85afbf390efb1062199afaa377f158f64128d4d622f642b364159a",
+      "results/G3-replacement-1.operator-validate.json": "b2d79300fbda4a8a4933c593a5c0a2a0c4ebef6aa8ab3c1bac6fc3b28dcef8bb",
+      "results/G3-replacement-1.intent.txt": "26a2ca0b5909333382a4294a8d01bfd46d690acd53e9e680b488df9543c6bcde",
+      "results/G3-replacement-1.controller.json": "c0dd58cf7ea7fe2401390ec6a9710ed58f4c79e0f406e65b61e2e62f5c9c71b3",
+      "results/G3-replacement-1.preview.json": "aad331fd5d7dd2380b4700bef3e4f0fcdbac30e4d4ffc05e9dee8a4ed0b23c73"
+    },
+    "reviewed_paths": [
+      "evidence/0100-booking/runs/pilot-g3-replacement-1/wave-1/T-001-CHK-001.json",
+      "evidence/0100-booking/runs/pilot-g3-replacement-1/wave-1/T-002-CHK-002.json",
+      "specs/0100-booking/tasks.md",
+      "specs/0100-booking/work.json",
+      "src/booking.py",
+      "tests/test_booking.py"
+    ],
+    "probes": [
+      "capacity bounds, constructor and helper errors",
+      "exact booking and snapshot fields, validation, replay, conflict and copy isolation",
+      "stage-specific repeated attendee rule and full-capacity precedence",
+      "independent instances and untrimmed identifiers"
+    ],
+    "application": {
+      "observed_head": "dc9d26da24ef6e447505b74e43775995e80c5595",
+      "worktree_clean": true,
+      "observed_at": "2026-11-24T22:08:12.729469+00:00"
+    }
+  },
+  "client_state": {
+    "restricted_shell": "read-only-mount",
+    "ordinary_codespaces_host": "preflight passed; actual native invocations observed",
+    "credentials_inspected": false
+  }
+}

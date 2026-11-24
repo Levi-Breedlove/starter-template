@@ -1219,6 +1219,31 @@
         "specs/0004-developer-workflow/design.md": "06eeb1e04cb612b6392bb8489ed6a6c0633d08d4dd6c1a13569cc8351598fa82"
       },
       "check_signature": "3f02276801e0294e313c7c7f5ee2cd159adffdf775e3091d41288fc1a2bac521"
+    },
+    {
+      "id": "EV-016",
+      "check": "CHK-008",
+      "result": "fail",
+      "record": "evidence/0004-developer-workflow/native-pilot-results.md",
+      "method": "Reviewed all native stage outcomes, candidate, log and test identities. Replayed the frozen examples and validated both fixture ledgers. Required G4 session closeout failed.",
+      "environment": "Ordinary GitHub Codespaces host, codex-cli 0.172.0, disposable Git projects, standard-library Python, no AWS account operations",
+      "candidate": "Frozen pilot source 64875eeeb24e615a2fa92d5b9c02503fab7a01be, G3 application dc9d26da24ef6e447505b74e43775995e80c5595 plus the G4 input hashes in the result record",
+      "observed_at": "2026-11-24T22:25:02Z",
+      "recorded_at": "2026-11-24T22:27:22.233653+00:00",
+      "inputs": {
+        "evidence/0004-developer-workflow/native-pilot-results.md": "46d00a7580d7f2b20b3d5a186c6c856bb70e9d4cb189ce2265746c159e2069c3",
+        "evidence/0004-developer-workflow/native-pilot-results.json": "1783ba6581d2ceb34605e80e75f9daac7c56f1cb8ad8f02d47fdcf3340fa444a",
+        "evaluations/native-pilot-plan.md": "f93afeaef603ddab8f4b6d482db9cca721bd043141c0a18fcdbe268e6c8eadd2",
+        "evaluations/fixtures/native-greenfield.md": "39d8a4ff0ce7a90612eee11036f49b0e65940f42eb85cd75f297daa78a8a0d64",
+        "evaluations/fixtures/native-brownfield.md": "84934b2ee96df01fc384b43ff51d89dda1a8bfe18923c373374deb5feede4296",
+        "workflow_engine/runner.py": "6a50d951945d4d5202598451a35461c5a14135237c3a3662132a4ef1f269b075",
+        "workflow_engine/native_preflight.py": "947b8d0be46f37472620fc44694b083b81a91f892377daba76b3aabc3d47c58c"
+      },
+      "artifacts": {
+        "specs/0004-developer-workflow/requirements.md": "3f52d327900f7cb25103bcb91b64e9b19263889206712a1a1d46c5c9cd3be98f",
+        "specs/0004-developer-workflow/design.md": "06eeb1e04cb612b6392bb8489ed6a6c0633d08d4dd6c1a13569cc8351598fa82"
+      },
+      "check_signature": "3f02276801e0294e313c7c7f5ee2cd159adffdf775e3091d41288fc1a2bac521"
     }
   ],
   "spec_format": "ears",
