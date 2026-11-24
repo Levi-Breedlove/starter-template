@@ -65,6 +65,23 @@ an abrupt process crash, or an interrupted controller mutation.
 
 ## Prepare the disposable inputs after approval
 
+Run the [Codespaces readiness check](../guide/07-codespaces.md) from the ordinary
+terminal that will actually launch the selected existing native client. Before
+preparing or reserving any new stage, require a zero exit from:
+
+```sh
+python3 scripts/workflow.py --root . native-check --pilot
+```
+
+This is a no-model, metadata-only prerequisite check. It is not evidence of
+successful startup, effective configured state locations, or fresh execution
+authority. Confirm the actual client version, effective configured paths and
+existing controls separately. Do not proceed from a nested restricted shell
+or work around a managed read-only mount. The guard below precedes each stage
+reservation; failed prior launches retain their original allocation and require
+fresh authorization for a replacement. The frozen prompts, answer banks, stage
+limits and scoring criteria are unchanged.
+
 All commands in this document are **proposed future commands**. None of them
 represent a completed native trial. Use a POSIX shell with the already available
 Git, Python 3.10+, `tar`, `mktemp`, `timeout`, and configured Codex CLI. The
@@ -245,6 +262,8 @@ run_direct_stage() (
     greenfield:G1|greenfield:G2|greenfield:G4|brownfield:B1|brownfield:B2|brownfield:B3|brownfield:B4) ;;
     *) printf '%s\n' "This is not an approved direct stage." >&2; return 1 ;;
   esac
+  test ! -e "$PILOT_ROOT/results/$PILOT_STAGE.reserved" || return 1
+  python3 "$PILOT_ROOT/source/scripts/workflow.py" --root "$PILOT_ROOT/$PILOT_CASE" native-check --pilot > "$PILOT_ROOT/results/$PILOT_STAGE.preflight.json" || return 1
   mkdir "$PILOT_ROOT/results/$PILOT_STAGE.reserved" || return 1
   date -u +%Y-%m-%dT%H:%M:%SZ > "$PILOT_ROOT/results/$PILOT_STAGE.intent.txt"
   cat "$PILOT_ROOT/control/common-prompt.txt" "$PILOT_ROOT/control/$PILOT_CASE/prompts/$PILOT_STAGE.txt" > "$PILOT_ROOT/control/$PILOT_STAGE.input.txt"
@@ -310,6 +329,10 @@ python3 .aws-workflow/scripts/workflow.py --root . run-plan 0100-booking --task 
 worker invocation. Record G3 intent outside the project, then run exactly:
 
 ```sh
+(
+set -eu
+test ! -e "$PILOT_ROOT/results/G3.reserved"
+python3 .aws-workflow/scripts/workflow.py --root . native-check --pilot > "$PILOT_ROOT/results/G3.preflight.json"
 mkdir "$PILOT_ROOT/results/G3.reserved"
 date -u +%Y-%m-%dT%H:%M:%SZ > "$PILOT_ROOT/results/G3.intent.txt"
 PILOT_EXIT=0
@@ -317,6 +340,7 @@ python3 .aws-workflow/scripts/workflow.py --root . run 0100-booking --task T-002
 printf '%s\n' "$PILOT_EXIT" > "$PILOT_ROOT/results/G3.exit.txt"
 date -u +%Y-%m-%dT%H:%M:%SZ > "$PILOT_ROOT/results/G3.stopped.txt"
 python3 .aws-workflow/scripts/workflow.py --root . run-status pilot-g3 --json > "$PILOT_ROOT/results/G3.status.json"
+)
 ```
 
 Stop if reserving G3 fails; the existing stage must not be replayed. The unique

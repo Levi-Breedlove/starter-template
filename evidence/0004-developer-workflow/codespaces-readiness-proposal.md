@@ -1,6 +1,6 @@
 # Codespaces startup and onboarding correction candidate
 
-Base source: `404480b72b9ae0c3ade0a3a307fcbc4468dcdf3b`. This is a separately reviewed change candidate, not a
+Base source: `404480b72b9ae0c3ade0a3a307fcbc4468dcdf3b`. This is a change candidate, not a
 native pilot result or proof that the original local evidence is current for this
 changed tree.
 
@@ -13,7 +13,9 @@ preserved by the operator. T-008/CHK-008 remain open.
 
 This candidate adds a read-only native startup prerequisite check, integrates
 it before default native execution, and provides first-use consultant guidance
-in both root and generated instructions. The setup check is deliberately not
+in both root and generated instructions. The source pilot commands now check
+observable prerequisites before allocating each stage; the frozen inputs and
+invocation limits are unchanged. The setup check is deliberately not
 a claim of effective client startup or a substitute for the actual trial.
 
 Ten focused offline tests passed in a separate Linux Python 3.13.5 test directory.

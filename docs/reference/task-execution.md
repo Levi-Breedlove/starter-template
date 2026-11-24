@@ -207,3 +207,14 @@ evidence freshness, candidate application, and interrupted-run disposition. The
 native adapter's argv and structured result contract are tested without invoking
 a model. Actual native client operation, model quality and AWS outcomes remain
 distinct observations in the [evaluation protocol](../../evaluations/README.md).
+
+## Calling-shell startup prerequisites
+
+Run `workflow.py --root . native-check` from the same ordinary authorized
+terminal that will launch the native runner. The default native backend checks
+observable client-state directory access and executable presence before reserving
+a run. Known read-only mounts, missing state or unknown access stop execution.
+The result is metadata-only, not a successful client startup or a permission
+check for configured overrides. For Codespaces and the frozen pilot, see
+[Codespaces readiness](../../guide/07-codespaces.md). Current-session task
+implementation does not require optional native worker execution.
