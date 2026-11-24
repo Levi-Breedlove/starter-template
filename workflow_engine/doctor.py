@@ -13,7 +13,7 @@ from pathlib import Path
 import shutil
 import sys
 
-from .engine import CONTEXT_DEFAULTS, WorkflowError, inspect_work, safe_path
+from .engine import CONTEXT_DEFAULTS, MANIFEST, WorkflowError, context_record_keys, inspect_work, safe_path
 
 
 RUNTIME_FILES = (
@@ -21,14 +21,14 @@ RUNTIME_FILES = (
     "workflow_engine/context.py", "workflow_engine/specifications.py",
     "workflow_engine/runner.py", "workflow_engine/doctor.py", "workflow_engine/native_preflight.py",
 )
+AWS_GUIDES = ("guide/02-aws-guidance-and-access.md", "guide/08-aws-emulator.md")
 GUIDANCE_FILES = (
     "workflows/consult.md", "workflows/brownfield.md", "workflows/feature.md",
     "workflows/bugfix.md", "workflows/reconcile.md", "templates/project-brief.md",
     "templates/requirements.md", "templates/bugfix.md", "templates/design.md",
     "templates/tasks.md", "guide/00-quickstart.md",
-    "docs/reference/specification-operations.md", "docs/reference/task-execution.md",
+    "docs/reference/specification-operations.md", "docs/reference/task-execution.md", *AWS_GUIDES,
 )
-MANIFEST = ".aws-workflow/manifest.json"
 MAX_METADATA_BYTES = 1_048_576
 INSTRUCTION_BEGIN = "<!-- codex-aws-workflow:start -->"
 INSTRUCTION_END = "<!-- codex-aws-workflow:end -->"
@@ -68,10 +68,9 @@ def _layout(root):
     manifest_path = safe_path(root, MANIFEST)
     if manifest_path.exists() or safe_path(root, ".aws-workflow").exists():
         manifest = _json(root, MANIFEST)
-        if manifest.get("identity") != "codex-aws-workflow" or type(manifest.get("schema_version")) is not int or manifest["schema_version"] != 1:
-            raise WorkflowError("The installed manifest has an unknown identity or schema version.")
-        if not isinstance(manifest.get("paths"), dict) or not isinstance(manifest.get("managed_files"), dict):
-            raise WorkflowError("The installed manifest needs paths and managed_files objects.")
+        context_record_keys(manifest)
+        if not isinstance(manifest.get("managed_files"), dict):
+            raise WorkflowError("The installed manifest needs a managed_files object.")
         return "adopted", ".aws-workflow/", manifest
     if safe_path(root, "scripts/workflow.py").is_file():
         return "source", "", None
@@ -100,6 +99,8 @@ def inspect_environment(root, *, executable_lookup=None):
         else:
             missing, changed = [], []
             for relative in (*RUNTIME_FILES, *GUIDANCE_FILES):
+                if manifest and manifest["schema_version"] == 1 and relative in AWS_GUIDES:
+                    continue
                 installed = prefix + relative
                 try:
                     path = _regular_file(root, installed)
@@ -132,7 +133,8 @@ def inspect_environment(root, *, executable_lookup=None):
 
     mapped = manifest["paths"] if manifest else CONTEXT_DEFAULTS
     missing_records = []
-    for key in CONTEXT_DEFAULTS:
+    keys = context_record_keys(manifest) if manifest else CONTEXT_DEFAULTS
+    for key in keys:
         relative = mapped.get(key)
         try:
             if not isinstance(relative, str):
@@ -140,7 +142,12 @@ def inspect_environment(root, *, executable_lookup=None):
             _regular_file(root, relative)
         except (WorkflowError, OSError):
             missing_records.append(key)
-    add("project-context", "missing" if missing_records else "ready", "Missing or unsafe mapped records: " + ", ".join(missing_records) if missing_records else "Mapped brief, handoff, adoption and capability records are present.", required=True)
+    if manifest and manifest["schema_version"] == 2 and not missing_records and len({safe_path(root, mapped[key]) for key in keys}) != len(keys):
+        missing_records.append("project record mappings must be distinct")
+    add("project-context", "missing" if missing_records else "ready", "Missing or unsafe mapped records: " + ", ".join(missing_records) if missing_records else "Mapped project records are present.", required=True)
+
+    if manifest and manifest["schema_version"] == 2 and not missing_records:
+        checks[-1]["paths"] = {key: mapped[key] for key in keys}
 
     active = None
     try:

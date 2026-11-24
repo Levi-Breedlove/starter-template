@@ -1,4 +1,4 @@
-# Codex AWS Consulting and Delivery Bootstrap
+# AWS Starter Template
 
 Turn a rough idea or an existing AWS project into an interviewed brief, testable requirements, an explained design, ordered implementation tasks, and evidence of the result. Codex leads the consultation; local code keeps the work records consistent between sessions.
 
@@ -7,6 +7,9 @@ The default experience is conversational:
 > Act as my AWS consultant. Read the project context first, help me refine the idea, and ask the next few questions that materially affect the requirements. Recommend the technical choices and explain their tradeoffs. Save our decisions, then guide me through requirements, design, tasks, implementation, and verification.
 
 You do not need to arrive with an architecture or learn a command vocabulary. Codex should infer what it can from the requirements, research current AWS guidance, and ask about the business decisions it cannot safely infer. Existing answers and accepted architecture remain part of the project record.
+
+
+The `template` distribution is a preinitialized application. Its first-use path is **Use this template → Create repository → Open Codespaces → Open Codex → type `start`**. Copy only the default branch. The maintenance source and its historical pilot fixtures stay on `main`. Verify the distribution branch and release status before offering it to developers. [Distribution and release procedure](docs/distribution.md) · [Update policy](CHANGELOG.md)
 
 ## Start a project
 
@@ -28,7 +31,9 @@ python3 .aws-workflow/scripts/workflow.py --root . doctor
 
 The read-only setup check identifies package and mapping problems. A fresh adoption starts with an empty work ledger, ready for consultation.
 
-For Codespaces, use the ordinary VS Code integrated terminal to check the selected native client's state before a native run. See [Codespaces readiness](guide/07-codespaces.md); native execution is optional for conversational delivery.
+For Codespaces, use the ordinary VS Code integrated terminal to check the selected native client's state before a native run. Native execution is optional for conversational delivery. [Codespaces readiness](guide/07-codespaces.md)
+
+Use the existing official Agent Toolkit for AWS to research engineering decisions. Assess AWS Emulator when the application needs local AWS API integration tests. [AWS toolkit setup](guide/02-aws-guidance-and-access.md) · [AWS Emulator](guide/08-aws-emulator.md)
 
 If you already know the outcome, you can include it with your kickoff:
 

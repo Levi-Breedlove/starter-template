@@ -1,8 +1,6 @@
 # Delivery
 
-**Status:** Delivery contract only. CI/CD provider, runnable workflows, environment protection, and cloud identities remain unconfigured.
-
-This area connects reviewed implementation to a verified release. Preserve the project’s selected delivery system. A greenfield project must record its provider and promotion strategy before runnable automation is added. The framework’s implementation backlog is [the workflow foundation task list](../specs/0001-workflow-foundation/tasks.md); delivery records do not duplicate that task authority.
+Record the project's delivery system, verified implementation and the controls used for release. Preserve the established pipeline and ownership in an existing application. For greenfield work, select a provider and promotion strategy when the delivery requirements are known. Link release records to the canonical task authority.
 
 Keep resumable working state in [current-handoff.md](current-handoff.md). Create each `releases/<release-id>.md` from [the release template](../templates/release.md), linking compact records in `evidence/<work-id>/` and external CI evidence.
 

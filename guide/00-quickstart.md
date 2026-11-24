@@ -4,40 +4,22 @@ Use this bootstrap to give Codex a persistent consulting and specification workf
 Describe an outcome, answer the consequential gaps, and review the first useful
 delivery. Local tools keep the resulting records connected as work proceeds.
 
-## 1. Choose the application directory
+## Start from GitHub
 
-Keep the bootstrap checkout separate from the application. Python 3.10 or newer
-is required; the local tools use the standard library. You need a Codex surface
-that can read application files and run its permitted local commands.
+The released application distribution is already initialized. Generate a repository from the default template branch with **Include all branches** clear. Open that repository in Codespaces, open Codex at its root and type **`start`**. The mapped brief, requirements, technology, structure and architecture develop through consultation. A fresh application has no selected work item.
 
-| Starting point | Choose |
-| --- | --- |
-| An absent or empty application directory | `--mode greenfield` |
-| An existing application, IaC repository or populated directory | `--mode brownfield` |
+## Adopt into a separate application
 
-From the bootstrap checkout, preview the installation. Use an absolute target
-path whose parent exists:
+Skip adoption when the application was created with **Use this template**. To use the same workflow in another application, preview the installation from the root of a template-created project. Choose `greenfield` for a new or empty target and `brownfield` for an existing application. Python 3.10 or newer and Git are the local prerequisites.
 
 ```sh
-python3 scripts/bootstrap.py --source . --target /absolute/path/my-aws-app --mode greenfield
+app=/absolute/path/to/application
+python3 .aws-workflow/scripts/bootstrap.py --source .aws-workflow --target "$app" --mode greenfield
 ```
 
-Inspect the proposed additions and preserved files, then apply the intended plan:
+Review the additions, mappings and preservation of existing records. Repeat with `--apply` to install. The [adoption guide](../docs/reference/bootstrap.md) includes the equivalent command for the maintenance checkout, mappings for existing documents and the upgrade procedure.
 
-```sh
-python3 scripts/bootstrap.py --source . --target /absolute/path/my-aws-app --mode greenfield --apply
-```
-
-For brownfield work, change the mode and target. Existing architecture,
-instructions, source, state and pipelines stay in place. Use explicit mappings
-when the current brief, handoff or task authority lives elsewhere.
-[Adoption details](../docs/reference/bootstrap.md)
-
-The application receives `.aws-workflow/`, a bounded addition to `AGENTS.md`, and
-a managed `.gitignore` block for local execution state. No active application
-specification, AWS account access, plugin installation or hook trust is created.
-
-## 2. Open the application in Codex and check local setup
+## Open the application in Codex and check local setup
 
 Open the adopted application root in Codex. The `start` prompt in the next
 step directs Codex to run the read-only setup check. For manual diagnosis, use:
@@ -58,7 +40,7 @@ still need actual observations. [AWS setup boundary](02-aws-guidance-and-access.
 
 For GitHub Codespaces, use the [Codespaces readiness guide](07-codespaces.md). The separate native-check command tests observable startup prerequisites from the terminal that will launch Codex; this is not required for ordinary in-session consultation.
 
-## 3. Give Codex the outcome
+## Give Codex the outcome
 
 For either a new or an existing application, type **`start`** (or say “Start my AWS project”). Codex should offer a brief welcome as your AWS consultant and lead with known context or ask for the desired outcome. If saved consultation or work already exists, it should resume instead of restarting. No model call is started automatically by installation or setup.
 
@@ -95,7 +77,7 @@ than three consequential questions in a round. It should reuse settled answers.
 You provide business intent and material choices; Codex investigates the technical
 implications. [Consultation guide](06-consultation-interview.md)
 
-## 4. Follow the work as the artifacts develop
+## Follow the work as the artifacts develop
 
 | Stage | Codex's next useful action | Durable result |
 | --- | --- | --- |

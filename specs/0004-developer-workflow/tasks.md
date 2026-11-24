@@ -7,8 +7,8 @@
 
 ### T-001 — Establish the execution plan and connected contract
 
-- [x] T-001 complete
-- Activity: complete
+- [ ] T-001 complete
+- Activity: needs verification
 - Contract / design: REQ-001, REQ-002, REQ-003, REQ-004, REQ-005, REQ-006, REQ-007, REQ-008, REQ-009, REQ-010 / DES-001, DES-002, DES-003, DES-004, DES-005, DES-006
 - Prerequisites: none
 - Scope and exclusions: The named outcome within repository authority; no AWS account operations.
@@ -19,8 +19,8 @@
 
 ### T-002 — Implement specification analysis, properties and reconciliation
 
-- [x] T-002 complete
-- Activity: complete
+- [ ] T-002 complete
+- Activity: needs verification
 - Contract / design: REQ-002, REQ-003, REQ-004, REQ-007 / DES-002, DES-004
 - Prerequisites: T-001
 - Scope and exclusions: The named outcome within repository authority; no AWS account operations.
@@ -31,8 +31,8 @@
 
 ### T-003 — Implement bounded task execution and candidate application
 
-- [x] T-003 complete
-- Activity: complete
+- [ ] T-003 complete
+- Activity: needs verification
 - Contract / design: REQ-005, REQ-006 / DES-003
 - Prerequisites: T-001
 - Scope and exclusions: The named outcome within repository authority; no AWS account operations.
@@ -43,8 +43,8 @@
 
 ### T-004 — Complete setup, adoption and user entry
 
-- [x] T-004 complete
-- Activity: complete
+- [ ] T-004 complete
+- Activity: needs verification
 - Contract / design: REQ-001, REQ-008 / DES-001, DES-005
 - Prerequisites: T-001
 - Scope and exclusions: The named outcome within repository authority; no AWS account operations.
@@ -55,8 +55,8 @@
 
 ### T-005 — Integrate commands, phase checks and current context
 
-- [x] T-005 complete
-- Activity: complete
+- [ ] T-005 complete
+- Activity: needs verification
 - Contract / design: REQ-002, REQ-003, REQ-004, REQ-005, REQ-007, REQ-008 / DES-002, DES-003, DES-004, DES-005
 - Prerequisites: T-002, T-003, T-004
 - Scope and exclusions: The named outcome within repository authority; no AWS account operations.
@@ -67,8 +67,8 @@
 
 ### T-006 — Verify and review the combined developer workflow
 
-- [x] T-006 complete
-- Activity: complete
+- [ ] T-006 complete
+- Activity: needs verification
 - Contract / design: REQ-001, REQ-002, REQ-003, REQ-004, REQ-005, REQ-006, REQ-007, REQ-008, REQ-009 / DES-006
 - Prerequisites: T-005
 - Scope and exclusions: The named outcome within repository authority; no AWS account operations.
@@ -79,8 +79,8 @@
 
 ### T-007 — Publish the candidate and reconcile current evidence
 
-- [x] T-007 complete
-- Activity: complete
+- [ ] T-007 complete
+- Activity: needs verification
 - Contract / design: REQ-009 / DES-006
 - Prerequisites: T-006
 - Scope and exclusions: The named outcome within repository authority; no AWS account operations.
@@ -91,8 +91,8 @@
 
 ### T-008 — Observe the bounded native-client workflow trials
 
-- [x] T-008 complete
-- Activity: complete
+- [ ] T-008 complete
+- Activity: needs verification
 - Contract / design: REQ-010 / DES-006
 - Prerequisites: T-006
 - Scope and exclusions: The named outcome within repository authority; no AWS account operations.
@@ -113,3 +113,11 @@
 | CHK-006 | REQ-001, REQ-002, REQ-003, REQ-004, REQ-005, REQ-006, REQ-007, REQ-008, REQ-009 | T-006 | Run combined suite, independent concrete review, source identities, naming and local-link scans. | [Observed readiness result](../../evidence/0004-developer-workflow/codespaces-stabilization.md) |
 | CHK-007 | REQ-009 | T-007 | Reconcile changed claims and verify complete remote paths, modes and blob identities. | [Observed readiness result](../../evidence/0004-developer-workflow/codespaces-stabilization.md) |
 | CHK-008 | REQ-010 | T-008 | Run the separately approved native-client trial plan and review actual behavior against fixed rubrics. | [Reviewed final observation](../../evidence/0004-developer-workflow/native-pilot-closeout.md) |
+
+## Release gates after the frozen pilot
+
+T-008 covers the observed pilot on its pinned framework revision. The changed application distribution has its own release gates.
+
+- Activity: Clean distribution and offline verification are pending for the exact release source. Check both adoption modes, schema upgrades, project foundations, consultation shortcuts, official AWS guidance, optional emulator guidance, and fresh-session continuation.
+- Activity: The final distribution's literal `start` observation requires a separately authorized single native invocation.
+- Activity: Promotion requires a verified clean template branch, PR review and merge controls, default-branch readback and the release tag.

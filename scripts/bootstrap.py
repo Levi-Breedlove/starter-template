@@ -29,17 +29,25 @@ MAX_FILE_BYTES = 1_048_576
 MAX_FILES = 350
 DOC_TREES = ("workflows", "templates", "guide", "runbooks", "costs", "security", "infrastructure", "docs/reference", "examples/consultation", "examples/booking-retries")
 DOC_FILES = ("docs/workflow-architecture.md", "docs/adapter-contracts.md", "docs/repository-map.md", "specs/README.md", "evidence/README.md", "delivery/README.md", "scripts/README.md", "evaluations/README.md")
-SCRIPT_FILES = ("scripts/workflow.py", "scripts/bootstrap.py", "scripts/codex_hooks.py")
+SCRIPT_FILES = ("scripts/workflow.py", "scripts/bootstrap.py", "scripts/codex_hooks.py", "scripts/check_repository.py")
 REQUIRED = (
     "workflows/consult.md", "workflows/brownfield.md", "workflows/feature.md",
     "workflows/bugfix.md", "workflows/reconcile.md", "templates/project-brief.md",
     "templates/requirements.md", "templates/bugfix.md", "templates/design.md", "templates/tasks.md",
-    "guide/00-quickstart.md", "docs/reference/specification-operations.md", "docs/reference/task-execution.md",
-    "scripts/workflow.py", "workflow_engine/__init__.py", "workflow_engine/engine.py",
+    "guide/00-quickstart.md", "guide/02-aws-guidance-and-access.md", "guide/08-aws-emulator.md",
+    "docs/reference/specification-operations.md", "docs/reference/task-execution.md",
+    "scripts/workflow.py", "scripts/check_repository.py", "workflow_engine/__init__.py", "workflow_engine/engine.py",
     "workflow_engine/context.py", "workflow_engine/specifications.py", "workflow_engine/runner.py", "workflow_engine/doctor.py", "workflow_engine/native_preflight.py",
 )
-LOGICAL = {
+FOUNDATIONS = {
     "brief": "project/brief.md",
+    "requirements": "project/requirements.md",
+    "tech": "project/tech.md",
+    "structure": "project/structure.md",
+    "architecture": "project/architecture.md",
+}
+LOGICAL = {
+    **FOUNDATIONS,
     "handoff": "delivery/current-handoff.md",
     "adoption_report": "project/adoption-report.md",
     "environment_capabilities": "delivery/environment-capabilities.md",
@@ -57,9 +65,9 @@ def digest(content: bytes) -> str:
 
 def relative_path(value: str) -> str:
     path = PurePosixPath(value)
-    if not value or "\\" in value or path.is_absolute() or any(part in (".", "..") for part in value.split("/")):
+    if not path.parts or not value or "\\" in value or path.is_absolute() or any(part in (".", "..") for part in value.split("/")):
         raise BootstrapError(f"Expected a contained relative path, received: {value!r}")
-    if any(ord(char) < 32 for char in value) or path.parts[0] == ".git":
+    if any(ord(char) < 32 for char in value) or any(part.casefold() == ".git" for part in path.parts):
         raise BootstrapError(f"Reserved or invalid path: {value!r}")
     return path.as_posix()
 
@@ -72,9 +80,9 @@ def no_symlinks(path: Path) -> None:
 
 def root_path(value: str | Path) -> Path:
     raw = Path(value).expanduser()
-    if ".." in raw.parts:
-        raise BootstrapError(f"Use a root path without '..' components: {value}")
     absolute = Path(os.path.abspath(raw))
+    if ".." in raw.parts or any(part.casefold() == ".git" for part in absolute.parts):
+        raise BootstrapError(f"Use a root path outside Git metadata and without '..' components: {value}")
     no_symlinks(absolute)
     return absolute
 
@@ -188,6 +196,19 @@ conversation. Ask only the next one to three material questions, explain a
 recommendation and its tradeoffs, and persist the answers and unresolved choices.
 For existing applications, establish the preserved baseline through
 [{NAMESPACE}/workflows/brownfield.md]({NAMESPACE}/workflows/brownfield.md) first.
+During `start`, progressively record confirmed project-wide decisions in the
+mapped foundations. Use {local_link(paths['brief'])} for the product, users and
+scope, {local_link(paths['requirements'])} for system requirements,
+{local_link(paths['tech'])} for accepted technologies and standards,
+{local_link(paths['structure'])} for repository conventions and ownership, and
+{local_link(paths['architecture'])} for the system design and trust boundaries.
+Read only foundations material to the current decision. Keep open choices
+visible until resolved. Preserve existing mapped records, ADRs and diagrams.
+Feature and defect specifications link to applicable foundations and describe
+the change and its acceptance criteria. Add relevant mapped paths to the work's
+`context_files` or cite them in sourced facts or answers. Reuse settled decisions
+on return.
+
 Select the appropriate requirements-first, design-first, quick, bugfix, or plan
 route; prepare requirements, design, traceable tasks, and verification according
 to that route and authority already granted. Do not make the user design the
@@ -216,7 +237,7 @@ Treat the following standalone user messages (case-insensitive), or their clear 
 | `review` | Inspect the actual selected specification or implementation candidate against its requirements, risks and evidence; report findings without manufacturing acceptance. |
 | `release` | Prepare the release and verification/recovery plan under existing controls. Deployment or other external operations require actual scoped authority; the word alone grants none. |
 
-A shortcut does not grant additional authority, accept a future artifact, launch a separate native model, or authorize account access or deployment. Retain the existing rules for local work, evidence and review. When the developer is in the bootstrap source rather than an adopted application, `start` helps them adopt into a separate application first if their intent is a new application; otherwise respect the current framework-maintenance handoff. Do not treat template-maintenance records as application context.
+A shortcut does not grant additional authority, accept a future artifact, launch a separate native model, or authorize account access or deployment. Retain the existing rules for local work, evidence and review. The manifest identifies this application's canonical project records.
 
 Before selecting active work, consult the mapped brief/handoff and lead the
 conversation. Run `python3 {NAMESPACE}/scripts/workflow.py --root . doctor` for
@@ -246,10 +267,20 @@ reproduced failures or a required gate. Stop optional work once sufficient
 evidence exists. Compare efficiency only after correctness, preservation and
 authority requirements pass; report actual measurements and unknown usage.
 
-For AWS, use the existing official hosted AWS Core / AWS Data Analytics plugins
-when relevant and available, and current official public documentation. Honor
-skill opt-outs. Distinguish installed, available, loaded, and tested capabilities.
-Public guidance checks must not touch AWS accounts, credentials, or resources.
+Use the relevant official Agent Toolkit for AWS plugins available on this
+Codex surface and current official public documentation. Follow
+[{NAMESPACE}/guide/02-aws-guidance-and-access.md]({NAMESPACE}/guide/02-aws-guidance-and-access.md)
+for exact official skill discovery and retrieval. When local integration tests
+would benefit, assess the workload's AWS operations and plan isolated tests via
+[{NAMESPACE}/guide/08-aws-emulator.md]({NAMESPACE}/guide/08-aws-emulator.md).
+Preserve existing supported tests. Honor skill opt-outs and distinguish installed,
+available, loaded, and tested capabilities.
+Consult the current official plugin catalog on demand. Use AWS Core
+`search_documentation` with topic `agent_skills`, then `retrieve_skill` with
+the exact returned identifier. Check material guidance against official AWS
+documentation and upstream. Assess authentication per operation. Continue
+credential-free consultation, development and local verification with available
+public tools. Defer an authenticated operation to its authorized cloud stage.
 Account operations, deployment, cost, and destructive actions require actual
 task authority and project limits. Adoption grants none of these permissions.
 Do not duplicate plugins, install skills, enable hooks, or change client trust
@@ -288,6 +319,10 @@ No application work item or active backlog has been selected. Prepare the first
 reviewable scope and route; continue implementation only within actual task
 authority. Establish acceptance criteria and the evidence required to verify them.
 """.encode(),
+        paths["requirements"]: b"# Project requirements\n\n## Outcomes and system-wide acceptance criteria\n\n## Constraints and open decisions\n",
+        paths["tech"]: b"# Technology and engineering standards\n\n## Accepted stack, services and tools\n\n## Standards and decision references\n",
+        paths["structure"]: b"# Repository structure\n\n## Components and ownership\n\n## Layout and naming conventions\n",
+        paths["architecture"]: b"# System architecture\n\n## Components, interfaces and data flows\n\n## Infrastructure and trust boundaries\n\n## Architecture decisions and diagrams\n",
         paths["handoff"]: f"""# Current handoff: {name}
 
 **State:** Local workflow adopted; application consultation is next.
@@ -350,6 +385,7 @@ class Write:
     relative: str
     content: bytes
     before: bytes | None = None
+    action: str = "create"
 
 
 @dataclass
@@ -360,21 +396,57 @@ class Plan:
     omitted_references: list[str] = field(default_factory=list)
     paths: dict[str, str] = field(default_factory=dict)
     mode: str = ""
+    verified: dict[str, str] = field(default_factory=dict)
 
     def summary(self, applied: bool = False) -> dict[str, object]:
         return {
             "status": "applied" if applied and self.writes else "unchanged" if not self.writes else "preview",
             "target": str(self.target), "mode": self.mode,
-            "changes": [{"path": write.relative, "action": ("append managed runtime ignore" if write.relative == ".gitignore" else "append managed instructions") if write.before is not None else "create"} for write in self.writes],
+            "changes": [{"path": write.relative, "action": write.action} for write in self.writes],
             "preserved": sorted(self.preserved), "paths": self.paths,
             "omitted_template_references": self.omitted_references,
         }
 
 
+def read_manifest(path: Path) -> dict:
+    try:
+        manifest = json.loads(text_file(path))
+    except json.JSONDecodeError as exc:
+        raise BootstrapError("Existing installation manifest is invalid; review it manually") from exc
+    if (not isinstance(manifest, dict) or manifest.get("identity") != IDENTITY
+            or type(manifest.get("schema_version")) is not int or manifest["schema_version"] not in (1, 2)):
+        raise BootstrapError("Existing namespace belongs to an unknown installation")
+    paths = manifest.get("paths")
+    managed = manifest.get("managed_files")
+    if not isinstance(paths, dict) or not isinstance(managed, dict):
+        raise BootstrapError("Installation path map and managed inventory must be objects")
+    required = {"brief", "handoff", "adoption_report", "environment_capabilities", "specifications", "evidence", "decisions"}
+    if manifest["schema_version"] == 2:
+        required.update(FOUNDATIONS)
+    if not required <= paths.keys() or not all(isinstance(v, str) for v in paths.values()):
+        raise BootstrapError("Installation manifest has incomplete or invalid context paths")
+    for value in paths.values():
+        relative_path(value)
+    if sorted(paths[k] for k in LOGICAL if k in paths) != manifest.get("editable_project_records"):
+        raise BootstrapError("Installation editable records differ from the mapped project records")
+    if not all(isinstance(k, str) and relative_path(k).startswith(NAMESPACE + "/")
+               and isinstance(h, str) and re.fullmatch(r"[0-9a-f]{64}", h) for k, h in managed.items()):
+        raise BootstrapError("Invalid managed file inventory")
+    omitted = manifest.get("omitted_template_references")
+    if not isinstance(omitted, list) or not all(isinstance(item, str) for item in omitted):
+        raise BootstrapError("Invalid omitted reference inventory")
+    if not isinstance(manifest.get("source_digest"), str) or not re.fullmatch(r"[0-9a-f]{64}", manifest["source_digest"]):
+        raise BootstrapError("Invalid installation source digest")
+    return manifest
+
+
 def build_plan(source: str | Path, target: str | Path, mode: str, name: str | None = None,
-               brief: str | None = None, handoff: str | None = None, authorities: list[str] | None = None) -> Plan:
+               brief: str | None = None, handoff: str | None = None, authorities: list[str] | None = None,
+               *, requirements: str | None = None, tech: str | None = None, structure: str | None = None,
+               architecture: str | None = None, upgrade: bool = False, visible_records: bool = False) -> Plan:
     source, target = root_path(source), root_path(target)
-    if source == target or source in target.parents or target in source.parents:
+    own_package = source == target / NAMESPACE and contained(source, "manifest.json").is_file()
+    if not own_package and (source == target or source in target.parents or target in source.parents):
         raise BootstrapError("Source and target must be separate, non-overlapping roots")
     if not source.is_dir():
         raise BootstrapError("Source must be an existing workflow template directory")
@@ -387,12 +459,7 @@ def build_plan(source: str | Path, target: str | Path, mode: str, name: str | No
     manifest_path = contained(target, MANIFEST)
     old: dict = {}
     if manifest_path.exists():
-        try:
-            old = json.loads(text_file(manifest_path))
-        except (json.JSONDecodeError, TypeError) as exc:
-            raise BootstrapError("Existing installation manifest is invalid; review it manually") from exc
-        if not isinstance(old, dict) or old.get("identity") != IDENTITY or old.get("schema_version") != 1:
-            raise BootstrapError("Existing namespace belongs to an unknown installation")
+        old = read_manifest(manifest_path)
     elif contained(target, NAMESPACE).exists():
         raise BootstrapError("Reserved .aws-workflow namespace already exists without an installation manifest")
     if mode == "greenfield" and target.exists() and not old:
@@ -404,11 +471,17 @@ def build_plan(source: str | Path, target: str | Path, mode: str, name: str | No
         raise BootstrapError("Project name must be a short single-line string")
     paths = {}
     persisted = old.get("paths", {})
-    if not isinstance(persisted, dict):
-        raise BootstrapError("Installation path map must be an object")
+    overrides = {"brief": brief, "handoff": handoff, "requirements": requirements, "tech": tech,
+                 "structure": structure, "architecture": architecture}
+    if visible_records and mode != "greenfield":
+        raise BootstrapError("Visible distribution records require a greenfield project")
+    if upgrade and not old:
+        raise BootstrapError("--upgrade requires an existing installation manifest")
     for key, logical in LOGICAL.items():
-        requested = {"brief": brief, "handoff": handoff}.get(key)
-        mapped = requested or persisted.get(key) or (logical if contained(target, logical).exists() else f"{NAMESPACE}/{logical}")
+        requested = overrides.get(key)
+        visible = visible_records or key in FOUNDATIONS or contained(target, logical).exists()
+        default = logical if visible else f"{NAMESPACE}/{logical}"
+        mapped = requested or persisted.get(key) or default
         if not isinstance(mapped, str):
             raise BootstrapError("Installation paths must be strings")
         paths[key] = relative_path(mapped)
@@ -425,12 +498,21 @@ def build_plan(source: str | Path, target: str | Path, mode: str, name: str | No
         if not contained(target, path).exists():
             raise BootstrapError(f"Existing authority was not found: {path}")
     assets = source_assets(source)
+    packed = read_manifest(contained(source, "manifest.json")) if source.name == NAMESPACE else None
     fingerprint = source_digest(assets)
-    if old and any(old.get(key) != value for key, value in {
-        "source_digest": fingerprint, "mode": mode, "project_name": project_name,
-        "paths": paths, "existing_authorities": established,
-    }.items()):
-        raise BootstrapError("Installed source or adoption choices differ. Review an explicit update/merge; this helper never overwrites an installation")
+    if packed:
+        inventory = {f"{NAMESPACE}/{path}": digest(content) for path, content in assets.items()}
+        inventory[f"{NAMESPACE}/README.md"] = digest(read_file(contained(source, "README.md")))
+        if inventory != packed["managed_files"]:
+            raise BootstrapError("Packaged source files differ from their manifest; review the source installation")
+        fingerprint = packed["source_digest"]
+    if old:
+        if (old.get("mode") != mode or old.get("project_name") != project_name
+                or old.get("existing_authorities") != established
+                or any(paths.get(key) != value for key, value in persisted.items())):
+            raise BootstrapError("Existing mappings, project identity or authorities differ; review an explicit update/merge")
+        if not upgrade and (old["source_digest"] != fingerprint or old["schema_version"] != 2):
+            raise BootstrapError("Installed source differs. Review an explicit update/merge with --upgrade")
     mapping = {relative: f"{NAMESPACE}/{relative}" for relative in assets}
     mapping.update({logical: paths[key] for key, logical in LOGICAL.items()})
     mapping.update({"AGENTS.md": "AGENTS.md", "README.md": f"{NAMESPACE}/README.md"})
@@ -441,11 +523,20 @@ def build_plan(source: str | Path, target: str | Path, mode: str, name: str | No
                 mapping.setdefault(parent.as_posix(), f"{NAMESPACE}/{parent.as_posix()}")
     plan = Plan(target=target, paths=paths, mode=mode)
     omitted: set[str] = set()
+    link_map = mapping
+    if packed:
+        omitted.update(packed.get("omitted_template_references", []))
+        # Links in an installed guide already use the source application's mapped
+        # paths. Resolve at that application's root, then map to this target.
+        link_map = {f"{NAMESPACE}/{relative}": dest for relative, dest in mapping.items()}
+        link_map.update({packed["paths"][key]: dest for key, dest in paths.items() if key in packed["paths"]})
+        link_map["AGENTS.md"] = "AGENTS.md"
     outputs = {}
     for relative, content in assets.items():
         if relative.endswith(".md"):
             try:
-                content = rewrite_links(content.decode("utf-8"), relative, mapping[relative], mapping, omitted).encode()
+                original = f"{NAMESPACE}/{relative}" if packed else relative
+                content = rewrite_links(content.decode("utf-8"), original, mapping[relative], link_map, omitted).encode()
             except UnicodeDecodeError as exc:
                 raise BootstrapError(f"Source documentation is not UTF-8: {relative}") from exc
         outputs[mapping[relative]] = content
@@ -490,8 +581,8 @@ block. The runner verifies the effective ignore rule before native execution.
 Packaged reference material may describe maintenance of the source template.
 Those sections do not create application obligations. Excluded source-template
 links become labeled prose; the installation preview lists each omitted reference.
-For updates, compare a fresh preview against the original template and perform
-an explicitly reviewed merge. This helper intentionally has no force/overwrite mode.
+For updates, preview the candidate source with `--upgrade`. Inspect the plan
+before applying it. Local changes to managed files require a reviewed merge.
 """.encode()
     block = agent_block(paths, established)
     agent_path = contained(target, "AGENTS.md")
@@ -509,9 +600,9 @@ an explicitly reviewed merge. This helper intentionally has no force/overwrite m
             if not old or agent_text.count(BEGIN) != 1 or agent_text.count(END) != 1:
                 raise BootstrapError("Existing managed instruction markers are ambiguous; manual merge required")
             actual = agent_text[agent_text.index(BEGIN):agent_text.index(END) + len(END)]
-            if actual != block:
+            if digest(actual.encode()) != old.get("agent_block_sha256") or (actual != block and not upgrade):
                 raise BootstrapError("Managed instruction block changed; review and merge without replacing existing instructions")
-            agent_content = existing_agent
+            agent_content = agent_text.replace(actual, block, 1).encode()
         elif old:
             raise BootstrapError("Installed instruction block is missing; manual merge required")
         else:
@@ -532,7 +623,7 @@ an explicitly reviewed merge. This helper intentionally has no force/overwrite m
             if not old or ignore_text.count(IGNORE_BEGIN) != 1 or ignore_text.count(IGNORE_END) != 1:
                 raise BootstrapError("Existing runtime ignore markers are ambiguous; manual merge required")
             actual = ignore_text[ignore_text.index(IGNORE_BEGIN):ignore_text.index(IGNORE_END) + len(IGNORE_END)]
-            if actual != IGNORE_BLOCK:
+            if actual != IGNORE_BLOCK or digest(actual.encode()) != old.get("runtime_ignore_block_sha256"):
                 raise BootstrapError("Managed runtime ignore block changed; review an explicit merge")
             ignore_content = existing_ignore
         elif old:
@@ -541,20 +632,31 @@ an explicitly reviewed merge. This helper intentionally has no force/overwrite m
             separator = "" if ignore_text.endswith("\n\n") else "\n" if ignore_text.endswith("\n") else "\n\n"
             ignore_content = existing_ignore + (separator + IGNORE_BLOCK + "\n").encode()
     managed = {path: digest(content) for path, content in sorted(outputs.items())}
-    if old and old.get("managed_files") != managed:
+    installed = old.get("managed_files", {})
+    if installed.keys() - managed.keys():
+        raise BootstrapError("A previously managed path would be removed; review an explicit update/merge")
+    if old and not upgrade and installed != managed:
         raise BootstrapError("Installed file inventory differs; an explicit update/merge is required")
     collisions = []
     for relative, content in sorted(outputs.items()):
         path = contained(target, relative)
-        if path.exists():
-            if read_file(path) != content:
-                collisions.append(relative)
+        if not path.exists():
+            if relative in installed:
+                collisions.append(relative + " (installed file missing)")
             else:
-                plan.preserved.append(relative)
-        elif old:
-            collisions.append(relative + " (installed file missing)")
+                plan.writes.append(Write(relative, content))
+            continue
+        current = read_file(path)
+        if relative in installed and digest(current) != installed[relative]:
+            collisions.append(relative)
+        elif current == content and (not old or relative in installed):
+            plan.preserved.append(relative)
+            if old:
+                plan.verified[relative] = digest(current)
+        elif upgrade and relative in installed:
+            plan.writes.append(Write(relative, content, current, "update managed file"))
         else:
-            plan.writes.append(Write(relative, content))
+            collisions.append(relative)
     editable = initial_records(project_name, mode, paths, established)
     for relative, content in editable.items():
         if relative in outputs or relative in (MANIFEST, "AGENTS.md", ".gitignore"):
@@ -563,36 +665,50 @@ an explicitly reviewed merge. This helper intentionally has no force/overwrite m
         if path.exists():
             read_file(path)
             plan.preserved.append(relative)
-        elif old:
+        elif relative in old.get("editable_project_records", []):
             collisions.append(relative + " (project record missing)")
-        elif not relative.startswith(NAMESPACE + "/"):
+        elif not relative.startswith(NAMESPACE + "/") and relative not in LOGICAL.values():
             raise BootstrapError(f"Mapped existing context is missing: {relative}")
         else:
             plan.writes.append(Write(relative, content))
     if collisions:
         raise BootstrapError("Content collisions; no files written:\n- " + "\n- ".join(collisions))
     if agent_content != existing_agent:
-        plan.writes.append(Write("AGENTS.md", agent_content, existing_agent))
+        action = "create" if existing_agent is None else "append managed instructions"
+        if old:
+            action = "update managed instructions"
+        plan.writes.append(Write("AGENTS.md", agent_content, existing_agent, action))
     else:
         plan.preserved.append("AGENTS.md")
+        plan.verified["AGENTS.md"] = digest(agent_content)
     if ignore_content != existing_ignore:
-        plan.writes.append(Write(".gitignore", ignore_content, existing_ignore))
+        action = "create" if existing_ignore is None else "append managed runtime ignore"
+        plan.writes.append(Write(".gitignore", ignore_content, existing_ignore, action))
     else:
         plan.preserved.append(".gitignore")
+        plan.verified[".gitignore"] = digest(ignore_content)
     manifest = {
-        "schema_version": 1, "identity": IDENTITY, "mode": mode, "project_name": project_name,
+        "schema_version": 2, "identity": IDENTITY, "mode": mode, "project_name": project_name,
         "source_digest": fingerprint, "paths": paths, "existing_authorities": established,
         "managed_files": managed, "editable_project_records": sorted(editable),
         "agent_block_sha256": digest(block.encode()), "runtime_ignore_block_sha256": digest(IGNORE_BLOCK.encode()), "omitted_template_references": sorted(omitted),
     }
     manifest_bytes = (json.dumps(manifest, indent=2, sort_keys=True) + "\n").encode()
     if old:
-        if read_file(manifest_path) != manifest_bytes:
+        previous = read_file(manifest_path)
+        if set(old) != set(manifest):
+            raise BootstrapError("Installation manifest fields changed; review it before reapplying")
+        if previous == manifest_bytes:
+            plan.preserved.append(MANIFEST)
+        elif upgrade:
+            plan.writes.append(Write(MANIFEST, manifest_bytes, previous, "update installation manifest"))
+        else:
             raise BootstrapError("Installation manifest changed; review it before reapplying")
-        plan.preserved.append(MANIFEST)
     else:
         # Commit the manifest last; an incomplete transaction is never a valid install.
         plan.writes.append(Write(MANIFEST, manifest_bytes))
+    if own_package and plan.writes:
+        raise BootstrapError("An in-place installed package may only verify an unchanged installation; use a separate source to upgrade")
     plan.omitted_references = sorted(omitted)
     return plan
 
@@ -602,12 +718,15 @@ def apply_plan(plan: Plan) -> None:
     created_directories: list[Path] = []
     completed: list[Write] = []
     # Recheck every expected output before the first write, including AGENTS bytes.
+    for relative, expected in plan.verified.items():
+        if digest(read_file(contained(plan.target, relative))) != expected:
+            raise BootstrapError(f"File changed since preview: {relative}")
     for write in plan.writes:
         path = contained(plan.target, write.relative)
         if write.before is None and path.exists():
             raise BootstrapError(f"Target changed since preview: {write.relative}")
         if write.before is not None and (not path.exists() or read_file(path) != write.before):
-            raise BootstrapError(f"Existing instructions changed since preview: {write.relative}")
+            raise BootstrapError(f"Existing file changed since preview: {write.relative}")
     try:
         for write in plan.writes:
             path = contained(plan.target, write.relative)
@@ -637,7 +756,7 @@ def apply_plan(plan: Plan) -> None:
                     os.link(temporary, path, follow_symlinks=False)
                 else:
                     if read_file(path) != write.before:
-                        raise BootstrapError("Existing instructions changed while applying the plan")
+                        raise BootstrapError(f"Existing file changed while applying the plan: {write.relative}")
                     os.replace(temporary, path)
                     temporary = None
                 completed.append(write)
@@ -668,18 +787,22 @@ def apply_plan(plan: Plan) -> None:
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--source", required=True, help="Separate original workflow template root")
+    parser.add_argument("--source", required=True, help="Workflow template source root or installed .aws-workflow package")
     parser.add_argument("--target", required=True, help="Application root; no '..' or symlink components")
     parser.add_argument("--mode", required=True, choices=("greenfield", "brownfield"))
     parser.add_argument("--name", help="Application display name; defaults to target directory name")
-    parser.add_argument("--brief", help="Existing canonical brief, relative to the application root")
+    for key in FOUNDATIONS:
+        parser.add_argument(f"--{key}", help=f"Existing canonical project {key}, relative to the application root")
     parser.add_argument("--handoff", help="Existing canonical handoff, relative to the application root")
     parser.add_argument("--authority", action="append", help="Existing authority file/directory to preserve and consult; repeatable")
+    parser.add_argument("--upgrade", action="store_true", help="Preview an existing installation upgrade, preserving editable records and verifying old managed bytes")
     parser.add_argument("--apply", action="store_true", help="Write this additive plan; otherwise preview only")
     parser.add_argument("--json", action="store_true", help="Print machine-readable plan/result")
     arguments = parser.parse_args(argv)
     try:
-        plan = build_plan(arguments.source, arguments.target, arguments.mode, arguments.name, arguments.brief, arguments.handoff, arguments.authority)
+        plan = build_plan(arguments.source, arguments.target, arguments.mode, arguments.name,
+                          handoff=arguments.handoff, authorities=arguments.authority, upgrade=arguments.upgrade,
+                          **{key: getattr(arguments, key) for key in FOUNDATIONS})
         if arguments.apply:
             apply_plan(plan)
         result = plan.summary(arguments.apply)

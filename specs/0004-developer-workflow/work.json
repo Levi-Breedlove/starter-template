@@ -4,7 +4,7 @@
   "title": "Complete developer workflow",
   "mode": "brownfield",
   "route": "requirements-first",
-  "phase": "complete",
+  "phase": "implementation",
   "artifacts": {
     "requirements": "requirements.md",
     "design": "design.md",
@@ -71,6 +71,21 @@
         "specs/0004-developer-workflow/requirements.md": "3f52d327900f7cb25103bcb91b64e9b19263889206712a1a1d46c5c9cd3be98f",
         "specs/0004-developer-workflow/design.md": "06eeb1e04cb612b6392bb8489ed6a6c0633d08d4dd6c1a13569cc8351598fa82",
         "specs/0004-developer-workflow/tasks.md": "d5c4151e89fe6e9b094dc79d4804c380d6007fdba046ba8fe530c5e07b747b11"
+      }
+    },
+    {
+      "id": "REV-004",
+      "artifact": "tasks",
+      "outcome": "accepted",
+      "decision_ref": "evidence/0004-developer-workflow/release-reconciliation.json",
+      "reviewer": "Delegated task-plan reviewer of the revised distribution gates",
+      "authority": "delegated",
+      "recorded_at": "2026-11-24T23:29:16.894005+00:00",
+      "snapshot_policy": "canonical-plan-v1",
+      "hashes": {
+        "specs/0004-developer-workflow/requirements.md": "3f52d327900f7cb25103bcb91b64e9b19263889206712a1a1d46c5c9cd3be98f",
+        "specs/0004-developer-workflow/design.md": "06eeb1e04cb612b6392bb8489ed6a6c0633d08d4dd6c1a13569cc8351598fa82",
+        "specs/0004-developer-workflow/tasks.md": "cd6703c4738bf7fb7de724154552c03f9d3e558fb581d425facca4163be78d55"
       }
     }
   ],
@@ -1307,6 +1322,64 @@
         "T-005",
         "T-006",
         "T-007"
+      ]
+    },
+    {
+      "id": "SYNC-0002",
+      "observed_at": "2026-11-24T23:29:15.840900+00:00",
+      "reason": "Final distribution packaging changed shared runtime, consultation guidance and readiness checks. Reverify affected contracts on the exact source; retain the pinned native observation and earlier receipts.",
+      "preview_fingerprint": "75d5b04ac85c7f132dfff88abb7bf3b949c6938ae3c211997d85f2f10eb08245",
+      "from_phase": "complete",
+      "to_phase": "tasks",
+      "changed_paths": [
+        "AGENTS.md",
+        "README.md",
+        "costs/README.md",
+        "delivery/README.md",
+        "docs/adapter-contracts.md",
+        "docs/reference/bootstrap.md",
+        "docs/reference/efficient-operation.md",
+        "docs/reference/native-hooks.md",
+        "docs/reference/sources.md",
+        "docs/reference/specification-operations.md",
+        "docs/reference/workflow-tooling.md",
+        "docs/repository-map.md",
+        "evaluations/README.md",
+        "evidence/README.md",
+        "guide/00-quickstart.md",
+        "guide/01-start-here.md",
+        "guide/02-aws-guidance-and-access.md",
+        "guide/05-brownfield-adoption.md",
+        "guide/07-codespaces.md",
+        "infrastructure/README.md",
+        "project/brief.md",
+        "scripts/README.md",
+        "scripts/bootstrap.py",
+        "scripts/check_repository.py",
+        "security/README.md",
+        "specs/0004-developer-workflow/exec-plan.md",
+        "specs/0004-developer-workflow/tasks.md",
+        "specs/README.md",
+        "templates/environment-capabilities.md",
+        "tests/test_bootstrap.py",
+        "tests/test_doctor.py",
+        "tests/test_integration.py",
+        "tests/test_specifications.py",
+        "tests/test_workflow.py",
+        "workflow_engine/doctor.py",
+        "workflow_engine/engine.py",
+        "workflow_engine/specifications.py",
+        "workflows/consult.md"
+      ],
+      "reopened_tasks": [
+        "T-001",
+        "T-002",
+        "T-003",
+        "T-004",
+        "T-005",
+        "T-006",
+        "T-007",
+        "T-008"
       ]
     }
   ]

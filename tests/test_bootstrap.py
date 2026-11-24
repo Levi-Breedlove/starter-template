@@ -108,7 +108,14 @@ class BootstrapTests(unittest.TestCase):
         contents = "\n".join(path.read_text() for path in self.target.rglob("*") if path.is_file())
         self.assertNotIn("DO NOT COPY", contents)
         manifest = json.loads((self.target / bootstrap.MANIFEST).read_text())
-        self.assertEqual(manifest["paths"]["brief"], ".aws-workflow/project/brief.md")
+        self.assertEqual(manifest["schema_version"], 2)
+        self.assertEqual({key: manifest["paths"][key] for key in bootstrap.FOUNDATIONS},
+                         bootstrap.FOUNDATIONS)
+        instructions = (self.target / "AGENTS.md").read_text()
+        for path in bootstrap.FOUNDATIONS.values():
+            self.assertTrue((self.target / path).is_file())
+            self.assertIn(path, manifest["editable_project_records"])
+            self.assertIn(f"]({path})", instructions)
         self.assertEqual(manifest["identity"], "codex-aws-workflow")
         self.assertIn("Consultation has not started", (self.target / manifest["paths"]["brief"]).read_text())
         self.assertEqual(snapshot(self.source), before_source)
@@ -141,6 +148,17 @@ class BootstrapTests(unittest.TestCase):
         self.assertFalse((self.target / ".aws-workflow/project/brief.md").exists())
         linked = (self.target / ".aws-workflow/workflows/consult.md").read_text()
         self.assertIn("../../project/brief.md", linked)
+
+    def test_nested_git_metadata_cannot_be_mapped_or_used_as_installation_root(self):
+        relative = "vendor/nested/.GIT/description"
+        write(self.target, relative, "Nested checkout metadata\n")
+        before = snapshot(self.target)
+        for options in ({"tech": relative}, {"authorities": [relative]}):
+            with self.subTest(options=options), self.assertRaisesRegex(bootstrap.BootstrapError, "Reserved"):
+                self.plan("brownfield", **options)
+        with self.assertRaisesRegex(bootstrap.BootstrapError, "Git metadata"):
+            bootstrap.build_plan(self.source, (self.target / relative).parent / "app", "greenfield")
+        self.assertEqual(snapshot(self.target), before)
 
     def test_custom_authority_paths_are_mapped_without_migration(self):
         write(self.target, "architecture/product.md", "Existing product authority\n")
@@ -187,6 +205,106 @@ class BootstrapTests(unittest.TestCase):
         with self.assertRaisesRegex(bootstrap.BootstrapError, "explicit update/merge"):
             self.plan()
         self.assertEqual(snapshot(self.target), before)
+
+    def test_clean_distribution_selects_visible_project_records_once(self):
+        plan = self.install(visible_records=True)
+        for key, path in bootstrap.LOGICAL.items():
+            self.assertEqual(plan.paths[key], path)
+            self.assertTrue((self.target / path).is_file())
+        self.assertEqual(self.plan().writes, [])
+        package = self.target / bootstrap.NAMESPACE
+        self.assertEqual(bootstrap.build_plan(package, self.target, "greenfield").writes, [])
+
+    def test_mapped_brownfield_foundations_stay_canonical(self):
+        mapping = {key: f"engineering/{key}.md" for key in bootstrap.FOUNDATIONS}
+        for key, path in mapping.items():
+            write(self.target, path, f"Existing {key} with a local unsaved decision.\n")
+        receipt = self.install("brownfield", **mapping)
+        for key, path in mapping.items():
+            self.assertEqual(receipt.paths[key], path)
+            self.assertEqual((self.target / path).read_text(), f"Existing {key} with a local unsaved decision.\n")
+            self.assertFalse((self.target / bootstrap.FOUNDATIONS[key]).exists())
+        self.assertEqual(self.plan("brownfield").writes, [])
+
+    def test_legacy_upgrade_keeps_project_records_and_user_instruction_bytes(self):
+        # Reproduce the v1 layout using its actual mapped brief, managed block
+        # digest and inventory. The new release adds four unmapped foundations.
+        self.install()
+        manifest_file = self.target / bootstrap.MANIFEST
+        manifest = json.loads(manifest_file.read_text())
+        old_brief = ".aws-workflow/project/brief.md"
+        old_path = self.target / old_brief
+        old_path.parent.mkdir(parents=True, exist_ok=True)
+        (self.target / manifest["paths"]["brief"]).rename(old_path)
+        old_path.write_text("A saved, canonical decision from before the upgrade.\n")
+        manifest["paths"]["brief"] = old_brief
+        for key in ("requirements", "tech", "structure", "architecture"):
+            (self.target / manifest["paths"].pop(key)).unlink()
+        manifest["editable_project_records"] = sorted(manifest["paths"][k] for k in bootstrap.LOGICAL if k in manifest["paths"])
+        manifest["schema_version"] = 1
+        old_block = bootstrap.BEGIN + "\nPrevious package instructions\n" + bootstrap.END
+        manifest["agent_block_sha256"] = bootstrap.digest(old_block.encode())
+        before_instructions = b"# Established project instructions\r\n"
+        after_instructions = b"\n# Additional local note\n"
+        (self.target / "AGENTS.md").write_bytes(before_instructions + old_block.encode() + after_instructions)
+        manifest_file.write_text(json.dumps(manifest, indent=2, sort_keys=True) + "\n")
+        write(self.target, "docs/design.md", "Reviewed architecture.\n")
+        write(self.source, "workflows/consult.md", "Revised consultation.\n")
+        before = snapshot(self.target)
+        with self.assertRaisesRegex(bootstrap.BootstrapError, "explicit update/merge"):
+            self.plan()
+        plan = self.plan(architecture="docs/design.md", upgrade=True)
+        self.assertEqual(snapshot(self.target), before)
+        bootstrap.apply_plan(plan)
+        manifest = json.loads(manifest_file.read_text())
+        self.assertEqual(manifest["schema_version"], 2)
+        self.assertEqual(manifest["paths"]["brief"], old_brief)
+        self.assertEqual(manifest["paths"]["architecture"], "docs/design.md")
+        self.assertFalse((self.target / "project/brief.md").exists())
+        self.assertEqual(old_path.read_text(), "A saved, canonical decision from before the upgrade.\n")
+        self.assertEqual((self.target / "docs/design.md").read_text(), "Reviewed architecture.\n")
+        instructions = (self.target / "AGENTS.md").read_bytes()
+        self.assertTrue(instructions.startswith(before_instructions))
+        self.assertTrue(instructions.endswith(after_instructions))
+        self.assertEqual(self.plan().writes, [])
+
+    def test_upgrade_stops_on_modified_managed_file_or_unowned_new_file(self):
+        self.install()
+        managed = ".aws-workflow/workflows/consult.md"
+        original = (self.target / managed).read_bytes()
+        write(self.source, "workflows/consult.md", "New package guidance.\n")
+        write(self.target, managed, "Local consultant guidance.\n")
+        before = snapshot(self.target)
+        with self.assertRaisesRegex(bootstrap.BootstrapError, "Content collisions"):
+            self.plan(upgrade=True)
+        self.assertEqual(snapshot(self.target), before)
+        (self.target / managed).write_bytes(original)
+        write(self.source, "workflows/new-guide.md", "Newer file.\n")
+        write(self.target, ".aws-workflow/workflows/new-guide.md", "Unowned file.\n")
+        with self.assertRaisesRegex(bootstrap.BootstrapError, "workflows/new-guide"):
+            self.plan(upgrade=True)
+
+    def test_installed_package_reuses_original_digest_and_remaps_links(self):
+        write(self.source, "guide/internal.md", "[Project tech](../project/tech.md)\n[Requirements](../project/requirements.md)\n")
+        self.install()
+        package = self.target / bootstrap.NAMESPACE
+        first_manifest = json.loads((self.target / bootstrap.MANIFEST).read_text())
+        self.assertEqual(bootstrap.build_plan(package, self.target, "greenfield").writes, [])
+        other = self.base / "existing-project"
+        write(other, "docs/our-stack.md", "Already approved.\n")
+        plan = bootstrap.build_plan(package, other, "brownfield", tech="docs/our-stack.md")
+        bootstrap.apply_plan(plan)
+        manifest = json.loads((other / bootstrap.MANIFEST).read_text())
+        self.assertEqual(manifest["source_digest"], first_manifest["source_digest"])
+        self.assertIn("../../docs/our-stack.md", (other / ".aws-workflow/guide/internal.md").read_text())
+        cli = (other / ".aws-workflow/guide/06-consultation-interview.md").read_text()
+        self.assertIn("python3 .aws-workflow/scripts/workflow.py", cli)
+        self.assertNotIn(".aws-workflow/.aws-workflow", cli)
+        self.assertEqual(bootstrap.build_plan(package, other, "brownfield").writes, [])
+        self.assertEqual(bootstrap.build_plan(self.source, other, "brownfield").writes, [])
+        write(package, "workflows/consult.md", "Local changes must stay private.\n")
+        with self.assertRaisesRegex(bootstrap.BootstrapError, "differ from their manifest"):
+            bootstrap.build_plan(package, self.base / "unused", "greenfield")
 
     def test_missing_required_runtime_module_blocks_before_writes(self):
         for name in ("engine.py", "context.py", "specifications.py", "runner.py", "doctor.py"):
@@ -353,7 +471,7 @@ class BootstrapTests(unittest.TestCase):
         write(self.source, "guide/sample.md", "[Application](../project/brief.md)\n[Framework backlog](../specs/0001-foundation/tasks.md)\n[Public](https://docs.aws.amazon.com/)\n")
         plan = self.install()
         copied = (self.target / ".aws-workflow/guide/sample.md").read_text()
-        self.assertIn("[Application](../project/brief.md)", copied)
+        self.assertIn("[Application](../../project/brief.md)", copied)
         self.assertIn("Framework backlog (template reference omitted)", copied)
         self.assertIn("[Public](https://docs.aws.amazon.com/)", copied)
         self.assertEqual(plan.omitted_references, ["guide/sample.md: ../specs/0001-foundation/tasks.md"])

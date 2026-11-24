@@ -24,6 +24,8 @@ import re
 from typing import Iterator
 from urllib.parse import unquote, urlsplit
 
+import bootstrap
+
 
 REQUIRED_CORE_PATHS = (
     "README.md",
@@ -60,7 +62,7 @@ REQUIRED_CORE_PATHS = (
     "specs/0001-workflow-foundation/tasks.md",
 )
 
-IGNORED_DIRECTORIES = {".git", ".venv", "venv", "node_modules", "__pycache__"}
+IGNORED_DIRECTORIES = {".git", ".venv", "venv", "node_modules", "__pycache__", ".workflow-state"}
 PLACEHOLDER = re.compile(r"<[^<>]+>|\{\{[^{}]+\}\}|\$\{[^{}]+\}|\{[\w-]+\}")
 BARE_PLACEHOLDERS = {"URL", "PATH", "LINK", "TARGET", "TODO", "TBD"}
 FENCE = re.compile(r"^ {0,3}(`{3,}|~{3,})(.*)$")
@@ -82,6 +84,7 @@ class Issue:
 
 @dataclass
 class Report:
+    required_files: int = 0
     markdown_files: int = 0
     local_links: int = 0
     skipped_links: int = 0
@@ -245,7 +248,23 @@ def check_repository(root: Path) -> Report:
     if not root.is_dir():
         raise ValueError(f"repository root is not a directory: {root}")
     report = Report()
-    for relative in REQUIRED_CORE_PATHS:
+    required_paths = REQUIRED_CORE_PATHS
+    manifest = root / ".aws-workflow/manifest.json"
+    if manifest.exists() or (root / ".aws-workflow/scripts/workflow.py").exists():
+        required_paths = ("AGENTS.md", ".aws-workflow/manifest.json", ".aws-workflow/scripts/workflow.py",
+                          ".aws-workflow/workflows/consult.md")
+        try:
+            data = bootstrap.read_manifest(bootstrap.contained(root, bootstrap.MANIFEST))
+            mapped = data["editable_project_records"]
+            if len(set(mapped)) != len(mapped):
+                raise ValueError("Each editable project record needs a distinct path")
+            for relative in mapped:
+                bootstrap.contained(root, relative)
+            required_paths += tuple(mapped)
+        except (OSError, ValueError, RuntimeError, bootstrap.BootstrapError) as error:
+            report.issues.append(Issue("invalid-manifest", ".aws-workflow/manifest.json", 0, "", str(error)))
+    report.required_files = len(required_paths)
+    for relative in required_paths:
         try:
             required = _resolved_inside(root, root / relative)
             if not required.is_file():
@@ -294,7 +313,7 @@ def check_repository(root: Path) -> Report:
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Offline Markdown link and bootstrap structure checks only.")
-    parser.add_argument("--root", type=Path, default=Path(__file__).resolve().parents[1], help="repository root (defaults to this script's repository)")
+    parser.add_argument("--root", type=Path, default=(Path(__file__).resolve().parents[2] if Path(__file__).resolve().parents[1].name == ".aws-workflow" else Path(__file__).resolve().parents[1]), help="repository root (defaults to this script's repository)")
     args = parser.parse_args(argv)
     print("Scope: link/structure checks only; no semantic, runtime, or AWS verification.")
     try:
@@ -307,7 +326,7 @@ def main(argv: list[str] | None = None) -> int:
         target = f" [{issue.target}]" if issue.target else ""
         print(f"ERROR {location}: {issue.code}{target}: {issue.message}")
     outcome = "FAIL" if report.issues else "PASS"
-    print(f"{outcome}: {report.markdown_files} Markdown files; {report.local_links} local links; {len(REQUIRED_CORE_PATHS)} required core files; {len(report.issues)} issues.")
+    print(f"{outcome}: {report.markdown_files} Markdown files; {report.local_links} local links; {report.required_files} required core files; {len(report.issues)} issues.")
     return 1 if report.issues else 0
 
 

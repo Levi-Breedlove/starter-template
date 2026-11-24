@@ -76,6 +76,7 @@ class DoctorTests(unittest.TestCase):
 
     def test_adopted_records_and_runtime_hashes_are_checked(self):
         paths = self.adopted()
+        (self.root / ".aws-workflow/guide/08-aws-emulator.md").unlink()
         self.assertTrue(self.inspect()["session_ready"])
         write(self.root, paths["brief"], "# User-edited real project brief\n")
         self.assertTrue(self.inspect()["session_ready"])
@@ -84,6 +85,43 @@ class DoctorTests(unittest.TestCase):
         self.assertFalse(report["session_ready"])
         package = next(c for c in report["checks"] if c["id"] == "package")
         self.assertEqual(package["changed_files"], [".aws-workflow/workflow_engine/runner.py"])
+
+    def test_foundation_mappings_checked_on_first_use_and_unsafe_paths_reported(self):
+        self.adopted()
+        manifest_path = self.root / ".aws-workflow/manifest.json"
+        manifest = json.loads(manifest_path.read_text())
+        manifest["schema_version"] = 2
+        for key in ("requirements", "tech", "structure", "architecture"):
+            manifest["paths"][key] = f"established/{key}.md"
+            write(self.root, manifest["paths"][key], "# Existing project decision\n")
+        manifest_path.write_text(json.dumps(manifest))
+        before = snapshot(self.root)
+        report = self.inspect()
+        self.assertTrue(report["session_ready"])
+        self.assertIsNone(report["active_work"])
+        context = next(item for item in report["checks"] if item["id"] == "project-context")
+        self.assertEqual(context["paths"]["architecture"], "established/architecture.md")
+        self.assertEqual(snapshot(self.root), before)
+
+        for key in ("02-aws-guidance-and-access", "08-aws-emulator"):
+            relative = f".aws-workflow/guide/{key}.md"
+            guide = self.root / relative
+            original = guide.read_bytes()
+            guide.write_bytes(original + b"edited")
+            package = next(item for item in self.inspect()["checks"] if item["id"] == "package")
+            self.assertEqual(package["changed_files"], [relative])
+            guide.unlink()
+            package = next(item for item in self.inspect()["checks"] if item["id"] == "package")
+            self.assertEqual(package["missing_files"], [relative])
+            guide.write_bytes(original)
+
+        for path in ("../outside.md", "missing.md", manifest["paths"]["brief"], "established//tech.md"):
+            with self.subTest(path=path):
+                manifest["paths"]["architecture"] = path
+                manifest_path.write_text(json.dumps(manifest))
+                report = self.inspect()
+                self.assertFalse(report["session_ready"])
+                self.assertEqual(next(item for item in report["checks"] if item["id"] == "project-context")["status"], "missing")
 
     def test_missing_runtime_module_and_mapped_context_report_exact_gaps(self):
         paths = self.adopted()

@@ -10,6 +10,7 @@ from unittest.mock import patch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
+from workflow_engine.context import build_context_packet
 from workflow_engine.engine import WorkflowError, advance, inspect_work, new_work, record_evidence, record_review
 from workflow_engine.specifications import (
     PATTERNS, analyze_requirements, apply_reconciliation, derive_properties,
@@ -156,6 +157,41 @@ WHEN a request repeats, THE service SHALL return the original result.
         self.assertIn("response_schema", request)
         self.assertEqual(before, {p.relative_to(self.root).as_posix(): p.read_bytes() for p in self.root.rglob("*") if p.is_file()})
         self.assertEqual(json.loads((self.work / "work.json").read_text())["reviews"], [])
+
+    def test_only_selected_foundations_affect_review_identity_and_reconciliation(self):
+        manifest = ".aws-workflow/manifest.json"
+        paths = {"brief": "notes/product.md", "requirements": "notes/system.md", "tech": "notes/stack.md",
+                 "structure": "notes/ownership.md", "architecture": "notes/architecture.md",
+                 "handoff": "notes/handoff.md", "adoption_report": "notes/intake.md",
+                 "environment_capabilities": "notes/environment.md"}
+        for relative in paths.values():
+            (self.root / relative).write_text("Existing project decision.\n")
+        (self.root / manifest).parent.mkdir()
+        (self.root / manifest).write_text(json.dumps({"schema_version": 2, "identity": "codex-aws-workflow", "paths": paths}))
+        selected = [manifest, paths["brief"], paths["handoff"], paths["requirements"]]
+        self.data(context_files=selected)
+        request = analyze_requirements(self.root)
+        self.assertIn(paths["requirements"], request["input_hashes"])
+        self.assertNotIn(paths["architecture"], request["input_hashes"])
+        fingerprint = build_context_packet(inspect_work(self.root))["fingerprint"]
+        (self.root / paths["requirements"]).write_text("Updated system requirement.\n")
+        self.assertNotEqual(build_context_packet(inspect_work(self.root))["fingerprint"], fingerprint)
+        request = analyze_requirements(self.root)
+        self.record(self.response())
+        (self.root / paths["architecture"]).write_text("Architecture outside this work changed.\n")
+        self.assertEqual(analyze_requirements(self.root)["request_id"], request["request_id"])
+        self.assertEqual(plan_reconciliation(self.root)["operation_refreshes"], [])
+
+        self.data(context_files=[*selected, paths["architecture"]])
+        preview = plan_reconciliation(self.root)
+        self.assertIn(paths["architecture"], preview["changed_paths"])
+        self.assertEqual(preview["operation_refreshes"], ["analyze"])
+        self.record(self.response())
+        (self.root / paths["architecture"]).write_text("Changed accepted trust boundary.\n")
+        self.assertIn(paths["architecture"], plan_reconciliation(self.root)["changed_paths"])
+        self.record(self.response())
+        self.data(context_files=selected)
+        self.assertIn(paths["architecture"], plan_reconciliation(self.root)["changed_paths"])
 
     def test_record_keeps_real_provenance_and_idempotent_import(self):
         value = self.response()

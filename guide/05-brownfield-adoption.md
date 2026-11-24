@@ -12,17 +12,14 @@ Separate what the repository declares, what supplied or authorized environment e
 
 ## Preview an additive adoption
 
-From the bootstrap checkout:
+From the root of a template-created project, preview installation into the existing application:
 
-```bash
-python3 scripts/bootstrap.py --source . --target /path/to/existing-app --mode brownfield
+```sh
+app=/absolute/path/to/existing-app
+python3 .aws-workflow/scripts/bootstrap.py --source .aws-workflow --target "$app" --mode brownfield
 ```
 
-The default is a dry run. Inspect the proposed file additions and root-instruction change. Add `--apply` when the adoption is authorized and the concrete changes are appropriate. The helper installs reusable guidance and tools beneath `.aws-workflow/`; it preserves source layout, IaC, pipeline configuration, and existing root instructions.
-
-`.aws-workflow/manifest.json` records actual paths for the brief, handoff, adoption report, environment capability record, specifications, evidence, and decisions. Existing `project/brief.md` and `delivery/current-handoff.md` are used when present; otherwise fresh context files live under `.aws-workflow/`. If the project already uses other paths, map them with `--brief` and `--handoff`. Record other existing authoritative relative paths with `--authority` instead of silently replacing their role.
-
-The bootstrap's own brief, foundation backlog, and implementation evidence are not application context and are not copied. Native hooks and AWS plugin setup are separate capabilities; adoption does not enable or install them implicitly. If existing files conflict, inspect and resolve the concrete conflict without overwriting user work.
+Inspect the proposed additions and existing authorities. Supply explicit mappings for existing product, project requirements, technology, structure, architecture and handoff documents. The manifest records their canonical paths. Add `--authority` for an existing tracker or other authoritative record where appropriate. Save legitimate user changes and instructions in place; inspect and resolve any reported conflicts before applying the intended plan with `--apply`. The [adoption guide](../docs/reference/bootstrap.md) lists the flags, maintained source checkout command and upgrade procedure.
 
 ## Map existing authority and preserve behavior
 

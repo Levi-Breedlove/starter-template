@@ -14,7 +14,7 @@ Bugfix and planning-only work retain their specific contracts. Route names shoul
 
 ## Keep context actionable
 
-Use `context --compact`: a startup packet capped at 6,000 serialized characters and a prompt-refresh packet capped at 1,200. The limits include JSON escaping and exclude the CLI's terminal newline. Current implementation verification belongs to the work receipt linked from the [handoff](../../delivery/current-handoff.md). These are character limits, not measured token or cost claims.
+Use `context --compact`: a startup packet capped at 6,000 serialized characters and a prompt-refresh packet capped at 1,200. The limits include JSON escaping and exclude the CLI's terminal newline. Use the [handoff](../../delivery/current-handoff.md) to locate the actual evidence for the current project. These are character limits, not measured token or cost claims.
 
 Use the packet to find the current phase, consequential questions, blocking issues and next eligible work. Read required source records that have not been inspected. Reuse already loaded context when the report fingerprint and relevant sources remain current; do not reread every guide on every turn. A matching fingerprint means the report is unchanged, not that external systems or every source file are unchanged. A changed request, source conflict or unavailable evidence requires reassessment.
 
@@ -32,4 +32,4 @@ Run checks affected by the actual change, then required integration gates. Repea
 
 The local engine checks identifiers, dependencies, phase preconditions and declared evidence freshness. The installer checks paths and collisions. Codex supplies interpretation, recommendations and meaningful verification. A hash cannot authenticate a review or prove a test ran. Use the existing [tooling contract](workflow-tooling.md); do not create a parallel task tracker or bypass actual client, CI or AWS controls.
 
-Measure improvements with the frozen greenfield/brownfield pilots in the existing evaluation protocol. This document starts no paid/model/native-client/AWS trial, installs no plugin and enables no background service. Continue within actual task authority and report unobserved results as unobserved.
+Measure improvements against representative, repeatable [greenfield and brownfield scenarios](../../evaluations/README.md). This document starts no paid/model/native-client/AWS trial, installs no plugin and enables no background service. Continue within actual task authority and report unobserved results as unobserved.

@@ -14,11 +14,9 @@ the supported access to its existing state directories. Do not elevate privilege
 remount protected paths, copy credentials into the workspace, or disable sandbox
 or approval controls.
 
-From the template checkout (or use the installed path in the application):
+From the application root, use the installed workflow CLI:
 
 ```sh
-python3 scripts/workflow.py --root . native-check --pilot
-# In an adopted application:
 python3 .aws-workflow/scripts/workflow.py --root . native-check --pilot
 ```
 
@@ -54,13 +52,7 @@ overrides require operator review; the preflight conservatively refuses them.
 | Client or required executable missing | Use the official setup instructions through the user's normal installation process. Do not install as a side effect of preflight. |
 | State directories appear writable but startup fails | Retain the actual sanitized startup error; review actual configured locations and client controls with the environment owner. Do not repeat an allocated pilot stage. |
 
-For the frozen native pilot, run the preflight **before any stage reservation**,
-from the actual launching terminal and project directory. If it reports a
-blocker, stop without consuming another invocation allocation. Also verify the
-actual client interface and operator-controlled authorization required by
-the original pilot plan. A previously failed launch is still a consumed slot.
-Any replacement needs fresh explicit authorization; do not reset the prior
-stage ledger, modify the frozen prompts, or add automatic retries.
+Check the launch terminal before reserving an additional native invocation. Retain the observed result, existing authorization and any failed attempts. Inspect an interrupted run before deciding whether another attempt is permitted.
 
 ## Start the natural consultation
 
@@ -77,8 +69,7 @@ If a goal or existing project is supplied, reuse it and explain the next
 recommendation instead of asking again. Save actual answers in the mapped
 records. Resume saved consultation or implementation on later turns.
 Installation and hooks do not send unsolicited messages or authorize model
-runs or AWS operations. The native pilot is needed to observe actual client
-behavior; this greeting is guidance, not a guaranteed client UI feature.
+runs or AWS operations. Record the selected client and actual result when evaluating first-use behavior.
 
 Official references:
 [Codex environment variables](https://learn.chatgpt.com/docs/config-file/environment-variables),

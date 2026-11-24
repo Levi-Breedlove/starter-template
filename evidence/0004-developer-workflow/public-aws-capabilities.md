@@ -1,0 +1,17 @@
+# Public toolkit and emulator verification
+
+On 2026-11-24 the Codespaces consultation session used AWS Core and AWS Data Analytics for public guidance. The observations cover the named operations in this session. A developer opening a different surface should record its own results in the mapped environment capabilities record.
+
+| Capability | Availability and installation | Loaded and tested |
+| --- | --- | --- |
+| AWS Core guidance | Tools exposed. Local official plugin manifest reported `aws-core` 1.3.0. The CLI inventory did not return an installation-state report within the bounded check. | `search_documentation` with `topics=["agent_skills"]` and the phrase `aws-emulator local development API fidelity check for a project` returned `aws-emulator` first. `retrieve_skill` succeeded with that exact identifier. A second retrieval of its cited `references/connect.md` supplied the endpoint and certificate guidance. |
+| AWS Data Analytics public documentation | The session plugin manager reported AWS Data Analytics installed and enabled. Local adapter manifest version 1.0.0. | The exposed Data Analytics `search_documentation` returned the Redshift Data API Java package reference for `Amazon Redshift Data API statement SQL documentation`. [Returned AWS reference](https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/redshiftdataapi/package-summary.html) |
+| Additional official plugins | The upstream Codex catalog listed seven entries. Session installation, loaded guidance and runtime behavior for the other five are unverified. | No authenticated calls. Any future test belongs to the authorized operation and environment. |
+
+The observed upstream marketplace revision was `24b0e244c91ab0c64fb3202b568236e1ec6430ad`. Its official names were `aws-core`, `aws-agents`, `aws-data-analytics`, `aws-agents-for-devsecops`, `aws-startup-advisor`, `aws-continuum` and `aws-context`. The marketplace Data Analytics manifest reported 1.7.0. The adapter version above belongs to the local integration. The hosted emulator skill body and upstream body matched after removing upstream YAML front matter and surrounding whitespace. Both had SHA-256 `352d155b762d69aae99647b3e1c7df910ed9158c48345393cb12dbb51b783de0`. [Observed marketplace](https://github.com/aws/agent-toolkit-for-aws/blob/24b0e244c91ab0c64fb3202b568236e1ec6430ad/.agents/plugins/marketplace.json) · [Observed upstream skill](https://github.com/aws/agent-toolkit-for-aws/blob/24b0e244c91ab0c64fb3202b568236e1ec6430ad/plugins/aws-core/skills/aws-emulator/SKILL.md)
+
+The local CLI's unfiltered plugin inventory reached a 16-second diagnostic timeout. An inventory restricted to the configured curated marketplace also timed out at 30 seconds. Both were metadata queries. The active session's public connector calls above completed. The AWS account, client credentials, cloud resources, and deployments were outside the observation.
+
+## Optional emulator runtime
+
+The release page reported `v1.0.607`. No `aws-emulator` executable was available on PATH. The local Docker image inventory exited 0 with zero images. The guide's shell block passed `sh -n`. Runtime verification remains open for an adopter with a compatible workload, installed emulator and local client. No installation, image pull, emulator instance, or live AWS check occurred. [Observed emulator release](https://github.com/aws/aws-emulator/releases/tag/v1.0.607) · [Local testing procedure](../../guide/08-aws-emulator.md)

@@ -20,7 +20,7 @@ Report the coverage of any live drift check: unsupported resources and propertie
 - Deployment mechanism, preview/review method, drift handling, and recovery path.
 - Cost assumptions, experiment limits, and cleanup ownership.
 
-Record these choices in `specs/<work-id>/design.md` and [decision records](../docs/decisions/), using the constraints in [the project brief](../project/brief.md). For an existing project, preserve accepted choices and propose changes only with a concrete benefit and tradeoff. This reusable scaffold imports no application architecture.
+Record these choices in `specs/<work-id>/design.md` and the project’s decision records (see the [decision template](../templates/decision.md)), using the constraints in [the project brief](../project/brief.md). For an existing project, preserve accepted choices and propose changes only with a concrete benefit and tradeoff. This reusable scaffold imports no application architecture.
 
 ## Verification layers
 
@@ -33,7 +33,7 @@ Record these choices in `specs/<work-id>/design.md` and [decision records](../do
 
 Do not call an IaC command offline merely because it is a preview: synthesis can execute project code and perform AWS context lookups; CDK diff can create a change set and use deployment permissions. Classify the selected tool’s behavior before running it.
 
-Local emulation cannot establish cloud parity for IAM, quotas, networking, or all service behavior. SAM local runs a local Lambda environment, but its SDK calls can still reach real AWS unless dependencies/endpoints are controlled. Document the boundaries of local test evidence.
+Local emulation cannot establish cloud parity for IAM, quotas, networking, or all service behavior. SAM local runs a local Lambda environment, but its SDK calls can still reach real AWS unless dependencies/endpoints are controlled. Document the boundaries of local test evidence. For compatible AWS operations in new or existing projects, see [AWS Emulator setup and verification](../guide/08-aws-emulator.md).
 
 ## References
 

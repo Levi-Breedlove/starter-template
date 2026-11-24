@@ -21,9 +21,15 @@ Inspect the available context and relevant code. Classify each material point as
 
 Begin with a brief account of the intended outcome, constraints already understood, and the next uncertainty to resolve. A very vague request may need a product question before deeper research. A well-specified request may need no interview questions.
 
+### Save the project foundations
+
+Use the manifest's project paths. Develop the brief with the product purpose, users, scope and objectives. Record system-wide behavior and acceptance outcomes in the project requirements. As the developer makes decisions, maintain the accepted stack and engineering standards in the technology record, repository conventions and component ownership in the structure record, and the system design, data flow and trust boundaries in the architecture record. Cite existing brownfield documents and preserve their ownership. Link consequential decisions in the mapped decisions directory and diagrams when a drawing clarifies the design.
+
+Update the relevant record as each answer arrives. Leave open choices explicit. Read the brief and handoff on resume, then consult the foundations implicated by the current question or change. In a feature or defect specification, link the applicable project foundations and describe the local behavior, design and checks. Select their mapped paths for this work as described in [specification operations](../docs/reference/specification-operations.md).
+
 ### 2. Investigate and lead with a recommendation
 
-Derive technical obligations from the behavior: consistency, authorization, retries, failure handling, migration, recovery, and verification where relevant. Use the existing official AWS Core/Data Analytics route described in [AWS guidance and access](../guide/02-aws-guidance-and-access.md). Honor a documentation-only or no-skills instruction by using official documentation directly. Research is public unless account inspection has separately been authorized.
+Derive technical obligations from the behavior: consistency, authorization, retries, failure handling, migration, recovery, and verification where relevant. Discover the relevant official AWS toolkit capabilities through [AWS guidance and access](../guide/02-aws-guidance-and-access.md). Assess authentication for the specific operation. Use public guidance during design and local verification, including [AWS Emulator compatibility](../guide/08-aws-emulator.md) when useful. Honor a documentation-only or no-skills instruction by using official documentation directly. Research is public unless account inspection has separately been authorized.
 
 Recommend an approach and explain why it fits the known requirements. Compare alternatives only when they materially change cost, operations, delivery, or risk. Preserve the established stack. Separate current-source facts, assumptions used for estimates, recommendations, and actual decisions. Never invent an AWS bill, service quota, live configuration, or accepted budget.
 

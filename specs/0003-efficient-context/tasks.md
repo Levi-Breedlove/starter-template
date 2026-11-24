@@ -6,8 +6,8 @@
 
 ### T-001 — Implement bounded context and event-specific refresh
 
-- [x] T-001 complete
-- Activity: complete
+- [ ] T-001 complete
+- Activity: needs verification
 - Contract / design: REQ-001, REQ-002, REQ-003, REQ-004, REQ-006 / DES-001, DES-002
 - Prerequisites: none
 - Scope and exclusions: Shared projection, CLI option, native adapter integration and meaningful regressions; no worker execution or client trust change.
@@ -18,8 +18,8 @@
 
 ### T-002 — Integrate efficient operating policy and safe packaging
 
-- [x] T-002 complete
-- Activity: complete
+- [ ] T-002 complete
+- Activity: needs verification
 - Contract / design: REQ-005, REQ-006 / DES-003
 - Prerequisites: T-001
 - Scope and exclusions: Root/adopted instructions, required package module, entry docs and one evaluation protocol.
@@ -30,8 +30,8 @@
 
 ### T-003 — Verify measured improvement and reconcile evidence
 
-- [x] T-003 complete
-- Activity: complete
+- [ ] T-003 complete
+- Activity: needs verification
 - Contract / design: REQ-001, REQ-002, REQ-003, REQ-004, REQ-006, REQ-007 / DES-004
 - Prerequisites: T-001, T-002
 - Scope and exclusions: Frozen old/new renderer measurements, aggregate regression suite, source identities and current evidence reconciliation; no native model or cloud trial.

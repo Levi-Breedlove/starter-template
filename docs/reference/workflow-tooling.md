@@ -235,10 +235,6 @@ Work using specification format, policy or operation histories also includes `sp
 
 Missing selection or unreadable metadata raises `WorkflowError`; ordinary inspectable drafts return a report. Integrations should surface exact problems and preserve legitimate incomplete work. A stop-time check should distinguish a false completion claim from an ordinary consultation awaiting an answer. The tool is a local workflow ledger, not a mandatory unattended scheduler, semantic verifier, or substitute for native Codex authorization controls.
 
-## Verification of the tooling
+## Verify a project
 
-```sh
-python3 -m unittest discover -s tests -p 'test_workflow.py' -v
-```
-
-Fixtures exercise rough-idea and complete-input consultation, sourced answers and conflicts, standard/design-first/Quick/bugfix/plan routes, prior delegated reviews, task progress normalization, dependency order, stale inputs/receipts/checks, superseded failing results, duplicate IDs, cycles, missing coverage, path escape, malformed and interrupted state, and read-only commands. They use temporary local projects and simulated receipts. They do not execute AWS operations or verify the example business system.
+Run `doctor` after adoption and `validate` on each selected work item. Execute the project's actual checks against the candidate and retain the observed outputs, working tree identity and relevant configuration. Use the [evidence guide](../../evidence/README.md) to record the scope of each result.

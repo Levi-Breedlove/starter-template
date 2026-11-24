@@ -2,7 +2,7 @@
 
 **Status:** Planning scaffold. Policies, identities, account access, and enforcement are not configured here.
 
-Security requirements belong in `specs/<work-id>/requirements.md` or `bugfix.md`; cross-cutting security decisions belong in the design and [decision records](../docs/decisions/). This area records the access model and the evidence needed to verify it. Store compact sanitized findings in `evidence/<work-id>/`, linking external check results when available.
+Security requirements belong in `specs/<work-id>/requirements.md` or `bugfix.md`; cross-cutting security decisions belong in the design and the project’s decision records (see the [decision template](../templates/decision.md)). This area records the access model and the evidence needed to verify it. Store compact sanitized findings in `evidence/<work-id>/`, linking external check results when available.
 
 ## Define before account operations
 
