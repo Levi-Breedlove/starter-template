@@ -19,8 +19,8 @@
 
 ### T-002 — Implement specification analysis, properties and reconciliation
 
-- [x] T-002 complete
-- Activity: complete
+- [ ] T-002 complete
+- Activity: needs verification
 - Contract / design: REQ-002, REQ-003, REQ-004, REQ-007 / DES-002, DES-004
 - Prerequisites: T-001
 - Scope and exclusions: The named outcome within repository authority; no AWS account operations.
@@ -31,8 +31,8 @@
 
 ### T-003 — Implement bounded task execution and candidate application
 
-- [x] T-003 complete
-- Activity: complete
+- [ ] T-003 complete
+- Activity: needs verification
 - Contract / design: REQ-005, REQ-006 / DES-003
 - Prerequisites: T-001
 - Scope and exclusions: The named outcome within repository authority; no AWS account operations.
@@ -43,8 +43,8 @@
 
 ### T-004 — Complete setup, adoption and user entry
 
-- [x] T-004 complete
-- Activity: complete
+- [ ] T-004 complete
+- Activity: needs verification
 - Contract / design: REQ-001, REQ-008 / DES-001, DES-005
 - Prerequisites: T-001
 - Scope and exclusions: The named outcome within repository authority; no AWS account operations.
@@ -55,8 +55,8 @@
 
 ### T-005 — Integrate commands, phase checks and current context
 
-- [x] T-005 complete
-- Activity: complete
+- [ ] T-005 complete
+- Activity: needs verification
 - Contract / design: REQ-002, REQ-003, REQ-004, REQ-005, REQ-007, REQ-008 / DES-002, DES-003, DES-004, DES-005
 - Prerequisites: T-002, T-003, T-004
 - Scope and exclusions: The named outcome within repository authority; no AWS account operations.
@@ -67,8 +67,8 @@
 
 ### T-006 — Verify and review the combined developer workflow
 
-- [x] T-006 complete
-- Activity: complete
+- [ ] T-006 complete
+- Activity: needs verification
 - Contract / design: REQ-001, REQ-002, REQ-003, REQ-004, REQ-005, REQ-006, REQ-007, REQ-008, REQ-009 / DES-006
 - Prerequisites: T-005
 - Scope and exclusions: The named outcome within repository authority; no AWS account operations.
@@ -79,8 +79,8 @@
 
 ### T-007 — Publish the candidate and reconcile current evidence
 
-- [x] T-007 complete
-- Activity: complete
+- [ ] T-007 complete
+- Activity: needs verification
 - Contract / design: REQ-009 / DES-006
 - Prerequisites: T-006
 - Scope and exclusions: The named outcome within repository authority; no AWS account operations.
@@ -98,8 +98,8 @@
 - Scope and exclusions: The named outcome within repository authority; no AWS account operations.
 - Acceptance: Approved selected-client greenfield/brownfield, changed-requirement and resume trials have actual observations and reviewed results.
 - Verification: CHK-008
-- Evidence / review: [Prepared native pilot, NOT RUN](../../evaluations/native-pilot-plan.md).
-- Blocker: Manual approval of concrete credit-consuming native trial, per the user standing instruction.
+- Evidence / review: [Observed G1 startup failure and pilot rubric](../../evidence/0004-developer-workflow/native-pilot.md).
+- Blocker: G1 consumed its original slot during startup in the read-only agent sandbox. Validate the ordinary Codespaces terminal and obtain explicit authorization for a replacement G1 before resuming the frozen scenarios.
 
 ## Verification matrix
 
@@ -112,4 +112,4 @@
 | CHK-005 | REQ-002, REQ-003, REQ-004, REQ-005, REQ-007, REQ-008 | T-005 | Exercise documented CLI operations on an adopted package and legacy/new phase gates. | [Observed result](../../evidence/0004-developer-workflow/local-checks.md) |
 | CHK-006 | REQ-001, REQ-002, REQ-003, REQ-004, REQ-005, REQ-006, REQ-007, REQ-008, REQ-009 | T-006 | Run combined suite, independent concrete review, source identities, naming and local-link scans. | [Observed result](../../evidence/0004-developer-workflow/local-checks.md) |
 | CHK-007 | REQ-009 | T-007 | Reconcile changed claims and verify complete remote paths, modes and blob identities. | [Actual source readback](../../evidence/0004-developer-workflow/publication.md) |
-| CHK-008 | REQ-010 | T-008 | Run the separately approved native-client trial plan and review actual behavior against fixed rubrics. | NOT RUN; [approval-dependent proposal](../../evaluations/native-pilot-plan.md) |
+| CHK-008 | REQ-010 | T-008 | Run the separately approved native-client trial plan and review actual behavior against fixed rubrics. | [G1 startup was blocked. Behavioral check pending.](../../evidence/0004-developer-workflow/native-pilot.md) |

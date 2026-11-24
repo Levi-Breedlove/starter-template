@@ -32,7 +32,9 @@ Native process-tree timeout/cancellation currently targets a POSIX environment
 workflow and read-only planning; the native backend refuses to claim equivalent
 process-tree control there.
 
-The native adapter uses documented `codex exec` structured output and a
+The controller resolves the Codex executable in the launching shell before
+reserving a run and uses that absolute path in each isolated worker. The native
+adapter uses documented `codex exec` structured output and a
 `workspace-write` sandbox. It preserves client approval, trust, and configuration
 controls. A blocked native operation stops visibly. Source implementation and
 mocked invocation tests do not establish that the selected client has executed a

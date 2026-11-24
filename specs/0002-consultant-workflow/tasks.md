@@ -9,8 +9,8 @@
 
 ### T-001 — Make consultation an adaptive persisted procedure
 
-- [x] T-001 complete
-- Activity: complete
+- [ ] T-001 complete
+- Activity: needs verification
 - Contract / design: REQ-001, REQ-002, REQ-007 / DES-001
 - Prerequisites: none
 - Scope and exclusions: Entry instructions, procedures, templates and two fictional consultation examples; no claim of a real model trial.
@@ -21,8 +21,8 @@
 
 ### T-002 — Implement work state, context and evidence validation
 
-- [x] T-002 complete
-- Activity: complete
+- [ ] T-002 complete
+- Activity: needs verification
 - Contract / design: REQ-002, REQ-003, REQ-004, REQ-009 / DES-002
 - Prerequisites: none
 - Scope and exclusions: Local Python engine/CLI, schema and fixtures; no worker execution or semantic-proof claim.
@@ -33,8 +33,8 @@
 
 ### T-003 — Package safe application adoption
 
-- [x] T-003 complete
-- Activity: complete
+- [ ] T-003 complete
+- Activity: needs verification
 - Contract / design: REQ-005, REQ-007 / DES-003
 - Prerequisites: T-002
 - Scope and exclusions: Additive installer, manifest, source copy map and fixtures; no native config or plugin installation.
@@ -45,8 +45,8 @@
 
 ### T-004 — Supply bounded read-only native hook feedback
 
-- [x] T-004 complete
-- Activity: complete
+- [ ] T-004 complete
+- Activity: needs verification
 - Contract / design: REQ-003, REQ-006, REQ-007 / DES-004
 - Prerequisites: T-002
 - Scope and exclusions: Event handler, concrete definitions, optional setup and fake-event tests; no claim of native client loading or trust.
@@ -57,8 +57,8 @@
 
 ### T-005 — Integrate neutral source, records and verification
 
-- [x] T-005 complete
-- Activity: complete
+- [ ] T-005 complete
+- Activity: needs verification
 - Contract / design: REQ-008, REQ-009 / DES-004
 - Prerequisites: T-001, T-002, T-003, T-004
 - Scope and exclusions: Neutral current tree, linked docs, updated source records, local suite and publication verification; historic Git objects and repository identity are outside the content rename.

@@ -4,7 +4,7 @@
   "title": "Executable AWS consultant workflow",
   "mode": "brownfield",
   "route": "quick",
-  "phase": "complete",
+  "phase": "implementation",
   "artifacts": {
     "requirements": "requirements.md",
     "design": "design.md",
@@ -1351,6 +1351,38 @@
         "workflows/bugfix.md",
         "workflows/feature.md",
         "workflows/reconcile.md"
+      ],
+      "reopened_tasks": [
+        "T-001",
+        "T-002",
+        "T-003",
+        "T-004",
+        "T-005"
+      ]
+    },
+    {
+      "id": "SYNC-0002",
+      "observed_at": "2026-11-24T04:35:10.765600+00:00",
+      "reason": "Codespaces startup, packaged instructions and repository checker inputs changed. Reverify the scoped checks for this isolated readiness candidate.",
+      "preview_fingerprint": "086ab7b7854fa12412757e2465e8cb2319644c337b846d19fd053c68499e2214",
+      "from_phase": "complete",
+      "to_phase": "implementation",
+      "changed_paths": [
+        "AGENTS.md",
+        "README.md",
+        "docs/reference/task-execution.md",
+        "evaluations/native-pilot-plan.md",
+        "guide/00-quickstart.md",
+        "guide/04-maintain-and-release.md",
+        "scripts/bootstrap.py",
+        "scripts/check_repository.py",
+        "scripts/codex_hooks.py",
+        "scripts/workflow.py",
+        "tests/test_bootstrap.py",
+        "tests/test_developer_workflow.py",
+        "tests/test_runner.py",
+        "workflow_engine/doctor.py",
+        "workflow_engine/runner.py"
       ],
       "reopened_tasks": [
         "T-001",

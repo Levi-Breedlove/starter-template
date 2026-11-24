@@ -160,6 +160,22 @@ class RunnerTests(unittest.TestCase):
                 execute_run(self.root, task_id="T-001", execute=True, run_id="blocked-native")
         self.assertFalse((self.root / ".workflow-state").exists())
 
+    def test_default_backend_pins_the_launcher_codex_path(self):
+        launcher_executable = Path.cwd() / "relative-bin/codex"
+
+        def fake_author(backend, request):
+            self.assertEqual(Path(backend.executable), launcher_executable)
+            self.assertNotEqual(Path(request["workspace"]), Path.cwd())
+            return self.backend(request)
+
+        with (
+            patch("workflow_engine.native_preflight.inspect_native", return_value={"status": "no-known-blocker"}),
+            patch("shutil.which", return_value="relative-bin/codex"),
+            patch.object(CodexBackend, "__call__", fake_author),
+        ):
+            result = execute_run(self.root, task_id="T-001", execute=True)
+        self.assertEqual(result["status"], "ready", result.get("failure"))
+
     def test_falsy_injected_backend_is_used_without_native_dispatch(self):
         backend = MagicMock(side_effect=self.backend)
         backend.__bool__.return_value = False
