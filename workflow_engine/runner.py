@@ -590,7 +590,7 @@ def execute_run(root, work_id=None, task_id=None, *, execute=False, backend=None
         executable = shutil.which("codex")
         if executable is None:
             raise WorkflowError("The selected Codex executable is unavailable before run reservation.")
-        backend = CodexBackend(os.path.abspath(executable))
+        backend = CodexBackend(str(Path(executable).absolute()))
     run_id = run_id or datetime.now(timezone.utc).strftime("run-%Y%m%d-%H%M%S-") + uuid.uuid4().hex[:8]
     directory = _run_dir(root, run_id)
     if directory.exists():

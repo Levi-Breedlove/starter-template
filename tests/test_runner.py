@@ -161,7 +161,8 @@ class RunnerTests(unittest.TestCase):
         self.assertFalse((self.root / ".workflow-state").exists())
 
     def test_default_backend_pins_the_launcher_codex_path(self):
-        launcher_executable = Path.cwd() / "relative-bin/codex"
+        relative_executable = "linked-bin/../selected-bin/codex"
+        launcher_executable = Path.cwd() / relative_executable
 
         def fake_author(backend, request):
             self.assertEqual(Path(backend.executable), launcher_executable)
@@ -170,7 +171,7 @@ class RunnerTests(unittest.TestCase):
 
         with (
             patch("workflow_engine.native_preflight.inspect_native", return_value={"status": "no-known-blocker"}),
-            patch("shutil.which", return_value="relative-bin/codex"),
+            patch("shutil.which", return_value=relative_executable),
             patch.object(CodexBackend, "__call__", fake_author),
         ):
             result = execute_run(self.root, task_id="T-001", execute=True)
