@@ -18,17 +18,19 @@ python3 scripts/bootstrap.py --source . --target /path/to/my-app --mode greenfie
 
 Review the proposed files, then repeat with `--apply`. For an existing application use `--mode brownfield`. The installer adds a reusable `.aws-workflow/` layer, a bounded block in `AGENTS.md`, and a managed ignore rule for local execution state. It preserves existing application files, instructions, active work, IaC, and delivery ownership. It does not copy this framework's backlog into the application. See the [complete quickstart](guide/00-quickstart.md) and [adoption contract](docs/reference/bootstrap.md).
 
-Before an application work item exists, check the installed layer from that application's root:
+Open the adopted application root in Codex and type **`start`** (or “Start my AWS project”). Codex checks the installed package and mapped context, then welcomes you on first use or resumes saved work. The [conversation shortcuts](guide/00-quickstart.md#3-give-codex-the-outcome) also include `resume`, `status`, `feature`, `bugfix`, `review`, and `release`. They use the current conversation and its existing authority.
+
+For an optional manual setup check, run this from the application root:
 
 ```sh
 python3 .aws-workflow/scripts/workflow.py --root . doctor
 ```
 
-No active work is expected immediately after adoption. This read-only check identifies package and mapping problems without calling a model or accessing AWS. Codex can then begin the consultation in your existing session.
+The read-only setup check identifies package and mapping problems. A fresh adoption starts with an empty work ledger, ready for consultation.
 
 For Codespaces, use the ordinary VS Code integrated terminal to check the selected native client's state before a native run. See [Codespaces readiness](guide/07-codespaces.md); native execution is optional for conversational delivery.
 
-Open the application root in Codex and type **`start`** (or “Start my AWS project”). Codex should inspect readiness and context, welcome you on the first consultation, or resume saved work. The [conversation shortcuts](guide/00-quickstart.md#3-give-codex-the-outcome) also include `resume`, `status`, `feature`, `bugfix`, `review`, and `release`. These are natural-language requests, not shell commands or extra execution authority. You can also use the prompt above, followed by your idea. For example:
+If you already know the outcome, you can include it with your kickoff:
 
 > I want an appointment service for three clinics. Patients book online and receive reminders. Please lead the consultation from here.
 
@@ -57,6 +59,7 @@ Requirements-first and design-first routes review the two documents in their cho
 | `scripts/bootstrap.py` | Preview and safely apply the reusable layer to greenfield or brownfield repositories. |
 | Workflow CLI and engine | Create work, load context, check dependencies/traceability, record revision-bound reviews/evidence, and enforce applicable phase conditions. |
 | `doctor` and `hooks` | Inspect setup before active work and preview the correct optional hook configuration. |
+| `native-check` | Check observable prerequisites for optional native execution in the launching shell. |
 | `analyze` and `properties` | Prepare exact agent review requests; validate and retain actual sourced analysis/property responses. |
 | `sync` | Preview changed-input impact; deliberately reopen affected work using the current preview fingerprint. |
 | `run-plan`, `run`, and run management | Plan dependency waves, explicitly execute bounded tasks in Git worktrees, verify the combined candidate, and apply it against the expected original state. |

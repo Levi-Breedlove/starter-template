@@ -39,7 +39,8 @@ specification, AWS account access, plugin installation or hook trust is created.
 
 ## 2. Open the application in Codex and check local setup
 
-Open the target application root. This command works before selecting work:
+Open the adopted application root in Codex. The `start` prompt in the next
+step directs Codex to run the read-only setup check. For manual diagnosis, use:
 
 ```sh
 python3 .aws-workflow/scripts/workflow.py --root . doctor
@@ -59,7 +60,7 @@ For GitHub Codespaces, use the [Codespaces readiness guide](07-codespaces.md). T
 
 ## 3. Give Codex the outcome
 
-For a new project, you can simply type **`start`** (or say “Start my AWS project”). Codex should offer a brief welcome as your AWS consultant and lead with known context or ask for the desired outcome. If saved consultation or work already exists, it should resume instead of restarting. No model call is started automatically by installation or setup.
+For either a new or an existing application, type **`start`** (or say “Start my AWS project”). Codex should offer a brief welcome as your AWS consultant and lead with known context or ask for the desired outcome. If saved consultation or work already exists, it should resume instead of restarting. No model call is started automatically by installation or setup.
 
 Use these optional conversational shortcuts directly in Codex:
 

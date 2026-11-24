@@ -9,7 +9,7 @@ import tempfile
 import threading
 import time
 import unittest
-from unittest.mock import patch
+from unittest.mock import MagicMock, patch
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
@@ -159,6 +159,15 @@ class RunnerTests(unittest.TestCase):
             with self.assertRaisesRegex(WorkflowError, "read-only-mount"):
                 execute_run(self.root, task_id="T-001", execute=True, run_id="blocked-native")
         self.assertFalse((self.root / ".workflow-state").exists())
+
+    def test_falsy_injected_backend_is_used_without_native_dispatch(self):
+        backend = MagicMock(side_effect=self.backend)
+        backend.__bool__.return_value = False
+        with patch.object(CodexBackend, "__call__", side_effect=AssertionError("Native dispatch attempted")) as native:
+            result = execute_run(self.root, task_id="T-001", execute=True, backend=backend)
+        self.assertEqual(result["status"], "ready", result.get("failure"))
+        backend.assert_called_once()
+        native.assert_not_called()
 
     def test_dirty_original_blocks_without_touching_user_work(self):
         path = self.root / "README.md"

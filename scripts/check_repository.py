@@ -52,6 +52,7 @@ REQUIRED_CORE_PATHS = (
     "workflow_engine/engine.py",
     "workflow_engine/context.py",
     "workflow_engine/doctor.py",
+    "workflow_engine/native_preflight.py",
     "workflow_engine/specifications.py",
     "workflow_engine/runner.py",
     "specs/0001-workflow-foundation/requirements.md",

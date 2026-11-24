@@ -10,7 +10,7 @@ Use [Reconcile](../workflows/reconcile.md). Identify the changed requirement, as
 
 Read the current handoff, relevant tasks, worktree state, latest candidate, and evidence. Determine whether a previous action completed before repeating it. Continue the next unblocked task within existing authorization. If an external operation's outcome is unknown, inspect its status using authorized access; do not replay it merely because the conversation lost its response.
 
-The planned durable adapter will record node state and operation identifiers. Until implemented, continuation is an explicit repository procedure. Git protects versioned file history; a chat checkpoint or conversation fork is not infrastructure recovery.
+Run `context --compact` from the application root to recover saved work and its next action. For a bounded native run, use `run-status <run-id>` to inspect the recorded candidate and attempt state before taking another action. Use the [rollback runbook](../runbooks/rollback.md) to recover an AWS deployment.
 
 ## Prepare the release candidate
 

@@ -464,8 +464,8 @@ context paths in reusable prose to the application's actual files.
 
 Before selecting work, read the mapped brief/handoff and start the consultation
 naturally. Open the application in Codex and type **`start`**.
-Describe the outcome if you already know it; resume saved work instead of starting
-another interview. Read-only local setup inspection works before any selection:
+Describe the outcome if you already know it. Codex runs the setup check and
+continues saved consultation or work when present. To check setup manually, run:
 
 ```sh
 python3 .aws-workflow/scripts/workflow.py --root . doctor
