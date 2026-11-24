@@ -154,6 +154,12 @@ class RunnerTests(unittest.TestCase):
         self.assertEqual(result["status"], "ready", result.get("failure"))
         self.assertEqual(result["completed_tasks"], ["T-001"])
 
+    def test_native_preflight_blocks_before_run_reservation(self):
+        with patch("workflow_engine.native_preflight.inspect_native", return_value={"status": "blocked", "blockers": ["CODEX_HOME: read-only-mount"]}), patch("workflow_engine.runner.CodexBackend", side_effect=AssertionError("native launch")):
+            with self.assertRaisesRegex(WorkflowError, "read-only-mount"):
+                execute_run(self.root, task_id="T-001", execute=True, run_id="blocked-native")
+        self.assertFalse((self.root / ".workflow-state").exists())
+
     def test_dirty_original_blocks_without_touching_user_work(self):
         path = self.root / "README.md"
         path.write_text("User edit")

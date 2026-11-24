@@ -26,7 +26,9 @@ python3 .aws-workflow/scripts/workflow.py --root . doctor
 
 No active work is expected immediately after adoption. This read-only check identifies package and mapping problems without calling a model or accessing AWS. Codex can then begin the consultation in your existing session.
 
-Open the application root in Codex and use the prompt above, followed by your idea. For example:
+For Codespaces, use the ordinary VS Code integrated terminal to check the selected native client's state before a native run. See [Codespaces readiness](guide/07-codespaces.md); native execution is optional for conversational delivery.
+
+Open the application root in Codex and say **Start my AWS project.** Codex should greet you, inspect context, and guide the next useful question or action. You can also use the prompt above, followed by your idea. For example:
 
 > I want an appointment service for three clinics. Patients book online and receive reminders. Please lead the consultation from here.
 

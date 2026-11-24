@@ -53,7 +53,7 @@ def handle_event(payload: dict, root: Path | None = None, inspector=None) -> dic
             return {}
         return {"hookSpecificOutput": {
             "hookEventName": event,
-            "additionalContext": "No active work pointer is selected. Follow AGENTS.md, inspect the project brief and current handoff, and lead an adaptive consultation from known facts. Reuse existing answers; recommend technical choices. Ask at most three consequential unresolved questions at a time. Create and activate a work record only when a concrete scoped work item is appropriate. Do not assume the bootstrap maintenance backlog is an application backlog."
+            "additionalContext": "No active work pointer is selected. Follow AGENTS.md, inspect the project brief and current handoff, and lead an adaptive consultation from known facts. On the first user-initiated consultation greet briefly; if consultation has already begun, continue it without a new welcome. Reuse existing answers; recommend technical choices. Ask at most three consequential unresolved questions at a time. Create and activate a work record only when a concrete scoped work item is appropriate. Do not assume the bootstrap maintenance backlog is an application backlog."
         }}
     if inspector is None:
         from workflow_engine import inspect_work

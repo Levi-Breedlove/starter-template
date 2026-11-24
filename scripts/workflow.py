@@ -55,6 +55,9 @@ def parser():
     for name in ("doctor", "hooks"):
         command = commands.add_parser(name, help="Read-only setup inspection." if name == "doctor" else "Preview native hook configuration without changing trust or files.")
         command.add_argument("--json", action="store_true")
+    native = commands.add_parser("native-check", help="Inspect observable native startup prerequisites without launching Codex.")
+    native.add_argument("--pilot", action="store_true", help="Also check required POSIX pilot utilities.")
+    native.add_argument("--json", action="store_true")
     for name in ("analyze", "properties"):
         command = commands.add_parser(name, help="Prepare a source-bound agent review, or record its actual structured response.")
         command.add_argument("work_id", nargs="?")
@@ -88,6 +91,9 @@ def parser():
 
 def operation(args):
     """Dispatch explicit operations without loading a model backend for inspection."""
+    if args.command == "native-check":
+        from workflow_engine.native_preflight import inspect_native
+        return inspect_native(pilot=args.pilot)
     if args.command in ("doctor", "hooks"):
         from workflow_engine.doctor import hook_preview, inspect_environment
         return (inspect_environment if args.command == "doctor" else hook_preview)(args.root)
@@ -149,11 +155,13 @@ def render(report, context=False):
 def main(argv=None):
     args = parser().parse_args(argv)
     try:
-        if args.command in {"doctor", "hooks", "analyze", "properties", "sync", "execution-template", "run-plan", "run", "run-status", "run-apply", "run-abandon"}:
+        if args.command in {"doctor", "hooks", "native-check", "analyze", "properties", "sync", "execution-template", "run-plan", "run", "run-status", "run-apply", "run-abandon"}:
             outcome = operation(args)
             print(json.dumps(outcome, indent=2, ensure_ascii=False))
             if args.command == "doctor":
                 return int(not outcome.get("session_ready", False))
+            if args.command == "native-check":
+                return int(outcome.get("status") != "no-known-blocker")
             if args.command == "run" and args.execute:
                 return int(outcome.get("status") != "ready")
             if args.command == "run-apply":

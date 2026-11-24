@@ -36,7 +36,7 @@ REQUIRED = (
     "templates/requirements.md", "templates/bugfix.md", "templates/design.md", "templates/tasks.md",
     "guide/00-quickstart.md", "docs/reference/specification-operations.md", "docs/reference/task-execution.md",
     "scripts/workflow.py", "workflow_engine/__init__.py", "workflow_engine/engine.py",
-    "workflow_engine/context.py", "workflow_engine/specifications.py", "workflow_engine/runner.py", "workflow_engine/doctor.py",
+    "workflow_engine/context.py", "workflow_engine/specifications.py", "workflow_engine/runner.py", "workflow_engine/doctor.py", "workflow_engine/native_preflight.py",
 )
 LOGICAL = {
     "brief": "project/brief.md",
@@ -199,6 +199,8 @@ through that map. Work specifications belong to this application's selected
 authority. The optional structured CLI uses application-root `specs/<work-id>/`;
 map any existing authority during intake before adopting its metadata. It never
 imports an existing backlog or marks tasks complete automatically.
+
+On the first user-initiated application consultation, greet warmly and briefly as the AWS consultant. If the user has supplied a goal, summarize it and the known constraints; otherwise ask what outcome they want and who will use it. Recommend the next direction using the available evidence. Do not repeat settled questions, invent facts, or require a ceremonial interview. Save the actual discussion in the mapped brief and handoff. When consultation or selected work already exists, resume it rather than restarting the welcome. No unsolicited message, background task, extra native invocation, or deployment is authorized by onboarding.
 
 Before selecting active work, consult the mapped brief/handoff and lead the
 conversation. Run `python3 {NAMESPACE}/scripts/workflow.py --root . doctor` for
@@ -445,7 +447,9 @@ before adopting structured specification metadata. The manifest maps logical
 context paths in reusable prose to the application's actual files.
 
 Before selecting work, read the mapped brief/handoff and start the consultation
-naturally. Read-only local setup inspection works before any selection:
+naturally. Open the application in Codex and say **Start my AWS project.**
+Describe the outcome if you already know it; resume saved work instead of starting
+another interview. Read-only local setup inspection works before any selection:
 
 ```sh
 python3 .aws-workflow/scripts/workflow.py --root . doctor

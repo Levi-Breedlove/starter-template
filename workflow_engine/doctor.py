@@ -19,7 +19,7 @@ from .engine import CONTEXT_DEFAULTS, WorkflowError, inspect_work, safe_path
 RUNTIME_FILES = (
     "scripts/workflow.py", "workflow_engine/__init__.py", "workflow_engine/engine.py",
     "workflow_engine/context.py", "workflow_engine/specifications.py",
-    "workflow_engine/runner.py", "workflow_engine/doctor.py",
+    "workflow_engine/runner.py", "workflow_engine/doctor.py", "workflow_engine/native_preflight.py",
 )
 GUIDANCE_FILES = (
     "workflows/consult.md", "workflows/brownfield.md", "workflows/feature.md",

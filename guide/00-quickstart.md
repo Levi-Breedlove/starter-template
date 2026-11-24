@@ -55,9 +55,13 @@ The command does not run programs, inspect credentials, authenticate, call a mod
 or access AWS. The selected client's instruction loading and tool availability
 still need actual observations. [AWS setup boundary](02-aws-guidance-and-access.md)
 
+For GitHub Codespaces, use the [Codespaces readiness guide](07-codespaces.md). The separate native-check command tests observable startup prerequisites from the terminal that will launch Codex; this is not required for ordinary in-session consultation.
+
 ## 3. Give Codex the outcome
 
-For a new project:
+For a new project, you can simply say **Start my AWS project.** Codex should offer a brief welcome as your AWS consultant and lead with known context or ask for the desired outcome. If saved consultation or work already exists, it should resume instead of restarting. No model call is started automatically by installation or setup.
+
+For a more specific start:
 
 > I want to deliver [outcome] on AWS for [users]. Lead the consultation, inspect
 > the existing project context, and recommend the technical approach. Save our
