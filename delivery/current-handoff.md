@@ -1,11 +1,41 @@
 # Current handoff
 
-**Active work:** 0004-developer-workflow.  
-**State:** Implementation, local verification and source publication complete; the native-client trial remains open.  
-**Base:** `200016c62f10fe1a7eb164584f3b7ab794450a41`.
+**Active work** 0004-developer-workflow
 
-Read the [execution plan](../specs/0004-developer-workflow/exec-plan.md), [contract](../specs/0004-developer-workflow/requirements.md) and canonical [tasks](../specs/0004-developer-workflow/tasks.md). Setup, complete adoption, structured analysis/properties, reconciliation, phase-aware context and bounded task execution are implemented. The actual aggregate run passed 183 tests; seven independent material review findings are closed. [Observed local result](../evidence/0004-developer-workflow/verification.md)
+**State** Offline stabilization passed on `26f21269460366a7743814461fa126c3bfbd7bdd` in the
+`codespaces-readiness` worktree. The source fast-forward and full
+GitHub tree readback matched. All 197 regression tests and the source structure
+check passed. Both adoption modes, the installed CLI, and all five routes were
+exercised. The original checkout and both startup receipts were verified
+byte-for-byte. [Readiness assessment](../evidence/0004-developer-workflow/codespaces-stabilization.md) ·
+[Canonical tasks](../specs/0004-developer-workflow/tasks.md)
 
-The older consultant/context records were deliberately reconciled because shared inputs changed. Fresh local and source-publication evidence has been appended; historical receipts remain unchanged. The [source publication](../evidence/0004-developer-workflow/publication.md) matched all 147 files, modes and blob identities. A final records-only commit carries completion/handoff updates and receives its own complete readback during delivery. No real native model invocation, client trust change, plugin installation or AWS account operation occurred in this slice.
+Fingerprint-checked reconciliation refreshed the affected evidence in 0002,
+0003, and 0004. The requirements, design, phase reviews, and recorded analysis
+and properties continue to identify their accepted inputs.
+[Execution plan](../specs/0004-developer-workflow/exec-plan.md)
 
-The remaining behavioral acceptance is T-008. Its [prepared pilot](../evaluations/native-pilot-plan.md) fixes two disposable scenarios, seven direct native calls and one controller worker, sequentially, with a 900-second per-invocation limit and no retries. This is not a hard credit cap. It is NOT RUN and needs the user's actual approval under the standing instruction for additional credit-consuming model execution. After approval, use that exact scope, record observations and judge the rubric before closing T-008. Do not treat fixture results or this handoff as native approval.
+## Next action
+
+GitHub Codespaces is the primary environment. From the regular Codespaces
+terminal in the verified readiness checkout, run the read-only checks below:
+
+```sh
+python3 scripts/workflow.py --root . native-check --pilot
+codex --version
+codex exec --help
+```
+
+The agent sandbox reported a read-only mount for the configured client state.
+The user's earlier regular-terminal mount check showed that same state directory
+as writable. Confirm the effective configured state paths and existing client
+controls in the regular terminal. The full native-check output and a native
+startup from that terminal remain unobserved. [Codespaces guide](../guide/07-codespaces.md)
+
+T-008 and CHK-008 remain open. G1 consumed one original allocation during the
+recorded startup failure. Seven original slots remain unused. Obtain explicit
+authorization for a replacement G1 before dispatching any native stage. Keep the
+original reservation and results. Use the frozen scenarios, sequential bounds,
+and zero retries under the actual approved allocation. Score every criterion
+against actual observations before completing T-008. [G1 receipt](../evidence/0004-developer-workflow/native-pilot.md) ·
+[Frozen pilot plan](../evaluations/native-pilot-plan.md)
