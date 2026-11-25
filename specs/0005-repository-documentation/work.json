@@ -4,7 +4,7 @@
   "title": "Repository documentation and conventions for v1.0.1",
   "mode": "brownfield",
   "route": "quick",
-  "phase": "complete",
+  "phase": "implementation",
   "artifacts": {
     "requirements": "requirements.md",
     "design": "design.md",
@@ -32,6 +32,21 @@
         "specs/0005-repository-documentation/requirements.md": "b6b7bada700c016b5b2f0a171e1fca368d414c3ee20d3876ff5265561ce909d4",
         "specs/0005-repository-documentation/design.md": "29edff46a5b967732d2b4aadaf9a49e77c5bc6680530d67143d832b724e56345",
         "specs/0005-repository-documentation/tasks.md": "a796131ef0e789b858f6421e4631a7f9c76e1e0b574e908c61a43e4c6c744def"
+      }
+    },
+    {
+      "id": "REV-002",
+      "artifact": "tasks",
+      "outcome": "accepted",
+      "decision_ref": "evidence/0005-repository-documentation/plan-review-revised.md",
+      "reviewer": "Codex, delegated maintenance specification author",
+      "authority": "delegated",
+      "recorded_at": "2026-11-25T01:52:59.240360+00:00",
+      "snapshot_policy": "canonical-plan-v1",
+      "hashes": {
+        "specs/0005-repository-documentation/requirements.md": "c18021e13c199bbf6bd63433ff565bddacca1842ea54c76eaadbf65d76e70f14",
+        "specs/0005-repository-documentation/design.md": "abe9cb65eee0f2f54d8a993479bc1a79f901011857fd8e93c7de68282c79295b",
+        "specs/0005-repository-documentation/tasks.md": "65ce1b1ec89b98b0567ad0c13cc5eb9af77bc367209011ff31f11824d4b6703f"
       }
     }
   ],
@@ -91,5 +106,24 @@
   "specification_policy": {
     "analysis": "required",
     "properties": "required"
-  }
+  },
+  "reconciliations": [
+    {
+      "id": "SYNC-0001",
+      "observed_at": "2026-11-25T01:52:24.270995+00:00",
+      "reason": "The owner expanded REQ-004 within T-002 to teach six artifacts through one explicitly illustrative appointment retry. The shared contract and design changed; both check receipts identify the prior contract.",
+      "preview_fingerprint": "8cd8d6347671383849057a67a3a68b71f21292e011ff239ae763d750ce4d107d",
+      "from_phase": "complete",
+      "to_phase": "tasks",
+      "changed_paths": [
+        "specs/0005-repository-documentation/design.md",
+        "specs/0005-repository-documentation/requirements.md",
+        "specs/0005-repository-documentation/tasks.md"
+      ],
+      "reopened_tasks": [
+        "T-001",
+        "T-002"
+      ]
+    }
+  ]
 }

@@ -1,0 +1,118 @@
+{
+  "schema_version": 1,
+  "operation": "properties",
+  "request_id": "f6aad4f79e016e1ea061a3101c13c6a8e0273cb2d0005b1ceb7bbdf703749b49",
+  "input_hashes": {
+    "specs/0005-repository-documentation/design.md": "abe9cb65eee0f2f54d8a993479bc1a79f901011857fd8e93c7de68282c79295b",
+    "specs/0005-repository-documentation/requirements.md": "c18021e13c199bbf6bd63433ff565bddacca1842ea54c76eaadbf65d76e70f14"
+  },
+  "context_fingerprint": "25ecdf610820a4f1245752e9351b6087d8c870a91db0d5f7e5cf74bfb0fdda92",
+  "reviewer": "Codex, delegated maintenance specification author",
+  "observed_at": "2026-11-25T01:52:58.401885+00:00",
+  "review_ref": "evidence/0005-repository-documentation/plan-review-revised.md",
+  "summary": "Six properties map to the original two tasks and checks. PROP-004 now verifies the beginner-facing walkthrough, locations, descriptive diagram labels and traceability of the single illustrative appointment retry.",
+  "properties": [
+    {
+      "id": "PROP-001",
+      "requirement_ids": [
+        "REQ-001"
+      ],
+      "statement": "Fresh generated projects expose the editable repository conventions through the canonical structure mapping.",
+      "preconditions": "Start from a built template or a fresh separate greenfield installation.",
+      "strategy": "integration",
+      "verification": "Open each mapped record and inspect the agreed hierarchy, naming, source and evidence references, ownership, engineering and release guidance.",
+      "task_ids": [
+        "T-001"
+      ],
+      "check_ids": [
+        "CHK-001"
+      ],
+      "source": "specs/0005-repository-documentation/design.md"
+    },
+    {
+      "id": "PROP-002",
+      "requirement_ids": [
+        "REQ-002"
+      ],
+      "statement": "Adoption and upgrade preserve the chosen structure record byte-for-byte at its original path.",
+      "preconditions": "Use conventional and explicitly mapped brownfield locations and two v1.0.0 installations carrying stock and edited records.",
+      "strategy": "integration",
+      "verification": "Compare before and after content identities and paths across adoption, upgrade and no-op reapplication.",
+      "task_ids": [
+        "T-001"
+      ],
+      "check_ids": [
+        "CHK-001"
+      ],
+      "source": "specs/0005-repository-documentation/design.md"
+    },
+    {
+      "id": "PROP-003",
+      "requirement_ids": [
+        "REQ-003"
+      ],
+      "statement": "The packaged entry point leads a new developer from GitHub through Codespaces to start and documents all seven conversational shortcuts and access boundaries.",
+      "preconditions": "Read the application README in a freshly generated repository.",
+      "strategy": "contract",
+      "verification": "Walk the onboarding steps, prerequisites, public toolkit and optional emulator guidance, and compare each entry shortcut and authority statement with installed instructions.",
+      "task_ids": [
+        "T-002"
+      ],
+      "check_ids": [
+        "CHK-002"
+      ],
+      "source": "specs/0005-repository-documentation/design.md"
+    },
+    {
+      "id": "PROP-004",
+      "requirement_ids": [
+        "REQ-004"
+      ],
+      "statement": "A first-time reader can follow one explicitly illustrative appointment-booking retry between all six named artifacts and distinguish intended behavior, technical approach, implementation work, verification procedure and observed result.",
+      "preconditions": "Use the README delivered in the clean application candidate with its initial tree, populated example and lifecycle diagram.",
+      "strategy": "contract",
+      "verification": "Compare the initial paths with the package. For each requirement, design, correctness property, implementation task, verification check and evidence record, inspect the full name, prefix, explanation, question, usual path, concrete example and relationships. Follow the same retry through the diagram and verify hypothetical evidence is labeled illustrative, separate from observed release results.",
+      "task_ids": [
+        "T-002"
+      ],
+      "check_ids": [
+        "CHK-002"
+      ],
+      "source": "specs/0005-repository-documentation/design.md"
+    },
+    {
+      "id": "PROP-005",
+      "requirement_ids": [
+        "REQ-005"
+      ],
+      "statement": "The documented brownfield path operates on a separate application and identifies the project-owned task authority and repository controls.",
+      "preconditions": "Use a disposable existing project and the shipped README.",
+      "strategy": "integration",
+      "verification": "Execute the documented preview and apply steps locally, verify preserved files, and inspect tracker, branch, version, contribution and security guidance.",
+      "task_ids": [
+        "T-002"
+      ],
+      "check_ids": [
+        "CHK-002"
+      ],
+      "source": "specs/0005-repository-documentation/design.md"
+    },
+    {
+      "id": "PROP-006",
+      "requirement_ids": [
+        "REQ-006"
+      ],
+      "statement": "The v1.0.1 verification identifies a reproducible local distribution candidate with its own offline results.",
+      "preconditions": "Use the same maintenance source and two unused output locations.",
+      "strategy": "integration",
+      "verification": "Compare distribution trees, run full tests, source and distributed checkers and anchor checks, and verify that native observations and any future promotion are labeled with their own authority and scope.",
+      "task_ids": [
+        "T-002"
+      ],
+      "check_ids": [
+        "CHK-002"
+      ],
+      "source": "specs/0005-repository-documentation/design.md"
+    }
+  ]
+}
