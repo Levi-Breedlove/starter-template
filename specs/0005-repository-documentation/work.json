@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "id": "0005-repository-documentation",
+  "title": "Repository documentation and conventions for v1.0.1",
+  "mode": "brownfield",
+  "route": "quick",
+  "phase": "implementation",
+  "artifacts": {
+    "requirements": "requirements.md",
+    "design": "design.md",
+    "tasks": "tasks.md"
+  },
+  "context_files": [
+    "project/brief.md",
+    "delivery/current-handoff.md",
+    "project/adoption-report.md",
+    "delivery/environment-capabilities.md"
+  ],
+  "facts": [],
+  "questions": [],
+  "reviews": [
+    {
+      "id": "REV-001",
+      "artifact": "tasks",
+      "outcome": "accepted",
+      "decision_ref": "evidence/0005-repository-documentation/plan-review.md",
+      "reviewer": "Codex, delegated maintenance specification author",
+      "authority": "delegated",
+      "recorded_at": "2026-11-25T01:38:31.765950+00:00",
+      "snapshot_policy": "canonical-plan-v1",
+      "hashes": {
+        "specs/0005-repository-documentation/requirements.md": "b6b7bada700c016b5b2f0a171e1fca368d414c3ee20d3876ff5265561ce909d4",
+        "specs/0005-repository-documentation/design.md": "29edff46a5b967732d2b4aadaf9a49e77c5bc6680530d67143d832b724e56345",
+        "specs/0005-repository-documentation/tasks.md": "a796131ef0e789b858f6421e4631a7f9c76e1e0b574e908c61a43e4c6c744def"
+      }
+    }
+  ],
+  "evidence": [],
+  "spec_format": "ears",
+  "specification_policy": {
+    "analysis": "required",
+    "properties": "required"
+  }
+}
