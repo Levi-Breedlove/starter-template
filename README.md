@@ -6,7 +6,7 @@ To start an application, use **Use this template → Create a new repository** o
 
 ## Work on the template
 
-Base maintenance changes on `main`. The packaging script builds a clean application from the maintenance source. The developer README comes from [the distribution Markdown source](distribution/README.md.in). Its [product overview](distribution/starter-overview.svg) and [Codex consultation](distribution/starter-consultation.svg) SVGs are copied into the existing application documentation directory by the packager. The installer generates each project's initial structure document. Maintainers keep release specifications and verification evidence in this branch.
+Base maintenance changes on `main`. The packaging script builds a clean application from the maintenance source. The developer README comes from [the distribution Markdown source](distribution/README.md.in). The installer generates each project's initial structure document. Maintainers keep release specifications and verification evidence in this branch.
 
 Use Git and Python 3.10 or newer. From the maintenance root:
 
@@ -22,4 +22,4 @@ Choose an unused output path outside the maintenance checkout. Inspect the candi
 
 The private `template` branch is the GitHub template default. Version tags identify verified application distributions. The v1.0.0 native and offline evidence stays on the maintenance branch. [v1.0.0 release readiness](evidence/0004-developer-workflow/release-readiness.md) · [Frozen native pilot](evidence/0004-developer-workflow/native-pilot-closeout.md)
 
-The v1.0.1 documentation candidate is tracked in the [repository documentation specification](specs/0005-repository-documentation/tasks.md). [Product presentation review and pending verification](evidence/0005-repository-documentation/presentation-review.md). [Changelog](CHANGELOG.md) · [Current handoff](delivery/current-handoff.md) · [Contributing](CONTRIBUTING.md) · [Security reporting](SECURITY.md)
+The v1.0.1 documentation candidate is tracked in the [repository documentation specification](specs/0005-repository-documentation/tasks.md). [Changelog](CHANGELOG.md) · [Current handoff](delivery/current-handoff.md) · [Contributing](CONTRIBUTING.md) · [Security reporting](SECURITY.md)

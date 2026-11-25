@@ -31,13 +31,8 @@ class DistributionTest(unittest.TestCase):
             run("git", "checkout-index", "--all", f"--prefix={app}/", cwd=tree)
             run("git", "init", "-q", cwd=app)
             self.assertFalse((app / ".codex/workflow.json").exists())
-            readme = (app / "README.md").read_text(encoding="utf-8")
             self.assertEqual((app / "README.md").read_bytes(),
                              (ROOT / "distribution/README.md.in").read_bytes())
-            for name in ("starter-overview.svg", "starter-consultation.svg"):
-                self.assertEqual((app / "docs/diagrams" / name).read_bytes(),
-                                 (ROOT / "distribution" / name).read_bytes())
-                self.assertIn(f"](docs/diagrams/{name})", readme)
             for name in ("specs", "evidence"):
                 self.assertEqual([p.name for p in (app / name).iterdir()], [".gitkeep"])
             manifest = json.loads((app / ".aws-workflow/manifest.json").read_bytes())

@@ -256,6 +256,133 @@
         "specs/0005-repository-documentation/properties-response-revised.json": "01b2baa90f10d7199f5dbcd7de62eb9733d7a7309cb27ba229d5d24318fa7e18",
         "evidence/0005-repository-documentation/plan-review-revised.md": "baf21456ec33bbdd2880c1383fcafb7381b02267f35bcd0bdff03e58cdfdcfa5"
       }
+    },
+    {
+      "id": "PROPERTIES-0003",
+      "recorded_at": "2026-11-25T02:51:03.380883+00:00",
+      "response": {
+        "schema_version": 1,
+        "operation": "properties",
+        "request_id": "21203a6c40d628953912fd1bdb32195f29c1a61991702ec71a22a3e27b785650",
+        "input_hashes": {
+          "specs/0005-repository-documentation/design.md": "5c6ae1b9f9bca201d1b216c462f9a23c84cb54ed5dc69e13c9ee48b8d1664771",
+          "specs/0005-repository-documentation/requirements.md": "db1a28393757fb20aae7e937f6da96022773a13612e0a0a3c30db8ad902b40e3"
+        },
+        "context_fingerprint": "25ecdf610820a4f1245752e9351b6087d8c870a91db0d5f7e5cf74bfb0fdda92",
+        "reviewer": "Codex, delegated closeout documentation review",
+        "observed_at": "2026-11-25T02:51:02.983450+00:00",
+        "review_ref": "evidence/0005-repository-documentation/closeout-plan-review.md",
+        "summary": "Mapped all six closeout requirements to the existing two tasks and candidate checks.",
+        "properties": [
+          {
+            "id": "PROP-001",
+            "requirement_ids": [
+              "REQ-001"
+            ],
+            "statement": "Fresh generated projects expose the editable repository conventions through the canonical structure mapping.",
+            "preconditions": "Start from a built template or a fresh separate greenfield installation.",
+            "strategy": "integration",
+            "verification": "Open each mapped record and inspect the agreed hierarchy, naming, source and evidence references, ownership, engineering and release guidance.",
+            "task_ids": [
+              "T-001"
+            ],
+            "check_ids": [
+              "CHK-001"
+            ],
+            "source": "specs/0005-repository-documentation/design.md"
+          },
+          {
+            "id": "PROP-002",
+            "requirement_ids": [
+              "REQ-002"
+            ],
+            "statement": "Adoption and upgrade preserve the chosen structure record byte-for-byte at its original path.",
+            "preconditions": "Use conventional and explicitly mapped brownfield locations and two v1.0.0 installations carrying stock and edited records.",
+            "strategy": "integration",
+            "verification": "Compare before and after content identities and paths across adoption, upgrade and no-op reapplication.",
+            "task_ids": [
+              "T-001"
+            ],
+            "check_ids": [
+              "CHK-001"
+            ],
+            "source": "specs/0005-repository-documentation/design.md"
+          },
+          {
+            "id": "PROP-003",
+            "requirement_ids": [
+              "REQ-003"
+            ],
+            "statement": "The packaged README matches the approved concise source and leads developers from GitHub through Codespaces to start.",
+            "preconditions": "Read the application README in a freshly generated repository.",
+            "strategy": "contract",
+            "verification": "Compare the README bytes, follow the onboarding steps, and resolve the six existing guide links with their packaged paths.",
+            "task_ids": [
+              "T-002"
+            ],
+            "check_ids": [
+              "CHK-002"
+            ],
+            "source": "specs/0005-repository-documentation/design.md"
+          },
+          {
+            "id": "PROP-004",
+            "requirement_ids": [
+              "REQ-004"
+            ],
+            "statement": "The first-feature guide explains the six artifacts through one illustrative appointment-booking retry.",
+            "preconditions": "Use the packaged first-feature guide linked from the concise README.",
+            "strategy": "contract",
+            "verification": "Inspect all six definitions, questions, paths, examples and relationships and parse the descriptive diagram. Confirm the example result is clearly illustrative.",
+            "task_ids": [
+              "T-002"
+            ],
+            "check_ids": [
+              "CHK-002"
+            ],
+            "source": "specs/0005-repository-documentation/design.md"
+          },
+          {
+            "id": "PROP-005",
+            "requirement_ids": [
+              "REQ-005"
+            ],
+            "statement": "The linked adoption steps preserve an existing project and its canonical task and structure records.",
+            "preconditions": "Follow the shipped adoption guide from a disposable existing application.",
+            "strategy": "integration",
+            "verification": "Run the documented preview and apply steps, verify previously mapped records, and check repeated adoption.",
+            "task_ids": [
+              "T-002"
+            ],
+            "check_ids": [
+              "CHK-002"
+            ],
+            "source": "specs/0005-repository-documentation/design.md"
+          },
+          {
+            "id": "PROP-006",
+            "requirement_ids": [
+              "REQ-006"
+            ],
+            "statement": "The v1.0.1 verification identifies a reproducible local distribution candidate with its own offline results.",
+            "preconditions": "Use the same maintenance source and two unused output locations.",
+            "strategy": "integration",
+            "verification": "Compare distribution trees, run full tests, source and distributed checkers and anchor checks, and verify that native observations and any future promotion are labeled with their own authority and scope.",
+            "task_ids": [
+              "T-002"
+            ],
+            "check_ids": [
+              "CHK-002"
+            ],
+            "source": "specs/0005-repository-documentation/design.md"
+          }
+        ]
+      },
+      "response_path": "specs/0005-repository-documentation/properties-response-final.json",
+      "receipt_inputs": {
+        "specs/0005-repository-documentation/properties-response-final.json": "3f97739f73b8ff76dda9b65e3d73c7e96c908840257c3015adbee15cb48f895b",
+        "evidence/0005-repository-documentation/closeout-plan-review.md": "6831e97ba56a1377c7841733f0a89d1e4413d8332519d81040bc6c127419f5aa"
+      }
     }
   ]
 }

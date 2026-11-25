@@ -4,7 +4,7 @@
   "title": "Repository documentation and conventions for v1.0.1",
   "mode": "brownfield",
   "route": "quick",
-  "phase": "complete",
+  "phase": "implementation",
   "artifacts": {
     "requirements": "requirements.md",
     "design": "design.md",
@@ -47,6 +47,21 @@
         "specs/0005-repository-documentation/requirements.md": "c18021e13c199bbf6bd63433ff565bddacca1842ea54c76eaadbf65d76e70f14",
         "specs/0005-repository-documentation/design.md": "abe9cb65eee0f2f54d8a993479bc1a79f901011857fd8e93c7de68282c79295b",
         "specs/0005-repository-documentation/tasks.md": "65ce1b1ec89b98b0567ad0c13cc5eb9af77bc367209011ff31f11824d4b6703f"
+      }
+    },
+    {
+      "id": "REV-003",
+      "artifact": "tasks",
+      "outcome": "accepted",
+      "decision_ref": "evidence/0005-repository-documentation/closeout-plan-review.md",
+      "reviewer": "Codex, delegated closeout documentation review",
+      "authority": "delegated",
+      "recorded_at": "2026-11-25T02:51:03.657021+00:00",
+      "snapshot_policy": "canonical-plan-v1",
+      "hashes": {
+        "specs/0005-repository-documentation/requirements.md": "db1a28393757fb20aae7e937f6da96022773a13612e0a0a3c30db8ad902b40e3",
+        "specs/0005-repository-documentation/design.md": "5c6ae1b9f9bca201d1b216c462f9a23c84cb54ed5dc69e13c9ee48b8d1664771",
+        "specs/0005-repository-documentation/tasks.md": "de12e1f1c4dd2506d45129fdbbebc1d4bbf38b4525d1eefed4317e1148325658"
       }
     }
   ],
@@ -169,6 +184,27 @@
         "specs/0005-repository-documentation/design.md",
         "specs/0005-repository-documentation/requirements.md",
         "specs/0005-repository-documentation/tasks.md"
+      ],
+      "reopened_tasks": [
+        "T-001",
+        "T-002"
+      ]
+    },
+    {
+      "id": "SYNC-0002",
+      "observed_at": "2026-11-25T02:50:25.703047+00:00",
+      "reason": "Owner selected a concise release README and the retained walkthrough moves to the first-feature guide. Reconcile shared checks for this exact candidate.",
+      "preview_fingerprint": "b05ececb631e9123fb6c98ce447df44bd8de4db13dce5855732301f15bddbb5a",
+      "from_phase": "complete",
+      "to_phase": "tasks",
+      "changed_paths": [
+        "CHANGELOG.md",
+        "README.md",
+        "distribution/README.md.in",
+        "specs/0005-repository-documentation/design.md",
+        "specs/0005-repository-documentation/requirements.md",
+        "specs/0005-repository-documentation/tasks.md",
+        "tests/test_distribution.py"
       ],
       "reopened_tasks": [
         "T-001",
