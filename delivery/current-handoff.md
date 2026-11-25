@@ -2,7 +2,7 @@
 
 **Review candidate** 0005-repository-documentation
 
-The two v1.0.1 documentation tasks are verified. Read the work by its explicit ID. The local application commit is `73eef0d138670e5b13c573ea2ca7cf78a35fb04a` and its reproducible tree is `e42888f9e0628d13840539623ab8b84897369af3`. All 207 regressions and seven adoption scenarios passed. [Candidate review](../evidence/0005-repository-documentation/candidate-review.md) · [Task ledger](../specs/0005-repository-documentation/tasks.md)
+The two v1.0.1 documentation tasks are verified. Open the work by its explicit ID. The developer README now follows one appointment-booking retry from its requirement to illustrative evidence. The revised local application commit is `eb9e4ba5cc09038fc175bfec4653a1cfcc55c201` and its reproducible tree is `34a1aaeff6fbbcd42738037f99168bd3fd0205ec`. All 207 regressions and seven adoption scenarios passed. [Revised candidate review](../evidence/0005-repository-documentation/walkthrough-review.md) · [Task ledger](../specs/0005-repository-documentation/tasks.md)
 
 **Next decision** Review the documentation patch for approval. GitHub still distributes tagged v1.0.0 from `template`. Optional AWS Emulator runtime remains unverified. [Changelog](../CHANGELOG.md) · [Distribution procedure](../docs/distribution.md)
 

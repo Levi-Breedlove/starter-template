@@ -4,7 +4,7 @@
   "title": "Repository documentation and conventions for v1.0.1",
   "mode": "brownfield",
   "route": "quick",
-  "phase": "implementation",
+  "phase": "complete",
   "artifacts": {
     "requirements": "requirements.md",
     "design": "design.md",
@@ -100,6 +100,56 @@
         "specs/0005-repository-documentation/design.md": "29edff46a5b967732d2b4aadaf9a49e77c5bc6680530d67143d832b724e56345"
       },
       "check_signature": "6471023e9585ecfe746616d6d1d62577c35b4d69be7284024b42f4435662b87a"
+    },
+    {
+      "id": "EV-003",
+      "check": "CHK-001",
+      "result": "pass",
+      "record": "evidence/0005-repository-documentation/walkthrough-review.md",
+      "method": "Compared structure and installer hashes with earlier candidate and observed seven fresh adoption, preservation, upgrade and repeat scenarios.",
+      "environment": "GitHub Codespaces, standard-library Python, disposable repositories",
+      "candidate": "Maintenance c77daaec117d7b572582addb7d8382f41ed17458, distribution tree 34a1aaeff6fbbcd42738037f99168bd3fd0205ec",
+      "observed_at": "2026-11-25T01:55:24Z",
+      "recorded_at": "2026-11-25T01:55:24.727398+00:00",
+      "inputs": {
+        "evidence/0005-repository-documentation/walkthrough-review.md": "053479cbc36df27e48dff8c2d06054826e7c01fbf39fab1d59a6dd101f16311c",
+        "scripts/bootstrap.py": "9bd215fe418e4e975d20b7e6a84ef080095d504cb7f07ac0aed82466ca2e959b",
+        "scripts/package_template.py": "a202794d5dd314c8238df8b20132a166744decbef1b03575c1506d2b58ab2f84",
+        "tests/test_bootstrap.py": "ededf55c4fb7eadee5f58b346d951732b4a8d5f7d7e33ce3e674de0c821a14c5",
+        "evidence/0005-repository-documentation/walkthrough-verification.json": "49a8de1226cc552ecb4be5609d9a53ca725a37c4ca463fced8161ec4edcf0f45"
+      },
+      "artifacts": {
+        "specs/0005-repository-documentation/requirements.md": "c18021e13c199bbf6bd63433ff565bddacca1842ea54c76eaadbf65d76e70f14",
+        "specs/0005-repository-documentation/design.md": "abe9cb65eee0f2f54d8a993479bc1a79f901011857fd8e93c7de68282c79295b"
+      },
+      "check_signature": "a073c40d0cd06bda860e02280eec12b582829b0e014c82fc06f57f44c9f61008"
+    },
+    {
+      "id": "EV-004",
+      "check": "CHK-002",
+      "result": "pass",
+      "record": "evidence/0005-repository-documentation/walkthrough-review.md",
+      "method": "Reviewed the appointment-booking artifact walkthrough and local links, parsed Mermaid, and reran offline regressions, reproduction and distribution checks.",
+      "environment": "GitHub Codespaces, standard-library Python, VS Code bundled Mermaid 11.17.0",
+      "candidate": "Maintenance c77daaec117d7b572582addb7d8382f41ed17458, application eb9e4ba5cc09038fc175bfec4653a1cfcc55c201",
+      "observed_at": "2026-11-25T01:55:24Z",
+      "recorded_at": "2026-11-25T01:55:24.886219+00:00",
+      "inputs": {
+        "evidence/0005-repository-documentation/walkthrough-review.md": "053479cbc36df27e48dff8c2d06054826e7c01fbf39fab1d59a6dd101f16311c",
+        "README.md": "791f15f9f4394b5f7cd6d799df05aabbfc768f1a7617ea94ee047377ed310d8a",
+        "distribution/README.md.in": "2ec4b309f93a7a4763eee77ae6f18f4ceebc8f11deef005ba935ff85103a4559",
+        "CHANGELOG.md": "bff0c3035009b4f882a2695a336c5d140047746ae3b47a57931d5f7d89cb8413",
+        "scripts/package_template.py": "a202794d5dd314c8238df8b20132a166744decbef1b03575c1506d2b58ab2f84",
+        "scripts/bootstrap.py": "9bd215fe418e4e975d20b7e6a84ef080095d504cb7f07ac0aed82466ca2e959b",
+        "scripts/check_repository.py": "7d2b05cb233b86d3fcbdd0c198ea5a76f8ded5a67db7d133ed983ac423facc5a",
+        "tests/test_distribution.py": "72b2225e738eb369ee9fa6e9a012093d7e6271316456178a5294d75bd412f6b9",
+        "evidence/0005-repository-documentation/walkthrough-verification.json": "49a8de1226cc552ecb4be5609d9a53ca725a37c4ca463fced8161ec4edcf0f45"
+      },
+      "artifacts": {
+        "specs/0005-repository-documentation/requirements.md": "c18021e13c199bbf6bd63433ff565bddacca1842ea54c76eaadbf65d76e70f14",
+        "specs/0005-repository-documentation/design.md": "abe9cb65eee0f2f54d8a993479bc1a79f901011857fd8e93c7de68282c79295b"
+      },
+      "check_signature": "0c59f29e149d1c4c511a9a652cbd8094af4b053eae3b1bde7f57145e21de24da"
     }
   ],
   "spec_format": "ears",
