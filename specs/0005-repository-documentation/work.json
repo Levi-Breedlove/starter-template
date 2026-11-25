@@ -4,7 +4,7 @@
   "title": "Repository documentation and conventions for v1.0.1",
   "mode": "brownfield",
   "route": "quick",
-  "phase": "implementation",
+  "phase": "complete",
   "artifacts": {
     "requirements": "requirements.md",
     "design": "design.md",
@@ -35,7 +35,58 @@
       }
     }
   ],
-  "evidence": [],
+  "evidence": [
+    {
+      "id": "EV-001",
+      "check": "CHK-001",
+      "result": "pass",
+      "record": "evidence/0005-repository-documentation/candidate-review.md",
+      "method": "Compared installer AST and observed exact package, greenfield, brownfield, repeat adoption and real v1.0.0 upgrade fixtures.",
+      "environment": "GitHub Codespaces, standard-library Python, disposable repositories",
+      "candidate": "Maintenance b9c581f05f7273393a90dedaa6257367049e7686, application tree e42888f9e0628d13840539623ab8b84897369af3",
+      "observed_at": "2026-11-25T01:42:10Z",
+      "recorded_at": "2026-11-25T01:42:10.567538+00:00",
+      "inputs": {
+        "evidence/0005-repository-documentation/candidate-review.md": "27c9093e7ba40fbec8ef0a5b8684fb366faf8462ebbd2207d13d9b3a7c36b655",
+        "scripts/bootstrap.py": "9bd215fe418e4e975d20b7e6a84ef080095d504cb7f07ac0aed82466ca2e959b",
+        "scripts/package_template.py": "a202794d5dd314c8238df8b20132a166744decbef1b03575c1506d2b58ab2f84",
+        "tests/test_bootstrap.py": "ededf55c4fb7eadee5f58b346d951732b4a8d5f7d7e33ce3e674de0c821a14c5",
+        "evidence/0005-repository-documentation/verification.json": "2b80f542c54ee77fe2fbe52078afaa16e638c25e63ebcdccea2ac46cb149ec83"
+      },
+      "artifacts": {
+        "specs/0005-repository-documentation/requirements.md": "b6b7bada700c016b5b2f0a171e1fca368d414c3ee20d3876ff5265561ce909d4",
+        "specs/0005-repository-documentation/design.md": "29edff46a5b967732d2b4aadaf9a49e77c5bc6680530d67143d832b724e56345"
+      },
+      "check_signature": "a073c40d0cd06bda860e02280eec12b582829b0e014c82fc06f57f44c9f61008"
+    },
+    {
+      "id": "EV-002",
+      "check": "CHK-002",
+      "result": "pass",
+      "record": "evidence/0005-repository-documentation/candidate-review.md",
+      "method": "Ran full offline regressions, source and package checkers, two independent builds, README semantic/path/link review and installed adoption checks.",
+      "environment": "GitHub Codespaces, standard-library Python, disposable repositories",
+      "candidate": "Maintenance b9c581f05f7273393a90dedaa6257367049e7686, application commit 73eef0d138670e5b13c573ea2ca7cf78a35fb04a",
+      "observed_at": "2026-11-25T01:42:10Z",
+      "recorded_at": "2026-11-25T01:42:10.723379+00:00",
+      "inputs": {
+        "evidence/0005-repository-documentation/candidate-review.md": "27c9093e7ba40fbec8ef0a5b8684fb366faf8462ebbd2207d13d9b3a7c36b655",
+        "README.md": "791f15f9f4394b5f7cd6d799df05aabbfc768f1a7617ea94ee047377ed310d8a",
+        "distribution/README.md.in": "598d32c60562a15ee70ac4685515f7c3ed94c88e4a172b12a14b886a2683bc9e",
+        "CHANGELOG.md": "bff0c3035009b4f882a2695a336c5d140047746ae3b47a57931d5f7d89cb8413",
+        "scripts/package_template.py": "a202794d5dd314c8238df8b20132a166744decbef1b03575c1506d2b58ab2f84",
+        "scripts/bootstrap.py": "9bd215fe418e4e975d20b7e6a84ef080095d504cb7f07ac0aed82466ca2e959b",
+        "scripts/check_repository.py": "7d2b05cb233b86d3fcbdd0c198ea5a76f8ded5a67db7d133ed983ac423facc5a",
+        "tests/test_distribution.py": "72b2225e738eb369ee9fa6e9a012093d7e6271316456178a5294d75bd412f6b9",
+        "evidence/0005-repository-documentation/verification.json": "2b80f542c54ee77fe2fbe52078afaa16e638c25e63ebcdccea2ac46cb149ec83"
+      },
+      "artifacts": {
+        "specs/0005-repository-documentation/requirements.md": "b6b7bada700c016b5b2f0a171e1fca368d414c3ee20d3876ff5265561ce909d4",
+        "specs/0005-repository-documentation/design.md": "29edff46a5b967732d2b4aadaf9a49e77c5bc6680530d67143d832b724e56345"
+      },
+      "check_signature": "6471023e9585ecfe746616d6d1d62577c35b4d69be7284024b42f4435662b87a"
+    }
+  ],
   "spec_format": "ears",
   "specification_policy": {
     "analysis": "required",
