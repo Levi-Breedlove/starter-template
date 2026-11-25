@@ -1,0 +1,163 @@
+{
+  "observation": "Native first-use smoke for the clean application distribution",
+  "outcome": "pass",
+  "candidate": "895a9b9efae5c5a4a10ee533ec84dbc1ac95d4a1",
+  "tree": "7d6583a62dd152d6a849d14b54b5d4240c593c4c",
+  "preflight": "no-known-blocker",
+  "surface": "Ordinary GitHub Codespaces terminal",
+  "client": "codex-cli 0.172.0",
+  "sandbox": "workspace-write",
+  "stdin": "start\n",
+  "timeout_seconds": 360,
+  "native_launches": 1,
+  "retries": 0,
+  "started_utc": "2026-11-25T00:35:48Z",
+  "stopped_utc": "2026-11-25T00:37:15Z",
+  "elapsed_seconds": 87,
+  "exit_code": 0,
+  "events": {
+    "thread.started": 1,
+    "turn.started": 1,
+    "item.completed": 18,
+    "item.started": 16,
+    "turn.completed": 1
+  },
+  "client_reported_usage": {
+    "input_tokens": 251586,
+    "cached_input_tokens": 214784,
+    "cache_write_input_tokens": 0,
+    "output_tokens": 3487,
+    "reasoning_output_tokens": 1956
+  },
+  "greeting": "Hi, I’m here to help you shape the project and work through its AWS decisions. I’ll check the saved context and repository first so we can build on what’s already in place.",
+  "final_response_with_fixture_relative_links": "Welcome. The local setup check passed, and the repository is ready for a new AWS project. I saved the starting point in the [project brief](project/brief.md) and [handoff](delivery/current-handoff.md).\n\nI recommend scoping the first release around one outcome users can verify. That gives us a concrete way to measure success and choose an AWS design.\n\n**What should this project help people do, and who will use it first?**",
+  "question_count": 1,
+  "open_question": "What should this project help people do, and who will use it first?",
+  "native_doctor": {
+    "status": "ready",
+    "layout": "adopted",
+    "active_work": null,
+    "foundation_paths": {
+      "brief": "project/brief.md",
+      "requirements": "project/requirements.md",
+      "tech": "project/tech.md",
+      "structure": "project/structure.md",
+      "architecture": "project/architecture.md"
+    }
+  },
+  "changes": {
+    "delivery/current-handoff.md": {
+      "before": "ddd5ad79e85573170025ba1b56eb8642b847c52337deb1c047ce68fb5fb8bd54",
+      "after": "1fdc8757658b061ca3f2732ef538afb6448f586a6240ccb4816719a01eb82e47"
+    },
+    "project/brief.md": {
+      "before": "d65fff0aec414a1fa245e92f561ccf3963e66dc7c50d8f064cbb7b3316e2bf1e",
+      "after": "8f6cbfb435407b6f43aaf7705fbe402cf522f0b5c19224a0d3a53fefd95caf89"
+    }
+  },
+  "operator_check": "PASS: 78 Markdown files; 251 local links; 12 required core files; 0 issues.",
+  "review": {
+    "consultation": "Greenfield inferred from repository evidence. The response asks for the first user outcome and audience, offers a measurable first delivery, and defers technology selection.",
+    "foundation_discovery": "The turn read the installed manifest, brief and handoff. Doctor verified all five mapped foundation files. The other four foundations were discovered by path.",
+    "continuation": "Both editable documents record the same open question. The handoff identifies the checked revision and next action.",
+    "initial_state": "Clean root commit with empty application, specification and evidence directories; no active work.",
+    "authority": "All 15 observed commands used local Git, file reads, doctor or the repository checker. One file-change event updated two consultation records. No plugin install, account or deployment command, worker dispatch, other model turn, or application implementation appeared in the trace.",
+    "client_diagnostic": "One slow local SQLite check at startup. The client exited successfully."
+  },
+  "trace_commands": [
+    {
+      "command": "cat .aws-workflow/workflows/consult.md",
+      "exit": 0,
+      "output_sha256": "a11a325f95762299f1471567824f53d7087816d0a87f1943770662ba22a73889"
+    },
+    {
+      "command": "rg --files --hidden -g '!.git' -g '!node_modules' -g '!vendor' -g '!dist' -g '!package-lock.json' -g '!pnpm-lock.yaml' -g '!yarn.lock'",
+      "exit": 0,
+      "output_sha256": "0b811ee29c011f73c604160c948b38209a77877bd00e5edb51a58a441979b57e"
+    },
+    {
+      "command": "git status --short --branch",
+      "exit": 0,
+      "output_sha256": "cedc33872f4688d8fc7cc7c1f2b9079215158f8d7739e940b59440a177f15882"
+    },
+    {
+      "command": "cat .aws-workflow/manifest.json",
+      "exit": 0,
+      "output_sha256": "5594cc154885346f36235bf0fe120bea719fd6bb29268b48d4c92c1d7c8c6b24"
+    },
+    {
+      "command": "cat project/brief.md delivery/current-handoff.md",
+      "exit": 0,
+      "output_sha256": "94123b60a293fccff0e7ea254dae06f61f3c96750d20d91df881ef085dd6b632"
+    },
+    {
+      "command": "cat .aws-workflow/guide/01-start-here.md .aws-workflow/guide/02-aws-guidance-and-access.md",
+      "exit": 0,
+      "output_sha256": "f5ddbc803d9a5c38ecd9b19be0c172df09d164c298aeba66fe75fbfed3d71197"
+    },
+    {
+      "command": "cat README.md project/adoption-report.md",
+      "exit": 0,
+      "output_sha256": "edf3f1c1b544312d52d1db6e6b51fa3a66816232e732d574b4c47d3a19a5179b"
+    },
+    {
+      "command": "python3 .aws-workflow/scripts/workflow.py --root . doctor",
+      "exit": 0,
+      "output_sha256": "4a62ae2749ce29d32f184a3aa428c92d3a6ec816fcdd7f1b2e101f4f1eb7694b"
+    },
+    {
+      "command": "cat delivery/environment-capabilities.md .aws-workflow/guide/00-quickstart.md .aws-workflow/guide/06-consultation-interview.md",
+      "exit": 0,
+      "output_sha256": "a7f86f58aa6bd172d0682ec7e246b4639e63bdbaed3171199e8b502cdf0ce97f"
+    },
+    {
+      "command": "git log -1 --format='%h %s'",
+      "exit": 0,
+      "output_sha256": "3b9465b61d96db12bd9eab32c88cc8f67c0ff4185d0c91fb71cb504bf9116b80"
+    },
+    {
+      "command": "rg --files --hidden -g 'AGENTS.md' -g 'AGENTS.override.md' -g '!.git'",
+      "exit": 0,
+      "output_sha256": "954ec5dad7eaf581ad4bfa090369b244ac0120b43722ef2efff5ba89fc52046f"
+    },
+    {
+      "command": "git diff -- project/brief.md delivery/current-handoff.md",
+      "exit": 0,
+      "output_sha256": "f9c531774107ee4d0aea9b55825c462b18bc44e9b4957de4b828ed6a2c16e276"
+    },
+    {
+      "command": "git status --short",
+      "exit": 0,
+      "output_sha256": "d6d94a4aedbff8b288a12c6e17fdf48c5e4e0f5b015471eb6d93fcce2f3ca765"
+    },
+    {
+      "command": "git diff --check",
+      "exit": 0,
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": "python3 .aws-workflow/scripts/check_repository.py --root .",
+      "exit": 0,
+      "output_sha256": "314dbef10bcd646f220b0311b2160a564197cf67eb34c20f7558bf24ab7fdd51"
+    }
+  ],
+  "raw_sha256": {
+    "prompt.txt": "46210dddc66714c3d8d226711510cf8421774214016c508c72a833a05370f6b5",
+    "events.jsonl": "9fb72db945cc38a7f5dad6c2729ff2b8eb1478b64b11e3b526b728f3e9c4ea9d",
+    "stderr.txt": "859083834382c7b2a2b1fe073eca675bd6ebc3c5441bcbf4796ce1e4d756aeb3",
+    "final.txt": "7d96c07090faaa53d117d09554ffe94700f0e753d2a2718c975dc6d35d805c08",
+    "native-check.json": "7a9548643b648516c330078cc52e3f249d27e1499bb94c2a55b6851a2dc6fe3f",
+    "consultation.patch": "f9c531774107ee4d0aea9b55825c462b18bc44e9b4957de4b828ed6a2c16e276",
+    "start.txt": "876fbb0e6c5788ba08a71fb0d14eb9c34897679b898ff6e8faa973d53b9c3b01",
+    "stop.txt": "cf0c979fd42bd21525f93b3babf8a200741168cdb003b2136017ed9acbc6e09c",
+    "exit.txt": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  "private_candidate_readback": {
+    "branch": "template",
+    "paths_checked": 102,
+    "all_path_mode_type_object_ids_matched": true,
+    "rebuilt_checker": "PASS: 78 Markdown files; 247 local links; 12 required core files; 0 issues.",
+    "managed_hashes": 76
+  },
+  "consultation_unified_diff": "diff --git a/delivery/current-handoff.md b/delivery/current-handoff.md\nindex 309e91d..74e0ec5 100644\n--- a/delivery/current-handoff.md\n+++ b/delivery/current-handoff.md\n@@ -1,13 +1,17 @@\n # Current handoff: AWS project\n \n-**State:** Local workflow adopted; application consultation is next.\n-**Entry mode:** greenfield. No active application specification was created.\n+**Greenfield consultation is in progress.** Work selection is pending the\n+product scope. Current authority covers local inspection and consultation.\n \n-Read `project/brief.md` and `.aws-workflow/manifest.json`, inspect the repository,\n-then guide the next material consultation questions. For an existing system,\n-record its baseline and preservation obligations first.\n+## Local setup evidence\n \n-No application implementation, tests, AWS calls, deployments, plugin setup,\n-hook activation, or trust changes have been performed by the bootstrap helper.\n-Update this record with actual authority, selected work, evidence, open questions,\n-and a concrete next action as work proceeds.\n+`python3 .aws-workflow/scripts/workflow.py --root . doctor` reported `ready`\n+for the local workflow and `active_work: null`. The repository was clean at\n+starter revision `895a9b9` before the consultation updates.\n+\n+## Next action\n+\n+The open question is **What should this project help people do, and who will\n+use it first?** The answer determines the first delivery and how to verify it.\n+Record the answer, propose a bounded first delivery, and identify any remaining\n+product decision that affects its requirements. [Project brief](../project/brief.md)\ndiff --git a/project/brief.md b/project/brief.md\nindex e3645b1..9066bc0 100644\n--- a/project/brief.md\n+++ b/project/brief.md\n@@ -1,27 +1,26 @@\n # Project brief: AWS project\n \n-**State:** Consultation has not started. **Entry mode:** greenfield.\n+**Consultation in progress.** Entry mode is greenfield.\n \n ## Outcome and scope\n \n-Establish the intended users, first useful result, observable success, and scope\n-from the user's request and existing evidence. No application requirements,\n-architecture, AWS account, region, budget, or deployment authority are assumed.\n+The product goal and intended users are open. The first delivery will be scoped\n+around what those users need to accomplish.\n \n ## Established facts and decisions\n \n-The reusable workflow was adopted locally. Existing authority: Inspect the repository and record existing authorities before selecting new ones.\n-Inspect source, instructions, architecture, IaC ownership, tests, and delivery\n-controls before recommendations. Preserve accepted choices in existing projects.\n+The workflow manifest records greenfield adoption. The repository at `895a9b9`\n+contains the AWS starter, with placeholders for application code, tests,\n+infrastructure, and specifications. [Workflow manifest](../.aws-workflow/manifest.json)\n+· [Repository overview](../README.md)\n \n ## Consultation record\n \n-Record known facts with sources, each material question and answer, consultant\n-recommendations, accepted decisions, assumptions, and unresolved blockers.\n-Ask one to three next questions after reading available context.\n+The user opened consultation with `start`. The first question is pending.\n+**What should this project help people do, and who will use it first?**\n \n ## First delivery and verification\n \n-No application work item or active backlog has been selected. Prepare the first\n-reviewable scope and route; continue implementation only within actual task\n-authority. Establish acceptance criteria and the evidence required to verify them.\n+The recommendation is to define one useful, observable result for the first\n+users. That result will guide the requirements and the AWS design. Local setup\n+evidence and the next action are recorded in the [current handoff](../delivery/current-handoff.md).\n"
+}

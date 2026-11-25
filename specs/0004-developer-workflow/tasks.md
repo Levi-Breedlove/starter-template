@@ -119,5 +119,5 @@
 T-008 covers the observed pilot on its pinned framework revision. The changed application distribution has its own release gates.
 
 - Activity: Clean distribution and offline verification passed on source `98a4de0` and distribution `895a9b9`. [Release candidate verification](../../evidence/0004-developer-workflow/release-reconciliation.md)
-- Activity: The final distribution's literal `start` observation requires a separately authorized single native invocation.
-- Activity: Promotion requires a verified clean template branch, PR review and merge controls, default-branch readback and the release tag.
+- Activity: The final distribution passed its one authorized literal `start` smoke in 87 seconds, with exit 0 and zero retries. [Observed first use](../../evidence/0004-developer-workflow/native-first-use.json)
+- Activity: The private `template` branch matches all 102 tracked files in the verified distribution. PR #1 is prepared for review. Default-branch promotion and tagging await owner approval and expected-head readback.
