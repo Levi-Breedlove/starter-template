@@ -54,6 +54,38 @@ python3 .aws-workflow/scripts/workflow.py --root . validate
 
 These inspect the recorded workflow, task graph, coverage, and phase evidence. They do not independently establish requirement quality, real approval, test success, or AWS behavior. The separate repository checker validates local Markdown links and required structure only. See [tool usage](../scripts/README.md) for exact supported commands.
 
+## Follow an appointment-booking change
+
+Start with the outcome you want. Suppose patients can book appointments online. A patient submits a booking, the system saves it, and the response gets lost. The patient retries the same request and should get back the original appointment. The client sends a request key, a value it reuses across retries of the same booking attempt. During consultation, capture the user need in the project foundations. Then turn the retry behavior into a small specification with a decision about how to build it and a plan to verify it.
+
+
+This is a worked illustration. The specification, appointment ID, and result below are examples.
+```mermaid
+flowchart TD
+    goal["Consultation and project foundations · Patients can safely retry booking"] --> req["REQ-001 Requirement · Return the original appointment on retry"]
+    req --> des["DES-001 Technical design · Save the appointment and request key together"]
+    req --> prop["PROP-001 Correctness property · The same appointment ID comes back and one record exists for the request"]
+    des --> task["T-001 Implementation task · Add retry handling and a regression test"]
+    prop --> chk["CHK-001 Verification check · Book once, retry, and count appointments"]
+    task --> impl["Implementation · Booking code and regression test"]
+    impl --> chk
+    chk --> ev["EV-001 Evidence record · Record the responses, record count, and result"]
+    ev --> release["Review and release preparation · Evaluate the result and record the next step"]
+```
+
+The identifiers are stable labels within the work item. In the table, `<work-id>` is `0001-booking-retries`. All paths start at the application root.
+
+| Artifact and location | Question it answers | Appointment-booking example and connection |
+| --- | --- | --- |
+| **Requirement (REQ)** in `specs/<work-id>/requirements.md` | **What should the system do?** A requirement states behavior someone can observe. | `REQ-001` says that after a successful booking, retrying with the same patient, request key, and booking details returns the original appointment. This behavior guides the design and property. |
+| **Technical design (DES)** in `specs/<work-id>/design.md` | **How will the system deliver that behavior?** The design explains the approach and important choices. | `DES-001` saves the appointment and the patient-scoped request key together in one transaction, so both records are saved or neither is. On retry, the code finds the saved appointment. This design guides the implementation task. |
+| **Correctness property (PROP)** in `specs/<work-id>/properties.json` | **What rule should always hold under the stated conditions?** A property gives you something concrete to verify. | `PROP-001` says that when a patient retries a successful request with the same key and details, both responses identify the same appointment and exactly one appointment is stored for that request. This rule tells the check what to assert. |
+| **Implementation task (T)** in `specs/<work-id>/tasks.md` | **What change should we make?** A task describes a bounded piece of work and how to verify it. | `T-001` implements the lookup and replay behavior in the booking code and adds a test. It links to the requirement, design, and check. The implementation lives in the application's source and test files, typically under `src/` and `tests/`. |
+| **Verification check (CHK)** in the verification matrix in `specs/<work-id>/tasks.md` | **What steps will we run, and what result do we expect?** A check gives a repeatable procedure and a pass condition. | `CHK-001` starts with no appointment for the request, submits it once, then retries with the same patient, key, and details. It compares the returned appointment IDs and queries storage for the count. Pass means both IDs match and the count is one. |
+| **Evidence record (EV)** with a receipt under `evidence/<work-id>/` and an entry in `specs/<work-id>/work.json` | **What actually happened when we ran the check?** Evidence records the observed result and the conditions of the run. | An **illustrative** `EV-001` for `CHK-001` might record “Both responses returned `APT-104`. Stored appointment count was 1.” A real receipt includes the command or procedure, candidate revision, inputs, environment, observation time, and actual result. |
+
+The requirement and property describe intended behavior. The design explains how to achieve it, and the source code implements it. The check defines how to verify the behavior. Evidence records what happened during a specific run, including unexpected results. Inspect the evidence before completing the task or using the result in a release decision.
+
 ## Implement, review, and finish at the correct boundary
 
 Read the relevant contract before each task. Work in small changes and parallelize only separable scopes with a clear integration owner. Record actual results against the candidate revision, configuration, and environment. A local patch needs a patch identity in addition to its base commit. Shared files and shared conversation history do not make a review independent.

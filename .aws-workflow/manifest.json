@@ -41,7 +41,7 @@
     ".aws-workflow/guide/00-quickstart.md": "0ee4d60a5c2d3789a1c28d4ce2c068fd0df01e9c4686513c8c166ac2ae1ff24f",
     ".aws-workflow/guide/01-start-here.md": "22d83e2ed9b47419309552e96df99ffe816228c7316d253caa5bb10a583c549b",
     ".aws-workflow/guide/02-aws-guidance-and-access.md": "d8bd7e544fbac1bd56e99e87e6ea0ff695d1c6422cae2e148bffd2a1d03ef36e",
-    ".aws-workflow/guide/03-first-feature.md": "91ed775c19160b328fc97c7e3b0acade0d26f2f5c3077eaf13a6659600e59a1c",
+    ".aws-workflow/guide/03-first-feature.md": "af06098391e4d50e4d26220adc074814b76c869e496c306d06e8e8e578d04e48",
     ".aws-workflow/guide/04-maintain-and-release.md": "a2e025bbd6b8429ff2bcb0c296e806f25d40b3ccb9faf31d1be2e4bc8aecc185",
     ".aws-workflow/guide/05-brownfield-adoption.md": "6b4e4a137fc78a2601e62a67a4f3372218f71192a4cea3b49923754ae357adea",
     ".aws-workflow/guide/06-consultation-interview.md": "2f018b045189c5fb26ade91cac5550f4266d591631f9529c9c5a9392bee541fe",
@@ -108,5 +108,5 @@
   "project_name": "AWS project",
   "runtime_ignore_block_sha256": "a80b768ad9526713926357da48c40fb20d23ebe3aa4c90ae639332d00edca5ca",
   "schema_version": 2,
-  "source_digest": "dc7841ae29b3c7b26f344f71a2d173348d2391555904a1e5955a0cbef949c4ef"
+  "source_digest": "f026cf860060a60f25fb1de8402c9836fb8feb93a385c8395f1c8ac5c190d544"
 }

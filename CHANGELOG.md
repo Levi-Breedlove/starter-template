@@ -2,7 +2,7 @@
 
 ## 1.0.1
 
-- Expand the developer README with a product introduction, the observed Codex consultation, Codespaces onboarding, the packaged layout, engineering and security diagrams, and worked feature and defect traceability examples.
+- Provide a concise developer README for Codespaces onboarding and project organization. The first-feature guide follows one appointment-booking change from requirement through verification.
 - Seed reusable naming and ownership conventions in new project structure records. Existing applications retain their own structure documents and mappings during adoption and upgrade.
 
 ## 1.0.0
