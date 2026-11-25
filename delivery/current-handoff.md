@@ -1,8 +1,8 @@
 # Current handoff
 
-**Visual review candidate** 0005-repository-documentation
+**Final review candidate** 0005-repository-documentation
 
-The earlier documentation candidate passed offline checks. The product presentation revision changes the canonical README, SVG packaging and existing distribution test, so its earlier evidence must be reconciled against the new candidate. See [presentation review and pending verification](../evidence/0005-repository-documentation/presentation-review.md). Next: visual review, affected verification, then the release decision. Do not promote or tag from earlier receipts.
+The approved concise README and relocated first-feature walkthrough passed final offline checks. The exact distribution commit is `39ce568f39b24d8fcb746748e16c5054f602db89` with tree `13eeac6cf379c34d96d1dfe1d30fcca94fb73b91`. Both documentation tasks are verified. The next action is the owner's release decision for this candidate. [Closeout report](../evidence/0005-repository-documentation/closeout-review.md) · [Task ledger](../specs/0005-repository-documentation/tasks.md)
 
 ## Earlier documentation candidate
 

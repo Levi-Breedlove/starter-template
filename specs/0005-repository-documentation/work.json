@@ -4,7 +4,7 @@
   "title": "Repository documentation and conventions for v1.0.1",
   "mode": "brownfield",
   "route": "quick",
-  "phase": "implementation",
+  "phase": "complete",
   "artifacts": {
     "requirements": "requirements.md",
     "design": "design.md",
@@ -165,6 +165,56 @@
         "specs/0005-repository-documentation/design.md": "abe9cb65eee0f2f54d8a993479bc1a79f901011857fd8e93c7de68282c79295b"
       },
       "check_signature": "0c59f29e149d1c4c511a9a652cbd8094af4b053eae3b1bde7f57145e21de24da"
+    },
+    {
+      "id": "EV-005",
+      "check": "CHK-001",
+      "result": "pass",
+      "record": "evidence/0005-repository-documentation/closeout-review.md",
+      "method": "Verified greenfield and exact distribution convention seeds, mapped and conventional brownfield preservation, stock and customized v1.0.0 upgrade, and idempotence with local fixtures.",
+      "environment": "GitHub Codespaces, standard-library Python, disposable Git repositories",
+      "candidate": "8bf7ec24101a46d49226b31b622587b39b3d1695, distribution tree 13eeac6cf379c34d96d1dfe1d30fcca94fb73b91",
+      "observed_at": "2026-11-25T02:52:46Z",
+      "recorded_at": "2026-11-25T02:52:46.370911+00:00",
+      "inputs": {
+        "evidence/0005-repository-documentation/closeout-review.md": "b617747e5da453754697dd572b8645c1de111df9bf81e4d1c03c489d5a78314c",
+        "scripts/bootstrap.py": "9bd215fe418e4e975d20b7e6a84ef080095d504cb7f07ac0aed82466ca2e959b",
+        "scripts/package_template.py": "a202794d5dd314c8238df8b20132a166744decbef1b03575c1506d2b58ab2f84",
+        "tests/test_bootstrap.py": "ededf55c4fb7eadee5f58b346d951732b4a8d5f7d7e33ce3e674de0c821a14c5",
+        "evidence/0005-repository-documentation/closeout-verification.json": "5546adc664ccc51f46de0fc88a963afe90973cb5b31a572e05abb6043c4330fa"
+      },
+      "artifacts": {
+        "specs/0005-repository-documentation/requirements.md": "db1a28393757fb20aae7e937f6da96022773a13612e0a0a3c30db8ad902b40e3",
+        "specs/0005-repository-documentation/design.md": "5c6ae1b9f9bca201d1b216c462f9a23c84cb54ed5dc69e13c9ee48b8d1664771"
+      },
+      "check_signature": "a073c40d0cd06bda860e02280eec12b582829b0e014c82fc06f57f44c9f61008"
+    },
+    {
+      "id": "EV-006",
+      "check": "CHK-002",
+      "result": "pass",
+      "record": "evidence/0005-repository-documentation/closeout-review.md",
+      "method": "Compared canonical and packaged README, checked six guide links and layout, parsed the relocated walkthrough, and ran two builds, full offline regressions and repository/adoption checks.",
+      "environment": "GitHub Codespaces, standard-library Python, local Mermaid 11.17.0",
+      "candidate": "8bf7ec24101a46d49226b31b622587b39b3d1695, distribution 39ce568f39b24d8fcb746748e16c5054f602db89",
+      "observed_at": "2026-11-25T02:52:46Z",
+      "recorded_at": "2026-11-25T02:52:46.719932+00:00",
+      "inputs": {
+        "evidence/0005-repository-documentation/closeout-review.md": "b617747e5da453754697dd572b8645c1de111df9bf81e4d1c03c489d5a78314c",
+        "README.md": "79e2bc30fbab6e858f40e030168556bb925ed1e2704a4dd2650f19c1707605a6",
+        "distribution/README.md.in": "271cbf3b5f64a024d6628f4b1d8b37f87038c1f20507ef56529252404d2ed913",
+        "CHANGELOG.md": "7ce928152c4a6026280430c8cba601729173330f41aaaad8b1da0d200c81434e",
+        "guide/03-first-feature.md": "af06098391e4d50e4d26220adc074814b76c869e496c306d06e8e8e578d04e48",
+        "scripts/package_template.py": "a202794d5dd314c8238df8b20132a166744decbef1b03575c1506d2b58ab2f84",
+        "scripts/check_repository.py": "7d2b05cb233b86d3fcbdd0c198ea5a76f8ded5a67db7d133ed983ac423facc5a",
+        "tests/test_distribution.py": "1ec9859905a5f801f9eab56aaff4d251d0bd7fd603009f2bd021c4c220da9c9a",
+        "evidence/0005-repository-documentation/closeout-verification.json": "5546adc664ccc51f46de0fc88a963afe90973cb5b31a572e05abb6043c4330fa"
+      },
+      "artifacts": {
+        "specs/0005-repository-documentation/requirements.md": "db1a28393757fb20aae7e937f6da96022773a13612e0a0a3c30db8ad902b40e3",
+        "specs/0005-repository-documentation/design.md": "5c6ae1b9f9bca201d1b216c462f9a23c84cb54ed5dc69e13c9ee48b8d1664771"
+      },
+      "check_signature": "8c4126f2058cbf184646fcaba0efbb353db69afc89801dbcbdf90f2e771ae8d4"
     }
   ],
   "spec_format": "ears",
