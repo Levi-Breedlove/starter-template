@@ -1,0 +1,265 @@
+{
+  "schema_version": 1,
+  "id": "0005-repository-documentation",
+  "title": "Repository documentation and conventions for v1.0.1",
+  "mode": "brownfield",
+  "route": "quick",
+  "phase": "complete",
+  "artifacts": {
+    "requirements": "requirements.md",
+    "design": "design.md",
+    "tasks": "tasks.md"
+  },
+  "context_files": [
+    "project/brief.md",
+    "delivery/current-handoff.md",
+    "project/adoption-report.md",
+    "delivery/environment-capabilities.md"
+  ],
+  "facts": [],
+  "questions": [],
+  "reviews": [
+    {
+      "id": "REV-001",
+      "artifact": "tasks",
+      "outcome": "accepted",
+      "decision_ref": "evidence/0005-repository-documentation/plan-review.md",
+      "reviewer": "Codex, delegated maintenance specification author",
+      "authority": "delegated",
+      "recorded_at": "2026-11-25T01:38:31.765950+00:00",
+      "snapshot_policy": "canonical-plan-v1",
+      "hashes": {
+        "specs/0005-repository-documentation/requirements.md": "b6b7bada700c016b5b2f0a171e1fca368d414c3ee20d3876ff5265561ce909d4",
+        "specs/0005-repository-documentation/design.md": "29edff46a5b967732d2b4aadaf9a49e77c5bc6680530d67143d832b724e56345",
+        "specs/0005-repository-documentation/tasks.md": "a796131ef0e789b858f6421e4631a7f9c76e1e0b574e908c61a43e4c6c744def"
+      }
+    },
+    {
+      "id": "REV-002",
+      "artifact": "tasks",
+      "outcome": "accepted",
+      "decision_ref": "evidence/0005-repository-documentation/plan-review-revised.md",
+      "reviewer": "Codex, delegated maintenance specification author",
+      "authority": "delegated",
+      "recorded_at": "2026-11-25T01:52:59.240360+00:00",
+      "snapshot_policy": "canonical-plan-v1",
+      "hashes": {
+        "specs/0005-repository-documentation/requirements.md": "c18021e13c199bbf6bd63433ff565bddacca1842ea54c76eaadbf65d76e70f14",
+        "specs/0005-repository-documentation/design.md": "abe9cb65eee0f2f54d8a993479bc1a79f901011857fd8e93c7de68282c79295b",
+        "specs/0005-repository-documentation/tasks.md": "65ce1b1ec89b98b0567ad0c13cc5eb9af77bc367209011ff31f11824d4b6703f"
+      }
+    },
+    {
+      "id": "REV-003",
+      "artifact": "tasks",
+      "outcome": "accepted",
+      "decision_ref": "evidence/0005-repository-documentation/closeout-plan-review.md",
+      "reviewer": "Codex, delegated closeout documentation review",
+      "authority": "delegated",
+      "recorded_at": "2026-11-25T02:51:03.657021+00:00",
+      "snapshot_policy": "canonical-plan-v1",
+      "hashes": {
+        "specs/0005-repository-documentation/requirements.md": "db1a28393757fb20aae7e937f6da96022773a13612e0a0a3c30db8ad902b40e3",
+        "specs/0005-repository-documentation/design.md": "5c6ae1b9f9bca201d1b216c462f9a23c84cb54ed5dc69e13c9ee48b8d1664771",
+        "specs/0005-repository-documentation/tasks.md": "de12e1f1c4dd2506d45129fdbbebc1d4bbf38b4525d1eefed4317e1148325658"
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "id": "EV-001",
+      "check": "CHK-001",
+      "result": "pass",
+      "record": "evidence/0005-repository-documentation/candidate-review.md",
+      "method": "Compared installer AST and observed exact package, greenfield, brownfield, repeat adoption and real v1.0.0 upgrade fixtures.",
+      "environment": "GitHub Codespaces, standard-library Python, disposable repositories",
+      "candidate": "Maintenance b9c581f05f7273393a90dedaa6257367049e7686, application tree e42888f9e0628d13840539623ab8b84897369af3",
+      "observed_at": "2026-11-25T01:42:10Z",
+      "recorded_at": "2026-11-25T01:42:10.567538+00:00",
+      "inputs": {
+        "evidence/0005-repository-documentation/candidate-review.md": "27c9093e7ba40fbec8ef0a5b8684fb366faf8462ebbd2207d13d9b3a7c36b655",
+        "scripts/bootstrap.py": "9bd215fe418e4e975d20b7e6a84ef080095d504cb7f07ac0aed82466ca2e959b",
+        "scripts/package_template.py": "a202794d5dd314c8238df8b20132a166744decbef1b03575c1506d2b58ab2f84",
+        "tests/test_bootstrap.py": "ededf55c4fb7eadee5f58b346d951732b4a8d5f7d7e33ce3e674de0c821a14c5",
+        "evidence/0005-repository-documentation/verification.json": "2b80f542c54ee77fe2fbe52078afaa16e638c25e63ebcdccea2ac46cb149ec83"
+      },
+      "artifacts": {
+        "specs/0005-repository-documentation/requirements.md": "b6b7bada700c016b5b2f0a171e1fca368d414c3ee20d3876ff5265561ce909d4",
+        "specs/0005-repository-documentation/design.md": "29edff46a5b967732d2b4aadaf9a49e77c5bc6680530d67143d832b724e56345"
+      },
+      "check_signature": "a073c40d0cd06bda860e02280eec12b582829b0e014c82fc06f57f44c9f61008"
+    },
+    {
+      "id": "EV-002",
+      "check": "CHK-002",
+      "result": "pass",
+      "record": "evidence/0005-repository-documentation/candidate-review.md",
+      "method": "Ran full offline regressions, source and package checkers, two independent builds, README semantic/path/link review and installed adoption checks.",
+      "environment": "GitHub Codespaces, standard-library Python, disposable repositories",
+      "candidate": "Maintenance b9c581f05f7273393a90dedaa6257367049e7686, application commit 73eef0d138670e5b13c573ea2ca7cf78a35fb04a",
+      "observed_at": "2026-11-25T01:42:10Z",
+      "recorded_at": "2026-11-25T01:42:10.723379+00:00",
+      "inputs": {
+        "evidence/0005-repository-documentation/candidate-review.md": "27c9093e7ba40fbec8ef0a5b8684fb366faf8462ebbd2207d13d9b3a7c36b655",
+        "README.md": "791f15f9f4394b5f7cd6d799df05aabbfc768f1a7617ea94ee047377ed310d8a",
+        "distribution/README.md.in": "598d32c60562a15ee70ac4685515f7c3ed94c88e4a172b12a14b886a2683bc9e",
+        "CHANGELOG.md": "bff0c3035009b4f882a2695a336c5d140047746ae3b47a57931d5f7d89cb8413",
+        "scripts/package_template.py": "a202794d5dd314c8238df8b20132a166744decbef1b03575c1506d2b58ab2f84",
+        "scripts/bootstrap.py": "9bd215fe418e4e975d20b7e6a84ef080095d504cb7f07ac0aed82466ca2e959b",
+        "scripts/check_repository.py": "7d2b05cb233b86d3fcbdd0c198ea5a76f8ded5a67db7d133ed983ac423facc5a",
+        "tests/test_distribution.py": "72b2225e738eb369ee9fa6e9a012093d7e6271316456178a5294d75bd412f6b9",
+        "evidence/0005-repository-documentation/verification.json": "2b80f542c54ee77fe2fbe52078afaa16e638c25e63ebcdccea2ac46cb149ec83"
+      },
+      "artifacts": {
+        "specs/0005-repository-documentation/requirements.md": "b6b7bada700c016b5b2f0a171e1fca368d414c3ee20d3876ff5265561ce909d4",
+        "specs/0005-repository-documentation/design.md": "29edff46a5b967732d2b4aadaf9a49e77c5bc6680530d67143d832b724e56345"
+      },
+      "check_signature": "6471023e9585ecfe746616d6d1d62577c35b4d69be7284024b42f4435662b87a"
+    },
+    {
+      "id": "EV-003",
+      "check": "CHK-001",
+      "result": "pass",
+      "record": "evidence/0005-repository-documentation/walkthrough-review.md",
+      "method": "Compared structure and installer hashes with earlier candidate and observed seven fresh adoption, preservation, upgrade and repeat scenarios.",
+      "environment": "GitHub Codespaces, standard-library Python, disposable repositories",
+      "candidate": "Maintenance c77daaec117d7b572582addb7d8382f41ed17458, distribution tree 34a1aaeff6fbbcd42738037f99168bd3fd0205ec",
+      "observed_at": "2026-11-25T01:55:24Z",
+      "recorded_at": "2026-11-25T01:55:24.727398+00:00",
+      "inputs": {
+        "evidence/0005-repository-documentation/walkthrough-review.md": "053479cbc36df27e48dff8c2d06054826e7c01fbf39fab1d59a6dd101f16311c",
+        "scripts/bootstrap.py": "9bd215fe418e4e975d20b7e6a84ef080095d504cb7f07ac0aed82466ca2e959b",
+        "scripts/package_template.py": "a202794d5dd314c8238df8b20132a166744decbef1b03575c1506d2b58ab2f84",
+        "tests/test_bootstrap.py": "ededf55c4fb7eadee5f58b346d951732b4a8d5f7d7e33ce3e674de0c821a14c5",
+        "evidence/0005-repository-documentation/walkthrough-verification.json": "49a8de1226cc552ecb4be5609d9a53ca725a37c4ca463fced8161ec4edcf0f45"
+      },
+      "artifacts": {
+        "specs/0005-repository-documentation/requirements.md": "c18021e13c199bbf6bd63433ff565bddacca1842ea54c76eaadbf65d76e70f14",
+        "specs/0005-repository-documentation/design.md": "abe9cb65eee0f2f54d8a993479bc1a79f901011857fd8e93c7de68282c79295b"
+      },
+      "check_signature": "a073c40d0cd06bda860e02280eec12b582829b0e014c82fc06f57f44c9f61008"
+    },
+    {
+      "id": "EV-004",
+      "check": "CHK-002",
+      "result": "pass",
+      "record": "evidence/0005-repository-documentation/walkthrough-review.md",
+      "method": "Reviewed the appointment-booking artifact walkthrough and local links, parsed Mermaid, and reran offline regressions, reproduction and distribution checks.",
+      "environment": "GitHub Codespaces, standard-library Python, VS Code bundled Mermaid 11.17.0",
+      "candidate": "Maintenance c77daaec117d7b572582addb7d8382f41ed17458, application eb9e4ba5cc09038fc175bfec4653a1cfcc55c201",
+      "observed_at": "2026-11-25T01:55:24Z",
+      "recorded_at": "2026-11-25T01:55:24.886219+00:00",
+      "inputs": {
+        "evidence/0005-repository-documentation/walkthrough-review.md": "053479cbc36df27e48dff8c2d06054826e7c01fbf39fab1d59a6dd101f16311c",
+        "README.md": "791f15f9f4394b5f7cd6d799df05aabbfc768f1a7617ea94ee047377ed310d8a",
+        "distribution/README.md.in": "2ec4b309f93a7a4763eee77ae6f18f4ceebc8f11deef005ba935ff85103a4559",
+        "CHANGELOG.md": "bff0c3035009b4f882a2695a336c5d140047746ae3b47a57931d5f7d89cb8413",
+        "scripts/package_template.py": "a202794d5dd314c8238df8b20132a166744decbef1b03575c1506d2b58ab2f84",
+        "scripts/bootstrap.py": "9bd215fe418e4e975d20b7e6a84ef080095d504cb7f07ac0aed82466ca2e959b",
+        "scripts/check_repository.py": "7d2b05cb233b86d3fcbdd0c198ea5a76f8ded5a67db7d133ed983ac423facc5a",
+        "tests/test_distribution.py": "72b2225e738eb369ee9fa6e9a012093d7e6271316456178a5294d75bd412f6b9",
+        "evidence/0005-repository-documentation/walkthrough-verification.json": "49a8de1226cc552ecb4be5609d9a53ca725a37c4ca463fced8161ec4edcf0f45"
+      },
+      "artifacts": {
+        "specs/0005-repository-documentation/requirements.md": "c18021e13c199bbf6bd63433ff565bddacca1842ea54c76eaadbf65d76e70f14",
+        "specs/0005-repository-documentation/design.md": "abe9cb65eee0f2f54d8a993479bc1a79f901011857fd8e93c7de68282c79295b"
+      },
+      "check_signature": "0c59f29e149d1c4c511a9a652cbd8094af4b053eae3b1bde7f57145e21de24da"
+    },
+    {
+      "id": "EV-005",
+      "check": "CHK-001",
+      "result": "pass",
+      "record": "evidence/0005-repository-documentation/closeout-review.md",
+      "method": "Verified greenfield and exact distribution convention seeds, mapped and conventional brownfield preservation, stock and customized v1.0.0 upgrade, and idempotence with local fixtures.",
+      "environment": "GitHub Codespaces, standard-library Python, disposable Git repositories",
+      "candidate": "8bf7ec24101a46d49226b31b622587b39b3d1695, distribution tree 13eeac6cf379c34d96d1dfe1d30fcca94fb73b91",
+      "observed_at": "2026-11-25T02:52:46Z",
+      "recorded_at": "2026-11-25T02:52:46.370911+00:00",
+      "inputs": {
+        "evidence/0005-repository-documentation/closeout-review.md": "b617747e5da453754697dd572b8645c1de111df9bf81e4d1c03c489d5a78314c",
+        "scripts/bootstrap.py": "9bd215fe418e4e975d20b7e6a84ef080095d504cb7f07ac0aed82466ca2e959b",
+        "scripts/package_template.py": "a202794d5dd314c8238df8b20132a166744decbef1b03575c1506d2b58ab2f84",
+        "tests/test_bootstrap.py": "ededf55c4fb7eadee5f58b346d951732b4a8d5f7d7e33ce3e674de0c821a14c5",
+        "evidence/0005-repository-documentation/closeout-verification.json": "5546adc664ccc51f46de0fc88a963afe90973cb5b31a572e05abb6043c4330fa"
+      },
+      "artifacts": {
+        "specs/0005-repository-documentation/requirements.md": "db1a28393757fb20aae7e937f6da96022773a13612e0a0a3c30db8ad902b40e3",
+        "specs/0005-repository-documentation/design.md": "5c6ae1b9f9bca201d1b216c462f9a23c84cb54ed5dc69e13c9ee48b8d1664771"
+      },
+      "check_signature": "a073c40d0cd06bda860e02280eec12b582829b0e014c82fc06f57f44c9f61008"
+    },
+    {
+      "id": "EV-006",
+      "check": "CHK-002",
+      "result": "pass",
+      "record": "evidence/0005-repository-documentation/closeout-review.md",
+      "method": "Compared canonical and packaged README, checked six guide links and layout, parsed the relocated walkthrough, and ran two builds, full offline regressions and repository/adoption checks.",
+      "environment": "GitHub Codespaces, standard-library Python, local Mermaid 11.17.0",
+      "candidate": "8bf7ec24101a46d49226b31b622587b39b3d1695, distribution 39ce568f39b24d8fcb746748e16c5054f602db89",
+      "observed_at": "2026-11-25T02:52:46Z",
+      "recorded_at": "2026-11-25T02:52:46.719932+00:00",
+      "inputs": {
+        "evidence/0005-repository-documentation/closeout-review.md": "b617747e5da453754697dd572b8645c1de111df9bf81e4d1c03c489d5a78314c",
+        "README.md": "79e2bc30fbab6e858f40e030168556bb925ed1e2704a4dd2650f19c1707605a6",
+        "distribution/README.md.in": "271cbf3b5f64a024d6628f4b1d8b37f87038c1f20507ef56529252404d2ed913",
+        "CHANGELOG.md": "7ce928152c4a6026280430c8cba601729173330f41aaaad8b1da0d200c81434e",
+        "guide/03-first-feature.md": "af06098391e4d50e4d26220adc074814b76c869e496c306d06e8e8e578d04e48",
+        "scripts/package_template.py": "a202794d5dd314c8238df8b20132a166744decbef1b03575c1506d2b58ab2f84",
+        "scripts/check_repository.py": "7d2b05cb233b86d3fcbdd0c198ea5a76f8ded5a67db7d133ed983ac423facc5a",
+        "tests/test_distribution.py": "1ec9859905a5f801f9eab56aaff4d251d0bd7fd603009f2bd021c4c220da9c9a",
+        "evidence/0005-repository-documentation/closeout-verification.json": "5546adc664ccc51f46de0fc88a963afe90973cb5b31a572e05abb6043c4330fa"
+      },
+      "artifacts": {
+        "specs/0005-repository-documentation/requirements.md": "db1a28393757fb20aae7e937f6da96022773a13612e0a0a3c30db8ad902b40e3",
+        "specs/0005-repository-documentation/design.md": "5c6ae1b9f9bca201d1b216c462f9a23c84cb54ed5dc69e13c9ee48b8d1664771"
+      },
+      "check_signature": "8c4126f2058cbf184646fcaba0efbb353db69afc89801dbcbdf90f2e771ae8d4"
+    }
+  ],
+  "spec_format": "ears",
+  "specification_policy": {
+    "analysis": "required",
+    "properties": "required"
+  },
+  "reconciliations": [
+    {
+      "id": "SYNC-0001",
+      "observed_at": "2026-11-25T01:52:24.270995+00:00",
+      "reason": "The owner expanded REQ-004 within T-002 to teach six artifacts through one explicitly illustrative appointment retry. The shared contract and design changed; both check receipts identify the prior contract.",
+      "preview_fingerprint": "8cd8d6347671383849057a67a3a68b71f21292e011ff239ae763d750ce4d107d",
+      "from_phase": "complete",
+      "to_phase": "tasks",
+      "changed_paths": [
+        "specs/0005-repository-documentation/design.md",
+        "specs/0005-repository-documentation/requirements.md",
+        "specs/0005-repository-documentation/tasks.md"
+      ],
+      "reopened_tasks": [
+        "T-001",
+        "T-002"
+      ]
+    },
+    {
+      "id": "SYNC-0002",
+      "observed_at": "2026-11-25T02:50:25.703047+00:00",
+      "reason": "Owner selected a concise release README and the retained walkthrough moves to the first-feature guide. Reconcile shared checks for this exact candidate.",
+      "preview_fingerprint": "b05ececb631e9123fb6c98ce447df44bd8de4db13dce5855732301f15bddbb5a",
+      "from_phase": "complete",
+      "to_phase": "tasks",
+      "changed_paths": [
+        "CHANGELOG.md",
+        "README.md",
+        "distribution/README.md.in",
+        "specs/0005-repository-documentation/design.md",
+        "specs/0005-repository-documentation/requirements.md",
+        "specs/0005-repository-documentation/tasks.md",
+        "tests/test_distribution.py"
+      ],
+      "reopened_tasks": [
+        "T-001",
+        "T-002"
+      ]
+    }
+  ]
+}

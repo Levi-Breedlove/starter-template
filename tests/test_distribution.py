@@ -31,6 +31,8 @@ class DistributionTest(unittest.TestCase):
             run("git", "checkout-index", "--all", f"--prefix={app}/", cwd=tree)
             run("git", "init", "-q", cwd=app)
             self.assertFalse((app / ".codex/workflow.json").exists())
+            self.assertEqual((app / "README.md").read_bytes(),
+                             (ROOT / "distribution/README.md.in").read_bytes())
             for name in ("specs", "evidence"):
                 self.assertEqual([p.name for p in (app / name).iterdir()], [".gitkeep"])
             manifest = json.loads((app / ".aws-workflow/manifest.json").read_bytes())

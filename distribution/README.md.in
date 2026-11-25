@@ -1,42 +1,78 @@
-# AWS project starter
+# AWS Starter Template
 
-Open Codex at the root of this repository and type **`start`**. Your AWS consultant will inspect the project, ask what you want to build, and save the decisions you make together. On your next visit, `start` or `resume` picks up from the handoff.
+**From idea to verified implementation.**
 
-## First use in GitHub Codespaces
+A reusable engineering framework for building AWS applications with Codex through guided consultation, structured specifications and evidence-driven development.
 
-1. In the template repository, choose **Use this template → Create a new repository**. Leave **Include all branches** clear to copy the application skeleton. Select private visibility for private work.
-2. In your new repository, choose **Code → Codespaces** and open your development environment. Open your configured Codex client at the repository root. A supported setup has Git, Python 3.10 or newer and a Codex client with its existing permissions.
-3. Type `start`. Describe the outcome and who needs it. Codex can research public AWS guidance, record the project foundations and propose the first feature. The project is already initialized.
+## What is AWS Starter Template?
 
-The local workflow uses Python's standard library. Codespaces, Linux, macOS and WSL are supported development targets with these prerequisites. The optional native worker has separate client-state and executable requirements. Check the actual terminal before allocating a worker. [Codespaces setup](.aws-workflow/guide/07-codespaces.md) · [AWS toolkit setup](.aws-workflow/guide/02-aws-guidance-and-access.md) · [Optional AWS Emulator](.aws-workflow/guide/08-aws-emulator.md)
+AWS Starter Template helps developers turn an idea or an existing application into an organized, well-defined engineering project.
 
-## Where work lives
+Codex acts as your engineering consultant, helping you establish requirements, recommend architecture, consider security and costs, and translate decisions into actionable implementation tasks.
 
-| Location | Contents |
-| --- | --- |
-| `project/` | Product brief, system requirements, technology, repository structure, architecture and adoption assessment |
-| `specs/` | Feature and defect contracts, design, correctness properties and dependency-ordered tasks |
-| `docs/decisions/`, `docs/diagrams/` | Architecture decisions and diagrams when useful |
-| `src/`, `tests/`, `infrastructure/` | Application code, verification and infrastructure as the project requires |
-| `security/`, `costs/`, `runbooks/` | Threat and access decisions, cost controls and operating procedures |
-| `delivery/`, `evidence/` | Handoff, capability observations, release preparation and actual check results |
-| `.aws-workflow/` | Packaged instructions, guides, workflow engine and logical path mappings |
+Rather than starting with a predetermined architecture, your project takes shape through conversation.
 
-Use normal language or one of the seven conversational shortcuts. **start** begins or resumes consultation. **resume** continues eligible work. **status** reads progress. **feature** and **bugfix** start scoped changes. **review** examines actual work and evidence. **release** prepares verification, delivery and recovery. Cloud access, deployment and additional native calls require separate authority. [Project instructions](AGENTS.md) · [Current handoff](delivery/current-handoff.md)
+## Why use it?
 
-## Existing application
+- **Build with direction:** Establish what you want to build before implementing it.
+- **Stay organized:** Maintain consistent project documentation, specifications and repository conventions.
+- **Preserve context:** Save decisions and continue development across sessions.
+- **Follow AWS best practices:** Research relevant official AWS guidance throughout development.
+- **Develop securely:** Consider security, permissions, costs and reliability from the beginning.
+- **Verify your work:** Connect requirements and implementation tasks to meaningful tests and evidence.
 
-Keep the template checkout separate from the application. Preview the installation from this checkout and inspect the mapped documents and existing task and infrastructure owners. Supply the same arguments with `--apply` to install the reviewed changes. Use `--help` for explicit mappings and upgrade options.
+The framework supports both new projects and existing applications without imposing a particular technology stack.
 
-```sh
-python3 .aws-workflow/scripts/bootstrap.py --source .aws-workflow --target ../existing-app --mode brownfield
+## Getting started
+
+### Prerequisites
+
+- Git
+- Python 3.10 or newer
+- A configured Codex client
+
+### Start a new project
+
+1. Select **Use this template → Create a new repository**.
+2. Leave **Include all branches** unchecked.
+3. Open your new repository in GitHub Codespaces.
+4. Open Codex at the repository root.
+5. Enter:
+
+   ```text
+   start
+   ```
+
+Codex will inspect the project and begin your consultation. Describe what you want to build, and work through the recommendations together.
+
+Your requirements, architecture, decisions and tasks will be recorded directly in your repository.
+
+Use `resume` to continue your work or `status` to review progress.
+
+## Project organization
+
+```text
+project/          Project foundations and architecture
+specs/            Requirements, designs and tasks
+src/              Application source code
+tests/            Application tests
+infrastructure/   Infrastructure as code
+security/         Security requirements and assessments
+costs/            Cost planning
+docs/             Decisions and diagrams
+runbooks/         Operational procedures
+delivery/         Delivery and continuation records
+evidence/         Verification results
+.aws-workflow/    Reusable engineering framework
 ```
 
-The setup check can run before the first specification exists. The second command checks local documentation links and required files.
+## Learn more
 
-```sh
-python3 .aws-workflow/scripts/workflow.py --root . doctor
-python3 .aws-workflow/scripts/check_repository.py --root .
-```
+- [Getting started](.aws-workflow/guide/00-quickstart.md)
+- [AWS Agent Toolkit setup](.aws-workflow/guide/02-aws-guidance-and-access.md)
+- [Developing your first feature](.aws-workflow/guide/03-first-feature.md)
+- [Adopting an existing application](.aws-workflow/guide/05-brownfield-adoption.md)
+- [Repository conventions](project/structure.md)
+- [Optional AWS Emulator](.aws-workflow/guide/08-aws-emulator.md)
 
-The local checks cover this checkout. Verify the application under its actual test and delivery controls. Public AWS documentation and compatible emulation can support development without a cloud account. Account-specific IAM, network behavior, quotas and deployment need separately authorized verification. [Updates and compatibility](CHANGELOG.md) · [Contributing](CONTRIBUTING.md) · [Security reporting](SECURITY.md)
+AWS account access and deployment require separate authorization. Local consultation and development can begin without AWS credentials.

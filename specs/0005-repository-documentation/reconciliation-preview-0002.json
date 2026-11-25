@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "work_id": "0005-repository-documentation",
+  "route": "quick",
+  "phase": "complete",
+  "target_phase": "tasks",
+  "changed_paths": [
+    "CHANGELOG.md",
+    "README.md",
+    "distribution/README.md.in",
+    "specs/0005-repository-documentation/design.md",
+    "specs/0005-repository-documentation/requirements.md",
+    "specs/0005-repository-documentation/tasks.md",
+    "tests/test_distribution.py"
+  ],
+  "explicit_changed_paths": [],
+  "affected_artifacts": [
+    "design",
+    "requirements",
+    "tasks"
+  ],
+  "affected_reviews": [
+    "tasks"
+  ],
+  "affected_checks": [
+    "CHK-001",
+    "CHK-002"
+  ],
+  "affected_tasks": [
+    "T-001",
+    "T-002"
+  ],
+  "reopen_tasks": [
+    "T-001",
+    "T-002"
+  ],
+  "changed_decision_context": [],
+  "operation_refreshes": [
+    "analyze",
+    "properties"
+  ],
+  "input_hashes": {
+    "CHANGELOG.md": "7ce928152c4a6026280430c8cba601729173330f41aaaad8b1da0d200c81434e",
+    "README.md": "79e2bc30fbab6e858f40e030168556bb925ed1e2704a4dd2650f19c1707605a6",
+    "distribution/README.md.in": "271cbf3b5f64a024d6628f4b1d8b37f87038c1f20507ef56529252404d2ed913",
+    "evidence/0005-repository-documentation/plan-review-revised.md": "baf21456ec33bbdd2880c1383fcafb7381b02267f35bcd0bdff03e58cdfdcfa5",
+    "evidence/0005-repository-documentation/walkthrough-review.md": "053479cbc36df27e48dff8c2d06054826e7c01fbf39fab1d59a6dd101f16311c",
+    "evidence/0005-repository-documentation/walkthrough-verification.json": "49a8de1226cc552ecb4be5609d9a53ca725a37c4ca463fced8161ec4edcf0f45",
+    "scripts/bootstrap.py": "9bd215fe418e4e975d20b7e6a84ef080095d504cb7f07ac0aed82466ca2e959b",
+    "scripts/check_repository.py": "7d2b05cb233b86d3fcbdd0c198ea5a76f8ded5a67db7d133ed983ac423facc5a",
+    "scripts/package_template.py": "a202794d5dd314c8238df8b20132a166744decbef1b03575c1506d2b58ab2f84",
+    "specs/0005-repository-documentation/analysis.json": "ddf66feec7fe4be944746cf784fe87fa9bdb9026c706e898d66de46591e368ed",
+    "specs/0005-repository-documentation/analyze-response-revised.json": "7ffcb5a94448f27c0d525243b55d7902a2cff84abdf22e6d3eb945787e11d153",
+    "specs/0005-repository-documentation/design.md": "5c6ae1b9f9bca201d1b216c462f9a23c84cb54ed5dc69e13c9ee48b8d1664771",
+    "specs/0005-repository-documentation/properties-response-revised.json": "01b2baa90f10d7199f5dbcd7de62eb9733d7a7309cb27ba229d5d24318fa7e18",
+    "specs/0005-repository-documentation/properties.json": "200692f8349120a248b13f1d4f07e9ece448e345a36a3d21b39f40891c9f29de",
+    "specs/0005-repository-documentation/requirements.md": "db1a28393757fb20aae7e937f6da96022773a13612e0a0a3c30db8ad902b40e3",
+    "specs/0005-repository-documentation/tasks.md": "ccc79d1f525f39426acb6f37540cc9735759f59c19073ed15feeb3657897ca00",
+    "specs/0005-repository-documentation/work.json": "3c5829ba46ee8108e5dd44971808c76863ff2aad5d7cb9ac2ca01881793beeec",
+    "tests/test_bootstrap.py": "ededf55c4fb7eadee5f58b346d951732b4a8d5f7d7e33ce3e674de0c821a14c5",
+    "tests/test_distribution.py": "1ec9859905a5f801f9eab56aaff4d251d0bd7fd603009f2bd021c4c220da9c9a"
+  },
+  "fingerprint": "b05ececb631e9123fb6c98ce447df44bd8de4db13dce5855732301f15bddbb5a",
+  "writes": false,
+  "instructions": [
+    "Read changed inputs and actual decisions; preserve unrelated user edits and accepted architecture. Resolve semantic impact before regenerating dependent prose.",
+    "Update requirements then design for requirements-first, design then derived requirements for design-first, or the connected set for quick work. Preserve stable IDs and required behavior.",
+    "Regenerate only affected task/check definitions and verification plans. Existing code is not proof that the changed contract is satisfied. Historical reviews/results remain historical.",
+    "Applying this preview only reopens listed completion and rewinds the phase; it does not rewrite a contract, approve changes, run a test or grant authority. Review and reverify affected outcomes afterward."
+  ]
+}
