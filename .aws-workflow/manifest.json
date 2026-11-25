@@ -54,7 +54,7 @@
     ".aws-workflow/runbooks/rollback.md": "0cf46a0479fb8d1fd8539ccdd6f63fe1f0502b8caa0f9dc225ab0f4d96d2e901",
     ".aws-workflow/runbooks/teardown.md": "7960e5d412a83e3b99f404a5cb95089afe60f7e32c6f707cd1e38629c09c1f6b",
     ".aws-workflow/scripts/README.md": "577ad2b5f3882db0363ccbaa75ff72d6f17b5ab4d8d6fa6f027b47d300dd159c",
-    ".aws-workflow/scripts/bootstrap.py": "b1eed521219ad20121daac4ea5fad5291e9fc4df9d1445f41d65e0eacd1c0b0f",
+    ".aws-workflow/scripts/bootstrap.py": "9bd215fe418e4e975d20b7e6a84ef080095d504cb7f07ac0aed82466ca2e959b",
     ".aws-workflow/scripts/check_repository.py": "7d2b05cb233b86d3fcbdd0c198ea5a76f8ded5a67db7d133ed983ac423facc5a",
     ".aws-workflow/scripts/codex_hooks.py": "bc96f97051d4f0a7a3f38b6a578114b831a2379637860a92d73c802a570e2841",
     ".aws-workflow/scripts/workflow.py": "16a4d16b862c21858588103c8057e42d267aafa93410ae0f53eeb17a62f3e378",
@@ -108,5 +108,5 @@
   "project_name": "AWS project",
   "runtime_ignore_block_sha256": "a80b768ad9526713926357da48c40fb20d23ebe3aa4c90ae639332d00edca5ca",
   "schema_version": 2,
-  "source_digest": "f0f7a57f25666063b37fd45323390f9d3dd77cd22e5816259f0d7775f972eb48"
+  "source_digest": "dc7841ae29b3c7b26f344f71a2d173348d2391555904a1e5955a0cbef949c4ef"
 }

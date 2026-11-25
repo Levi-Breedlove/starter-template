@@ -1,5 +1,10 @@
 # Release and upgrade notes
 
+## 1.0.1
+
+- Expand the developer README with Codespaces onboarding, the packaged layout, the engineering lifecycle, and a worked traceability example.
+- Seed reusable naming and ownership conventions in new project structure records. Existing applications retain their own structure documents and mappings during adoption and upgrade.
+
 ## 1.0.0
 
 A version tag identifies an accepted distribution build. This series introduces a preinitialized GitHub template, five project foundations, seven conversational entry points, an executable specification workflow, on-demand official AWS guidance and optional operation-scoped local emulation. The ongoing project's requirements, data and deployment decisions belong to its developer.
