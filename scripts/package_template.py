@@ -33,6 +33,9 @@ def build_distribution(source: Path, output: Path) -> None:
             target.parent.mkdir(exist_ok=True)
             shutil.copyfile(source / name, target)
         shutil.copyfile(source / "distribution/README.md.in", stage / "README.md")
+        # README product visuals are documentation, not managed application state.
+        for name in ("starter-overview.svg", "starter-consultation.svg"):
+            shutil.copyfile(source / "distribution" / name, stage / "docs/diagrams" / name)
         stage.rename(output)
 
 

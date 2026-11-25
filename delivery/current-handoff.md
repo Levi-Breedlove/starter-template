@@ -1,6 +1,10 @@
 # Current handoff
 
-**Review candidate** 0005-repository-documentation
+**Visual review candidate** 0005-repository-documentation
+
+The earlier documentation candidate passed offline checks. The product presentation revision changes the canonical README, SVG packaging and existing distribution test, so its earlier evidence must be reconciled against the new candidate. See [presentation review and pending verification](../evidence/0005-repository-documentation/presentation-review.md). Next: visual review, affected verification, then the release decision. Do not promote or tag from earlier receipts.
+
+## Earlier documentation candidate
 
 The two v1.0.1 documentation tasks are verified. Open the work by its explicit ID. The developer README now follows one appointment-booking retry from its requirement to illustrative evidence. The revised local application commit is `eb9e4ba5cc09038fc175bfec4653a1cfcc55c201` and its reproducible tree is `34a1aaeff6fbbcd42738037f99168bd3fd0205ec`. All 207 regressions and seven adoption scenarios passed. [Revised candidate review](../evidence/0005-repository-documentation/walkthrough-review.md) · [Task ledger](../specs/0005-repository-documentation/tasks.md)
 
