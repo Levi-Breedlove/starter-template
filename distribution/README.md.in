@@ -49,22 +49,51 @@ Your requirements, architecture, decisions and tasks will be recorded directly i
 
 Use `resume` to continue your work or `status` to review progress.
 
-## Project organization
+## Project structure
 
-```text
-project/          Project foundations and architecture
-specs/            Requirements, designs and tasks
-src/              Application source code
-tests/            Application tests
-infrastructure/   Infrastructure as code
-security/         Security requirements and assessments
-costs/            Cost planning
-docs/             Decisions and diagrams
-runbooks/         Operational procedures
-delivery/         Delivery and continuation records
-evidence/         Verification results
-.aws-workflow/    Reusable engineering framework
+```yaml
+.
+├── .aws-workflow/                    # Reusable engineering framework
+├── costs/                            # Cost estimates and budgets
+├── delivery/
+│   ├── current-handoff.md            # Progress and next steps
+│   └── environment-capabilities.md   # Environment and tooling
+├── docs/
+│   ├── decisions/                    # Architecture decision records
+│   └── diagrams/                     # Technical diagrams
+├── evidence/
+│   └── 0001-booking-retries/         # Example verification evidence
+│       └── same-key-retry.md
+├── infrastructure/                   # Infrastructure as code
+├── project/
+│   ├── adoption-report.md            # Existing project assessment
+│   ├── architecture.md               # System architecture
+│   ├── brief.md                      # Product vision and scope
+│   ├── requirements.md               # System-wide requirements
+│   ├── structure.md                  # Repository conventions
+│   └── tech.md                       # Technology standards
+├── runbooks/                         # Operational procedures
+├── security/                         # Security planning and controls
+├── specs/
+│   └── 0001-booking-retries/         # Example feature specification
+│       ├── requirements.md           # Expected behavior
+│       ├── design.md                 # Technical solution
+│       ├── tasks.md                  # Implementation checklist
+│       ├── analysis.json             # Requirements analysis
+│       ├── properties.json           # Correctness properties
+│       ├── work.json                 # Context and traceability
+│       └── execution.json            # Optional execution policy
+├── src/                              # Application source code
+├── tests/                            # Application tests
+├── AGENTS.md                         # Agent instructions
+└── README.md                         # Project introduction
 ```
+
+Project foundations define the application. Specifications organize implementation, while tests and evidence establish whether requirements are satisfied.
+
+The booking specification and evidence are illustrative examples of how the repository grows during development. New projects begin with empty specification and evidence directories.
+
+[Repository conventions](project/structure.md) · [First-feature guide](.aws-workflow/guide/03-first-feature.md)
 
 ## Learn more
 
