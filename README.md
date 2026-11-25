@@ -23,12 +23,12 @@ AWS Starter Template gives you an organized repository and a repeatable engineer
 
 You do not need to arrive with a complete specification. Begin with `start` and describe what you want to build. Codex asks one to three material questions at a time, informed by your answers and existing project context.
 
-![Codex consultation panel: start, the observed first-use response, and the first product question.](docs/diagrams/starter-consultation.svg)
+![Selected excerpts from the first Codex conversation: a welcome, a local setup summary, and a question about what you want to build.](docs/diagrams/starter-consultation.svg)
 
-*Transcript visualization, not a captured screenshot. This final response was observed in the v1.0.0 first-use smoke: one completed turn, 87 seconds, zero retries. Future wording and timing vary.*
+*Transcript illustration using the actual v1.0.0 greeting and first question, with the intervening setup summarized. Not a screenshot; actual responses vary.*
 
 <details>
-<summary>Read the observed response as text</summary>
+<summary>Read the complete observed greeting and final response</summary>
 
 **Developer (in Codex):**
 
@@ -36,7 +36,11 @@ You do not need to arrive with a complete specification. Begin with `start` and 
 start
 ```
 
-**Codex:**
+**Codex — initial greeting:**
+
+> Hi, I’m here to help you shape the project and work through its AWS decisions. I’ll check the saved context and repository first so we can build on what’s already in place.
+
+**Codex — final response after local inspection:**
 
 > Welcome. The local setup check passed, and the repository is ready for a new AWS project. I saved the starting point in the [project brief](project/brief.md) and [handoff](delivery/current-handoff.md).
 >
@@ -47,6 +51,8 @@ start
 [Observed first-use receipt](https://github.com/Levi-Breedlove/starter-template/blob/9f7b949d55dea856b15712d5af47733719eecee1/evidence/0004-developer-workflow/native-first-use.json)
 
 </details>
+
+**What happens next?** Answer in your own words. For example, you might say, “I'd like to build an appointment booking app for a small clinic.” A useful follow-up could be whether patients receive an immediate confirmation or need clinic approval. That is an illustrative continuation, not part of the recorded smoke test.
 
 Your answers shape the scope. Codex investigates technical options, explains tradeoffs and saves settled decisions. On return, use `start` or `resume` to continue from the recorded context.
 
