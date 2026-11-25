@@ -59,3 +59,33 @@ The native pilot uses two disposable projects with fixed goals and rubrics, one 
 ## Checkpoints and recovery
 
 After each independent scope, record API behavior and actual tests. Keep a current handoff and immutable local receipt. If an execution outcome is unknown, inspect retained state; do not replay it blindly. If the remote branch moves, reconcile against the new head instead of forcing publication. Leave every unperformed acceptance item visibly open.
+
+## Initial release for starter-template
+
+The readiness candidate is tracked in the existing `codespaces-readiness`
+pull request. Keep this plan and [the task ledger](tasks.md) as the delivery
+authority. Native observations identify the pinned source and client. Any
+later change to reusable instructions or files needs matching offline
+verification and a decision about the scope of prior native observations.
+
+1. Complete the frozen pilot within its recorded authority. Review all
+   outcomes and keep T-008 open while a required observation is unresolved.
+2. Verify the existing official AWS toolkit and optional AWS Emulator guidance
+   with public sources. Record actual installed/runtime capability separately
+   from the guidance and its offline checks.
+3. Inspect the default-branch snapshot GitHub would copy. Produce and verify
+   a clean, initialized local candidate with the existing bootstrap. Keep
+   maintenance records and native receipts in their original history. Review
+   the distribution choice before changing the repository default branch or
+   creating another remote repository.
+4. Verify the exact candidate with clean greenfield initialization, additive
+   brownfield adoption, installed workflow scenarios, the complete regression
+   suite and repository checks. Reconcile the affected checks and handoff.
+5. Update the existing pull request against its expected head. Release and
+   freeze v1.0.0 after the required native observations, distribution,
+   exact-candidate proof, and applicable GitHub reviews are accepted.
+
+
+For packaging, generate one editable project brief plus project requirements, technology, structure, and system architecture. Preserve mapped brownfield sources and earlier installs. Each feature or defect links to the applicable foundations. Test source-bound reconciliation, accurate first-use and continuation, and the seven conversational shortcuts on the distributed tree.
+
+Keep the development history on `main` and generate a clean `template` branch in this private repository. The final native observation uses one literal `start` against the exact distributed tree, a 360-second cap and zero retries. Obtain its separate authorization before launch. The operator verifies both adoption modes, the exact Git tree, the default branch, the release tag and review controls. [Distribution procedure](../../docs/distribution.md)

@@ -104,8 +104,10 @@ class PackageIntegrationTests(unittest.TestCase):
                 packet = json.loads(context)
                 if event == "SessionStart":
                     startup_fingerprint = packet["fingerprint"]
-                    self.assertIn(".aws-workflow/project/brief.md", context)
-                    self.assertIn(".aws-workflow/delivery/current-handoff.md", context)
+                    paths = json.loads((target / ".aws-workflow/manifest.json").read_text())["paths"]
+                    selected = {source["path"] for source in packet["sources"]}
+                    self.assertIn(paths["brief"], selected)
+                    self.assertIn(paths["handoff"], selected)
                     self.assertLessEqual(len(context), 6000)
                 else:
                     self.assertEqual(packet["fingerprint"], startup_fingerprint)

@@ -14,6 +14,7 @@ import re
 import tempfile
 from datetime import datetime, timezone
 from pathlib import Path, PurePosixPath
+from urllib.parse import quote
 
 SCHEMA_VERSION = 1
 WORK_ID = re.compile(r"[a-z0-9][a-z0-9-]{0,79}\Z")
@@ -33,6 +34,8 @@ CONTEXT_DEFAULTS = {
     "adoption_report": "project/adoption-report.md",
     "environment_capabilities": "delivery/environment-capabilities.md",
 }
+MANIFEST = ".aws-workflow/manifest.json"
+FOUNDATION_KEYS = ("requirements", "tech", "structure", "architecture")
 FACT_KINDS = {"supplied", "observed", "derived", "assumption", "proposed", "conflicting"}
 PHASES = set().union(*map(set, ROUTES.values()))
 HASH = re.compile(r"[0-9a-f]{64}\Z")
@@ -569,6 +572,22 @@ def _inspect(root: Path, work: Path, work_id: str, data: dict) -> dict:
             "reviews": reviews, "tasks": list(tasks.values()), "checks": list(checks.values()), "evidence": evidence,
             "dependency_ready_tasks": dependency_ready, "eligible_tasks": [], "issues": issues,
             "consultant_instructions": CONSULTANT_INSTRUCTIONS}
+    if MANIFEST in context_files:
+        try:
+            manifest = _read_json(safe_path(root, MANIFEST))
+            if "requirements" in context_record_keys(manifest):
+                # The brief and handoff are read to resume every work item. An actual
+                # decision drawn from either binds through its fact/question source.
+                mapped = manifest["paths"]
+                selected = {}
+                for key in FOUNDATION_KEYS:
+                    relative = mapped.get(key)
+                    if relative in context_files:
+                        source = safe_path(root, relative)
+                        selected[relative] = digest_file(source) if source.is_file() else None
+                report["foundation_sources"] = selected
+        except (WorkflowError, OSError) as exc:
+            issue("error", "manifest", str(exc), MANIFEST)
     policy = data.get("specification_policy", {})
     if not isinstance(policy, dict) or set(policy) - {"analysis", "properties"} or any(value not in ("required", "optional") for value in policy.values()):
         issue("error", "schema", "Specification policy supports analysis/properties with required or optional values.")
@@ -612,25 +631,32 @@ def _load_mutable(root, work_id):
     return root, work, selected_id, data
 
 
-def _initial_context(root: Path) -> list[str]:
-    """Retain actual adopted context paths without interpreting their content."""
-    manifest_relative = ".aws-workflow/manifest.json"
-    manifest_path = safe_path(root, manifest_relative)
+def context_record_keys(manifest):
+    if (not isinstance(manifest, dict) or manifest.get("identity") != "codex-aws-workflow"
+            or type(manifest.get("schema_version")) is not int or manifest["schema_version"] not in (1, 2)
+            or not isinstance(manifest.get("paths"), dict)):
+        raise WorkflowError("The adoption manifest must identify a supported codex-aws-workflow path map.")
+    return (*CONTEXT_DEFAULTS, *FOUNDATION_KEYS) if manifest["schema_version"] == 2 else tuple(CONTEXT_DEFAULTS)
+
+
+def _initial_context(root: Path) -> tuple[list[str], dict[str, str]]:
+    """Keep established records on schema 1 and select a small initial context on schema 2."""
+    manifest_path = safe_path(root, MANIFEST)
     if not manifest_path.exists():
-        return [relative for relative in CONTEXT_DEFAULTS.values() if safe_path(root, relative).is_file()]
+        return [p for p in CONTEXT_DEFAULTS.values() if safe_path(root, p).is_file()], {}
     manifest = _read_json(manifest_path)
-    if not isinstance(manifest, dict) or type(manifest.get("schema_version")) is not int or manifest.get("schema_version") != 1 or manifest.get("identity") != "codex-aws-workflow" or not isinstance(manifest.get("paths"), dict):
-        raise WorkflowError("The adoption manifest must identify the codex-aws-workflow schema-1 path map.")
-    context = [manifest_relative]
-    for key in CONTEXT_DEFAULTS:
-        relative = manifest["paths"].get(key)
-        if not isinstance(relative, str):
-            raise WorkflowError(f"The adoption manifest needs a project-relative {key} path.")
-        if not safe_path(root, relative).is_file():
-            raise WorkflowError(f"The mapped {key} is missing or not a regular file: {relative}")
-        if relative not in context:
-            context.append(relative)
-    return context
+    keys = context_record_keys(manifest)
+    mapped = manifest["paths"]
+    for key in keys:
+        relative = mapped.get(key)
+        if not isinstance(relative, str) or not safe_path(root, relative).is_file():
+            raise WorkflowError(f"The mapped {key} is missing or not a regular file: {relative!r}")
+    if manifest["schema_version"] == 1:
+        return list(dict.fromkeys([MANIFEST, *(mapped[key] for key in keys)])), {}
+    if len({safe_path(root, mapped[key]) for key in keys}) != len(keys):
+        raise WorkflowError("Each mapped project record needs its own path.")
+    initial = [MANIFEST, mapped["brief"], mapped["handoff"], mapped["requirements"]]
+    return initial, {key: mapped[key] for key in ("brief", "requirements")}
 
 
 def _assert_clean(report, ignore=()):
@@ -718,10 +744,11 @@ def new_work(root, work_id, title, mode="greenfield", route="requirements-first"
             parent = parent.parent
     if work.exists():
         raise WorkflowError("The work directory already exists; new never overwrites it.")
+    context, foundations = _initial_context(root)
     requirements_name = "bugfix.md" if route == "bugfix" else "requirements.md"
     data = {"schema_version": SCHEMA_VERSION, "id": work_id, "title": title, "mode": mode, "route": route, "phase": "consultation",
             "artifacts": {"requirements": requirements_name, "design": "design.md", "tasks": "tasks.md"},
-            "context_files": _initial_context(root),
+            "context_files": context,
             "facts": [{"id": "F-001", "kind": "supplied", "statement": idea, "source": "User-provided initialization (--idea)."}] if idea else [],
             "questions": [], "reviews": [], "evidence": []}
     if spec_format is not None:
@@ -730,6 +757,12 @@ def new_work(root, work_id, title, mode="greenfield", route="requirements-first"
         data["specification_policy"] = specification_policy
     heading = "Bugfix analysis" if route == "bugfix" else "Requirements"
     draft = f"# {heading}: {work_id} — {title}\n\n**State:** Consultation; no review recorded.\n\n## Supplied goal\n\n{idea or 'No goal captured yet. Read the user request and existing project context.'}\n\n## Consultation notes\n\nCapture supplied facts, preserved constraints, and consequential unknowns before drafting the behavioral contract. Do not treat this scaffold as approved requirements.\n"
+    if foundations:
+        brief = quote(os.path.relpath(root / foundations["brief"], work), safe="/")
+        requirements = quote(os.path.relpath(root / foundations["requirements"], work), safe="/")
+        draft += (f"\n## Project foundations\n\n[Product brief]({brief}) · [Project requirements]({requirements})\n\n"
+                  "Describe the behavior and acceptance criteria specific to this work. Link any other applicable "
+                  "foundation in the design or contract and add its mapped path to the work's context_files.\n")
     work.parent.mkdir(parents=True, exist_ok=True)
     with tempfile.TemporaryDirectory(prefix=".workflow-new-", dir=work.parent) as temporary:
         staged = Path(temporary) / "work"

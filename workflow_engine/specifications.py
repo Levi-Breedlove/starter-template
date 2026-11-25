@@ -185,7 +185,14 @@ def _inputs(root, report, data, operation):
             continue
         if path.is_file() and relative not in paths and not relative.endswith("/work.json"):
             paths.append(relative)
-    return {relative: digest_file(safe_path(root, relative)) for relative in sorted(paths)}
+    hashes = dict(report.get("foundation_sources", {}))
+    for relative, identity in hashes.items():
+        if identity is None:
+            raise WorkflowError(f"Selected project foundation is missing: {relative}")
+    for relative in paths:
+        if relative not in hashes:
+            hashes[relative] = digest_file(safe_path(root, relative))
+    return dict(sorted(hashes.items()))
 
 
 def _schema(request, ids):
@@ -494,7 +501,17 @@ def plan_reconciliation(root, work_id=None, changed_paths=()):
             if response.get("context_fingerprint") != digest_value(_context(data)):
                 changed_context.append(operation)
                 operation_refreshes.add(operation)
-            for relative, expected in response.get("input_hashes", {}).items():
+            previous_inputs = response.get("input_hashes", {})
+            if report.get("specification", {}).get("operations", {}).get(operation, {}).get("status") == "stale":
+                # Selection can change even when all formerly selected files have
+                # the same bytes. Bind additions/removals to the sync preview too.
+                current_inputs = _inputs(root, report, data, operation)
+                selection_changes = previous_inputs.keys() ^ current_inputs.keys()
+                if selection_changes:
+                    watched.update(selection_changes)
+                    changed.update(selection_changes)
+                    operation_refreshes.add(operation)
+            for relative, expected in previous_inputs.items():
                 watched.add(relative)
                 path = safe_path(root, relative)
                 if not path.is_file() or digest_file(path) != expected:

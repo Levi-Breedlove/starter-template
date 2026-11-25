@@ -8,9 +8,9 @@ A scenario passes only when its required outcomes and applicable checks are esta
 
 Compare efficiency only among runs meeting those gates. Lower time, usage or document volume cannot compensate for a correctness or authority failure. This follows OpenAI's guidance to use task-specific evaluations and calibrate automated metrics with human judgment. [Evaluation guidance](https://developers.openai.com/api/docs/guides/evaluation-best-practices)
 
-## Use two frozen pilots
+## Select representative scenarios
 
-The [native pilot plan](native-pilot-plan.md) supplies concrete disposable inputs, prompts, invocation limits, checkpoints and acceptance rubrics. It is a prepared proposal, not an observation. Its current execution status is recorded in the developer-workflow task ledger; only actual approved results can close that boundary.
+For a workflow evaluation, pin the fixture, input decisions, acceptance criteria, allowed operations and available time in advance. Choose scenarios relevant to the project. Preserve all attempts.
 
 | Pilot | Fixed inputs and useful variants | What to assess |
 | --- | --- | --- |
@@ -35,10 +35,8 @@ Report each measure alongside quality findings. Avoid a combined score that hide
 
 ## Separate implementation proof from behavioral proof
 
-The compact-context implementation provides `context --compact`, a startup packet of at most 6,000 serialized characters and a prompt-refresh packet of at most 1,200. Its work receipt records fixture evidence for those bounds, meaningful selection, visible omissions and freshness handling. A matching report fingerprint can support context reuse; it does not establish unchanged external state or authenticate source claims. See [efficient operation](../docs/reference/efficient-operation.md).
-
-Run `python3 evaluations/context_payloads.py` for the frozen renderer fixtures. To compare a prior revision, supply `--baseline-dir` with inspected, trusted prior `codex_hooks.py` and `workflow.py` scripts; the utility imports their definitions and records their hashes. It performs no fetching or model invocation. Use the same fixture hashes when comparing results, and report startup increases as well as refresh reductions.
+The compact-context interface publishes a bounded startup summary and prompt refresh. Record the observed size, work selection, deferred details and freshness when evaluating it. Compare runs on the same source, client and fixture. [Efficient operation](../docs/reference/efficient-operation.md)
 
 Actual hook trust/loading, public official-toolkit availability and authorized cloud delivery retain separate checks. An AWS trial must observe the chosen candidate, target, service behavior and applicable recovery within its actual scope. This protocol does not authorize paid/model runs, native-client activation, account access, deployment or background evaluation; those actions use their own explicit task authority and limits.
 
-The foreground task controller already has real local Git/process fixture coverage with fake authors, including preservation and uncertain outcomes. A real selected-client run must separately show that the native backend can deliver and apply a valid candidate under the fixed limits. A successful native pilot still does not establish loaded hooks, working AWS accounts or universal comparative superiority.
+For a native controller observation, identify the applied base, actual client, candidate diff and test receipts. Verify the original application stayed intact through review and record the actual apply result. A later project release needs its own evidence against its selected delivery environment.

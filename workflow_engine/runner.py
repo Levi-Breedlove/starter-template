@@ -17,6 +17,7 @@ import json
 import os
 from pathlib import Path, PurePosixPath
 import re
+import shutil
 import signal
 import subprocess
 import tempfile
@@ -578,12 +579,23 @@ def execute_run(root, work_id=None, task_id=None, *, execute=False, backend=None
         return plan
     if not plan["ready"]:
         raise WorkflowError("Execution is blocked: " + "; ".join(plan["blockers"] or ["No unfinished selected task."]))
+    # The default native backend must pass the read-only prerequisite check
+    # before creating a run record or dispatching a model. Injected test backends
+    # are not native launches through the public CLI.
+    if backend is None:
+        from .native_preflight import inspect_native
+        startup = inspect_native()
+        if startup["status"] != "no-known-blocker":
+            raise WorkflowError("Native startup preflight blocked: " + "; ".join(startup["blockers"]))
+        executable = shutil.which("codex")
+        if executable is None:
+            raise WorkflowError("The selected Codex executable is unavailable before run reservation.")
+        backend = CodexBackend(str(Path(executable).absolute()))
     run_id = run_id or datetime.now(timezone.utc).strftime("run-%Y%m%d-%H%M%S-") + uuid.uuid4().hex[:8]
     directory = _run_dir(root, run_id)
     if directory.exists():
         raise WorkflowError("Run ID already exists; inspect it instead of resetting attempts or replaying work.")
     config = _json(safe_path(root, plan["configuration"]))
-    backend = backend or CodexBackend()
     started = time.monotonic()
     record = {**plan, "mode": "execution", "run_id": run_id, "status": "running", "owner": _owner(),
               "started_at": _now(), "attempts_started": 0, "completed_tasks": [], "events": [],

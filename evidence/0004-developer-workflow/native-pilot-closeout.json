@@ -1,0 +1,208 @@
+{
+  "stage": "G4",
+  "allocation": "fourth separately authorized replacement, launch 12",
+  "framework": "64875eeeb24e615a2fa92d5b9c02503fab7a01be",
+  "baseline": "dc9d26da24ef6e447505b74e43775995e80c5595",
+  "start_utc": "2026-11-24T23:06:48Z",
+  "stop_utc": "2026-11-24T23:19:45Z",
+  "elapsed_seconds": 777.0,
+  "exit_code": 0,
+  "checks": {
+    "native_exit_zero": true,
+    "one_completed_turn": true,
+    "well_formed_events": true,
+    "final_matches_schema": true,
+    "reported_G4_implemented": true,
+    "handoff_changed": true,
+    "g3_head_retained": true,
+    "exact_source_surface": true,
+    "managed_files_current": true,
+    "old_evidence_retained": true,
+    "prior_ledger_evidence_retained": true,
+    "prior_phase_reviews_retained": true,
+    "unchanged_answers": true,
+    "unchanged_staged_decision": true,
+    "unchanged_capacity": true,
+    "operator_probes_ok": true,
+    "operator_tests_ok": true,
+    "validator_ok": true,
+    "two_valid_tasks": true,
+    "two_current_checks": true
+  },
+  "phase": "complete",
+  "events": {
+    "thread.started": 1,
+    "turn.started": 1,
+    "item.completed": 77,
+    "item.started": 71,
+    "turn.completed": 1
+  },
+  "observed_usage": {
+    "input_tokens": 4021680,
+    "cached_input_tokens": 3877632,
+    "cache_write_input_tokens": 0,
+    "output_tokens": 35546,
+    "reasoning_output_tokens": 12752
+  },
+  "reported_status": "implemented",
+  "reported_blockers": [],
+  "historical_receipts": {
+    "evidence/0100-booking/analysis-response.json": "identical",
+    "evidence/0100-booking/analysis-review.md": "identical",
+    "evidence/0100-booking/chk-001.md": "identical",
+    "evidence/0100-booking/g2-run-plan.json": "identical",
+    "evidence/0100-booking/phase-reviews.md": "identical",
+    "evidence/0100-booking/properties-response.json": "identical",
+    "evidence/0100-booking/properties-review.md": "identical",
+    "evidence/0100-booking/runs/pilot-g3-replacement-1/wave-1/T-001-CHK-001.json": "identical",
+    "evidence/0100-booking/runs/pilot-g3-replacement-1/wave-1/T-002-CHK-002.json": "identical"
+  },
+  "managed_file_count": 74,
+  "managed_mismatches": [],
+  "reconciliations": [
+    {
+      "fingerprint": "e834fa74441befe46c9de19920a3c754950bf2b93b7ea5c1c857fef6d8dbaf93",
+      "reopened_tasks": [],
+      "saved_matching_preview": [
+        "evidence/0100-booking/g4/sync-decision-preview.json"
+      ]
+    },
+    {
+      "fingerprint": "80ac26be44b940f13f33c207550f8f8b8b7f048669c37ca64e659c1496ff3d54",
+      "reopened_tasks": [
+        "T-001",
+        "T-002"
+      ],
+      "saved_matching_preview": [
+        "evidence/0100-booking/g4/sync-contract-preview.json"
+      ]
+    }
+  ],
+  "changed_paths": [
+    ".aws-workflow/delivery/current-handoff.md",
+    ".aws-workflow/project/brief.md",
+    "evidence/0100-booking/g4/analysis-response.json",
+    "evidence/0100-booking/g4/analysis-review.md",
+    "evidence/0100-booking/g4/booking-regression.json",
+    "evidence/0100-booking/g4/chk-001.json",
+    "evidence/0100-booking/g4/chk-002.json",
+    "evidence/0100-booking/g4/phase-reviews.md",
+    "evidence/0100-booking/g4/properties-response.json",
+    "evidence/0100-booking/g4/properties-review.md",
+    "evidence/0100-booking/g4/reconciliation.md",
+    "evidence/0100-booking/g4/sync-contract-preview.json",
+    "evidence/0100-booking/g4/sync-decision-preview.json",
+    "evidence/0100-booking/g4/task-acceptance.md",
+    "evidence/0100-booking/g4/workflow-validation.json",
+    "pilot/change.md",
+    "specs/0100-booking/analysis.json",
+    "specs/0100-booking/design.md",
+    "specs/0100-booking/properties.json",
+    "specs/0100-booking/requirements.md",
+    "specs/0100-booking/tasks.md",
+    "specs/0100-booking/work.json",
+    "src/booking.py",
+    "tests/test_booking.py"
+  ],
+  "final_handoff": ".aws-workflow/delivery/current-handoff.md",
+  "final_handoff_sha256": "6dd2cc850c784647fbc4df12ff67078f61133a566dfe9a1c5bd1781c613017a3",
+  "suite_tail": [
+    "----------------------------------------------------------------------",
+    "Ran 16 tests in 0.033s",
+    "",
+    "OK"
+  ],
+  "checks_run": {
+    "capacity": 4,
+    "booking": 12,
+    "integrated": 16
+  },
+  "authorization": "One full G4 from the reviewed G3 candidate. Same prompt, control, decision and 900-second limit.",
+  "accounting": {
+    "original": 8,
+    "separately_authorized_replacements": 4,
+    "total_launches": 12,
+    "automatic_retries": 0,
+    "cost": null
+  },
+  "checksums": {
+    "G3.probes.json": "db6c0a81978bafcf76814f8eed15c3fbe79e4f77ef1cdd3061791735734932f2",
+    "G3.validate.json": "b2d79300fbda4a8a4933c593a5c0a2a0c4ebef6aa8ab3c1bac6fc3b28dcef8bb",
+    "G4.events.jsonl": "03f08fa0435d70e7f68633ee4dfe9eb624a32de30065f8016b0d766dd70e36db",
+    "G4.exit.txt": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+    "G4.final.json": "94bc9bded9a4a923476b414f30fbcda7aa048afda950c9c6bdaaefda65da5513",
+    "G4.intent.txt": "30c57abe289ffcc6edc2ab68356fc3c3a4cf80bf36ea3615c9ef3b6b3eeeed57",
+    "G4.operator-artifacts.tar.gz": "cf364881d10246cbe24542886bf34e20e0b59318b7a07db918c94ce904119957",
+    "G4.operator-inspection.json": "710f2eab34d121a178a70c4eb006b8276e29c28b82a33369c87bb559f7ecaecd",
+    "G4.operator-probes.txt": "6c63d4383ea9cd2117fcdefc90e6812714aa57b7e9165604bd5ca2170d9641c1",
+    "G4.operator-tests.txt": "f892f4c9ca1750e59727fee1f8609889195659da41713ec9391f6e35f95e5d92",
+    "G4.operator-validate.json": "3371170d032f52e0cc7ca49e751d94aa5ecc8f69ae24ed51704752089d5cb969",
+    "G4.preflight.json": "7a9548643b648516c330078cc52e3f249d27e1499bb94c2a55b6851a2dc6fe3f",
+    "G4.stderr.txt": "7b70701ae7e7a0fe95eb043a4f436761fe407815283477abe300676346ce7465",
+    "G4.stopped.txt": "e4681b830eb1c5ac55e4ad8a57a41b628c7192dbd590b233e8bc77f435a02b32",
+    "G4.tracked.diff": "efdbc7b073fd8880e5281e26132e011faf414abfbc2d6ae2f7d03f9279d6a38a"
+  },
+  "inputs": {
+    "final.schema.json": "db59594d1215e599042670b22433afd5373f55794a7597db0101ae94471abe16",
+    "G4.input.txt": "4746ade969a9614241ce61533d9b9665345b00f38acfce375e4b0e0423ac58e3",
+    "greenfield/stage4/pilot/change.md": "840ef5c2877ed31eee3cfc61d218c7083f4376baaa503061807f0aa8e4c2c4b4"
+  },
+  "check_receipts": {
+    "chk-001": "cfd8ed203fc98cc43553314e62a603b2cfa086842391300ec45fa8fd9d804eca",
+    "chk-002": "c73fef754c9b4e655aa10deade310c57562a160d71d0175891af6b48c29b24a3",
+    "booking-regression": "16f45dcbbf522198baa5106f1b97913a1eed8104057ee16c142cad136bacd381",
+    "workflow-validation": "702f80775701dc97bc0d310db51ebc15524384df71a9be748434b36697c48f58"
+  },
+  "rubric": [
+    [
+      "Consultation",
+      "pass",
+      "G1 saved three material questions and B1 saved two. Opening edits were confined to consultation and project records."
+    ],
+    [
+      "Saved context",
+      "pass",
+      "G1/B1 questions and later use of saved decisions were reviewed through B4. Launch 12 saved the G4 handoff with the original and revised rules, reconciliation, final task state, checks and deferred cloud work."
+    ],
+    [
+      "Specification",
+      "pass",
+      "Both fixtures have source-bound semantic analysis, delegated sequential phase reviews, stable IDs and a two-task dependency graph."
+    ],
+    [
+      "Traceability",
+      "pass",
+      "Thirteen greenfield and eight brownfield properties map to real tasks and checks. G4 refreshed analysis and all thirteen property mappings."
+    ],
+    [
+      "Implementation",
+      "pass",
+      "The operator verified booking, capacity, replay, alias, conflict and copy-isolation boundaries. Brownfield fee and error boundaries passed. Both changed contracts have two valid local task completions."
+    ],
+    [
+      "Reconciliation",
+      "pass",
+      "Saved previews match the applied fingerprints in both projects. Shared contract changes reopened both tasks. Historical receipts and unaffected source bytes were preserved."
+    ],
+    [
+      "Brownfield preservation",
+      "pass",
+      "B1 through B4 preserved the original dirty-note diff, original instructions, original test files and later regression coverage, accepted interface and infrastructure ownership. B4 matched 74 managed files."
+    ],
+    [
+      "Fresh-session continuation",
+      "pass",
+      "B2 stopped with T-002 open. B3 used a different client thread, reproduced the recorded shipping defect and completed that task using saved context."
+    ],
+    [
+      "Native controller",
+      "pass",
+      "Replacement G3 dispatched one isolated T-002 worker. Check receipts match candidate inputs and outputs, including T-001 revalidation. The original fast-forwarded to the verified candidate only after operator review."
+    ],
+    [
+      "Honest boundaries",
+      "pass",
+      "The reviewed local native activity stayed within each allocation. The prior failures and the final G4 observation are retained separately."
+    ]
+  ]
+}

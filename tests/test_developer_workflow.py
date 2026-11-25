@@ -2,6 +2,7 @@
 
 from datetime import datetime, timezone
 import json
+import os
 from pathlib import Path
 import subprocess
 import sys
@@ -90,6 +91,19 @@ class DeveloperWorkflowIntegrationTests(unittest.TestCase):
         self.response('properties')
         self.review('tasks')
         return self.call('advance', '--to', 'implementation', '--json')
+
+    def test_installed_native_check_blocks_without_client_launch(self):
+        before = snapshot(self.root)
+        missing = self.base / "missing-client-state"
+        env = {**os.environ, "CODEX_HOME": str(missing), "CODEX_SQLITE_HOME": str(missing)}
+        result = subprocess.run([sys.executable, str(self.cli), "--root", str(self.root), "native-check", "--pilot", "--json"],
+                                capture_output=True, text=True, cwd=self.root, env=env)
+        self.assertEqual(result.returncode, 1, result.stdout + result.stderr)
+        report = json.loads(result.stdout)
+        self.assertEqual(report["status"], "blocked")
+        self.assertFalse(report["native_startup_verified"])
+        self.assertFalse(missing.exists())
+        self.assertEqual(snapshot(self.root), before)
 
     def test_setup_before_selection_and_hook_preview_are_read_only(self):
         before = snapshot(self.root)

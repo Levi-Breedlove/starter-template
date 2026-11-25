@@ -20,5 +20,4 @@ Keep raw credentials, customer information, account inventories, session transcr
 
 When inputs change, assess affected claims and reopen their acceptance until reassessed or rerun. Retain old records with their original identity and scope. Do not edit a prior failed result to make it appear successful. A later pass is a new observation.
 
-Current scaffold verification is recorded under `evidence/0001-workflow-foundation/`. Its scope is document/code review and offline repository checks, not native runtime or AWS execution. The task record links to the receipt after verification is complete.
-
+At release, link the actual passing, failing or deferred checks from the [current handoff](../delivery/current-handoff.md). A new application begins with no acceptance observations.

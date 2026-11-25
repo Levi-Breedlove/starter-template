@@ -32,7 +32,9 @@ Native process-tree timeout/cancellation currently targets a POSIX environment
 workflow and read-only planning; the native backend refuses to claim equivalent
 process-tree control there.
 
-The native adapter uses documented `codex exec` structured output and a
+The controller resolves the Codex executable in the launching shell before
+reserving a run and uses that absolute path in each isolated worker. The native
+adapter uses documented `codex exec` structured output and a
 `workspace-write` sandbox. It preserves client approval, trust, and configuration
 controls. A blocked native operation stops visibly. Source implementation and
 mocked invocation tests do not establish that the selected client has executed a
@@ -207,3 +209,14 @@ evidence freshness, candidate application, and interrupted-run disposition. The
 native adapter's argv and structured result contract are tested without invoking
 a model. Actual native client operation, model quality and AWS outcomes remain
 distinct observations in the [evaluation protocol](../../evaluations/README.md).
+
+## Calling-shell startup prerequisites
+
+Run `workflow.py --root . native-check` from the same ordinary authorized
+terminal that will launch the native runner. The default native backend checks
+observable client-state directory access and executable presence before reserving
+a run. Known read-only mounts, missing state or unknown access stop execution.
+The result is metadata-only, not a successful client startup or a permission
+check for configured overrides. For Codespaces and the frozen pilot, see
+[Codespaces readiness](../../guide/07-codespaces.md). Current-session task
+implementation does not require optional native worker execution.

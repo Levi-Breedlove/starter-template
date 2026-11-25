@@ -1,21 +1,20 @@
 # Local tools
 
-Python 3.10 or newer; standard library only. Run the bootstrap's tests from its root. Setup, context, analysis requests and execution previews do not call a model or access AWS. Explicit `workflow.py run --execute` invokes the configured native model backend and trusted verification commands; `run-apply` integrates a verified candidate. These are deliberate effects with their own project authority. No tool installs packages or enables a background service.
+Python 3.10 or newer; standard library only. Setup, context, analysis requests and execution previews do not call a model or access AWS. Explicit `workflow.py run --execute` invokes the configured native model backend and trusted verification commands; `run-apply` integrates a verified candidate. These are deliberate effects with their own project authority. No tool installs packages or enables a background service.
 
 | Entry point | Purpose | Reference |
 | --- | --- | --- |
 | `bootstrap.py` | Preview/apply a reusable layer to a separate application | [Adoption](../docs/reference/bootstrap.md) |
 | `workflow.py` | Setup, specifications, state/evidence, reconciliation and explicit bounded execution | [CLI](../docs/reference/workflow-tooling.md) |
 | `codex_hooks.py` | Read-only JSON lifecycle adapter | [Native hooks](../docs/reference/native-hooks.md) |
-| `check_repository.py` | Bootstrap core paths and explicit Markdown file destinations | Scope below |
+| `check_repository.py` | Required paths for the selected layout and explicit Markdown file destinations | Scope below |
 
 ## Repository checker scope
 
-```bash
-python3 scripts/check_repository.py
-python3 -m unittest discover -s tests -p 'test_*.py' -v
+From an application root, run:
+
+```sh
+python3 .aws-workflow/scripts/check_repository.py
 ```
 
-The checker resolves its source root by default; `--root` selects another tree. It checks required bootstrap paths and explicit local Markdown links, including reference definitions. It skips remote URLs and recognizable template placeholders. It reports missing/escaping targets and incomplete scans rather than passing a partial inspection.
-
-It is not a complete Markdown parser: heading anchors, undefined reference labels, HTML links and document semantics are outside scope. Workflow consistency belongs to the dedicated engine. The bootstrap required-path list is for this source repository; it is not an application adoption requirement.
+The checker inspects required paths for the detected application or maintenance layout and checks local Markdown file destinations. Use `--root` to inspect another repository. It reports missing files, paths escaping the selected root and incomplete scans. Remote sites, anchors, HTML links, document semantics, workflow evidence and application behavior each require their own appropriate checks. Run the project's actual tests for the changed behavior.

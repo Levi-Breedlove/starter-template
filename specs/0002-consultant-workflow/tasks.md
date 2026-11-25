@@ -16,7 +16,7 @@
 - Scope and exclusions: Entry instructions, procedures, templates and two fictional consultation examples; no claim of a real model trial.
 - Acceptance: Known answers are reused; unresolved product decisions are separated from engineering recommendations; review order and continuation authority are explicit.
 - Verification: CHK-001
-- Evidence / review: [Current observed result](../../evidence/0004-developer-workflow/local-checks.md).
+- Evidence / review: [Release candidate verification](../../evidence/0004-developer-workflow/release-reconciliation.md).
 - Blocker: none
 
 ### T-002 — Implement work state, context and evidence validation
@@ -28,7 +28,7 @@
 - Scope and exclusions: Local Python engine/CLI, schema and fixtures; no worker execution or semantic-proof claim.
 - Acceptance: Routes, traceability, stale evidence, false completion, unsafe paths and malformed state are handled under the documented contract.
 - Verification: CHK-002
-- Evidence / review: [Current observed result](../../evidence/0004-developer-workflow/local-checks.md).
+- Evidence / review: [Release candidate verification](../../evidence/0004-developer-workflow/release-reconciliation.md).
 - Blocker: none
 
 ### T-003 — Package safe application adoption
@@ -40,7 +40,7 @@
 - Scope and exclusions: Additive installer, manifest, source copy map and fixtures; no native config or plugin installation.
 - Acceptance: Existing data/instructions/configuration remain intact; fresh app context excludes the framework backlog; complete packaged tooling runs in a temporary app; repeat application makes no changes.
 - Verification: CHK-003
-- Evidence / review: [Current observed result](../../evidence/0004-developer-workflow/local-checks.md).
+- Evidence / review: [Release candidate verification](../../evidence/0004-developer-workflow/release-reconciliation.md).
 - Blocker: none
 
 ### T-004 — Supply bounded read-only native hook feedback
@@ -52,7 +52,7 @@
 - Scope and exclusions: Event handler, concrete definitions, optional setup and fake-event tests; no claim of native client loading or trust.
 - Acceptance: Context includes saved answers and real next questions; invalid input stays visible; Stop never forces continuation; actual packaged context is read without writes.
 - Verification: CHK-004
-- Evidence / review: [Current observed result](../../evidence/0004-developer-workflow/local-checks.md).
+- Evidence / review: [Release candidate verification](../../evidence/0004-developer-workflow/release-reconciliation.md).
 - Blocker: none
 
 ### T-005 — Integrate neutral source, records and verification
@@ -64,18 +64,18 @@
 - Scope and exclusions: Neutral current tree, linked docs, updated source records, local suite and publication verification; historic Git objects and repository identity are outside the content rename.
 - Acceptance: Current file content/paths meet naming constraints; local links and full fixture suite pass; exact checks and review limits are recorded; final remote tree is compared during delivery.
 - Verification: CHK-005
-- Evidence / review: [Actual current source readback](../../evidence/0004-developer-workflow/publication.md).
+- Evidence / review: [Release candidate verification](../../evidence/0004-developer-workflow/release-reconciliation.md).
 - Blocker: none
 
 ## Verification matrix
 
 | Check | Requirement | Task | Method and expected result | Evidence |
 | --- | --- | --- | --- | --- |
-| CHK-001 | REQ-001, REQ-002, REQ-007 | T-001 | Review the consultation guide, router, route procedures, templates and two roleplays against the supplied outcomes and actual CLI. | PASS; local receipt |
-| CHK-002 | REQ-002, REQ-003, REQ-004, REQ-009 | T-002 | Run workflow fixtures and independently reproduced path, state, phase and stale-evidence regressions. | PASS; local receipt |
-| CHK-003 | REQ-005, REQ-007 | T-003 | Run installer fixtures and actual-source temporary greenfield/brownfield packaging, CLI, link and rerun checks. | PASS; local receipt |
-| CHK-004 | REQ-003, REQ-006, REQ-007 | T-004 | Run hook fixtures, malformed-event regressions and Git-root command with actual temporary work metadata; assert no writes. | PASS; local receipt |
-| CHK-005 | REQ-008, REQ-009 | T-005 | Scan current content/paths, check local links and run all local fixtures; compare the published tree during repository delivery. | [Actual source readback](../../evidence/0004-developer-workflow/publication.md) |
+| CHK-001 | REQ-001, REQ-002, REQ-007 | T-001 | Review the consultation guide, router, route procedures, templates and two roleplays against the supplied outcomes and actual CLI. | [Release candidate verification](../../evidence/0004-developer-workflow/release-reconciliation.md) |
+| CHK-002 | REQ-002, REQ-003, REQ-004, REQ-009 | T-002 | Run workflow fixtures and independently reproduced path, state, phase and stale-evidence regressions. | [Release candidate verification](../../evidence/0004-developer-workflow/release-reconciliation.md) |
+| CHK-003 | REQ-005, REQ-007 | T-003 | Run installer fixtures and actual-source temporary greenfield/brownfield packaging, CLI, link and rerun checks. | [Release candidate verification](../../evidence/0004-developer-workflow/release-reconciliation.md) |
+| CHK-004 | REQ-003, REQ-006, REQ-007 | T-004 | Run hook fixtures, malformed-event regressions and Git-root command with actual temporary work metadata; assert no writes. | [Release candidate verification](../../evidence/0004-developer-workflow/release-reconciliation.md) |
+| CHK-005 | REQ-008, REQ-009 | T-005 | Scan current content/paths, check local links and run all local fixtures; compare the published tree during repository delivery. | [Release candidate verification](../../evidence/0004-developer-workflow/release-reconciliation.md) |
 
 ## Remaining broader work
 

@@ -14,7 +14,7 @@ A developer can give Codex a rough idea or existing project. Codex leads the con
 | --- | --- |
 | Agent | Codex; guided consultation is the default. |
 | Questions | Ask only consequential gaps, at most three per turn; save answers as work develops. |
-| AWS | Existing official AWS Core and AWS Data Analytics identities; no duplicate/private replacement installation. |
+| AWS | Use relevant official Agent Toolkit for AWS capabilities available on the selected surface. Check authentication per operation. Defer sign-in and account-dependent work until the relevant authorized cloud integration or delivery stage. Reuse official installations. |
 | Research | Current official sources; independent of personal skills. |
 | Adoption | Greenfield and brownfield; preserve existing architecture, tools, files and delivery authority. |
 | Implementation | Deterministic state/checks in local code; model judgment in concise instructions and reusable procedures. |

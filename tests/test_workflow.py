@@ -175,6 +175,31 @@ class WorkflowFixtures(unittest.TestCase):
         self.assertEqual(report["known_facts"], [])
         self.assertFalse(self.errors(report))
 
+    def test_foundation_enabled_feature_and_defect_link_selected_brownfield_records(self):
+        mappings = {
+            "brief": "docs/product overview.md", "requirements": "standards/system rules.md",
+            "tech": "standards/stack.md", "structure": "standards/layout.md",
+            "architecture": "standards/production.md", "handoff": "delivery/current.md",
+            "adoption_report": "intake.md", "environment_capabilities": "tools.md",
+        }
+        for relative in mappings.values():
+            path = self.root / relative
+            path.parent.mkdir(exist_ok=True, parents=True)
+            path.write_text("Existing application-owned decisions.\n")
+        manifest = self.root / ".aws-workflow/manifest.json"
+        manifest.parent.mkdir()
+        manifest.write_text(json.dumps({"schema_version": 2, "identity": "codex-aws-workflow", "paths": mappings}))
+        for route, contract in (("requirements-first", "requirements.md"), ("bugfix", "bugfix.md")):
+            with self.subTest(route=route):
+                report = new_work(self.root, route, route, mode="brownfield", route=route)
+                self.assertEqual(list(report["foundation_sources"]), [mappings["requirements"]])
+                self.assertNotIn(mappings["architecture"], report["context_files"])
+                self.assertIn(mappings["brief"], report["context_files"])
+                draft = (self.root / "specs" / route / contract).read_text()
+                self.assertIn("(../../docs/product%20overview.md)", draft)
+                self.assertIn("(../../standards/system%20rules.md)", draft)
+                self.assertNotIn("Existing application-owned decisions", draft)
+
     def test_new_work_uses_existing_root_context_without_an_adoption_manifest(self):
         for relative in ("project/brief.md", "delivery/current-handoff.md"):
             path = self.root / relative

@@ -9,7 +9,7 @@ import tempfile
 import threading
 import time
 import unittest
-from unittest.mock import patch
+from unittest.mock import MagicMock, patch
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
@@ -153,6 +153,38 @@ class RunnerTests(unittest.TestCase):
         result = execute_run(self.root, task_id="T-001", execute=True, backend=self.backend)
         self.assertEqual(result["status"], "ready", result.get("failure"))
         self.assertEqual(result["completed_tasks"], ["T-001"])
+
+    def test_native_preflight_blocks_before_run_reservation(self):
+        with patch("workflow_engine.native_preflight.inspect_native", return_value={"status": "blocked", "blockers": ["CODEX_HOME: read-only-mount"]}), patch("workflow_engine.runner.CodexBackend", side_effect=AssertionError("native launch")):
+            with self.assertRaisesRegex(WorkflowError, "read-only-mount"):
+                execute_run(self.root, task_id="T-001", execute=True, run_id="blocked-native")
+        self.assertFalse((self.root / ".workflow-state").exists())
+
+    def test_default_backend_pins_the_launcher_codex_path(self):
+        relative_executable = "linked-bin/../selected-bin/codex"
+        launcher_executable = Path.cwd() / relative_executable
+
+        def fake_author(backend, request):
+            self.assertEqual(Path(backend.executable), launcher_executable)
+            self.assertNotEqual(Path(request["workspace"]), Path.cwd())
+            return self.backend(request)
+
+        with (
+            patch("workflow_engine.native_preflight.inspect_native", return_value={"status": "no-known-blocker"}),
+            patch("shutil.which", return_value=relative_executable),
+            patch.object(CodexBackend, "__call__", fake_author),
+        ):
+            result = execute_run(self.root, task_id="T-001", execute=True)
+        self.assertEqual(result["status"], "ready", result.get("failure"))
+
+    def test_falsy_injected_backend_is_used_without_native_dispatch(self):
+        backend = MagicMock(side_effect=self.backend)
+        backend.__bool__.return_value = False
+        with patch.object(CodexBackend, "__call__", side_effect=AssertionError("Native dispatch attempted")) as native:
+            result = execute_run(self.root, task_id="T-001", execute=True, backend=backend)
+        self.assertEqual(result["status"], "ready", result.get("failure"))
+        backend.assert_called_once()
+        native.assert_not_called()
 
     def test_dirty_original_blocks_without_touching_user_work(self):
         path = self.root / "README.md"

@@ -35,4 +35,4 @@ Future PR/CI integration needs repository/head identity, stable event IDs, proce
 
 ## Enablement evidence
 
-Temporary-repository fixtures exercise real Git/process behavior with fake workers: stale inputs, failed checks, conflicting scopes, interrupted outcomes, process bounds and application preservation. The remaining native trial must observe actual consultation/model/client behavior under a fixed scope. Cloud trials need a concrete project, authorized targets and cleanup/recovery ownership. The [execution plan](../specs/0004-developer-workflow/exec-plan.md) and [evaluation catalog](../evaluations/README.md) distinguish implementation evidence from those observations.
+Use disposable Git fixtures and the local test backend for deterministic acceptance checks. To verify native behavior, inspect the actual selected client’s output and the reviewed candidate under the approved limits. For cloud verification, record the authorized target, observed result and recovery ownership. [Evaluation guidance](../evaluations/README.md)

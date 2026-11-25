@@ -13,7 +13,7 @@
 - Scope and exclusions: Shared projection, CLI option, native adapter integration and meaningful regressions; no worker execution or client trust change.
 - Acceptance: Strict limits retain current problems and actionable references while preserving full audit output and read-only behavior.
 - Verification: CHK-001
-- Evidence / review: [Current observed result](../../evidence/0004-developer-workflow/local-checks.md).
+- Evidence / review: [Release candidate verification](../../evidence/0004-developer-workflow/release-reconciliation.md).
 - Blocker: none
 
 ### T-002 — Integrate efficient operating policy and safe packaging
@@ -25,7 +25,7 @@
 - Scope and exclusions: Root/adopted instructions, required package module, entry docs and one evaluation protocol.
 - Acceptance: Actual adoption includes the working compact CLI; incomplete packages fail before writes; policy preserves meaningful questions, checks and real authority.
 - Verification: CHK-002
-- Evidence / review: [Current observed result](../../evidence/0004-developer-workflow/local-checks.md).
+- Evidence / review: [Release candidate verification](../../evidence/0004-developer-workflow/release-reconciliation.md).
 - Blocker: none
 
 ### T-003 — Verify measured improvement and reconcile evidence
@@ -37,16 +37,16 @@
 - Scope and exclusions: Frozen old/new renderer measurements, aggregate regression suite, source identities and current evidence reconciliation; no native model or cloud trial.
 - Acceptance: Quality cases pass, payload changes are measured honestly, declared-input freshness remains accurate, and the current source tree is verified on publication.
 - Verification: CHK-003
-- Evidence / review: [Actual current source readback](../../evidence/0004-developer-workflow/publication.md).
+- Evidence / review: [Release candidate verification](../../evidence/0004-developer-workflow/release-reconciliation.md).
 - Blocker: none
 
 ## Verification matrix
 
 | Check | Requirement | Task | Method and expected result | Evidence |
 | --- | --- | --- | --- | --- |
-| CHK-001 | REQ-001, REQ-002, REQ-003, REQ-004, REQ-006 | T-001 | Projection/CLI/hook regressions preserve errors, strict caps, next action, full inspection and read-only behavior. | [Local checks](../../evidence/0003-efficient-context/local-checks.md) |
-| CHK-002 | REQ-005, REQ-006 | T-002 | Inspect root/generated operating policy and run bootstrap plus actual-source integration; missing projection module must block. | [Local checks](../../evidence/0003-efficient-context/local-checks.md) |
-| CHK-003 | REQ-001, REQ-002, REQ-003, REQ-004, REQ-006, REQ-007 | T-003 | Run combined local suite, compare identical prior/current renderer fixtures, reconcile changed evidence inputs, scan current content/links and verify published file identities. | [Actual source readback](../../evidence/0004-developer-workflow/publication.md) |
+| CHK-001 | REQ-001, REQ-002, REQ-003, REQ-004, REQ-006 | T-001 | Projection/CLI/hook regressions preserve errors, strict caps, next action, full inspection and read-only behavior. | [Release candidate verification](../../evidence/0004-developer-workflow/release-reconciliation.md) |
+| CHK-002 | REQ-005, REQ-006 | T-002 | Inspect root/generated operating policy and run bootstrap plus actual-source integration; missing projection module must block. | [Release candidate verification](../../evidence/0004-developer-workflow/release-reconciliation.md) |
+| CHK-003 | REQ-001, REQ-002, REQ-003, REQ-004, REQ-006, REQ-007 | T-003 | Run combined local suite, compare identical prior/current renderer fixtures, reconcile changed evidence inputs, scan current content/links and verify published file identities. | [Release candidate verification](../../evidence/0004-developer-workflow/release-reconciliation.md) |
 
 ## Deferred evidence
 

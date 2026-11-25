@@ -10,7 +10,7 @@ Keep cost assumptions visible from consultation through operation. Start with [e
 - Project limits for experiments, deployment, retention, and cleanup.
 - Authorized measured spend compared with the estimate after deployment.
 
-Architecture and service decisions belong in `specs/<work-id>/design.md` and [decision records](../docs/decisions/). Link them here instead of maintaining a second architecture description. Put compact sanitized observations in `evidence/<work-id>/` and link the relevant release under `delivery/releases/`.
+Architecture and service decisions belong in `specs/<work-id>/design.md` and the project’s decision records (see the [decision template](../templates/decision.md)). Link them here instead of maintaining a second architecture description. Put compact sanitized observations in `evidence/<work-id>/` and link the relevant release under `delivery/releases/`.
 
 ## Working rules
 

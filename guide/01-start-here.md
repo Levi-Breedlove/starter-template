@@ -7,21 +7,18 @@ Describe the outcome you want. Codex should inspect existing context, lead a foc
 
 There are two entry paths. Greenfield work establishes a new product and architecture. Brownfield work starts from the system's evidence and preserves its accepted architecture, source layout, IaC ownership, and delivery controls. Both use the same implementation, verification, and release loop.
 
-## 1. Adopt the workflow in the right project
+## 1. Open the application
 
-When improving this bootstrap, use its existing project brief, active work and current handoff. Application work belongs in the application's repository and backlog.
-
-From the bootstrap checkout, preview the additive installation:
-
-```bash
-python3 scripts/bootstrap.py --source . --target /path/to/my-aws-project --mode greenfield
-```
-
-For an existing project, choose `--mode brownfield` and follow [brownfield adoption](05-brownfield-adoption.md). Inspect the proposed changes, then apply the authorized adoption using the same command with `--apply`. The helper installs reusable guidance and tools under `.aws-workflow/`; it does not copy the bootstrap's own project brief, backlog, or implementation evidence into the application.
-
-The adoption manifest, `.aws-workflow/manifest.json`, records the project's actual context paths. It preserves an existing `project/brief.md` or `delivery/current-handoff.md`; otherwise it creates fresh context records under `.aws-workflow/`. Existing root instructions are retained with a bounded additive workflow entry. A managed `.gitignore` block excludes local execution state. Source code, IaC, pipeline configuration, and cloud resources are not rearranged by adoption. An installation of repository files does not install AWS plugins or enable native hooks.
+For a new repository created with **Use this template**, open its GitHub
+Codespace, open Codex at the repository root and type `start`. The installed
+instructions and manifest identify the project records. For an existing
+application, preview and apply the additive installer to that application, then
+open its root in Codex. Preserve its instruction hierarchy, source, IaC,
+pipeline and task authorities. [Quickstart](00-quickstart.md) · [Brownfield adoption](05-brownfield-adoption.md)
 
 ## 2. Start with an ordinary request
+
+A standalone `start` is sufficient. You may also include the outcome in your first message.
 
 For a new application:
 
@@ -35,9 +32,9 @@ Codex reads the mapped brief, handoff, instructions, and actual repository befor
 
 ## 3. Establish context and capabilities
 
-The project brief describes users, outcome, initial scope, constraints, known decisions, assumptions, and authority. Keep product intent, selected technical design, and actual source structure distinct so an old plan is not mistaken for implemented behavior. Keep root instructions concise and link detailed records.
+Use the manifest to find the project brief, overall requirements, technology choices, repository structure, architecture and handoff. Update the relevant foundation when a decision is made. Feature and defect specifications link to shared decisions and describe their own changes. Preserve existing mapped brownfield records.
 
-Record available tools and verification environments using the [environment capabilities template](../templates/environment-capabilities.md). Use [AWS guidance and access](02-aws-guidance-and-access.md) for official AWS Core/Data Analytics consultation. Capability inspection and public research do not require account access. Preserve the user's existing skill preferences and plugin installations.
+Record available tools and verification environments using the [environment capabilities template](../templates/environment-capabilities.md). Use [AWS guidance and access](02-aws-guidance-and-access.md) for official Agent Toolkit for AWS guidance. Capability inspection and public research do not require account access. Preserve the user's existing skill preferences and plugin installations.
 
 Local and hosted Codex environments may expose different tools. Record what is actually available, installed, loaded, and tested. Explain the smallest missing setup step if a necessary capability is unavailable.
 
@@ -48,7 +45,7 @@ the command performs no subprocess or credential probe.
 
 ## 4. Create a focused work item
 
-Codex chooses Requirements-First, Design-First, Quick Spec, Bugfix, or Plan-led according to the work and explains the choice. The local workflow CLI provides a durable skeleton and structural state checks; Codex conducts the interview, writes the substantive specification, and performs the reviews.
+Codex can handle a small, understood change directly. For scoped specification work it chooses requirements-first, design-first, quick, bugfix or planning-only based on the requested outcome. The local workflow CLI provides a durable skeleton and structural state checks; Codex conducts the interview, writes the substantive specification, and performs the reviews.
 
 From an adopted application root, an initial work item can be created with:
 

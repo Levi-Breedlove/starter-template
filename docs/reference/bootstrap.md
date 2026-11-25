@@ -1,172 +1,64 @@
-# Bootstrap and adopt an AWS project
+# Adopt or upgrade the AWS project workflow
 
-`scripts/bootstrap.py` installs a small, additive workflow package into a separate
-application repository. It uses Python 3.10 or newer and the standard library. It
-previews every planned change by default; `--apply` writes the reviewed plan.
-The helper runs offline and never executes the copied runtime, installs packages,
-configures plugins, enables hooks, changes trust, or accesses AWS.
+A repository created with **Use this template** already contains the initialized application. Open its root in Codex and type `start`. Use the bootstrap helper to adopt the same workflow into another project or upgrade an existing installation. It requires Python 3.10 or newer, uses the standard library, and runs offline. [First-use guide](../../guide/00-quickstart.md)
 
-For the complete first-use sequence, see [quickstart](../../guide/00-quickstart.md).
-After adoption, `python3 .aws-workflow/scripts/workflow.py --root . doctor` checks
-local setup before any active work is selected. It inspects required runtime, consultation guidance and
-context files without running programs, probing credentials or accessing accounts.
+## Install into a separate application
 
-## Greenfield: start a new application
-
-Run these commands from the original template repository. Choose an absolute
-application path whose parent directory already exists. The target may be absent
-or empty; an existing `.git` entry is preserved.
+Run these commands from the root of a project created from the template. Set `app` to the target application directory. Choose `brownfield` for an existing project, or `greenfield` for a new or empty target. Greenfield accepts an existing Git directory. The target's parent must exist.
 
 ```sh
-python3 scripts/bootstrap.py --source . --target /path/to/my-application --mode greenfield
-python3 scripts/bootstrap.py --source . --target /path/to/my-application --mode greenfield --apply
+app=/absolute/path/to/application
+python3 .aws-workflow/scripts/bootstrap.py --source .aws-workflow --target "$app" --mode brownfield
+python3 .aws-workflow/scripts/bootstrap.py --source .aws-workflow --target "$app" --mode brownfield --apply
 ```
 
-Open the application repository in Codex. Its root instructions point to the
-application's new consultation records and packaged workflows. Start with:
+The first command previews the exact paths and actions. Inspect the preview before applying it. In a framework maintenance checkout, use `scripts/bootstrap.py --source .` with the same target arguments. The installed package can itself serve as a source after its managed-file inventory has been verified against its manifest.
 
-> Help me deliver [outcome] on AWS. Inspect this repository, establish what is
-> already known, and guide me through the next material questions. Recommend the
-> appropriate approach, record our decisions, then prepare the requirements,
-> design, and tasks for the first useful delivery.
-
-Adoption creates no active work specification. Codex first consults on the actual
-application, then selects a work item and route. The packaged workflow CLI always
-uses the application's root for work state, even though its implementation lives
-inside `.aws-workflow/`:
+In the adopted application, open Codex and type `start`. For a manual setup check, run:
 
 ```sh
-python3 .aws-workflow/scripts/workflow.py --root . new 0100-first-capability --title "First useful capability" --mode greenfield --route requirements-first --idea "The user outcome agreed during consultation" --activate
-python3 .aws-workflow/scripts/workflow.py --root . context --compact
+python3 .aws-workflow/scripts/workflow.py --root . doctor
 ```
 
-Run these examples after that scope is established; they are not an automatic part
-of adoption. For an already selected work item, run only `context`. Before any
-selection, read the mapped brief/handoff and start the natural consultation;
-`context` reports the missing selection and creates nothing. See
-[workflow tooling](workflow-tooling.md) for the
-metadata, review, task, and evidence contract.
+A fresh application begins with consultation. Once the outcome and scope are known, select work with the installed CLI. On return, the handoff and compact context identify the next action. [Workflow tooling](workflow-tooling.md)
 
-## Brownfield: preserve an existing application
+## Existing project foundations
 
-Use the brownfield mode for an existing application or infrastructure repository.
-Review its instruction hierarchy and proposed additive block before applying.
-The helper can preserve bytes; the consultant must assess the meaning of existing
-instructions and resolve any conflicting authority before following the new flow.
+The consultant reads the brief and handoff, then consults the project-wide foundations relevant to the current decision. New installations create editable project documents at these defaults.
 
-```sh
-python3 scripts/bootstrap.py --source . --target /path/to/existing-application --mode brownfield
-python3 scripts/bootstrap.py --source . --target /path/to/existing-application --mode brownfield --apply
-```
+| Path | Canonical content | Existing-file option |
+| --- | --- | --- |
+| `project/brief.md` | Product purpose, users, scope and decisions | `--brief` |
+| `project/requirements.md` | System-wide outcomes and acceptance criteria | `--requirements` |
+| `project/tech.md` | Accepted stack, services, tools and standards | `--tech` |
+| `project/structure.md` | Component layout, conventions and ownership | `--structure` |
+| `project/architecture.md` | System design, interfaces, data flows and trust boundaries | `--architecture` |
 
-Existing `project/brief.md`, `delivery/current-handoff.md`,
-`project/adoption-report.md`, and `delivery/environment-capabilities.md` remain
-authoritative when present. If absent, fresh application-specific records are
-created under `.aws-workflow/project/` and `.aws-workflow/delivery/`.
-Map a nonstandard brief or handoff explicitly, and identify existing authority
-files or directories without moving them:
+Keep existing canonical files at their established locations. The helper discovers the default paths above. To map other locations, add options such as `--brief docs/product.md --tech docs/stack.md --architecture docs/system.md --handoff operations/resume.md` to the preview and apply commands. Mapped files must exist inside the target. Supply `--authority backlog --authority docs/decisions` if those existing locations own tasks and decisions. Repeated installation uses the saved mappings.
 
-```sh
-python3 scripts/bootstrap.py --source . --target /path/to/existing-application --mode brownfield --brief architecture/product.md --handoff operations/resume.md --authority architecture --authority backlog
-```
+Record decisions progressively during consultation. Keep work-specific acceptance criteria, design, analysis, properties, tasks and evidence under the work's existing authority. Reference relevant foundations from each work item. Preserve accepted architecture, IaC, pipelines, instructions and application changes during brownfield adoption.
 
-Repeat the same command with `--apply` after inspecting the preview. Each mapped
-file or authority must already exist within the target. The helper does not
-translate trackers, create a second backlog, import infrastructure, migrate state,
-or change the delivery pipeline. Ask Codex to map existing specification and task
-authority during brownfield intake. Structured CLI work uses root `specs/`; if an
-existing system stores its canonical work elsewhere, establish an explicit
-adoption decision before introducing structured work there.
+## Files and ownership
 
-## What is installed
-
-| Location | Purpose and ownership |
+| Location | Contents |
 | --- | --- |
-| `.aws-workflow/workflows/`, `templates/`, `guide/` | Reusable consultation, specification, review, and delivery guidance. |
-| `.aws-workflow/docs/`, `runbooks/`, `costs/`, `security/`, `infrastructure/` | Selected reusable reference material and example records; no assumed application architecture. |
-| `.aws-workflow/scripts/workflow.py`, `workflow_engine/` | Local workflow state, validation, context, specification operations, setup inspection and opt-in execution tooling. |
-| `.aws-workflow/scripts/codex_hooks.py`, when supplied by the source | Optional adapter code only; no hook registration or configuration. |
-| `.aws-workflow/manifest.json` | Installation identity, source digest, file hashes, mapped context paths, and declared existing authorities. |
-| Mapped project brief, handoff, adoption report, and capability record | Editable application records; existing files are preserved, missing defaults are created inside the namespace. |
-| A bounded block appended to root `AGENTS.md` | Routes Codex to actual project context and reusable procedures while preserving all previous instruction bytes. |
-| A bounded block appended to root `.gitignore` | Excludes `/.workflow-state/`, where optional execution candidates and local run state belong. Existing ignore bytes are retained. |
+| `AGENTS.md` | The helper adds one bounded block to the existing project instructions. |
+| `.aws-workflow/` | Reusable guidance, templates, references and local scripts. `manifest.json` identifies the source digest, managed file hashes, editable paths and existing authorities. |
+| Mapped brief, requirements, tech, structure, architecture, handoff, adoption and capabilities records | Editable project-owned files. Existing files are preserved. Local adoption creates missing handoff and supporting records under the package namespace when their conventional paths are absent. |
+| `.gitignore` | A bounded block excludes `/.workflow-state/`, which can hold local candidate worktrees and run state. |
 
-The helper excludes the source template's own project context, active
-specifications, foundation backlog, evidence receipts, research tree, `.git`,
-`.codex`, source code, CI configuration, tests, and installed skills. Selected
-`README.md` files explain conventions without copying active work. Source-local
-documentation links are rewritten to installed locations or mapped application
-records. Excluded source-template links become labeled prose and are listed in
-the preview and manifest; they do not become broken links to phantom active work.
+The published application package contains reusable source and blank project records. Adoption selects a bounded list of guidance, templates and runtime files, excluding active specifications, framework receipts, project code, user configuration and skills. Local Markdown links resolve to installed guidance or mapped project records. The manifest lists excluded source references.
 
-The source copy map is deliberately bounded. It selects Markdown/JSON under the
-declared guidance trees, Python under `workflow_engine/`, and named scripts and
-reference files. It does not recursively copy the repository.
-Missing required runtime modules or consultation guidance, or an unreadable selected source tree, block the
-plan before writes; the helper does not install a silently incomplete package.
-The required package includes the context, specification, runner and doctor
-modules even when an adopter uses only conversational execution. Their presence
-does not start a worker or authorize spending.
+## Upgrade and recovery
 
-## Manifest and path resolution
-
-The manifest uses `schema_version: 1` and the identity `codex-aws-workflow`.
-`paths` identifies `brief`, `handoff`, `adoption_report`, and
-`environment_capabilities`, plus the structured CLI defaults `specifications`,
-`evidence`, and `decisions`. Resolve logical paths mentioned in reusable prose
-through this map. `existing_authorities` records the repeatable `--authority`
-arguments. No credentials, account metadata, source-machine paths, active work
-pointer, or assumed approval is stored.
-
-`managed_files` records hashes for reusable package files; application records are
-listed separately in `editable_project_records`. Their content is intentionally
-editable. The installation preserves unrelated text before and after the bounded
-root instruction block. Keep changes to reusable workflows separate from project
-context: changing a managed file means a later rerun needs an explicit merge.
-
-## Repeating, changing, and recovering adoption
-
-Re-running the same command against the same source and installation is a no-op.
-Changes to application records and unrelated root instructions are preserved.
-The original mode and path choices remain in force; omitted `--brief`,
-`--handoff`, and `--authority` arguments reuse the existing manifest's mapping.
-Unrelated additions to `AGENTS.md` and `.gitignore` remain editable. Changing or
-removing either managed block requires a reviewed merge. The runtime ignore block
-is recorded separately in the manifest; effective Git ignoring is still checked
-by the native runner because later negation rules can change the result.
-
-A different source digest, changed managed file, missing installed file, changed
-managed instruction block, or conflicting namespace blocks before any write.
-There is no force or overwrite option. To update, preview a fresh adoption in a
-separate temporary target and review the difference against the application;
-merge the selected changes and installation records deliberately. The helper
-does not claim to automate semantic instruction merges or source upgrades.
-
-Paths with `..` components, overlapping source/target roots, symlink roots,
-symlink selected assets, and symlink destination components are rejected. Existing
-unrelated symlinks in an application are not traversed. Run against a stable
-working tree: the helper rechecks planned outputs before writing, uses exclusive
-creation for additions and atomic replacement for the instruction append, and
-rolls back its own completed writes on an I/O failure. It does not provide a
-cross-process lock or recovery from abrupt process/power loss. If a concurrent
-change prevents rollback, the error identifies remaining files for review.
-
-Use `--json` to inspect the planned changes, preserved paths, actual path map,
-and omitted reference links without parsing human prose. A blocked plan exits
-with status `1`; success and a no-op exit with status `0`.
-
-## Verification boundary
-
-The fixture suite exercises dry-run behavior, fresh application context,
-brownfield preservation, custom authorities, reruns, content collisions, source
-changes, path hazards, stale previews, and rollback after a simulated final write
-failure. Required-runtime and source-inventory failures also block before writes.
-Run it from the source template:
+Use the helper **from the target release**, point it at the existing application, and add `--upgrade`. Retain the original adoption mode. For example, preview an upgrade from a template project:
 
 ```sh
-python3 -m unittest discover -s tests -p 'test_bootstrap.py'
+python3 .aws-workflow/scripts/bootstrap.py --source .aws-workflow --target "$app" --mode brownfield --upgrade
 ```
 
-These are local file-system checks. They do not establish that Codex loaded the
-new instructions, that a particular hosted plugin is available, that optional
-native hooks are enabled, or that an application deploys successfully to AWS.
+Review the paths and changes, then repeat with `--apply`. The helper accepts schema-1 and schema-2 manifests and writes schema 2. A schema-1 upgrade keeps the original mapped brief, including `.aws-workflow/project/brief.md`. It adds the four new foundation mappings and preserves application-edited content and surrounding instruction text. Supply existing foundation locations when previewing this first upgrade. Upgrade never moves an existing canonical document.
+
+Each previously managed file and the instruction and ignore blocks must match their recorded identities. Local edits, missing files, an unowned file at a new managed destination, or removal of a previously managed path require a reviewed merge. Inspect the reported paths, preserve local changes and resolve ownership before applying an update. Repeating an unchanged installation is a no-op. Add `--json` for a machine-readable plan and status.
+
+Run the helper against a stable worktree. It rejects unsafe paths and symlinks, rechecks expected contents, creates new files exclusively, and rolls back completed writes after an ordinary I/O failure. Following an interruption or power loss, inspect Git changes and the manifest before continuing. Git supplies history and recovery for tracked files. Initializing and upgrading a project use no model invocations, AWS accounts, deployment, hook registration or trust changes.

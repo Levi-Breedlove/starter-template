@@ -1,0 +1,836 @@
+{
+  "source": {
+    "branch": "native-client-acceptance-pilot",
+    "revision": "404480b72b9ae0c3ade0a3a307fcbc4468dcdf3b",
+    "origin_main_and_fetch_head": [
+      "404480b72b9ae0c3ade0a3a307fcbc4468dcdf3b",
+      "404480b72b9ae0c3ade0a3a307fcbc4468dcdf3b"
+    ],
+    "snapshot_command": "git archive HEAD"
+  },
+  "approval": {
+    "source": "Initiating user message for this pilot. Verbatim wording and conversation reference retained in the local control receipt.",
+    "observed_utc": "2026-11-24 03:58:40 UTC",
+    "local_approval_record_sha256": "6b905af36c637129c5526f0b0cfbdc1be23ea9520820f40ad44f9a6a96fe9963",
+    "max_native_invocations": 8,
+    "max_invocation_seconds": 900,
+    "automatic_retries": 0
+  },
+  "environment": {
+    "client_version": "codex-cli 0.172.0",
+    "client_version_stderr": "WARNING: proceeding, even though we could not create PATH aliases: Read-only file system (os error 30)\n",
+    "client_help_stderr": "WARNING: proceeding, even though we could not create PATH aliases: Read-only file system (os error 30)\n",
+    "operator_record": "# Native pilot environment\n\n- Client: codex-cli 0.172.0.\n- User configuration model setting: gpt-6.2-sol. Effective per-stage model requires client observation.\n- User configuration reasoning effort: max.\n- User configuration approval policy: unknown.\n- Direct command sandbox: workspace-write, with no client overrides other than the documented flags.\n- Host OS: Linux x86_64.\n- Python: Python 3.14.2.\n- Git: git version 2.56.0.\n- Archive: tar (GNU tar) 1.35.\n- Temporary root utility: mktemp (GNU coreutils) 9.4.\n- Deadline utility: timeout (GNU coreutils) 9.4.\n- Git hooks path in the operator's repository: none reported.\n- Git global hooks path: none reported.\n- The installed CLI advertises each documented option and stdin prompt support.\n- The CLI reported a read-only filesystem when creating PATH aliases and continued through version and help.\n",
+    "mount_check": "Configured Codex state directory is outside the two fixtures: True\nShared configured Codex state mount: read-only\nGreenfield fixture mount: writable\nBrownfield fixture mount: writable\n"
+  },
+  "fixture_sha256": {
+    "greenfield/initial/pilot/goal.md": "3a6643d6ee0f50464d03ec6bdf542c66d0364f8c6b1a15ce6d3ef99b87660a5a",
+    "greenfield/initial/src/__init__.py": "b33abc5ff0a4130c9e0b189215c1d8fd53c8018129bd99439329385e722aa70a",
+    "greenfield/initial/tests/__init__.py": "4e949e4b2f92d2e10b148011d7ca7af01633ff7da1765800124f6fd980d428a4",
+    "greenfield/prompts/G1.txt": "2901d3caa41b6053923374e5c655ed17a51fa669b5aa39f7bc2034ed240fae26",
+    "greenfield/stage2/pilot/answers.md": "668ac4f013eea183bc53a329a0951f34b23b67caa7bccc3cdc4764bbfd634ee8",
+    "greenfield/stage2/pilot/execution-policy.json": "c563c36985b8df1494bb292ace791d5206b3619e83d5e1590ee4c5ee11363294",
+    "greenfield/prompts/G2.txt": "28b8038bf1e449ad86b27c85ea1dbf9384c5bceac3cfe6f86229556aec7bc2a7",
+    "greenfield/stage4/pilot/change.md": "840ef5c2877ed31eee3cfc61d218c7083f4376baaa503061807f0aa8e4c2c4b4",
+    "greenfield/prompts/G4.txt": "08962b5d3465c475fb38c7d1b3dee191748803e69ad6acee8dc0594060586725",
+    "brownfield/initial/AGENTS.md": "b7b561b6529a159b64bbcf014d43c39a370ee1b78273617507ff201616967c43",
+    "brownfield/initial/.gitignore": "862263fa1f46c20f0d1e4dac5ffcc75abd55c08211b2c3864c5f8764b9d87793",
+    "brownfield/initial/project/brief.md": "c7d408f85d6c2b7bab88e34c805449126249fe7c377e434b674c251f05e0b5c5",
+    "brownfield/initial/delivery/current-handoff.md": "ee1ebb3699a4a734010a303c4d20510a8f2ca7cd0a1ed4dcf7d07394486fc2f0",
+    "brownfield/initial/infrastructure/ownership.md": "4ccbf2c0ed42ccb5c7f2d7dba733d0de8576c487db606c750b6eacaa206a557f",
+    "brownfield/initial/pilot/goal.md": "b9b860de3f8a8ed148b14f2240674ab7e647ec18f1624650fa79278de0648681",
+    "brownfield/initial/notes/local-note.txt": "a6a77a59a83162c4c4a6aecbe491717b059e4fce0b74b14ed95142114dd6a48c",
+    "brownfield/dirty/notes/local-note.txt": "9952dc02e7bcd8ba87090fc563eb5a033c356ee7409b88726aadc2ef87ce013d",
+    "brownfield/initial/src/__init__.py": "6984f83bf538cebb4cce35735cad6f8fa25f270769adec12d8959d5767bde2d8",
+    "brownfield/initial/src/shipping.py": "ff8993a9455a87124066b892bee4cc8a9dd8fe4cb585e477e6d6ad623c2b3088",
+    "brownfield/initial/tests/__init__.py": "ec41444a42c84d7cb9682fdc2c391f14eb195e442df6523d5d1475a980a5e278",
+    "brownfield/initial/tests/test_shipping_existing.py": "d553c71f89cbf65de255089aaafa93c9093927b355fda32bbd2a4af74c2b06e5",
+    "brownfield/prompts/B1.txt": "dd269d05bb56ee3a8eaa844f186396aabe7999c64dc5081b95728a0c69f2c98d",
+    "brownfield/stage2/pilot/answers.md": "f1a0c17aca65fac43de59e1acc12c286fdfd7ac2b568fab5ccae8eb49c1dc2d7",
+    "brownfield/prompts/B2.txt": "ddaefd7141bdd25a476429a13b3133599744a06bfc236295b92d336383eda143",
+    "brownfield/prompts/B3.txt": "1a54121a62fa56d317f7f914f914b97b922bde28e40478dedc218e554de8364e",
+    "brownfield/stage4/pilot/change.md": "9e2a35dfe8589c01e8394bcffbb0b8fa8397a2e3da7620900f38ce462d90da44",
+    "brownfield/prompts/B4.txt": "7f773c0c879d1edfe4a130f95c00032e9da863eb5a53561a4fcef833205b89c3"
+  },
+  "control_sha256": {
+    "common-prompt.txt": "f6cfb661d4ac06f11f3407d8ff83ddd583a89fb72a4b115574d56c1717db2196",
+    "final.schema.json": "db59594d1215e599042670b22433afd5373f55794a7597db0101ae94471abe16",
+    "run-direct-stage.sh": "d8eaaaaf67cc503f5fd9556a9ec2a3f4ef9a89eaf2110cd982f5df83648cdb35",
+    "G1.input.txt": "27cf01c0658dcbe0e7a71cf4c030adf2eb12bfb810694e18251e71ca5f610393"
+  },
+  "adoptions": {
+    "greenfield": {
+      "preview": {
+        "status": "preview",
+        "target": "/tmp/codex-aws-pilot.hAuPzmdI/greenfield",
+        "mode": "greenfield",
+        "changes": [
+          {
+            "path": ".aws-workflow/README.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/costs/README.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/costs/estimate-template.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/delivery/README.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/docs/adapter-contracts.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/docs/reference/aws-delivery.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/docs/reference/bootstrap.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/docs/reference/efficient-operation.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/docs/reference/native-hooks.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/docs/reference/sources.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/docs/reference/specification-operations.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/docs/reference/task-execution.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/docs/reference/workflow-contract.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/docs/reference/workflow-tooling.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/docs/repository-map.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/docs/workflow-architecture.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/evaluations/README.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/evidence/README.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/examples/booking-retries/README.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/examples/booking-retries/design.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/examples/booking-retries/requirements.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/examples/booking-retries/tasks.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/examples/consultation/README.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/examples/consultation/brownfield.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/examples/consultation/greenfield.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/guide/00-quickstart.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/guide/01-start-here.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/guide/02-aws-guidance-and-access.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/guide/03-first-feature.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/guide/04-maintain-and-release.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/guide/05-brownfield-adoption.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/guide/06-consultation-interview.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/infrastructure/README.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/runbooks/README.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/runbooks/deploy.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/runbooks/incident.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/runbooks/rollback.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/runbooks/teardown.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/scripts/README.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/scripts/bootstrap.py",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/scripts/codex_hooks.py",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/scripts/workflow.py",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/security/README.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/specs/README.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/templates/README.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/templates/brownfield-assessment.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/templates/bugfix.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/templates/decision.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/templates/design.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/templates/environment-capabilities.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/templates/handoff.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/templates/project-brief.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/templates/release.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/templates/requirements.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/templates/review.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/templates/tasks.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/templates/work.json",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/workflow_engine/__init__.py",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/workflow_engine/context.py",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/workflow_engine/doctor.py",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/workflow_engine/engine.py",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/workflow_engine/runner.py",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/workflow_engine/specifications.py",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/workflows/README.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/workflows/brownfield.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/workflows/bugfix.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/workflows/consult.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/workflows/feature.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/workflows/incident.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/workflows/reconcile.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/workflows/release.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/workflows/review.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/project/brief.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/delivery/current-handoff.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/project/adoption-report.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/delivery/environment-capabilities.md",
+            "action": "create"
+          },
+          {
+            "path": "AGENTS.md",
+            "action": "create"
+          },
+          {
+            "path": ".gitignore",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/manifest.json",
+            "action": "create"
+          }
+        ],
+        "preserved": [],
+        "paths": {
+          "brief": ".aws-workflow/project/brief.md",
+          "handoff": ".aws-workflow/delivery/current-handoff.md",
+          "adoption_report": ".aws-workflow/project/adoption-report.md",
+          "environment_capabilities": ".aws-workflow/delivery/environment-capabilities.md",
+          "specifications": "specs",
+          "evidence": "evidence",
+          "decisions": "docs/decisions"
+        },
+        "omitted_template_references": [
+          "costs/README.md: ../docs/decisions/",
+          "delivery/README.md: ../specs/0001-workflow-foundation/tasks.md",
+          "docs/adapter-contracts.md: ../specs/0004-developer-workflow/exec-plan.md",
+          "docs/reference/native-hooks.md: ../../.codex/hooks.json",
+          "evaluations/README.md: native-pilot-plan.md",
+          "infrastructure/README.md: ../docs/decisions/",
+          "security/README.md: ../docs/decisions/",
+          "specs/README.md: 0001-workflow-foundation/requirements.md",
+          "specs/README.md: 0002-consultant-workflow/requirements.md",
+          "specs/README.md: 0003-efficient-context/requirements.md",
+          "specs/README.md: 0004-developer-workflow/exec-plan.md",
+          "specs/README.md: 0004-developer-workflow/requirements.md"
+        ]
+      },
+      "preview_sha256": "f8c768c09f77587185ee7fd7a02d24e033d94a68a1e3812b42049cd9e03fb227",
+      "apply_status": "applied",
+      "apply_sha256": "4678fc6d7e83ff800b0fbc1a02cb5f275f10273ea3a5dddd70f76ebd2d5f7077",
+      "apply_matches_preview_apart_from_status": true,
+      "preview_change_action_counts": {
+        "create": 79
+      },
+      "adopted_git_head": "a3d4fa5d0d8faf94dd4a6aa07eb1225986f29f6b"
+    },
+    "brownfield": {
+      "preview": {
+        "status": "preview",
+        "target": "/tmp/codex-aws-pilot.hAuPzmdI/brownfield",
+        "mode": "brownfield",
+        "changes": [
+          {
+            "path": ".aws-workflow/README.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/costs/README.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/costs/estimate-template.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/delivery/README.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/docs/adapter-contracts.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/docs/reference/aws-delivery.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/docs/reference/bootstrap.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/docs/reference/efficient-operation.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/docs/reference/native-hooks.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/docs/reference/sources.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/docs/reference/specification-operations.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/docs/reference/task-execution.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/docs/reference/workflow-contract.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/docs/reference/workflow-tooling.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/docs/repository-map.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/docs/workflow-architecture.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/evaluations/README.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/evidence/README.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/examples/booking-retries/README.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/examples/booking-retries/design.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/examples/booking-retries/requirements.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/examples/booking-retries/tasks.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/examples/consultation/README.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/examples/consultation/brownfield.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/examples/consultation/greenfield.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/guide/00-quickstart.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/guide/01-start-here.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/guide/02-aws-guidance-and-access.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/guide/03-first-feature.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/guide/04-maintain-and-release.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/guide/05-brownfield-adoption.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/guide/06-consultation-interview.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/infrastructure/README.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/runbooks/README.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/runbooks/deploy.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/runbooks/incident.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/runbooks/rollback.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/runbooks/teardown.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/scripts/README.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/scripts/bootstrap.py",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/scripts/codex_hooks.py",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/scripts/workflow.py",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/security/README.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/specs/README.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/templates/README.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/templates/brownfield-assessment.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/templates/bugfix.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/templates/decision.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/templates/design.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/templates/environment-capabilities.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/templates/handoff.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/templates/project-brief.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/templates/release.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/templates/requirements.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/templates/review.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/templates/tasks.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/templates/work.json",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/workflow_engine/__init__.py",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/workflow_engine/context.py",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/workflow_engine/doctor.py",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/workflow_engine/engine.py",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/workflow_engine/runner.py",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/workflow_engine/specifications.py",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/workflows/README.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/workflows/brownfield.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/workflows/bugfix.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/workflows/consult.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/workflows/feature.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/workflows/incident.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/workflows/reconcile.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/workflows/release.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/workflows/review.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/project/adoption-report.md",
+            "action": "create"
+          },
+          {
+            "path": ".aws-workflow/delivery/environment-capabilities.md",
+            "action": "create"
+          },
+          {
+            "path": "AGENTS.md",
+            "action": "append managed instructions"
+          },
+          {
+            "path": ".gitignore",
+            "action": "append managed runtime ignore"
+          },
+          {
+            "path": ".aws-workflow/manifest.json",
+            "action": "create"
+          }
+        ],
+        "preserved": [
+          "delivery/current-handoff.md",
+          "project/brief.md"
+        ],
+        "paths": {
+          "brief": "project/brief.md",
+          "handoff": "delivery/current-handoff.md",
+          "adoption_report": ".aws-workflow/project/adoption-report.md",
+          "environment_capabilities": ".aws-workflow/delivery/environment-capabilities.md",
+          "specifications": "specs",
+          "evidence": "evidence",
+          "decisions": "docs/decisions"
+        },
+        "omitted_template_references": [
+          "costs/README.md: ../docs/decisions/",
+          "delivery/README.md: ../specs/0001-workflow-foundation/tasks.md",
+          "docs/adapter-contracts.md: ../specs/0004-developer-workflow/exec-plan.md",
+          "docs/reference/native-hooks.md: ../../.codex/hooks.json",
+          "evaluations/README.md: native-pilot-plan.md",
+          "infrastructure/README.md: ../docs/decisions/",
+          "security/README.md: ../docs/decisions/",
+          "specs/README.md: 0001-workflow-foundation/requirements.md",
+          "specs/README.md: 0002-consultant-workflow/requirements.md",
+          "specs/README.md: 0003-efficient-context/requirements.md",
+          "specs/README.md: 0004-developer-workflow/exec-plan.md",
+          "specs/README.md: 0004-developer-workflow/requirements.md"
+        ]
+      },
+      "preview_sha256": "a3ec683387c9cee0c7d67a5ad69a17bca26e705375463e0532a8350cb22243e0",
+      "apply_status": "applied",
+      "apply_sha256": "2a1b2037bd7cd9cf940f9afd3e41c48a8456f95c659c8f1f42cef5f8d9b8466f",
+      "apply_matches_preview_apart_from_status": true,
+      "preview_change_action_counts": {
+        "create": 75,
+        "append managed instructions": 1,
+        "append managed runtime ignore": 1
+      },
+      "adopted_git_head": "fe9494b66d270ee268ac76e86eeca5b0b1f0920b"
+    }
+  },
+  "reservations": [
+    "G1"
+  ],
+  "stages": {
+    "G1": {
+      "fixture": "greenfield",
+      "status": "blocked",
+      "command": "timeout --signal=TERM --kill-after=10s 900s codex exec --json --sandbox workspace-write --cd \"$PILOT_ROOT/greenfield\" --output-schema \"$PILOT_ROOT/control/final.schema.json\" --output-last-message \"$PILOT_ROOT/results/G1.final.json\" -",
+      "intent_utc": "2026-11-24T04:00:48Z",
+      "stopped_utc": "2026-11-24T04:00:48Z",
+      "exit_code": 1,
+      "stderr": "WARNING: proceeding, even though we could not create PATH aliases: Read-only file system (os error 30)\n2026-11-24T04:00:48.433667Z  WARN codex_state::runtime::logs_maintenance: failed to prune diagnostic logs: error returned from database: (code: 8) attempt to write a readonly database\n2026-11-24T04:00:48.435104Z  WARN codex_state::runtime::logs_maintenance: failed to checkpoint diagnostic logs: error returned from database: (code: 8) attempt to write a readonly database\nError: failed to initialize in-process app-server client: Read-only file system (os error 30)\n",
+      "events_jsonl": "",
+      "output_last_message": "",
+      "greenfield_before_status": "",
+      "greenfield_after_status": "",
+      "greenfield_diff_against_head": "",
+      "model_usage": null
+    },
+    "G2": {
+      "status": "not-observed",
+      "reason": "G1 stopped at client initialization."
+    },
+    "G3": {
+      "status": "not-observed",
+      "reason": "G2 did not run. No controller worker or apply."
+    },
+    "G4": {
+      "status": "not-observed",
+      "reason": "No reviewed or applied G3 result."
+    },
+    "B1": {
+      "status": "blocked",
+      "reason": "Shared read-only client state mount confirmed before B1 dispatch."
+    },
+    "B2": {
+      "status": "not-observed",
+      "reason": "B1 did not dispatch."
+    },
+    "B3": {
+      "status": "not-observed",
+      "reason": "No B2 handoff to resume."
+    },
+    "B4": {
+      "status": "not-observed",
+      "reason": "No B3 result to reconcile."
+    }
+  },
+  "brownfield_offline_baseline": {
+    "command": "python3 -B -m unittest discover -s tests -v",
+    "exit_code": 0,
+    "test_output": "test_large_order (test_shipping_existing.ExistingShippingTests.test_large_order) ... ok\ntest_negative_subtotal (test_shipping_existing.ExistingShippingTests.test_negative_subtotal) ... ok\ntest_ordinary_order (test_shipping_existing.ExistingShippingTests.test_ordinary_order) ... ok\ntest_remote_ordinary_order (test_shipping_existing.ExistingShippingTests.test_remote_ordinary_order) ... ok\n\n----------------------------------------------------------------------\nRan 4 tests in 0.001s\n\nOK\n",
+    "boundary_and_signature_output": "shipping_fee signature: (subtotal_cents, remote=False)\n4999: local=499, remote=749\n5000: local=499, remote=749\n5001: local=0, remote=250\nshipping_fee(-1): ValueError('negative_subtotal')\n",
+    "original_git_head": "40e4047dfab2a7fcadbc2a529c60c245d1c3109a",
+    "status_before": " M notes/local-note.txt\n",
+    "status_after": " M notes/local-note.txt\n",
+    "dirty_note_diff_before": "diff --git a/notes/local-note.txt b/notes/local-note.txt\nindex 35596df..456dad6 100644\n--- a/notes/local-note.txt\n+++ b/notes/local-note.txt\n@@ -1 +1,2 @@\n Operator notes: inspect dispatch timing with the delivery team later.\n+UNCOMMITTED USER EDIT: keep this exact line, spacing, and newline.\n",
+    "dirty_note_diff_after": "diff --git a/notes/local-note.txt b/notes/local-note.txt\nindex 35596df..456dad6 100644\n--- a/notes/local-note.txt\n+++ b/notes/local-note.txt\n@@ -1 +1,2 @@\n Operator notes: inspect dispatch timing with the delivery team later.\n+UNCOMMITTED USER EDIT: keep this exact line, spacing, and newline.\n",
+    "dirty_note_sha256_after": "9952dc02e7bcd8ba87090fc563eb5a033c356ee7409b88726aadc2ef87ce013d",
+    "original_note_base_matches_head": true,
+    "protected_source_test_and_ownership_bytes_match_frozen_fixture": true
+  }
+}

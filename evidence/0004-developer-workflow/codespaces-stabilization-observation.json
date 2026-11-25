@@ -1,0 +1,401 @@
+{
+  "incoming_pr_head": "b9e1f15c1d2f479f42f36a172b4356f16bfa8ed6",
+  "source": {
+    "revision": "26f21269460366a7743814461fa126c3bfbd7bdd",
+    "tree": "b46ddb70600cbd98090c6da7159548552aa80fce",
+    "branch": "codespaces-readiness"
+  },
+  "test_runner": {
+    "argv": [
+      "python3",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tests",
+      "-p",
+      "test_*.py",
+      "-v"
+    ],
+    "observed_start_utc": "2026-11-24T04:39:44Z",
+    "observed_end_utc": "2026-11-24T04:40:33Z",
+    "python": "Python 3.14.2",
+    "git": "git version 2.56.0",
+    "runner": "Linux GitHub Codespaces, managed agent command sandbox",
+    "working_tree_clean_before_and_after": true,
+    "exit_code": 0,
+    "tests_run": 197,
+    "elapsed_seconds": 47.976,
+    "raw_log_sha256": "43378ca9188ddbc620d27336cb7bd2028dabf97fca1506ae0b2d07128920de16"
+  },
+  "repository_check": {
+    "argv": [
+      "python3",
+      "scripts/check_repository.py"
+    ],
+    "output": "Scope: link/structure checks only; no semantic, runtime, or AWS verification.\nPASS: 108 Markdown files; 415 local links; 32 required core files; 0 issues."
+  },
+  "independent_review": {
+    "reviewed_source_revisions": [
+      "794bd2e7102b0a9d00b6dea41c861e7da72e72c0",
+      "bd200428fed8c6a10c9cdc29a064f4f56fcf0a2f",
+      "26f21269460366a7743814461fa126c3bfbd7bdd"
+    ],
+    "read_only_scope": "Native prerequisites, runner selection, package instructions and stale completion claims",
+    "findings": [
+      "Worker cwd could resolve a different executable from a relative PATH entry.",
+      "Lexical normalization of parent traversal after a symlink could change the checked path.",
+      "Completion claims referenced stale source hashes and the handoff omitted the consumed slot."
+    ],
+    "final_confirmation": "The absolute path preserves the checked symlink traversal. No remaining blocking finding in the reviewed path."
+  },
+  "adoption_and_pilot_guard": {
+    "observed_at_revision": "794bd2e7102b0a9d00b6dea41c861e7da72e72c0",
+    "result": {
+      "greenfield": {
+        "preview_and_apply": "matching",
+        "adoption_changes": 81,
+        "doctor_session_ready": true,
+        "optional_native_check": "blocked",
+        "shortcut_rows_match_source": [
+          "start",
+          "resume",
+          "status",
+          "feature",
+          "bugfix",
+          "review",
+          "release"
+        ],
+        "active_work_created": false,
+        "source_maintenance_backlog_present": false,
+        "repeat_apply": "unchanged",
+        "original_protected_files": [],
+        "dirty_edit_preserved": false
+      },
+      "brownfield": {
+        "preview_and_apply": "matching",
+        "adoption_changes": 79,
+        "doctor_session_ready": true,
+        "optional_native_check": "blocked",
+        "shortcut_rows_match_source": [
+          "start",
+          "resume",
+          "status",
+          "feature",
+          "bugfix",
+          "review",
+          "release"
+        ],
+        "active_work_created": false,
+        "source_maintenance_backlog_present": false,
+        "repeat_apply": "unchanged",
+        "original_protected_files": [
+          ".codex/config.toml",
+          ".github/workflows/release.yml",
+          "AGENTS.md",
+          "delivery/current-handoff.md",
+          "infrastructure/ownership.md",
+          "notes/local.txt",
+          "project/brief.md",
+          "src/main.py"
+        ],
+        "dirty_edit_preserved": true,
+        "dirty_diff_sha256": "f32e12bde4f86764393ff4325d6c22b8917d2e38a3b2599df947818b81496d57"
+      },
+      "synthetic_pilot_guard": {
+        "direct": "blocked before reservation",
+        "controller": "blocked before reservation",
+        "native_dispatches": 0
+      }
+    },
+    "final_suite_repeated_package_integration": true
+  },
+  "installed_routes": {
+    "mode": "actual installed CLI with simulated review inputs",
+    "routes": {
+      "requirements-first": {
+        "confirmed_phases": [
+          "consultation",
+          "requirements",
+          "design",
+          "tasks",
+          "implementation"
+        ],
+        "eligible_tasks": [
+          "T-001"
+        ],
+        "fresh_cli_context_errors": 0
+      },
+      "design-first": {
+        "confirmed_phases": [
+          "consultation",
+          "design",
+          "requirements",
+          "tasks",
+          "implementation"
+        ],
+        "eligible_tasks": [
+          "T-001"
+        ],
+        "fresh_cli_context_errors": 0
+      },
+      "quick": {
+        "confirmed_phases": [
+          "consultation",
+          "tasks",
+          "implementation"
+        ],
+        "eligible_tasks": [
+          "T-001"
+        ],
+        "fresh_cli_context_errors": 0
+      },
+      "bugfix": {
+        "confirmed_phases": [
+          "consultation",
+          "requirements",
+          "design",
+          "tasks",
+          "implementation"
+        ],
+        "eligible_tasks": [
+          "T-001"
+        ],
+        "fresh_cli_context_errors": 0
+      },
+      "plan": {
+        "confirmed_phases": [
+          "consultation",
+          "requirements",
+          "design",
+          "tasks",
+          "planned"
+        ],
+        "eligible_tasks": [],
+        "fresh_cli_context_errors": 0
+      }
+    }
+  },
+  "context_fixture_comparison": {
+    "baseline_revision": "851505af9f54916da60fd8d4922eaddddedf38e5",
+    "measured_source_revision": "794bd2e7102b0a9d00b6dea41c861e7da72e72c0",
+    "matches_retained_observations_byte_for_byte": true,
+    "renderer_files_unchanged_in_final_candidate": true,
+    "sha256": "b6478a95fcc590d991682491ec712404a8633a5f55428badb2a361e1a42dba54"
+  },
+  "codespaces": {
+    "agent_native_check_argv": [
+      "python3",
+      "scripts/workflow.py",
+      "--root",
+      ".",
+      "native-check",
+      "--pilot"
+    ],
+    "agent_exit": 1,
+    "agent_payload": {
+      "schema_version": 1,
+      "status": "blocked",
+      "blockers": [
+        "CODEX_HOME: read-only-mount. Inspect the selected client's state from its ordinary authorized terminal.",
+        "CODEX_SQLITE_HOME: read-only-mount. Inspect the selected client's state from its ordinary authorized terminal."
+      ],
+      "codespaces_environment": true,
+      "executables": {
+        "codex": true,
+        "git": true,
+        "python3": true,
+        "tar": true,
+        "mktemp": true,
+        "timeout": true
+      },
+      "state_locations": {
+        "CODEX_HOME": {
+          "source": "environment",
+          "status": "read-only-mount"
+        },
+        "CODEX_SQLITE_HOME": {
+          "source": "CODEX_HOME",
+          "status": "read-only-mount"
+        }
+      },
+      "native_startup_verified": false,
+      "next_action": "Do not launch or reserve a native invocation while blocked. Keep current-session consultation available. Compare the ordinary terminal with any agent sandbox; use only supported client setup and preserve existing controls.",
+      "limits": "Metadata/access checks only in this process; no writes, config/auth reads, subprocesses, model calls or AWS access. Configured sqlite_home/log_dir and managed policy can override observed locations. Apparent writability is not a successful client startup or proof of spending authority."
+    },
+    "prior_user_supplied_regular_terminal": {
+      "client": "codex-cli 0.172.0",
+      "same_state_path_as_agent": true,
+      "mount": "rw",
+      "test_writable": "Directory appears writable"
+    },
+    "regular_terminal_native_check_json": null,
+    "ordinary_native_startup_verified": false
+  },
+  "reconciliation": {
+    "0002-consultant-workflow": {
+      "record": {
+        "id": "SYNC-0002",
+        "observed_at": "2026-11-24T04:35:10.765600+00:00",
+        "reason": "Codespaces startup, packaged instructions and repository checker inputs changed. Reverify the scoped checks for this isolated readiness candidate.",
+        "preview_fingerprint": "086ab7b7854fa12412757e2465e8cb2319644c337b846d19fd053c68499e2214",
+        "from_phase": "complete",
+        "to_phase": "implementation",
+        "changed_paths": [
+          "AGENTS.md",
+          "README.md",
+          "docs/reference/task-execution.md",
+          "evaluations/native-pilot-plan.md",
+          "guide/00-quickstart.md",
+          "guide/04-maintain-and-release.md",
+          "scripts/bootstrap.py",
+          "scripts/check_repository.py",
+          "scripts/codex_hooks.py",
+          "scripts/workflow.py",
+          "tests/test_bootstrap.py",
+          "tests/test_developer_workflow.py",
+          "tests/test_runner.py",
+          "workflow_engine/doctor.py",
+          "workflow_engine/runner.py"
+        ],
+        "reopened_tasks": [
+          "T-001",
+          "T-002",
+          "T-003",
+          "T-004",
+          "T-005"
+        ]
+      },
+      "affected_checks": [
+        "CHK-001",
+        "CHK-002",
+        "CHK-003",
+        "CHK-004",
+        "CHK-005"
+      ],
+      "affected_reviews": [],
+      "operation_refreshes": []
+    },
+    "0003-efficient-context": {
+      "record": {
+        "id": "SYNC-0002",
+        "observed_at": "2026-11-24T04:35:11.997469+00:00",
+        "reason": "Codespaces startup, packaged instructions and repository checker inputs changed. Reverify the scoped checks for this isolated readiness candidate.",
+        "preview_fingerprint": "60cc2f9b82613830f1db4c0ff486ad94709e4a40e9011fb58605fe438a194ded",
+        "from_phase": "complete",
+        "to_phase": "implementation",
+        "changed_paths": [
+          "AGENTS.md",
+          "README.md",
+          "docs/reference/task-execution.md",
+          "evaluations/native-pilot-plan.md",
+          "guide/00-quickstart.md",
+          "guide/04-maintain-and-release.md",
+          "scripts/bootstrap.py",
+          "scripts/check_repository.py",
+          "scripts/codex_hooks.py",
+          "scripts/workflow.py",
+          "tests/test_bootstrap.py",
+          "tests/test_developer_workflow.py",
+          "tests/test_runner.py",
+          "workflow_engine/doctor.py",
+          "workflow_engine/runner.py"
+        ],
+        "reopened_tasks": [
+          "T-001",
+          "T-002",
+          "T-003"
+        ]
+      },
+      "affected_checks": [
+        "CHK-001",
+        "CHK-002",
+        "CHK-003"
+      ],
+      "affected_reviews": [],
+      "operation_refreshes": []
+    },
+    "0004-developer-workflow": {
+      "record": {
+        "id": "SYNC-0001",
+        "observed_at": "2026-11-24T04:35:13.368910+00:00",
+        "reason": "Codespaces startup, packaged instructions and repository checker inputs changed. Reverify the scoped checks for this isolated readiness candidate.",
+        "preview_fingerprint": "290e7f318e5a2430df3327b9938f8a6ea91378a16b7e16ad64de4d9e05956084",
+        "from_phase": "verification",
+        "to_phase": "implementation",
+        "changed_paths": [
+          "AGENTS.md",
+          "README.md",
+          "docs/reference/task-execution.md",
+          "evaluations/native-pilot-plan.md",
+          "guide/00-quickstart.md",
+          "guide/04-maintain-and-release.md",
+          "scripts/bootstrap.py",
+          "scripts/check_repository.py",
+          "scripts/codex_hooks.py",
+          "scripts/workflow.py",
+          "tests/test_bootstrap.py",
+          "tests/test_developer_workflow.py",
+          "tests/test_runner.py",
+          "workflow_engine/doctor.py",
+          "workflow_engine/runner.py"
+        ],
+        "reopened_tasks": [
+          "T-002",
+          "T-003",
+          "T-004",
+          "T-005",
+          "T-006",
+          "T-007"
+        ]
+      },
+      "affected_checks": [
+        "CHK-002",
+        "CHK-003",
+        "CHK-004",
+        "CHK-005",
+        "CHK-006",
+        "CHK-007"
+      ],
+      "affected_reviews": [],
+      "operation_refreshes": []
+    }
+  },
+  "scope_and_preservation": {
+    "original_uncommitted_files_byte_identical": 5,
+    "historical_pilot_receipts_preserved_byte_identically": 2,
+    "original_pilot_stage_reservations": [
+      "G1"
+    ],
+    "native_invocations_during_stabilization": 0,
+    "frozen_fixture_files_and_prompt_schema_rubric_preserved": true,
+    "tracked_source_paths_scanned": 153,
+    "prohibited_name_matches": 0
+  },
+  "github_template_settings": {
+    "archived": false,
+    "default_branch": "main",
+    "is_template": false,
+    "license": null,
+    "private": true
+  },
+  "publication": {
+    "expected_remote_head": "b9e1f15c1d2f479f42f36a172b4356f16bfa8ed6",
+    "remote_head_observed": "26f21269460366a7743814461fa126c3bfbd7bdd",
+    "observed_utc": "2026-11-24T04:42:05Z",
+    "tree": "b46ddb70600cbd98090c6da7159548552aa80fce",
+    "paths_modes_types_and_object_ids_compared": 153,
+    "differences": 0,
+    "truncated": false,
+    "fast_forward": true
+  },
+  "pilot_gate": {
+    "original_consumed_slots": [
+      "G1"
+    ],
+    "unused_original_slots": 7,
+    "new_native_invocations": 0,
+    "check": "CHK-008",
+    "result": "not-run"
+  }
+}

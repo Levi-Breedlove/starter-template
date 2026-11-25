@@ -2,7 +2,13 @@
 
 The local CLI makes specification analysis, correctness-property planning and change reconciliation explicit operations. Codex performs semantic reasoning against the supplied source. Python checks sentence shapes, identities, references, recorded blockers and safe state changes. No command in this reference calls a model, reads credentials, invokes a test, changes client trust or accesses AWS.
 
-Run examples from this source checkout with `scripts/workflow.py`; the adopter uses the packaged script under `.aws-workflow/`. Omit a work ID only after selecting active work. All three operations emit structured JSON; `--json` is accepted explicitly.
+Run the examples from the project root using the indicated workflow entry point. Omit a work ID only after selecting active work. All three operations emit structured JSON; `--json` is accepted explicitly.
+
+## Connect a feature or defect to project decisions
+
+The application manifest maps the five project foundations. New specification drafts link the mapped brief and system requirements. Keep the feature's observable acceptance criteria, defect reproduction or implementation choices in its own specification. Link the relevant foundation sections for shared standards and decisions.
+
+In a foundation-enabled installation, `work.json` uses `context_files` to select the project requirements and any applicable technology, structure or architecture record. Add the actual mapped path when it becomes a dependency and link its section in the feature contract or design. Compact context lists the selected paths. Analysis and properties identify their file hashes, so a relevant edit appears in `sync`. The brief and handoff provide session context. For a decision from the brief, cite its actual path and optional section as a fact or answered-question source to bind its identity. Older installations retain their existing mappings and review inputs.
 
 ## Write observable EARS requirements
 

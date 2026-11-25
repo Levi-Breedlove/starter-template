@@ -1,6 +1,6 @@
 # Optional native Codex hooks
 
-The bootstrap supplies [a hook definition](../../.codex/hooks.json) and [a read-only handler](../../scripts/codex_hooks.py). They use documented Codex events. The definition is present; trust and actual loading in the adopter's client remain separate observations. [Official hook documentation](https://learn.chatgpt.com/docs/hooks)
+Use the project's [read-only hook handler](../../scripts/codex_hooks.py) if the selected Codex client supports these events. Preview the configuration with the command below and use the established trust controls on that client. [Official hook documentation](https://learn.chatgpt.com/docs/hooks)
 
 | Event | Handler behavior |
 | --- | --- |
@@ -18,8 +18,7 @@ First prepare a read-only proposal from the application root:
 python3 .aws-workflow/scripts/workflow.py --root . hooks --json
 ```
 
-In the source checkout, use `scripts/workflow.py` instead. The command chooses the
-correct handler path, returns a `configuration` object and reports the existing
+The command selects the handler path for the current layout, returns a `configuration` object and reports the existing
 project configuration as absent, equivalent, merge-required or invalid. It does
 not write files or register hooks. Review the returned configuration object;
 the surrounding diagnostic report is not itself a hook configuration file.
